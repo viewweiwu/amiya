@@ -1,0 +1,63 @@
+@import '../less/variable.less';
+
+.am-form {
+  padding-right: @space2;
+
+  .max-width {
+    width: 100%;
+  }
+}
+
+.form-date-extra {
+  max-width: 100%;
+  display: flex;
+  padding: 4px 0;
+
+  .am-button {
+    color: unset;
+    flex: 1;
+    padding: 0;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+.form-tip {
+  height: 32px;
+  padding-left: @space;
+  color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+}
+
+.form-header {
+  padding-bottom: @gap;
+  margin-bottom: @space + @gap;
+  margin-left: 50px;
+  font-weight: normal;
+  position: relative;
+  border-bottom: 1px solid #f0f0f0;
+
+  &::before {
+    content: '';
+    top: 50%;
+    right: ~'calc(100% + 10px)';
+    width: @gap;
+    height: 60%;
+    border-radius: 2px;
+    background-color: @primary;
+    position: absolute;
+    transform: translateY(-50%);
+  }
+}
+
+.dark {
+  .form-header {
+    border-bottom-color: #303030;
+  }
+  .form-tip {
+    color: rgba(255, 255, 255, 0.65);
+  }
+}
