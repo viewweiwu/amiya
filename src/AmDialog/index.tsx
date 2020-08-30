@@ -1,7 +1,7 @@
 import React, { ReactNode, SetStateAction, Dispatch } from 'react'
-import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { Modal } from 'antd'
 import { ModalFuncProps, ModalProps } from 'antd/lib/modal'
+const { ExclamationCircleOutlined } = require('@ant-design/icons')
 
 interface AmDialogProps extends ModalProps {
   children: ReactNode

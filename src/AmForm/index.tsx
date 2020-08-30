@@ -1,6 +1,6 @@
 import React, { ReactNode, useImperativeHandle, Ref, forwardRef, useRef, MutableRefObject, useState } from 'react'
 import { Form, Input, Switch, Checkbox, Radio, DatePicker, Row, Col, InputNumber } from 'antd'
-import { AmEditor } from '../AmEditor'
+import AmEditor from '../AmEditor'
 import AmSelect from '../AmSelect'
 import './am-form.less'
 import moment from 'moment'

@@ -1,13 +1,13 @@
 import React, { useState, ReactNode, useCallback, useEffect, forwardRef, useImperativeHandle } from 'react'
 import AmButton from '../AmButton'
 import { Table, Space, Card, Tag } from 'antd'
-import { DownloadOutlined } from '@ant-design/icons'
 import { TABLE_PAGESIZE, TABLE_START_PAGE, TABLE_CTRL_KEY } from '../constant'
 import { TableRowSelection } from 'antd/lib/table/interface'
 import { AmTableField } from './am-table'
 import { Option } from '../AmForm/am-form'
 import { clearEmpty } from '../utils'
 import './am-table.less'
+const { DownloadOutlined } = require('@ant-design/icons')
 
 interface AmTableProps {
   meta?: {

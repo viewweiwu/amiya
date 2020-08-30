@@ -1,9 +1,9 @@
 {
-  "name": "amiya-components",
-  "version": "1.0.0",
-  "description": "amiya-components React component",
-  "main": "lib/index.js",
-  "module": "es/index.js",
+  "name": "amiya",
+  "version": "0.0.6",
+  "description": "amiya React component",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "files": [
     "css",
     "es",
@@ -13,23 +13,27 @@
   "scripts": {
     "build": "nwb build-react-component",
     "clean": "nwb clean-module && nwb clean-demo",
-    "prepublishOnly": "npm run build",
+    "doc": "dumi dev",
+    "doc:build": "dumi build",
+    "prepublishOnly": "father build",
     "start": "nwb serve-react-demo",
     "test": "nwb test-react",
-    "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server"
+    "test:coverage": "nwb test-react --coverage"
   },
   "dependencies": {
     "@types/antd": "^1.0.0",
     "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8",
-    "antd": "^4.5.4",
-    "braft-editor": "^2.3.9"
+    "braft-editor": "^2.3.9",
+    "moment": "^2.27.0"
   },
   "peerDependencies": {
-    "react": "16.x"
+    "react": "16.x",
+    "antd": "4.x"
   },
   "devDependencies": {
+    "amiya": "^0.0.6",
+    "dumi": "^1.0.34",
     "less": "^3.12.2",
     "less-loader": "^6.2.0",
     "nwb": "0.25.x",

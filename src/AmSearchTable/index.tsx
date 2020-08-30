@@ -7,11 +7,11 @@ import { FormRefProps, TableRefProps, AmSearchTableField, Row } from './am-searc
 import useSelection from './use/useSelection'
 import useDirective from './use/useDirective'
 import { isObj } from '../utils'
-import './am-search-table.less'
 import { AmDialogFormField } from '../AmDialogForm/am-dialog-form'
 import { getDefaultValue } from '../AmForm'
 import { Option } from '../AmForm/am-form'
 import { AmTableCtrlField, AmTableField } from '../AmTable/am-table'
+import './am-search-table.less'
 
 export const AmSearchTableContext = createContext({})
 

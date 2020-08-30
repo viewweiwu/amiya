@@ -18,7 +18,7 @@ const isContentEmpty = (content: EditorState) => {
   return content.toHTML() === '<p></p>'
 }
 
-export function AmEditor(props: AmEditorProps) {
+export default function AmEditor(props: AmEditorProps) {
   const { value, onChange } = props
   const [content, setContent] = useState<EditorState>(BraftEditor.createEditorState(value || ''))
 

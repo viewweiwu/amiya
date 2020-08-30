@@ -3,9 +3,9 @@ import { success, info } from '../../AmMessage'
 import AmButton from '../../AmButton'
 import AmCtrl from '../../AmCtrl'
 import { Row, TableRefProps, FormRefProps } from '../am-search-table'
-import { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
 import { Modal } from 'antd'
 import { AmTableCtrlField, AmTableField } from '../../AmTable/am-table'
+const { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined } = require('@ant-design/icons')
 
 interface UseDirectiveProps {
   children?: Array<ReactElement> | ReactElement

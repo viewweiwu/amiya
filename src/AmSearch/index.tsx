@@ -2,9 +2,9 @@ import React, { useState, MutableRefObject, useRef, forwardRef, useImperativeHan
 import AmForm from '../AmForm'
 import AmButton from '../AmButton'
 import { Form, Col, Space, Card } from 'antd'
-import { SearchOutlined, ReloadOutlined, DownOutlined, UpOutlined } from '@ant-design/icons'
 import './am-search.less'
 import { AmFormField } from '../AmForm/am-form'
+const { SearchOutlined, ReloadOutlined, DownOutlined, UpOutlined } = require('@ant-design/icons')
 
 interface AmSearchProps {
   fields: Array<AmSearchField>
@@ -31,8 +31,8 @@ const getOrder = (field: any): number => {
 const getSearchFields = (fields: Array<AmSearchField>, mini: boolean): Array<AmFormField> => {
   let newFields: Array<AmFormField> = fields.map((field, i) => {
     let newField: AmFormField = {
+      key: field.key,
       ...field,
-      key: field.search.key || field.key,
       // 生成 order
       order: getOrder(field)
     }

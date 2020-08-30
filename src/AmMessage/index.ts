@@ -12,3 +12,9 @@ export const error = (msg: ReactNode) => {
 export const info = (msg: ReactNode) => {
   return message.info(msg)
 }
+
+export default {
+  success,
+  error,
+  info
+}
