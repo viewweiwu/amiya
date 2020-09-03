@@ -1,16 +1,16 @@
 import { render } from 'react-dom'
 import React from 'react'
-import AmCtrl from '../../src/AmCtrl'
-import AmButton from '../../src/AmButton'
-import AmSearchTable from '../../src/AmSearchTable'
+import AyCtrl from '../../src/AyCtrl'
+import AyAction from '../../src/AyAction'
+import AySearchTable from '../../src/AySearchTable'
 import 'antd/dist/antd.css'
 export const emptyApi = (): any => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve();
-    }, 300);
-  });
-};
+      resolve()
+    }, 300)
+  })
+}
 
 export const listApi = (): any => {
   return new Promise((resolve) => {
@@ -18,67 +18,72 @@ export const listApi = (): any => {
       let data = {
         content: [
           {
-            name: "王二"
+            name: '王二'
           }
         ]
-      };
-      resolve(data);
-    });
-  });
-};
+      }
+      resolve(data)
+    })
+  })
+}
 
 const fields = [
   {
-    title: "账号",
-    key: "username"
+    title: '账号',
+    key: 'username'
   },
   {
-    title: "昵称",
-    key: "name",
+    title: '昵称',
+    key: 'name',
     search: {},
     dialog: {}
   },
   {
-    title: "用户类型",
-    key: "name",
+    title: '用户类型',
+    key: 'name',
     search: {},
     dialog: {}
   },
   {
-    title: "证件号",
-    key: "name",
+    title: '证件号',
+    key: 'name',
     search: {},
     dialog: {}
   },
   {
-    title: "创建时间",
-    key: "name",
+    title: '创建时间',
+    key: 'name',
     search: {},
     dialog: {}
   }
-];
+]
+const CtrlField = {
+  render: (value: any, record: any) => {
+    return (
+      <AyCtrl>
+        <AyAction record={record} action="update">
+          编辑
+        </AyAction>
+        <AyAction record={record} action="delete">
+          删除
+        </AyAction>
+      </AyCtrl>
+    )
+  }
+}
 
 export default function Demo() {
   const meta = {
-    title: "测试表格"
-  };
-  const CtrlField = {
-    render: () => {
-      return (
-        <AmCtrl>
-          <AmButton directive="update">编辑</AmButton>
-          <AmButton>删除</AmButton>
-        </AmCtrl>
-      );
-    }
-  };
+    title: '测试表格'
+  }
   return (
     <div className="App">
-      <AmSearchTable
+      <AySearchTable
         selectionType="checkbox"
         api={listApi}
         fields={fields}
         meta={meta}
+        deleteApi={emptyApi}
         dialogFormExtend={{
           fields: fields,
           updateApi: emptyApi,
@@ -86,12 +91,11 @@ export default function Demo() {
         }}
         ctrl={CtrlField}
       >
-        <AmButton directive="batch-delete">批量删除</AmButton>
-        <AmButton directive="add">新增</AmButton>
-      </AmSearchTable>
+        <AyAction action="batch-delete">批量删除</AyAction>
+        <AyAction action="add">新增</AyAction>
+      </AySearchTable>
     </div>
-  );
+  )
 }
-
 
 render(<Demo />, document.querySelector('#demo'))

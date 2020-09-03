@@ -1,25 +1,25 @@
-import AmButton from './AmButton'
-import AmCtrl from './AmCtrl'
-import AmDialog from './AmDialog'
-import AmDialogForm from './AmDialogForm'
-import AmEditor from './AmEditor'
-import AmForm from './AmForm'
-import AmMessage from './AmMessage'
-import AmSearch from './AmSearch'
-import AmSearchTable from './AmSearchTable'
-import AmSelect from './AmSelect'
-import AmTable from './AmTable'
+import AyButton from './AyButton'
+import AyCtrl from './AyCtrl'
+import AyDialog from './AyDialog'
+import AyDialogForm from './AyDialogForm'
+import AyEditor from './AyEditor'
+import AyForm from './AyForm'
+import AyMessage from './AyMessage'
+import AySearch from './AySearch'
+import AySearchTable from './AySearchTable'
+import AySelect from './AySelect'
+import AyTable from './AyTable'
 
 export default {
-  AmButton,
-  AmCtrl,
-  AmDialog,
-  AmDialogForm,
-  AmEditor,
-  AmForm,
-  AmMessage,
-  AmSearch,
-  AmSearchTable,
-  AmSelect,
-  AmTable
+  AyButton,
+  AyCtrl,
+  AyDialog,
+  AyDialogForm,
+  AyEditor,
+  AyForm,
+  AyMessage,
+  AySearch,
+  AySearchTable,
+  AySelect,
+  AyTable
 }
