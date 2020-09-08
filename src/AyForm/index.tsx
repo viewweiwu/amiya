@@ -49,7 +49,7 @@ interface DpFormProps {
   /** 配置项 */
   fields: Array<AyFormField>
   /** form 名称 */
-  naye?: string
+  name?: string
   /** 子元素 */
   children?: ReactNode
   /** 控制元素 */
@@ -154,7 +154,7 @@ const getPlaceholder = (field: AyFormField): string => {
  * 根据配置项生成 props
  * @param field 配置项
  */
-const getTagProps = (field: AyFormField, setFieldsValue: (parays: AnyKeyProps) => void, readonly?: boolean) => {
+const getTagProps = (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly?: boolean) => {
   let type = field.type || FORM_TYPE_INPUT
   let props: AnyKeyProps = {
     disabled: readonly,
@@ -281,7 +281,7 @@ const getTagProps = (field: AyFormField, setFieldsValue: (parays: AnyKeyProps) =
  * 根据不同的 type 生成不同种类的标签 Tag
  * @param field 配置项
  */
-const getTag = (field: AyFormField, fields: Array<AyFormField>, setFieldsValue: (parays: AnyKeyProps) => void, readonly?: boolean) => {
+const getTag = (field: AyFormField, fields: Array<AyFormField>, setFieldsValue: (params: AnyKeyProps) => void, readonly?: boolean) => {
   const { type } = field
 
   let tag: ReactNode = null
@@ -363,7 +363,7 @@ const getTag = (field: AyFormField, fields: Array<AyFormField>, setFieldsValue: 
  * @param fields 配置列表
  * @param span Col 占位 0 ～ 24
  */
-const getFormItem = (fields: Array<AyFormField>, setFieldsValue: (parays: AnyKeyProps) => void, span?: number, readonly?: boolean) => {
+const getFormItem = (fields: Array<AyFormField>, setFieldsValue: (params: AnyKeyProps) => void, span?: number, readonly?: boolean) => {
   return fields.map((field: AyFormField) => {
     let visible = true
 
@@ -388,7 +388,7 @@ const getFormItem = (fields: Array<AyFormField>, setFieldsValue: (parays: AnyKey
     let props: AnyKeyProps = {
       ...field.formItemProps,
       label: field.title,
-      naye: field.key,
+      name: field.key,
       extra: field.help
     }
 
@@ -476,20 +476,12 @@ const handleConfirm = (values: AnyKeyProps, fields: Array<AyFormField>, onConfir
  * @param fields 所有的饿配置项
  * @param setFieldsValue 设置表单值的方法
  */
-const handleChange = (changedValues: AnyKeyProps, allValues: AnyKeyProps, fields: Array<AyFormField>, setFieldsValue: (parays: AnyKeyProps) => void, setRefresh: any) => {
+const handleChange = (changedValues: AnyKeyProps, allValues: AnyKeyProps, fields: Array<AyFormField>, setFieldsValue: (params: AnyKeyProps) => void, setRefresh: any) => {
   for (let key in changedValues) {
     let field = fields.find((field) => field.key === key)
     if (field) {
       let value = changedValues[key]
-      // if (value && (field.type === FORM_TYPE_INPUT || !field.type) && field.replaceReg) {
-      //   value = value.replace(field.replaceReg, '')
-      //   allValues[key] = value
-      //   setFieldsValue(allValues)
-      // }
       if (field.onChange) {
-        // field.hidden = true
-        // field._field.hidden = true
-        // setRefresh(Date.now())
         field.onChange(value, allValues, setFieldsValue)
       }
     }
@@ -537,6 +529,7 @@ export default forwardRef(function AyForm(props: DpFormProps, ref: Ref<any>) {
     })
     formRef.current.setFieldsValue(values)
   }
+  formInstans.setRefresh = setRefresh
   /** 暴露方法 */
   useImperativeHandle(ref, () => formInstans)
 
@@ -546,7 +539,7 @@ export default forwardRef(function AyForm(props: DpFormProps, ref: Ref<any>) {
         ref={formRef}
         {...defaultLayout}
         {...layout}
-        name={props.naye || 'ay-form'}
+        name={props.name || 'ay-form'}
         initialValues={getDefaultValue(fields)}
         onFinish={(values) => handleConfirm(values, fields, onConfirm)}
         onValuesChange={(changedValues, allValues) => handleChange(changedValues, allValues, fields, formInstans.setFieldsValue, setRefresh)}

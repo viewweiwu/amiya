@@ -1,5 +1,5 @@
 import { ExtendField } from '../AySearchTable/ay-search-table'
-declare type ModeType = 'add' | 'update' | 'view'
+declare type ModeType = 'add' | 'update' | 'view' | 'custom'
 
 export interface AyDialogFormField extends Field {
   /** 弹窗选项 */
@@ -15,20 +15,20 @@ export interface AyDialogFormField extends Field {
 export interface AydialogFormRef {
   /**
    * 弹窗新增模式
-   * @param parays 初始表单数据
+   * @param params 初始表单数据
    * @param title 弹窗标题，默认“新增”
    */
-  add(parays?: AnyKeyProps, title?: ReactNode): Promise<any>
+  add(params?: AnyKeyProps, title?: ReactNode): Promise<any>
   /**
    * 弹窗修改模式
-   * @param parays 初始表单数据
+   * @param params 初始表单数据
    * @param title 弹窗标题，默认“修改”
    */
-  update(parays?: AnyKeyProps, title?: ReactNode): Promise<any>
+  update(params?: AnyKeyProps, title?: ReactNode): Promise<any>
   /**
    * 弹窗详情模式
-   * @param parays 初始表单数据
+   * @param params 初始表单数据
    * @param title 弹窗标题，默认“详情”
    */
-  view(parays?: AnyKeyProps, title?: ReactNode): void
+  view(params?: AnyKeyProps, title?: ReactNode): void
 }

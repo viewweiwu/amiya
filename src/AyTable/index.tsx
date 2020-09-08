@@ -15,7 +15,7 @@ interface AyTableProps {
   }
   children?: ReactNode
   header?: ReactNode
-  api?(parays: AnyKeyProps): Promise<AnyKeyProps>
+  api?(params: AnyKeyProps): Promise<AnyKeyProps>
   /** 列表项 */
   fields: Array<AyTableField>
   /** 列表数据 */
@@ -102,7 +102,7 @@ const getAyTableField = (fields: Array<any>, ctrl?: AyTableField): Array<AyTable
   return tableFields
 }
 
-interface LoadParays {
+interface LoadParams {
   /** 分页参数 */
   pagination: {
     /** 当前第 n 页 */
@@ -147,7 +147,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
   /** 总共多少条 */
   const [total, setTotal] = useState<number>(0)
   /** 表格查询的数据 */
-  const [loadParays, setLoadParays] = useState<LoadParays>({
+  const [loadParams, setLoadParams] = useState<LoadParams>({
     pagination: {
       size: TABLE_PAGESIZE,
       current: TABLE_START_PAGE
@@ -158,21 +158,21 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
   /**
    * 获得查询前的参数
    */
-  const getParays = () => {
-    let searchParays: AnyKeyProps = {
-      currentPage: loadParays.pagination.current,
-      pageSize: loadParays.pagination.size,
-      ...loadParays.search
+  const getParams = () => {
+    let searchParams: AnyKeyProps = {
+      currentPage: loadParams.pagination.current,
+      pageSize: loadParams.pagination.size,
+      ...loadParams.search
     }
     if (beforeSearch) {
-      searchParays = beforeSearch(searchParays)
+      searchParams = beforeSearch(searchParams)
     }
-    return searchParays
+    return searchParams
   }
 
   /**
    * 加载数据
-   * @step 1、获得 parays
+   * @step 1、获得 params
    * @step 2、开始 loading
    * @step 3、加载数据
    * @step 4、设置表格数据
@@ -180,10 +180,10 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
    */
   const loadData = useCallback(() => {
     if (api) {
-      let searchParays: AnyKeyProps = getParays()
-      console.log('列表查询数据', searchParays)
+      let searchParams: AnyKeyProps = getParams()
+      console.log('列表查询数据', searchParams)
       setLoading(true)
-      api(searchParays)
+      api(searchParams)
         .then((data) => {
           let content = data.content
           if (filterData) {
@@ -200,7 +200,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
         })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [api, loadParays])
+  }, [api, loadParams])
 
   /**
    * 改变表格查询数据
@@ -208,23 +208,23 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
    * @param current 当前第几页
    * @param search 查询数据
    */
-  const updateLoadParays = useCallback(
+  const updateLoadParams = useCallback(
     ({ pageSize, current, search }: { pageSize?: number; current?: number; search?: AnyKeyProps }) => {
-      let newLoadParays: LoadParays = {
-        ...loadParays
+      let newLoadParams: LoadParams = {
+        ...loadParams
       }
       if (pageSize !== undefined) {
-        newLoadParays.pagination.size = pageSize
+        newLoadParams.pagination.size = pageSize
       }
       if (current !== undefined) {
-        newLoadParays.pagination.current = current
+        newLoadParams.pagination.current = current
       }
       if (search !== undefined) {
-        newLoadParays.search = clearEmpty(search)
+        newLoadParams.search = clearEmpty(search)
       }
-      setLoadParays(newLoadParays)
+      setLoadParams(newLoadParams)
     },
-    [loadParays]
+    [loadParams]
   )
 
   /**
@@ -233,15 +233,15 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
    * @param pageSize 每页多少条
    */
   const onPageChange = (current: number, pageSize?: number) => {
-    updateLoadParays({ current, pageSize })
+    updateLoadParams({ current, pageSize })
   }
 
   const handleDownLoad = () => {
     if (api) {
-      let downloadParays = getParays()
-      downloadParays._download = true
-      downloadParays._downloadTitle = meta ? meta.title : ''
-      api(downloadParays)
+      let downloadParams = getParams()
+      downloadParams._download = true
+      downloadParams._downloadTitle = meta ? meta.title : ''
+      api(downloadParams)
     }
   }
 
@@ -256,7 +256,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
      * 回到第一页，刷新页面
      */
     reset(search: AnyKeyProps) {
-      updateLoadParays({ search, current: TABLE_START_PAGE })
+      updateLoadParams({ search, current: TABLE_START_PAGE })
     }
   }))
 
@@ -312,7 +312,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
         dataSource={tableData}
         loading={loading}
         rowSelection={rowSelection}
-        pagination={pagination !== undefined ? pagination : { total, current: loadParays.pagination.current, onChange: onPageChange, showTotal: (total) => `共 ${total} 条` }}
+        pagination={pagination !== undefined ? pagination : { total, current: loadParams.pagination.current, onChange: onPageChange, showTotal: (total) => `共 ${total} 条` }}
         rowKey={rowKey || 'id'}
         scroll={{ x: scrollX }}
         {...tableExtend}

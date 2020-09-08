@@ -15,22 +15,22 @@ export const OPTIONS_STATUS = [
   { label: OPTIONS_STATUS_OFF_LABEL, value: OPTIONS_STATUS_OFF }
 ]
 
-const handleChange = (value: boolean, record: AnyKeyProps, api?: any, rowKey?: string, beforeSubmit?: (parays: AnyKeyProps, record: AnyKeyProps) => AnyKeyProps | boolean) => {
-  let parays: AnyKeyProps = {
+const handleChange = (value: boolean, record: AnyKeyProps, api?: any, rowKey?: string, beforeSubmit?: (params: AnyKeyProps, record: AnyKeyProps) => AnyKeyProps | boolean) => {
+  let params: AnyKeyProps = {
     status: value ? OPTIONS_STATUS_ON : OPTIONS_STATUS_OFF,
     [rowKey || 'id']: record[rowKey || 'id']
   }
 
   if (typeof beforeSubmit === 'function') {
-    let result: AnyKeyProps | boolean = beforeSubmit(parays, record)
+    let result: AnyKeyProps | boolean = beforeSubmit(params, record)
     if (result !== false) {
-      parays = result as AnyKeyProps
+      params = result as AnyKeyProps
     } else {
       return
     }
   }
 
-  api(parays).then(() => {
+  api(params).then(() => {
     success('状态修改成功')
   })
 }

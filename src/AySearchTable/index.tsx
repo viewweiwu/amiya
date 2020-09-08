@@ -25,9 +25,9 @@ interface AySearchTableProps {
   /** 子元素 */
   children?: Array<ReactElement> | ReactElement
   /** 请求列表接口 */
-  api?(parays: AnyKeyProps): Promise<AnyKeyProps>
+  api?(params: AnyKeyProps): Promise<AnyKeyProps>
   /** 删除接口 Api */
-  deleteApi?(parays: Array<string>): Promise<any>
+  deleteApi?(params: Array<string>): Promise<any>
   /** 表格数据（当不需要 api，由自己控制时使用） */
   data?: Array<AnyKeyProps>
   /** 表格操作列（写法跟正常的 filed 一致） */
@@ -65,7 +65,7 @@ interface AySearchTableProps {
   /** 指令完成事件 */
   onFinish?(key: string, data?: any): void
   /** 导出文件 */
-  downloadApi?(parays: AnyKeyProps): Promise<AnyKeyProps>
+  downloadApi?(params: AnyKeyProps): Promise<AnyKeyProps>
   /** 在导入前面插入按钮 */
   btnBefore?: ReactNode
   /** 统计数据，放在导入按钮前面 */

@@ -93,7 +93,7 @@ declare interface AyFormField extends Field {
   /** 自定义 render */
   render?(field: AyFormField, record: AnyKeyProps): ReactNode
   /** 数据变化监听 */
-  onChange?(value: ReactNode, values: AnyKeyProps, setFieldsValue: (parays: AnyKeyProps) => void): void
+  onChange?(value: ReactNode, values: AnyKeyProps, setFieldsValue: (params: AnyKeyProps) => void): void
   /** 提示文字 */
   help?: string | ReactNode
 
@@ -105,7 +105,7 @@ declare interface AyFormField extends Field {
 
   _field?: any
   /** 重新渲染 */
-  reSetting?(parays: AyFormField, mode: string): AyFormField
+  reSetting?(params: AyFormField, mode: string): AyFormField
   /** 初始化参数 */
   _values?: AnyKeyProps
   /** 默认排序 */

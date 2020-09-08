@@ -1,10 +1,12 @@
 import { render } from 'react-dom'
 import React from 'react'
 import AyCtrl from '../../src/AyCtrl'
-import AyAction from '../../src/AyAction'
+import AyAction, { registerAction } from '../../src/AyAction'
 import AySearchTable from '../../src/AySearchTable'
 import 'antd/dist/antd.css'
+
 export const emptyApi = (): any => {
+  console.info('接口被调用')
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve()
@@ -18,6 +20,7 @@ export const listApi = (): any => {
       let data = {
         content: [
           {
+            id: 'hello',
             name: '王二'
           }
         ]
@@ -26,6 +29,24 @@ export const listApi = (): any => {
     })
   })
 }
+
+const finishFields = [
+  {
+    title: '你好',
+    key: 'hello',
+    dialog: []
+  }
+]
+
+registerAction('test', (props, record, searchTable) => {
+  return {
+    children: 'hello',
+    onClick: () => {
+      searchTable.formRef.current.open(record, { title: '测试', fields: finishFields, api: emptyApi })
+    },
+    ...props
+  }
+})
 
 const fields = [
   {
@@ -40,19 +61,20 @@ const fields = [
   },
   {
     title: '用户类型',
-    key: 'name',
+    key: 'type',
     search: {},
     dialog: {}
   },
   {
     title: '证件号',
-    key: 'name',
+    key: 'card',
     search: {},
     dialog: {}
   },
   {
     title: '创建时间',
-    key: 'name',
+    key: 'date',
+    type: 'date',
     search: {},
     dialog: {}
   }
@@ -66,6 +88,12 @@ const CtrlField = {
         </AyAction>
         <AyAction record={record} action="delete">
           删除
+        </AyAction>
+        <AyAction record={record} action="view">
+          详情
+        </AyAction>
+        <AyAction record={record} action="test">
+          结算
         </AyAction>
       </AyCtrl>
     )

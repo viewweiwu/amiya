@@ -1,4 +1,4 @@
-import { Button } from 'antd'
+import { Button, Popconfirm } from 'antd'
 import { ButtonProps } from 'antd/lib/button'
 import React from 'react'
 
@@ -9,15 +9,27 @@ interface AmButtonProps extends ButtonProps {
   onConfirm?(): void
   /** 自定义确认消息 */
   confirmMsg?: React.ReactNode
-  /** 指令 */
-  directive?: 'batch-delete' | 'update' | 'add' | 'delete'
   /** 权限 */
   permission?: string
+  [key: string]: any
 }
 
 export default function AmButton(props: AmButtonProps) {
+  let params = {
+    ...props
+  }
+  delete params.confirm
+  delete params.onConfirm
+  delete params.confirmMsg
+  if (props.confirm) {
+    return (
+      <Popconfirm title={props.confirmMsg} onConfirm={() => props.onConfirm && props.onConfirm()}>
+        <Button className="ay-button" {...params} />
+      </Popconfirm>
+    )
+  }
   return (
-    <Button className="am-button" {...props}>
+    <Button className="ay-button" {...params}>
       {props.children}
     </Button>
   )

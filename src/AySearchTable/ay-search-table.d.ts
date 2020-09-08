@@ -34,9 +34,9 @@ export interface TableRefProps {
 }
 
 export interface FormRefProps {
-  add: (parays?: AnyKeyProps | undefined) => Promise<AnyKeyProps>
-  view: (parays?: AnyKeyProps | undefined) => Promise<AnyKeyProps>
-  update: (parays?: AnyKeyProps | undefined) => Promise<AnyKeyProps>
+  add: (params?: AnyKeyProps | undefined) => Promise<AnyKeyProps>
+  view: (params?: AnyKeyProps | undefined) => Promise<AnyKeyProps>
+  update: (params?: AnyKeyProps | undefined) => Promise<AnyKeyProps>
 }
 
 export interface Row extends AnyKeyProps {}
