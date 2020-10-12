@@ -4,6 +4,7 @@ import AyCtrl from '../../src/AyCtrl'
 import AyAction, { registerAction } from '../../src/AyAction'
 import AySearchTable from '../../src/AySearchTable'
 import 'antd/dist/antd.css'
+import { setDefaultDataFilter, setDefaultSearchFilter } from '../../src/AyTable'
 
 export const emptyApi = (): any => {
   console.info('接口被调用')
@@ -29,6 +30,17 @@ export const listApi = (): any => {
     })
   })
 }
+
+setDefaultDataFilter((data: any) => {
+  return {
+    totalCount: 100,
+    content: data.content
+  }
+})
+
+setDefaultSearchFilter((parmas: any) => {
+  return parmas
+})
 
 const finishFields = [
   {
@@ -101,16 +113,13 @@ const CtrlField = {
 }
 
 export default function Demo() {
-  const meta = {
-    title: '测试表格'
-  }
   return (
     <div className="App">
       <AySearchTable
         selectionType="checkbox"
         api={listApi}
         fields={fields}
-        meta={meta}
+        title="测试表格"
         deleteApi={emptyApi}
         dialogFormExtend={{
           fields: fields,

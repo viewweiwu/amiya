@@ -1,17 +1,11 @@
-import { Button, Popconfirm, Divider, Modal, Form, Row, Col, DatePicker, Radio, Checkbox, Switch, Input, InputNumber, message, Card, Space, Tag, Table, Popover } from 'antd';
-import React, { useState, useEffect, useCallback, forwardRef, useRef, useImperativeHandle, createContext } from 'react';
+import { Popconfirm, Button, Form, Row, Col, DatePicker, Radio, Checkbox, Switch, Input, InputNumber, Card, Space, Tag, Table, Modal, Popover, message, Divider } from 'antd';
+import React, { useState, useEffect, useCallback, forwardRef, useRef, useImperativeHandle, createContext, useContext } from 'react';
 import BraftEditor from 'braft-editor';
 import 'braft-editor/dist/index.css';
 import Select from 'antd/lib/select';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import Alert from 'antd/lib/alert';
-
-function AmButton(props) {
-  return React.createElement(Button, Object.assign({
-    className: "am-button"
-  }, props), props.children);
-}
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -134,117 +128,27 @@ function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
-/**
- * 返回一个控制项
- * @param node 节点
- * @param key key
- */
+function AyButton(props) {
+  var params = _objectSpread2({}, props);
 
-var getCtrlItem = function getCtrlItem(node, key) {
-  var props = _objectSpread2({}, node.props); // 删除原来的 confirm 属性
+  delete params.confirm;
+  delete params.onConfirm;
+  delete params.confirmMsg;
 
-
-  delete props.confirm;
-  delete props.onConfirm;
-  delete props.confirmMsg;
-  return React.createElement(AmButton, Object.assign({
-    key: key,
-    type: "link"
-  }, props));
-};
-/**
- * 将子节点转化成 AmButton 按钮
- * @param children 子节点
- */
-
-
-var getCtrlList = function getCtrlList(children) {
-  var ctrlList = [];
-
-  if (!children) {
-    return [];
+  if (props.confirm) {
+    return React.createElement(Popconfirm, {
+      title: props.confirmMsg,
+      onConfirm: function onConfirm() {
+        return props.onConfirm && props.onConfirm();
+      }
+    }, React.createElement(Button, Object.assign({
+      className: "ay-button"
+    }, params)));
   }
 
-  if (Array.isArray(children) && children.length === 0) {
-    // 没有节点存在
-    return [];
-  } else if (!Array.isArray(children)) {
-    // 如果节点只有一个元素
-    return [getCtrlItem(children, children)];
-  }
-
-  children.forEach(function (node, i) {
-    if (!node) {
-      return node;
-    }
-
-    var CtrlItem;
-    var props = node.props; // 如果有 confirm 属性，添加气泡提示
-
-    if (props.confirm) {
-      CtrlItem = React.createElement(Popconfirm, {
-        key: i,
-        title: props.confirmMsg || "\u4F60\u786E\u5B9A\u8981".concat(props.children, "\u6B64\u884C\u5417\uFF1F"),
-        onConfirm: function onConfirm() {
-          return props.onConfirm && props.onConfirm();
-        }
-      }, getCtrlItem(node, i));
-    } else {
-      // 正常节点
-      CtrlItem = getCtrlItem(node, i);
-    } // 添加这个节点
-
-
-    ctrlList.push(CtrlItem); // 添加一个分割线
-
-    ctrlList.push(React.createElement(Divider, {
-      key: 'divider' + i,
-      type: "vertical"
-    }));
-  }); // 删除最后一个分割线
-
-  ctrlList.splice(ctrlList.length - 1, 1);
-  return ctrlList;
-};
-
-function AmCtrl(props) {
-  var children = props.children;
-  var ctrlList = getCtrlList(children);
-  return React.createElement("div", {
-    className: "am-ctrl"
-  }, ctrlList);
-}
-
-var _require = require('@ant-design/icons'),
-    ExclamationCircleOutlined = _require.ExclamationCircleOutlined;
-
-function AmDialog(props) {
-  var title = props.title,
-      children = props.children,
-      setVisible = props.setVisible,
-      onConfirm = props.onConfirm,
-      loading = props.loading,
-      footer = props.footer,
-      width = props.width;
-
-  var handleCancel = function handleCancel() {
-    setVisible(false);
-  };
-
-  var handleConfirm = function handleConfirm() {
-    if (onConfirm) {
-      onConfirm();
-    }
-  };
-
-  return React.createElement(Modal, Object.assign({
-    width: width,
-    title: title,
-    onOk: handleConfirm,
-    onCancel: handleCancel,
-    confirmLoading: loading,
-    footer: footer
-  }, props), children);
+  return React.createElement(Button, Object.assign({
+    className: "ay-button"
+  }, params), props.children);
 }
 
 function styleInject(css, ref) {
@@ -274,7 +178,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css = ".am-editor {\n  display: block;\n}\n.am-editor::before {\n  display: none !important;\n}\n.am-editor .bf-content {\n  height: 300px;\n  padding-bottom: 0;\n}\n.am-editor .bf-controlbar .control-item.button,\n.am-editor .bf-controlbar .control-item,\n.am-editor .bf-controlbar .separator-line {\n  margin: 0 !important;\n}\n.am-editor .bf-controlbar .separator-line {\n  margin-top: 5px !important;\n}\n";
+var css = ".ay-editor {\n  display: block;\n}\n.ay-editor::before {\n  display: none !important;\n}\n.ay-editor .bf-content {\n  height: 300px;\n  padding-bottom: 0;\n}\n.ay-editor .bf-controlbar .control-item.button,\n.ay-editor .bf-controlbar .control-item,\n.ay-editor .bf-controlbar .separator-line {\n  margin: 0 !important;\n}\n.ay-editor .bf-controlbar .separator-line {\n  margin-top: 5px !important;\n}\n";
 styleInject(css);
 
 /**
@@ -286,7 +190,7 @@ var isContentEmpty = function isContentEmpty(content) {
   return content.toHTML() === '<p></p>';
 };
 
-function AmEditor(props) {
+function AyEditor(props) {
   var value = props.value,
       onChange = props.onChange;
 
@@ -316,7 +220,7 @@ function AmEditor(props) {
   }, [onChange]);
   return React.createElement(BraftEditor, {
     placeholder: "\u8BF7\u8F93\u5165\u5185\u5BB9",
-    className: "ant-input-affix-wrapper am-editor",
+    className: "ant-input-affix-wrapper ay-editor",
     value: content,
     onChange: handleChange
   });
@@ -335,12 +239,12 @@ var getOptions = function getOptions(options) {
   });
 };
 
-function AmSelect(props) {
+function AySelect(props) {
   var options = props.options;
   return React.createElement(Select, Object.assign({}, props), getOptions(options));
 }
 
-var css$1 = ".fr {\n  float: right;\n}\n.ml {\n  margin-left: 10px;\n}\n.mb {\n  margin-bottom: 10px;\n}\n.gap {\n  margin-left: 4px;\n}\n.am-form {\n  padding-right: 20px;\n}\n.am-form .max-width {\n  width: 100%;\n}\n.form-date-extra {\n  max-width: 100%;\n  display: flex;\n  padding: 4px 0;\n}\n.form-date-extra .am-button {\n  color: unset;\n  flex: 1;\n  padding: 0;\n}\n.form-date-extra .am-button:hover {\n  background-color: rgba(0, 0, 0, 0.1);\n}\n.form-tip {\n  height: 32px;\n  padding-left: 10px;\n  color: rgba(0, 0, 0, 0.45);\n  display: flex;\n  align-items: center;\n}\n.form-header {\n  padding-bottom: 5px;\n  margin-bottom: 15px;\n  margin-left: 50px;\n  font-weight: normal;\n  position: relative;\n  border-bottom: 1px solid #f0f0f0;\n}\n.form-header::before {\n  content: '';\n  top: 50%;\n  right: calc(100% + 10px);\n  width: 5px;\n  height: 60%;\n  border-radius: 2px;\n  background-color: #4091f1;\n  position: absolute;\n  transform: translateY(-50%);\n}\n.dark .form-header {\n  border-bottom-color: #303030;\n}\n.dark .form-tip {\n  color: rgba(255, 255, 255, 0.65);\n}\n";
+var css$1 = ".fr {\n  float: right;\n}\n.ml {\n  margin-left: 10px;\n}\n.mb {\n  margin-bottom: 10px;\n}\n.gap {\n  margin-left: 4px;\n}\n.ay-form {\n  padding-right: 20px;\n}\n.ay-form .max-width {\n  width: 100%;\n}\n.form-date-extra {\n  max-width: 100%;\n  display: flex;\n  padding: 4px 0;\n}\n.form-date-extra .ay-button {\n  color: unset;\n  flex: 1;\n  padding: 0;\n}\n.form-date-extra .ay-button:hover {\n  background-color: rgba(0, 0, 0, 0.1);\n}\n.form-tip {\n  height: 32px;\n  padding-left: 10px;\n  color: rgba(0, 0, 0, 0.45);\n  display: flex;\n  align-items: center;\n}\n.form-header {\n  padding-bottom: 5px;\n  margin-bottom: 15px;\n  margin-left: 50px;\n  font-weight: normal;\n  position: relative;\n  border-bottom: 1px solid #f0f0f0;\n}\n.form-header::before {\n  content: '';\n  top: 50%;\n  right: calc(100% + 10px);\n  width: 5px;\n  height: 60%;\n  border-radius: 2px;\n  background-color: #4091f1;\n  position: absolute;\n  transform: translateY(-50%);\n}\n.dark .form-header {\n  border-bottom-color: #303030;\n}\n.dark .form-tip {\n  color: rgba(255, 255, 255, 0.65);\n}\n";
 styleInject(css$1);
 
 // ------------------------ table 默认配置 -----------------------
@@ -722,11 +626,11 @@ var getTag = function getTag(field, fields, setFieldsValue, readonly) {
       break;
 
     case FORM_TYPE_EDITOR:
-      tag = React.createElement(AmEditor, Object.assign({}, tagProps));
+      tag = React.createElement(AyEditor, Object.assign({}, tagProps));
       break;
 
     case FORM_TYPE_SELECT:
-      tag = React.createElement(AmSelect, Object.assign({}, tagProps));
+      tag = React.createElement(AySelect, Object.assign({}, tagProps));
       break;
 
     case FORM_TYPE_SWITCH:
@@ -816,7 +720,7 @@ var getFormItem = function getFormItem(fields, setFieldsValue, span, readonly) {
 
 
     if (field.type && [FORM_TYPE_SWITCH, FORM_TYPE_CHECKBOX].includes(field.type)) {
-      props.valuePropName = 'checked';
+      props.valuePropNaye = 'checked';
     } // 设置每个【表单项】的占位
 
 
@@ -919,16 +823,9 @@ var handleChange = function handleChange(changedValues, allValues, fields, setFi
     });
 
     if (field) {
-      var value = changedValues[key]; // if (value && (field.type === FORM_TYPE_INPUT || !field.type) && field.replaceReg) {
-      //   value = value.replace(field.replaceReg, '')
-      //   allValues[key] = value
-      //   setFieldsValue(allValues)
-      // }
+      var value = changedValues[key];
 
       if (field.onChange) {
-        // field.hidden = true
-        // field._field.hidden = true
-        // setRefresh(Date.now())
         field.onChange(value, allValues, setFieldsValue);
       }
     }
@@ -944,7 +841,7 @@ var handleChange = function handleChange(changedValues, allValues, fields, setFi
 
 
 var funcs = ['getFieldValue', 'getFieldsValue', 'getFieldError', 'getFieldsError', 'isFieldTouched', 'isFieldsTouched', 'isFieldValidating', 'resetFields', 'scrollToField', 'setFields', 'setFieldsValue', 'submit', 'validateFields'];
-var AmForm = forwardRef(function AmForm(props, ref) {
+var AyForm = forwardRef(function AyForm(props, ref) {
   var fields = props.fields,
       onConfirm = props.onConfirm,
       span = props.span,
@@ -983,18 +880,19 @@ var AmForm = forwardRef(function AmForm(props, ref) {
     });
     formRef.current.setFieldsValue(values);
   };
-  /** 暴露方法 */
 
+  formInstans.setRefresh = setRefresh;
+  /** 暴露方法 */
 
   useImperativeHandle(ref, function () {
     return formInstans;
   });
   return React.createElement("div", {
-    className: "am-form"
+    className: "ay-form"
   }, React.createElement(Form, Object.assign({
     ref: formRef
   }, defaultLayout, layout, {
-    name: props.name || 'am-form',
+    name: props.name || 'ay-form',
     initialValues: getDefaultValue(fields),
     onFinish: function onFinish(values) {
       return handleConfirm(values, fields, onConfirm);
@@ -1005,265 +903,14 @@ var AmForm = forwardRef(function AmForm(props, ref) {
   }, defaultProps), React.createElement(Row, null, getFormItem(fields, formInstans.setFieldsValue, span, readonly), children)));
 });
 
-/** 新增模式 */
-
-var MODE_ADD = 'add';
-/** 修改模式 */
-
-var MODE_UPDATE = 'update';
-/** 详情模式 */
-
-var MODE_VIEW = 'view';
-/**
- * 过滤获得 form 的配置项
- * @param fields 配置项 (dialog-form)
- */
-
-var getAmFormFields = function getAmFormFields(fields, mode, initParams) {
-  return fields.filter(function (field) {
-    if (field.dialog && Array.isArray(field.dialog.hiddenMode) && mode) {
-      return !field.dialog.hiddenMode.includes(mode);
-    }
-
-    return field.dialog;
-  }).map(function (field) {
-    var dialog = field.dialog;
-
-    var formField = _objectSpread2(_objectSpread2(_objectSpread2({
-      key: ''
-    }, field), dialog), {}, {
-      _values: initParams
-    });
-
-    if (typeof formField.reSetting === 'function') {
-      formField = formField.reSetting(formField, mode);
-    }
-
-    formField._field = field;
-    return formField;
-  });
-};
-
-var getTitle = function getTitle(mode, title) {
-  var _map;
-
-  if (title) {
-    return title;
-  }
-
-  var map = (_map = {}, _defineProperty(_map, MODE_ADD, '新建'), _defineProperty(_map, MODE_UPDATE, '修改'), _defineProperty(_map, MODE_VIEW, '详情'), _map);
-  return map[mode];
-};
-
-var dialogResolve;
-var AmDialogForm = forwardRef(function AmDialogForm(props, ref) {
-  var fields = props.fields,
-      title = props.title,
-      addApi = props.addApi,
-      updateApi = props.updateApi,
-      span = props.span,
-      width = props.width,
-      name = props.name,
-      beforeSubmit = props.beforeSubmit;
-  /** 弹窗是否可见 */
-
-  var _useState = useState(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      visible = _useState2[0],
-      setVisible = _useState2[1];
-  /** 当前所处于的模式 */
-
-
-  var _useState3 = useState(MODE_ADD),
-      _useState4 = _slicedToArray(_useState3, 2),
-      mode = _useState4[0],
-      setMode = _useState4[1];
-  /** 是否正在保存中 */
-
-
-  var _useState5 = useState(false),
-      _useState6 = _slicedToArray(_useState5, 2),
-      loading = _useState6[0],
-      setLoading = _useState6[1];
-  /** 默认参数 */
-
-
-  var _useState7 = useState({}),
-      _useState8 = _slicedToArray(_useState7, 2),
-      initParams = _useState8[0],
-      setInitParams = _useState8[1];
-  /** form 需要的 fields */
-
-
-  var formFields = getAmFormFields(fields, mode, initParams);
-  /** form 控制 (需要主动调用里面的事件) */
-
-  var formRef = useRef();
-  /** 默认弹窗标题 */
-
-  var _useState9 = useState(title),
-      _useState10 = _slicedToArray(_useState9, 2),
-      dialogTitle = _useState10[0],
-      setDialogTitle = _useState10[1];
-  /**
-   * 初始化弹窗
-   * @step 1、打开弹窗
-   * @step 2、如果有值，清空表单值
-   * @step 3、如果有默认参数、设置默认参数
-   * @param params 默认值
-   */
-
-
-  var initDialog = function initDialog(params, title) {
-    // 打开弹窗
-    setVisible(true); // 第二次之后清空数据
-
-    if (formRef.current) {
-      formRef.current.resetFields();
-    } // 设置默认值
-
-
-    if (params) {
-      setInitParams(params);
-      setTimeout(function () {
-        formRef.current.setFieldsValue(params);
-      });
-    } else {
-      setInitParams({});
-    } // 设置标题
-
-
-    if (title) {
-      setDialogTitle(title);
-    }
-  }; // 控制暴露出去的方法
-
-
-  useImperativeHandle(ref, function () {
-    return {
-      /**
-       * 新增表单
-       * @param params 默认值
-       */
-      add: function add(params, title) {
-        return new Promise(function (resolve) {
-          dialogResolve = resolve;
-          setMode(MODE_ADD);
-          initDialog(params, title);
-        });
-      },
-
-      /**
-       * 修改表单
-       * @param params 默认值
-       */
-      update: function update(params, title) {
-        return new Promise(function (resolve) {
-          dialogResolve = resolve;
-          setMode(MODE_UPDATE);
-          initDialog(params, title);
-        });
-      },
-
-      /**
-       * 查看表单
-       * @param params 默认值
-       */
-      view: function view(params, title) {
-        setMode(MODE_VIEW);
-        initDialog(params, title);
-      }
-    };
-  });
-  /**
-   * 弹窗确定触发表单提交
-   */
-
-  var onConfirm = useCallback(function () {
-    formRef.current.submit();
-  }, []);
-  /**
-   * 表单提交
-   * @step 1、根据不同模式获取不同的 API 接口
-   * @step 2、开始 loading
-   * @step 3、成功后 reolsve、关闭弹窗
-   * @step 4、关闭 loading
-   * @param values 提交参数
-   */
-
-  var handleSubmit = useCallback(function (values) {
-    var api = mode === MODE_ADD ? addApi : updateApi;
-
-    if (api) {
-      var params = _objectSpread2(_objectSpread2({}, initParams), values);
-
-      if (typeof beforeSubmit === 'function') {
-        var result = beforeSubmit(params, mode);
-
-        if (result !== false) {
-          params = result;
-        } else {
-          return;
-        }
-      }
-
-      setLoading(true);
-      api(params).then(function (data) {
-        if (dialogResolve) {
-          dialogResolve(data);
-        }
-
-        setVisible(false);
-      }, function () {}).finally(function () {
-        setLoading(false);
-      });
-    }
-  }, [addApi, beforeSubmit, initParams, mode, updateApi]);
-  return React.createElement(AmDialog, Object.assign({
-    width: width,
-    title: getTitle(mode, dialogTitle),
-    visible: visible,
-    setVisible: setVisible,
-    onConfirm: onConfirm,
-    loading: loading,
-    footer: mode === MODE_VIEW ? React.createElement(AmButton, {
-      onClick: function onClick() {
-        return setVisible(false);
-      }
-    }, "\u5173\u95ED") : undefined
-  }, props), React.createElement(AmForm, {
-    name: name,
-    readonly: mode === MODE_VIEW,
-    ref: formRef,
-    fields: formFields,
-    span: span || 22,
-    onConfirm: handleSubmit
-  }));
-});
-
-var success = function success(msg, duration) {
-  return message.success(msg, duration);
-};
-var error = function error(msg) {
-  return message.error(msg);
-};
-var info = function info(msg) {
-  return message.info(msg);
-};
-var AmMessage = {
-  success: success,
-  error: error,
-  info: info
-};
-
 var css$2 = ".fr {\n  float: right;\n}\n.ml {\n  margin-left: 10px;\n}\n.mb {\n  margin-bottom: 10px;\n}\n.gap {\n  margin-left: 4px;\n}\n.ant-card.am-search {\n  padding: 20px;\n  padding-bottom: 0;\n  margin-bottom: 10px;\n}\n.ant-card.am-search .ant-card-body {\n  padding: 0;\n}\n";
 styleInject(css$2);
 
-var _require$1 = require('@ant-design/icons'),
-    SearchOutlined = _require$1.SearchOutlined,
-    ReloadOutlined = _require$1.ReloadOutlined,
-    DownOutlined = _require$1.DownOutlined,
-    UpOutlined = _require$1.UpOutlined;
+var _require = require('@ant-design/icons'),
+    SearchOutlined = _require.SearchOutlined,
+    ReloadOutlined = _require.ReloadOutlined,
+    DownOutlined = _require.DownOutlined,
+    UpOutlined = _require.UpOutlined;
 /**
  * 获取 field 当前的位置，默认位置是 1，越往前越靠前
  * @param field form 配置项
@@ -1317,7 +964,7 @@ var getMiniLabel = function getMiniLabel(mini) {
 
 
 var funcs$1 = ['getFieldValue', 'getFieldsValue', 'getFieldError', 'getFieldsError', 'isFieldTouched', 'isFieldsTouched', 'isFieldValidating', 'resetFields', 'scrollToField', 'setFields', 'setFieldsValue', 'submit', 'validateFields'];
-var AmSearch = forwardRef(function AmSearch(props, ref) {
+var AySearch = forwardRef(function AySearch(props, ref) {
   var fields = props.fields,
       onConfirm = props.onConfirm;
 
@@ -1374,13 +1021,13 @@ var AmSearch = forwardRef(function AmSearch(props, ref) {
    */
 
 
-  var ToogleBtn = React.createElement(AmButton, {
+  var ToogleBtn = React.createElement(AyButton, {
     type: "link",
     onClick: toggleMini
   }, getMiniLabel(mini), mini ? React.createElement(UpOutlined, null) : React.createElement(DownOutlined, null));
   return React.createElement(Card, {
-    className: "am-search"
-  }, React.createElement(AmForm, {
+    className: "ay-search"
+  }, React.createElement(AyForm, {
     ref: formRef,
     fields: searchFields,
     span: 8,
@@ -1391,11 +1038,11 @@ var AmSearch = forwardRef(function AmSearch(props, ref) {
     wrapperCol: {
       offset: 4
     }
-  }, React.createElement(Space, null, React.createElement(AmButton, {
+  }, React.createElement(Space, null, React.createElement(AyButton, {
     htmlType: "submit",
     type: "primary",
     icon: React.createElement(SearchOutlined, null)
-  }, "\u67E5\u8BE2"), React.createElement(AmButton, {
+  }, "\u67E5\u8BE2"), React.createElement(AyButton, {
     icon: React.createElement(ReloadOutlined, null),
     onClick: handleReset
   }, "\u91CD\u7F6E"), fields.length > 5 && ToogleBtn)))));
@@ -1430,11 +1077,26 @@ var clearEmpty = function clearEmpty(params) {
   return result;
 }; // 向右移位
 
-var css$3 = ".fr {\n  float: right;\n}\n.ml {\n  margin-left: 10px;\n}\n.mb {\n  margin-bottom: 10px;\n}\n.gap {\n  margin-left: 4px;\n}\n.am-table .ant-card-body {\n  padding: 0;\n}\n.am-table-header {\n  padding: 15px 20px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.am-table-title {\n  line-height: 1;\n  margin: 0;\n  font-size: 20px;\n  display: inline-block;\n}\n.table-analysis-item {\n  display: flex;\n  align-items: center;\n}\n";
+var css$3 = ".fr {\n  float: right;\n}\n.ml {\n  margin-left: 10px;\n}\n.mb {\n  margin-bottom: 10px;\n}\n.gap {\n  margin-left: 4px;\n}\n.ay-table .ant-card-body {\n  padding: 0;\n}\n.ay-table-header {\n  margin: 15px 20px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.ay-table-title {\n  line-height: 1;\n  margin: 0;\n  font-size: 20px;\n  display: inline-block;\n}\n.table-analysis-item {\n  display: flex;\n  align-items: center;\n}\n";
 styleInject(css$3);
 
-var _require$2 = require('@ant-design/icons'),
-    DownloadOutlined = _require$2.DownloadOutlined;
+var _require$1 = require('@ant-design/icons'),
+    DownloadOutlined = _require$1.DownloadOutlined;
+
+var defaultSearchFilter = function defaultSearchFilter(params) {
+  return params;
+};
+
+var defaultDataFilter = function defaultDataFilter(params) {
+  return params;
+};
+
+var setDefaultSearchFilter = function setDefaultSearchFilter(cb) {
+  defaultSearchFilter = cb;
+};
+var setDefaultDataFilter = function setDefaultDataFilter(cb) {
+  defaultDataFilter = cb;
+};
 /**
  * 重新过滤配置项
  *
@@ -1444,8 +1106,7 @@ var _require$2 = require('@ant-design/icons'),
  * @param fields 配置项目
  */
 
-
-var getAmTableField = function getAmTableField(fields, ctrl) {
+var getAyTableField = function getAyTableField(fields, ctrl) {
   var tableFields = fields.filter(function (field) {
     return field.hidden !== true;
   }).map(function (field) {
@@ -1494,7 +1155,7 @@ var getAmTableField = function getAmTableField(fields, ctrl) {
   return tableFields;
 };
 
-var AmTable = forwardRef(function AmTable(props, ref) {
+var AyTable = forwardRef(function AyTable(props, ref) {
   var className = props.className,
       fields = props.fields,
       header = props.header,
@@ -1518,7 +1179,7 @@ var AmTable = forwardRef(function AmTable(props, ref) {
       exportVisible = props.exportVisible;
   /** 表格配置 */
 
-  var amTableFields = getAmTableField(fields, ctrl);
+  var ayTableFields = getAyTableField(fields, ctrl);
   /** 表格数据 */
 
   var _useState = useState(data || []),
@@ -1582,9 +1243,15 @@ var AmTable = forwardRef(function AmTable(props, ref) {
   var loadData = useCallback(function () {
     if (api) {
       var searchParams = getParams();
+
+      if (defaultSearchFilter) {
+        searchParams = defaultSearchFilter(searchParams);
+      }
+
       console.log('列表查询数据', searchParams);
       setLoading(true);
       api(searchParams).then(function (data) {
+        data = defaultDataFilter(data);
         var content = data.content;
 
         if (filterData) {
@@ -1680,17 +1347,17 @@ var AmTable = forwardRef(function AmTable(props, ref) {
     setTableData(data || []);
   }, [data]);
   return React.createElement(Card, {
-    className: "am-table ".concat(className)
+    className: "ay-table ".concat(className)
   }, meta || btnBefore || children ? React.createElement("header", {
-    className: "am-table-header"
+    className: "ay-table-header"
   }, React.createElement("div", {
-    className: "am-table-header-left"
+    className: "ay-table-header-left"
   }, React.createElement(Space, {
     size: "large"
   }, meta && React.createElement("h2", {
-    className: "am-table-title"
+    className: "ay-table-title"
   }, meta.title))), React.createElement("div", {
-    className: "am-table-header-right"
+    className: "ay-table-header-right"
   }, React.createElement(Space, null, btnBefore, dataAnalysis ? dataAnalysis.map(function (option) {
     return React.createElement("span", {
       className: "table-analysis-item",
@@ -1702,13 +1369,13 @@ var AmTable = forwardRef(function AmTable(props, ref) {
     className: "table-analysis-item"
   }, React.createElement("span", null, "\u6570\u91CF\uFF1A"), React.createElement(Tag, {
     color: "cyan"
-  }, total, " \u6761")) : null, exportVisible && api && React.createElement(AmButton, {
+  }, total, " \u6761")) : null, exportVisible && api && React.createElement(AyButton, {
     icon: React.createElement(DownloadOutlined, null),
     onClick: handleDownLoad
   }, "\u5BFC\u51FA"), children))) : '', header, React.createElement(Table, Object.assign({
     bordered: true,
     onExpand: onExpand,
-    columns: amTableFields,
+    columns: ayTableFields,
     dataSource: tableData,
     loading: loading,
     rowSelection: rowSelection,
@@ -1725,6 +1392,311 @@ var AmTable = forwardRef(function AmTable(props, ref) {
       x: scrollX
     }
   }, tableExtend)));
+});
+
+var _require$2 = require('@ant-design/icons'),
+    ExclayationCircleOutlined = _require$2.ExclayationCircleOutlined;
+
+function AyDialog(props) {
+  var title = props.title,
+      children = props.children,
+      setVisible = props.setVisible,
+      onConfirm = props.onConfirm,
+      loading = props.loading,
+      footer = props.footer,
+      width = props.width;
+
+  var handleCancel = function handleCancel() {
+    setVisible(false);
+  };
+
+  var handleConfirm = function handleConfirm() {
+    if (onConfirm) {
+      onConfirm();
+    }
+  };
+
+  return React.createElement(Modal, Object.assign({
+    width: width,
+    title: title,
+    onOk: handleConfirm,
+    onCancel: handleCancel,
+    confirmLoading: loading,
+    footer: footer
+  }, props), children);
+}
+
+/** 新增模式 */
+
+var MODE_ADD = 'add';
+/** 修改模式 */
+
+var MODE_UPDATE = 'update';
+/** 详情模式 */
+
+var MODE_VIEW = 'view';
+/** 自定义模式 */
+
+var MODE_CUSTOM = 'custom';
+/**
+ * 过滤获得 form 的配置项
+ * @param fields 配置项 (dialog-form)
+ */
+
+var getAyFormFields = function getAyFormFields(fields, mode, initParams) {
+  return fields.filter(function (field) {
+    if (field.dialog && Array.isArray(field.dialog.hiddenMode) && mode) {
+      return !field.dialog.hiddenMode.includes(mode);
+    }
+
+    return field.dialog;
+  }).map(function (field) {
+    var dialog = field.dialog;
+
+    var formField = _objectSpread2(_objectSpread2(_objectSpread2({
+      key: ''
+    }, field), dialog), {}, {
+      _values: initParams
+    });
+
+    if (typeof formField.reSetting === 'function') {
+      formField = formField.reSetting(formField, mode);
+    }
+
+    formField._field = field;
+    return formField;
+  });
+};
+
+var getTitle = function getTitle(mode, title) {
+  var _map;
+
+  if (title) {
+    return title;
+  }
+
+  var map = (_map = {}, _defineProperty(_map, MODE_ADD, '新增'), _defineProperty(_map, MODE_UPDATE, '编辑'), _defineProperty(_map, MODE_VIEW, '详情'), _defineProperty(_map, MODE_CUSTOM, '自定义'), _map);
+  return map[mode];
+};
+
+var dialogResolve;
+var AyDialogForm = forwardRef(function AyDialogForm(props, ref) {
+  var fields = props.fields,
+      title = props.title,
+      addApi = props.addApi,
+      updateApi = props.updateApi,
+      span = props.span,
+      width = props.width,
+      name = props.name,
+      beforeSubmit = props.beforeSubmit;
+  /** 弹窗是否可见 */
+
+  var _useState = useState(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      visible = _useState2[0],
+      setVisible = _useState2[1];
+  /** 当前所处于的模式 */
+
+
+  var _useState3 = useState(MODE_ADD),
+      _useState4 = _slicedToArray(_useState3, 2),
+      mode = _useState4[0],
+      setMode = _useState4[1];
+  /** 是否正在保存中 */
+
+
+  var _useState5 = useState(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      loading = _useState6[0],
+      setLoading = _useState6[1];
+  /** 默认参数 */
+
+
+  var _useState7 = useState({}),
+      _useState8 = _slicedToArray(_useState7, 2),
+      initParams = _useState8[0],
+      setInitParams = _useState8[1];
+  /** form 需要的 fields */
+
+
+  var _useState9 = useState(getAyFormFields(fields, mode, initParams)),
+      _useState10 = _slicedToArray(_useState9, 2),
+      formFields = _useState10[0],
+      setFormFields = _useState10[1];
+  /** form 控制 (需要主动调用里面的事件) */
+
+
+  var formRef = useRef();
+  /** 默认弹窗标题 */
+
+  var _useState11 = useState(title),
+      _useState12 = _slicedToArray(_useState11, 2),
+      dialogTitle = _useState12[0],
+      setDialogTitle = _useState12[1];
+  /** 打开弹窗的配置 */
+
+
+  var _useState13 = useState({}),
+      _useState14 = _slicedToArray(_useState13, 2),
+      config = _useState14[0],
+      setConfig = _useState14[1];
+  /**
+   * 初始化弹窗
+   * @step 1、打开弹窗
+   * @step 2、如果有值，清空表单值
+   * @step 3、如果有默认参数、设置默认参数
+   * @param params 默认值
+   */
+
+
+  var initDialog = function initDialog(params, config) {
+    setConfig(config || {});
+
+    if (config && config.fields) {
+      formFields = getAyFormFields(config.fields, mode, initParams);
+      setFormFields(formFields);
+    } else {
+      formFields = getAyFormFields(props.fields, mode, initParams);
+      setFormFields(formFields);
+    } // 打开弹窗
+
+
+    setVisible(true); // 第二次之后清空数据
+
+    if (formRef.current) {
+      formRef.current.resetFields();
+    } // 设置默认值
+
+
+    if (params) {
+      setInitParams(params);
+      setTimeout(function () {
+        formRef.current.setFieldsValue(params);
+      });
+    } else {
+      setInitParams({});
+    } // 设置标题
+
+
+    if (config && config.title) {
+      setDialogTitle(config.title);
+    }
+  }; // 控制暴露出去的方法
+
+
+  useImperativeHandle(ref, function () {
+    return {
+      /**
+       * 新增表单
+       * @param params 默认值
+       */
+      add: function add(params, config) {
+        return new Promise(function (resolve) {
+          dialogResolve = resolve;
+          setMode(MODE_ADD);
+          initDialog(params, config);
+        });
+      },
+
+      /**
+       * 修改表单
+       * @param params 默认值
+       */
+      update: function update(params, config) {
+        return new Promise(function (resolve) {
+          dialogResolve = resolve;
+          setMode(MODE_UPDATE);
+          initDialog(params, config);
+        });
+      },
+
+      /**
+       * 查看表单
+       * @param params 默认值
+       * @param config
+       */
+      view: function view(params, config) {
+        setMode(MODE_VIEW);
+        initDialog(params, config);
+      },
+
+      /**
+       * 自定义表单，打开表单
+       * @param params 默认值
+       */
+      open: function open(params, config) {
+        setMode(MODE_CUSTOM);
+        initDialog(params, config);
+      }
+    };
+  });
+  /**
+   * 弹窗确定触发表单提交
+   */
+
+  var onConfirm = useCallback(function () {
+    formRef.current.submit();
+  }, []);
+  /**
+   * 表单提交
+   * @step 1、根据不同模式获取不同的 API 接口
+   * @step 2、开始 loading
+   * @step 3、成功后 reolsve、关闭弹窗
+   * @step 4、关闭 loading
+   * @param values 提交参数
+   */
+
+  var handleSubmit = useCallback(function (values) {
+    var _apiMap;
+
+    var apiMap = (_apiMap = {}, _defineProperty(_apiMap, MODE_ADD, addApi), _defineProperty(_apiMap, MODE_UPDATE, updateApi), _defineProperty(_apiMap, MODE_CUSTOM, config.api), _apiMap);
+    var api = apiMap[mode];
+
+    if (api) {
+      var params = _objectSpread2(_objectSpread2({}, initParams), values);
+
+      if (typeof beforeSubmit === 'function') {
+        var result = beforeSubmit(params, mode);
+
+        if (result !== false) {
+          params = result;
+        } else {
+          return;
+        }
+      }
+
+      setLoading(true);
+      api(params).then(function (data) {
+        if (dialogResolve) {
+          dialogResolve(data);
+        }
+
+        setVisible(false);
+      }, function () {}).finally(function () {
+        setLoading(false);
+      });
+    }
+  }, [addApi, beforeSubmit, initParams, mode, updateApi]);
+  return React.createElement(AyDialog, Object.assign({
+    width: width,
+    title: getTitle(mode, dialogTitle),
+    visible: visible,
+    setVisible: setVisible,
+    onConfirm: onConfirm,
+    loading: loading,
+    footer: mode === MODE_VIEW || config.readonly === true ? React.createElement(AyButton, {
+      onClick: function onClick() {
+        return setVisible(false);
+      }
+    }, "\u5173\u95ED") : undefined
+  }, props), React.createElement(AyForm, {
+    name: name,
+    readonly: mode === MODE_VIEW,
+    ref: formRef,
+    fields: formFields,
+    span: span || 22,
+    onConfirm: handleSubmit
+  }));
 });
 
 function useSelection(_props) {
@@ -1879,7 +1851,7 @@ function useSelection(_props) {
     message: React.createElement("div", null, React.createElement("span", null, "\u5DF2\u9009\u62E9\uFF1A", React.createElement(Popover, {
       title: "\u5DF2\u7ECF\u9009\u4E2D\u7684\u9009\u9879",
       content: popContent
-    }, React.createElement("a", null, selection.length)), ' ', "\u6761"), React.createElement(AmButton, {
+    }, React.createElement("a", null, selection.length)), ' ', "\u6761"), React.createElement(AyButton, {
       className: "ml",
       type: "link",
       size: "small",
@@ -1900,203 +1872,12 @@ function useSelection(_props) {
   };
 }
 
-var _require$3 = require('@ant-design/icons'),
-    PlusOutlined = _require$3.PlusOutlined,
-    DeleteOutlined = _require$3.DeleteOutlined,
-    ExclamationCircleOutlined$1 = _require$3.ExclamationCircleOutlined;
-
-var getChild = function getChild(_props) {
-  var child = _props.child,
-      props = _props.props,
-      renderParams = _props.renderParams,
-      originChildren = _props.originChildren,
-      i = _props.i,
-      rowKey = _props.rowKey,
-      onFinish = _props.onFinish;
-  var formRef = props.formRef,
-      tableRef = props.tableRef,
-      selection = props.selection,
-      deleteApi = props.deleteApi,
-      clearSelection = props.clearSelection;
-
-  if (child && typeof child.type === 'function') {
-    // 指令添加额外参数
-    if (child.props.directive) {
-      var func = function func() {}; // 扩展参数
-
-
-      var extendProps = {};
-
-      switch (child.props.directive) {
-        case 'add':
-          func = function func() {
-            formRef.current.add().then(function (data) {
-              success('新增成功');
-              tableRef.current.refresh(); // 发布事件
-
-              if (onFinish) {
-                onFinish('add', data);
-              }
-            });
-          };
-
-          extendProps.onClick = func;
-          extendProps.type = 'primary';
-          extendProps.icon = React.createElement(PlusOutlined, null);
-          break;
-
-        case 'batch-delete':
-          func = function func() {
-            if (selection.length === 0) {
-              info('请先选择一条数据');
-            } else {
-              if (deleteApi) {
-                Modal.confirm({
-                  title: '确定',
-                  content: "\u60A8\u52FE\u9009\u4E86 ".concat(selection.length, " \u4E2A\uFF0C\u786E\u5B9A\u8981\u5220\u9664\u5417\uFF1F"),
-                  icon: React.createElement(ExclamationCircleOutlined$1, null),
-                  onOk: function onOk() {
-                    var params = _defineProperty({}, rowKey || 'id', selection.map(function (row) {
-                      return row[rowKey || 'id'];
-                    }));
-
-                    deleteApi(params).then(function (data) {
-                      success('批量删除成功');
-                      clearSelection();
-                      tableRef.current.refresh(); // 发布事件
-
-                      if (onFinish) {
-                        onFinish('batch-delete', data);
-                      }
-                    });
-                  }
-                });
-              }
-            }
-          };
-
-          extendProps.onClick = func;
-          extendProps.icon = React.createElement(DeleteOutlined, null);
-          break;
-
-        case 'delete':
-          func = function func() {
-            if (deleteApi) {
-              var params = _defineProperty({}, rowKey || 'id', [renderParams.record[rowKey || 'id']]);
-
-              deleteApi(params).then(function (data) {
-                success('删除成功');
-                tableRef.current.refresh(); // 发布事件
-
-                if (onFinish) {
-                  onFinish('delete', data);
-                }
-              });
-            }
-          };
-
-          extendProps.confirm = true;
-          extendProps.onConfirm = func;
-          break;
-
-        case 'update':
-          func = function func() {
-            formRef.current.update(renderParams.record).then(function (data) {
-              success('编辑成功');
-              tableRef.current.refresh(); // 发布事件
-
-              if (onFinish) {
-                onFinish('update', data);
-              }
-            });
-          };
-
-          extendProps.onClick = func;
-          break;
-      }
-
-      return React.createElement(AmButton, Object.assign({
-        key: "add"
-      }, child.props, extendProps));
-    } else {
-      if (i >= 0) {
-        return originChildren[i];
-      } else {
-        return child;
-      }
-    }
-  }
-
-  return child;
-};
-/** 获取 am-button 上的指令集 */
-
-
-function useDirective(props) {
-  var children = props.children,
-      ctrl = props.ctrl,
-      rowKey = props.rowKey,
-      onFinish = props.onFinish;
-  var newChildren = []; // 直接子元素的指令
-
-  if (Array.isArray(children)) {
-    newChildren = children.map(function (child) {
-      return getChild({
-        child: child,
-        props: props,
-        renderParams: {},
-        originChildren: [],
-        i: -1,
-        rowKey: rowKey,
-        onFinish: onFinish
-      });
-    });
-  }
-
-  var newCtrl = {};
-
-  if (ctrl) {
-    var CtrlItem = ctrl.render('', {}, 0);
-    var ctrlChildren = Array.isArray(CtrlItem.props.children) ? Array.from(CtrlItem.props.children) : [CtrlItem.props.children];
-
-    if (Array.isArray(ctrlChildren)) {
-      newCtrl = _objectSpread2(_objectSpread2({}, ctrl), {}, {
-        render: function render(text, record, index) {
-          if (!ctrl) return; // 执行一次原始的 render，也就是原始 ctrl
-
-          var originRender = ctrl.render(text, record, index); // 获得原始 ctrl 的子元素
-
-          var beforeoriginChildren = originRender.props.children;
-          var originChildren = Array.from(Array.isArray(beforeoriginChildren) ? beforeoriginChildren : [beforeoriginChildren]);
-          return React.createElement(AmCtrl, null, ctrlChildren.map(function (child, i) {
-            return getChild({
-              child: child,
-              props: props,
-              renderParams: {
-                text: text,
-                record: record,
-                index: index
-              },
-              originChildren: originChildren,
-              i: i,
-              rowKey: rowKey,
-              onFinish: onFinish
-            });
-          }));
-        }
-      });
-    }
-  }
-
-  return [newChildren, newCtrl];
-}
-
-var css$4 = ".fr {\n  float: right;\n}\n.ml {\n  margin-left: 10px;\n}\n.mb {\n  margin-bottom: 10px;\n}\n.gap {\n  margin-left: 4px;\n}\n.am-search-table {\n  padding: 0 20px 20px;\n}\n.am-search-table .ant-pagination {\n  margin-right: 10px !important;\n}\n.am-search-table .ant-table {\n  margin: 0 -1px;\n}\n.am-search-table .ant-btn-link {\n  padding: 0 !important;\n}\n.am-search-table-alert {\n  margin: 0 20px 20px !important;\n}\n.am-search-table-alert .ant-alert-icon {\n  transform: translateY(1px);\n}\n.am-search-poper {\n  width: 300px;\n  max-height: 180px;\n  overflow: auto;\n}\n";
+var css$4 = ".fr {\n  float: right;\n}\n.ml {\n  margin-left: 10px;\n}\n.mb {\n  margin-bottom: 10px;\n}\n.gap {\n  margin-left: 4px;\n}\n.ay-search-table {\n  padding: 0 20px 20px;\n}\n.ay-search-table .ant-pagination {\n  margin-right: 10px !important;\n}\n.ay-search-table .ant-table {\n  margin: 0 -1px;\n}\n.ay-search-table .ant-btn-link {\n  padding: 0 !important;\n}\n.ay-search-table > .ant-card + .ant-card {\n  margin-top: 10px;\n}\n.ay-search-table .ant-alert {\n  margin: 10px;\n}\n.ay-search-table-alert {\n  margin: 0 20px 20px !important;\n}\n.ay-search-table-alert .ant-alert-icon {\n  transform: translateY(1px);\n}\n.ay-search-poper {\n  width: 300px;\n  max-height: 180px;\n  overflow: auto;\n}\n";
 styleInject(css$4);
 
-var AmSearchTableContext = createContext({});
+var AySearchTableContext = createContext({});
 /**
- * 转化并过滤成 am-search 能用的 fields
+ * 转化并过滤成 ay-search 能用的 fields
  * @param fields 查询表格的 fields
  */
 
@@ -2151,7 +1932,7 @@ var getTableFields = function getTableFields(fields) {
   });
 };
 
-var AmSearchTable = forwardRef(function AmSearchTable(props, ref) {
+var AySearchTable = forwardRef(function AySearchTable(props, ref) {
   var fields = props.fields,
       api = props.api,
       deleteApi = props.deleteApi,
@@ -2173,7 +1954,6 @@ var AmSearchTable = forwardRef(function AmSearchTable(props, ref) {
       searchVisible = props.searchVisible,
       tableExtend = props.tableExtend,
       pagination = props.pagination,
-      onFinish = props.onFinish,
       btnBefore = props.btnBefore,
       dataAnalysis = props.dataAnalysis,
       exportVisible = props.exportVisible;
@@ -2205,22 +1985,18 @@ var AmSearchTable = forwardRef(function AmSearchTable(props, ref) {
       selection = _useSelection.selection,
       _clearSelection = _useSelection.clearSelection;
   /** 使用指令操作 */
+  // const [newChildren, newCtrl] = useDirective({
+  //   children,
+  //   tableRef,
+  //   formRef,
+  //   selection,
+  //   ctrl,
+  //   deleteApi,
+  //   clearSelection,
+  //   rowKey,
+  //   onFinish
+  // })
 
-
-  var _useDirective = useDirective({
-    children: children,
-    tableRef: tableRef,
-    formRef: formRef,
-    selection: selection,
-    ctrl: ctrl,
-    deleteApi: deleteApi,
-    clearSelection: _clearSelection,
-    rowKey: rowKey,
-    onFinish: onFinish
-  }),
-      _useDirective2 = _slicedToArray(_useDirective, 2),
-      newChildren = _useDirective2[0],
-      newCtrl = _useDirective2[1];
   /** 查询完成，刷新列表 */
 
 
@@ -2260,6 +2036,13 @@ var AmSearchTable = forwardRef(function AmSearchTable(props, ref) {
        */
       getSearchRef: function getSearchRef() {
         return searchRef.current;
+      },
+
+      /**
+       * 获取已经选中的对象
+       */
+      getSelection: function getSelection() {
+        return selection;
       }
     };
   });
@@ -2269,7 +2052,7 @@ var AmSearchTable = forwardRef(function AmSearchTable(props, ref) {
     api: api,
     data: data,
     meta: meta,
-    ctrl: newCtrl,
+    ctrl: ctrl,
     rowKey: rowKey,
     scrollX: scrollX,
     filterData: filterData,
@@ -2284,33 +2067,253 @@ var AmSearchTable = forwardRef(function AmSearchTable(props, ref) {
     exportVisible: exportVisible
   };
   return React.createElement("div", {
-    className: "am-search-table"
-  }, React.createElement(AmSearchTableContext.Provider, {
-    value: newCtrl
-  }, searchVisible !== false ? React.createElement(AmSearch, {
+    className: "ay-search-table"
+  }, React.createElement(AySearchTableContext.Provider, {
+    value: {
+      formRef: formRef,
+      tableRef: tableRef,
+      selection: selection,
+      deleteApi: deleteApi,
+      rowKey: rowKey,
+      clearSelection: _clearSelection
+    }
+  }, searchVisible !== false ? React.createElement(AySearch, {
     ref: searchRef,
     fields: searchFields,
     onConfirm: onConfirm
-  }) : null, center, React.createElement(AmTable, Object.assign({}, tableProps, {
+  }) : null, center, React.createElement(AyTable, Object.assign({}, tableProps, {
     fields: tableFields,
     header: header
-  }), dialogFormExtend ? React.createElement(AmDialogForm, Object.assign({
+  }), dialogFormExtend ? React.createElement(AyDialogForm, Object.assign({
     ref: formRef
-  }, dialogFormExtend)) : null, newChildren)));
+  }, dialogFormExtend)) : null, children)));
 });
 
+var success = function success(msg, duration) {
+  return message.success(msg, duration);
+};
+var error = function error(msg) {
+  return message.error(msg);
+};
+var info = function info(msg) {
+  return message.info(msg);
+};
+var AyMessage = {
+  success: success,
+  error: error,
+  info: info
+};
+
+var _require$3 = require('@ant-design/icons'),
+    PlusOutlined = _require$3.PlusOutlined,
+    DeleteOutlined = _require$3.DeleteOutlined,
+    ExclamationCircleOutlined = _require$3.ExclamationCircleOutlined;
+
+var actionMap = {};
+/**
+ * 注册一个 action
+ */
+
+function registerAction(actionName, action) {
+  actionMap[actionName] = action;
+}
+/**
+ * 注册【新增】事件
+ */
+
+registerAction('add', function (props, record, searchTable) {
+  return _objectSpread2({
+    type: 'primary',
+    icon: React.createElement(PlusOutlined, null),
+    onClick: function onClick() {
+      var _searchTable$formRef, _searchTable$formRef$;
+
+      (_searchTable$formRef = searchTable.formRef) === null || _searchTable$formRef === void 0 ? void 0 : (_searchTable$formRef$ = _searchTable$formRef.current) === null || _searchTable$formRef$ === void 0 ? void 0 : _searchTable$formRef$.add().then(function () {
+        success(props.children + '成功');
+        searchTable.tableRef.current.refresh();
+      });
+    }
+  }, props);
+});
+/**
+ * 注册【修改】事件
+ */
+
+registerAction('update', function (props, record, searchTable) {
+  return _objectSpread2({
+    onClick: function onClick() {
+      var _searchTable$formRef2, _searchTable$formRef3;
+
+      (_searchTable$formRef2 = searchTable.formRef) === null || _searchTable$formRef2 === void 0 ? void 0 : (_searchTable$formRef3 = _searchTable$formRef2.current) === null || _searchTable$formRef3 === void 0 ? void 0 : _searchTable$formRef3.update(record).then(function () {
+        success(props.children + '成功');
+        searchTable.tableRef.current.refresh();
+      });
+    }
+  }, props);
+});
+/**
+ * 注册【详情】事件
+ */
+
+registerAction('view', function (props, record, searchTable) {
+  return _objectSpread2({
+    onClick: function onClick() {
+      var _searchTable$formRef4, _searchTable$formRef5;
+
+      (_searchTable$formRef4 = searchTable.formRef) === null || _searchTable$formRef4 === void 0 ? void 0 : (_searchTable$formRef5 = _searchTable$formRef4.current) === null || _searchTable$formRef5 === void 0 ? void 0 : _searchTable$formRef5.view(record);
+    }
+  }, props);
+});
+/**
+ * 注册【删除】事件
+ */
+
+registerAction('delete', function (props, record, searchTable) {
+  return _objectSpread2({
+    confirm: true,
+    confirmMsg: '你确定要删除此行吗？',
+    onConfirm: function onConfirm() {
+      if ((searchTable === null || searchTable === void 0 ? void 0 : searchTable.deleteApi) && record) {
+        var params = _defineProperty({}, (searchTable === null || searchTable === void 0 ? void 0 : searchTable.rowKey) || 'id', record[(searchTable === null || searchTable === void 0 ? void 0 : searchTable.rowKey) || 'id']);
+
+        searchTable === null || searchTable === void 0 ? void 0 : searchTable.deleteApi(params).then(function (data) {
+          success('删除成功');
+          searchTable === null || searchTable === void 0 ? void 0 : searchTable.tableRef.current.refresh();
+        });
+      }
+    }
+  }, props);
+});
+/**
+ * 注册【批量删除】事件
+ */
+
+registerAction('batch-delete', function (props, record, searchTable) {
+  return _objectSpread2({
+    icon: React.createElement(DeleteOutlined, null),
+    onClick: function onClick() {
+      var selection = (searchTable === null || searchTable === void 0 ? void 0 : searchTable.selection) || [];
+
+      if (!selection.length) {
+        info('请先选择一条数据');
+        return;
+      }
+
+      if (searchTable === null || searchTable === void 0 ? void 0 : searchTable.deleteApi) {
+        Modal.confirm({
+          title: '确定',
+          content: "\u60A8\u52FE\u9009\u4E86 ".concat(selection.length, " \u4E2A\uFF0C\u786E\u5B9A\u8981\u5220\u9664\u5417\uFF1F"),
+          icon: React.createElement(ExclamationCircleOutlined, null),
+          onOk: function onOk() {
+            var params = _defineProperty({}, (searchTable === null || searchTable === void 0 ? void 0 : searchTable.rowKey) || 'id', selection.map(function (row) {
+              return row[(searchTable === null || searchTable === void 0 ? void 0 : searchTable.rowKey) || 'id'];
+            }));
+
+            searchTable === null || searchTable === void 0 ? void 0 : searchTable.deleteApi(params).then(function (data) {
+              success('批量删除成功');
+              searchTable === null || searchTable === void 0 ? void 0 : searchTable.clearSelection();
+              searchTable === null || searchTable === void 0 ? void 0 : searchTable.tableRef.current.refresh();
+            });
+          }
+        });
+      }
+    }
+  }, props);
+});
+function AyAction(props) {
+  var searchTable = useContext(AySearchTableContext);
+  var action = props.action,
+      record = props.record;
+  var targetAction = actionMap[action || ''];
+
+  if (targetAction) {
+    var actionProps = targetAction(props, record, searchTable);
+    return React.createElement(AyButton, Object.assign({}, actionProps));
+  }
+
+  return React.createElement(AyButton, Object.assign({}, props));
+}
+
+/**
+ * 返回一个控制项
+ * @param node 节点
+ * @param key key
+ */
+
+var getCtrlItem = function getCtrlItem(node, key) {
+  var props = _objectSpread2({}, node.props);
+
+  return React.createElement(AyAction, Object.assign({
+    key: key,
+    type: "link"
+  }, props));
+};
+/**
+ * 将子节点转化成 AyAction 按钮
+ * @param children 子节点
+ */
+
+
+var getCtrlList = function getCtrlList(children) {
+  var ctrlList = [];
+
+  if (!children) {
+    return [];
+  }
+
+  if (Array.isArray(children) && children.length === 0) {
+    // 没有节点存在
+    return [];
+  } else if (!Array.isArray(children)) {
+    // 如果节点只有一个元素
+    return [getCtrlItem(children, children)];
+  }
+
+  children.forEach(function (node, i) {
+    if (!node) {
+      return node;
+    }
+
+    var CtrlItem; // 正常节点
+
+    CtrlItem = getCtrlItem(node, i); // 添加这个节点
+
+    ctrlList.push(CtrlItem); // 添加一个分割线
+
+    ctrlList.push(React.createElement(Divider, {
+      key: 'divider' + i,
+      type: "vertical"
+    }));
+  }); // 删除最后一个分割线
+
+  ctrlList.splice(ctrlList.length - 1, 1);
+  return ctrlList;
+};
+
+function AmCtrl(props) {
+  var children = props.children;
+  var ctrlList = getCtrlList(children);
+  return React.createElement("div", {
+    className: "ay-ctrl"
+  }, ctrlList);
+}
+
 var index = {
-  AmButton: AmButton,
-  AmCtrl: AmCtrl,
-  AmDialog: AmDialog,
-  AmDialogForm: AmDialogForm,
-  AmEditor: AmEditor,
-  AmForm: AmForm,
-  AmMessage: AmMessage,
-  AmSearch: AmSearch,
-  AmSearchTable: AmSearchTable,
-  AmSelect: AmSelect,
-  AmTable: AmTable
+  AyAction: AyAction,
+  registerAction: registerAction,
+  AyButton: AyButton,
+  AyCtrl: AmCtrl,
+  AyDialog: AyDialog,
+  AyDialogForm: AyDialogForm,
+  AyEditor: AyEditor,
+  AyForm: AyForm,
+  AyMessage: AyMessage,
+  AySearch: AySearch,
+  AySearchTable: AySearchTable,
+  AySelect: AySelect,
+  AyTable: AyTable,
+  setDefaultDataFilter: setDefaultDataFilter,
+  setDefaultSearchFilter: setDefaultSearchFilter
 };
 
 export default index;

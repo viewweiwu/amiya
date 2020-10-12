@@ -17,7 +17,7 @@ const getCtrlItem = (node: any, key?: any) => {
 }
 
 /**
- * 将子节点转化成 AmButton 按钮
+ * 将子节点转化成 AyAction 按钮
  * @param children 子节点
  */
 const getCtrlList = (children: Array<ReactNode> | ReactNode): Array<ReactNode> => {

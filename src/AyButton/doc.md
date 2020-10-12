@@ -1,13 +1,13 @@
 # am-button
 
 ```jsx
-import React from 'react';
-import { AmButton } from 'amiya'
-import { Button } from 'antd';
+import React from 'react'
+import { AyAction } from 'amiya'
+import { Button } from 'antd'
 export default () => (
   <>
-    <AmButton>测试</AmButton>
+    <AyAction>测试</AyAction>
     <Button>hello</Button>
   </>
-);
+)
 ```

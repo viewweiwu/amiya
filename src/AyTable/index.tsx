@@ -9,10 +9,24 @@ import { clearEmpty } from '../utils'
 import './ay-table.less'
 const { DownloadOutlined } = require('@ant-design/icons')
 
+let defaultSearchFilter = (params: AnyKeyProps) => {
+  return params
+}
+
+let defaultDataFilter = (params: AnyKeyProps) => {
+  return params
+}
+
+export const setDefaultSearchFilter = (cb: (params: AnyKeyProps) => AnyKeyProps) => {
+  defaultSearchFilter = cb
+}
+
+export const setDefaultDataFilter = (cb: (params: AnyKeyProps) => AnyKeyProps) => {
+  defaultDataFilter = cb
+}
+
 interface AyTableProps {
-  meta?: {
-    title: string | ReactNode
-  }
+  title?: string | ReactNode
   children?: ReactNode
   header?: ReactNode
   api?(params: AnyKeyProps): Promise<AnyKeyProps>
@@ -122,7 +136,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     api,
     data,
     children,
-    meta,
+    title,
     rowSelection,
     ctrl,
     onLoad,
@@ -181,10 +195,14 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
   const loadData = useCallback(() => {
     if (api) {
       let searchParams: AnyKeyProps = getParams()
+      if (defaultSearchFilter) {
+        searchParams = defaultSearchFilter(searchParams)
+      }
       console.log('列表查询数据', searchParams)
       setLoading(true)
       api(searchParams)
         .then((data) => {
+          data = defaultDataFilter(data)
           let content = data.content
           if (filterData) {
             content = filterData(data)
@@ -240,7 +258,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     if (api) {
       let downloadParams = getParams()
       downloadParams._download = true
-      downloadParams._downloadTitle = meta ? meta.title : ''
+      downloadParams._downloadTitle = title || ''
       api(downloadParams)
     }
   }
@@ -270,10 +288,10 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
 
   return (
     <Card className={`ay-table ${className}`}>
-      {meta || btnBefore || children ? (
+      {title || btnBefore || children ? (
         <header className="ay-table-header">
           <div className="ay-table-header-left">
-            <Space size="large">{meta && <h2 className="ay-table-title">{meta.title}</h2>}</Space>
+            <Space size="large">{title && <h2 className="ay-table-title">{title}</h2>}</Space>
           </div>
           <div className="ay-table-header-right">
             <Space>

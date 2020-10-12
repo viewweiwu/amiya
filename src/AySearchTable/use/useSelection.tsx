@@ -2,7 +2,7 @@
 import React, { ReactNode, useState, ReactText, useEffect } from 'react'
 import Alert from 'antd/lib/alert'
 import { Tag, Popover } from 'antd'
-import AmButton from '../../AyButton'
+import AyAction from '../../AyButton'
 
 interface Row extends AnyKeyProps {}
 
@@ -160,9 +160,9 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
             </Popover>{' '}
             条
           </span>
-          <AmButton className="ml" type="link" size="small" onClick={clearSelection}>
+          <AyAction className="ml" type="link" size="small" onClick={clearSelection}>
             清空
-          </AmButton>
+          </AyAction>
         </div>
       }
       showIcon

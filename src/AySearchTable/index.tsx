@@ -16,10 +16,8 @@ import './ay-search-table.less'
 export const AySearchTableContext = createContext({})
 
 interface AySearchTableProps {
-  /** route 的 meta 元素，主要取其 title 属性 */
-  meta?: {
-    title: string
-  }
+  /** 标题 */
+  title?: string | ReactNode
   /** 配置项 */
   fields: Array<AySearchTableField>
   /** 子元素 */
@@ -133,7 +131,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     deleteApi,
     children,
     data,
-    meta,
+    title,
     ctrl,
     selectionType,
     onSelectionChange,
@@ -228,7 +226,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     rowSelection,
     api,
     data,
-    meta,
+    title,
     ctrl,
     rowKey,
     scrollX,

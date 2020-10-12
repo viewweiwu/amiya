@@ -20,7 +20,6 @@ module.exports = {
       } else {
         config.entry = './src/index';
       }
-      console.log(config.output)
       return config;
     },
     extra: {

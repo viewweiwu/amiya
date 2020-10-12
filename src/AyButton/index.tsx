@@ -2,7 +2,7 @@ import { Button, Popconfirm } from 'antd'
 import { ButtonProps } from 'antd/lib/button'
 import React from 'react'
 
-interface AmButtonProps extends ButtonProps {
+interface AyButtonProps extends ButtonProps {
   /** true 会有确认，false: 无确认 */
   confirm?: boolean
   /** 确认事件 */
@@ -14,7 +14,7 @@ interface AmButtonProps extends ButtonProps {
   [key: string]: any
 }
 
-export default function AmButton(props: AmButtonProps) {
+export default function AyButton(props: AyButtonProps) {
   let params = {
     ...props
   }
