@@ -3,6 +3,8 @@ import { ReactNode } from 'react'
 /**
  * 可以选择下面 type 对应的类型
  * @param input 输入框
+ * @param number 数字输入框
+ * @param percent 百分比输入框
  * @param password 密码框
  * @param textarea 多行输入框
  * @param select 选择框
@@ -13,23 +15,25 @@ import { ReactNode } from 'react'
  * @param date 日期
  * @param dadate-rangete 日期区间
  * @param empty 空白框
+ * @param custom 自定义，此时支持 renderContent
  */
 declare type FormType =
   | 'input'
   | 'password'
   | 'number'
   | 'percent'
+  | 'textarea'
   | 'editor'
   | 'select'
   | 'switch'
   | 'checkbox'
   | 'checkbox-group'
   | 'radio-group'
-  | 'textarea'
   | 'date'
   | 'date-range'
   | 'empty'
   | 'custom'
+  | string
 
 /**
  * 所有 field 的 最小单元，会被这些类型扩展: AyForm AySearch AyTable AySearchTable AyDialogForm
@@ -112,3 +116,10 @@ declare interface AyFormField extends Field {
   order?: number
   [key: string]: any
 }
+
+/**
+ * 监听 Field 变化
+ * @param value 变化的值
+ * @param field 变化了的 field
+ */
+type FieldListener = (value: any, field: AyFormField) => void

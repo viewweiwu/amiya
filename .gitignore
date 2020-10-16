@@ -4,6 +4,7 @@
 /lib
 /node_modules
 /umd
+/es
 .umi
 .docz
 npm-debug.log*

@@ -5,9 +5,11 @@ import './ay-editor.less'
 
 interface AyEditorProps {
   /** 值 */
-  value?: string
+  value?: any
   /** change 事件监听 */
   onChange?: (value: string) => void
+  disabled?: boolean
+  placeholder?: string
 }
 
 /**
@@ -19,7 +21,7 @@ const isContentEmpty = (content: EditorState) => {
 }
 
 export default function AyEditor(props: AyEditorProps) {
-  const { value, onChange } = props
+  const { value, onChange, disabled } = props
   const [content, setContent] = useState<EditorState>(BraftEditor.createEditorState(value || ''))
 
   useEffect(() => {
@@ -44,5 +46,9 @@ export default function AyEditor(props: AyEditorProps) {
     [onChange]
   )
 
-  return <BraftEditor placeholder="请输入内容" className="ant-input-affix-wrapper ay-editor" value={content} onChange={handleChange} />
+  return disabled ? (
+    <div dangerouslySetInnerHTML={{ __html: value }}></div>
+  ) : (
+    <BraftEditor placeholder="请输入内容" className="ant-input-affix-wrapper ay-editor" value={content} onChange={handleChange} />
+  )
 }

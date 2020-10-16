@@ -4,7 +4,7 @@ import AyCtrl from './AyCtrl'
 import AyDialog from './AyDialog'
 import AyDialogForm from './AyDialogForm'
 import AyEditor from './AyEditor'
-import AyForm from './AyForm'
+import AyForm, { registerField } from './AyForm'
 import AyMessage from './AyMessage'
 import AySearch from './AySearch'
 import AySearchTable from './AySearchTable'
@@ -20,6 +20,7 @@ export default {
   AyDialogForm,
   AyEditor,
   AyForm,
+  registerField,
   AyMessage,
   AySearch,
   AySearchTable,

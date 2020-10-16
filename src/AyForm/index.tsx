@@ -42,10 +42,11 @@ import {
   NUMBER_DEFAULT_MAX,
   PERCENT_DEFAULT_MAX
 } from '../constant'
-import { AyFormField } from './ay-form'
+import { AyFormField, FieldListener } from './ay-form'
+import { copy } from '../utils'
 moment.locale('zh-cn')
 
-interface DpFormProps {
+interface AyFormProps {
   /** 配置项 */
   fields: Array<AyFormField>
   /** form 名称 */
@@ -69,28 +70,243 @@ interface DpFormProps {
   }
 }
 
+interface RegisterFieldProps {
+  /** 类型 */
+  type: string
+  /** 默认值 */
+  defaultValue: any
+  /** formItem 的 valuePropName，比如 Checkbox 时，valuePropName = 'checked' */
+  valuePropName?: string
+  /** render */
+  render: (
+    field: AyFormField,
+    setFieldsValue: (params: AnyKeyProps) => void,
+    readonly: boolean,
+    addFieldListener: (key: string, fieldListener: FieldListener) => void
+  ) => ReactNode
+}
+
 const defaultLayout = {
   labelCol: { flex: '120px' },
   wrapperCol: { flex: '1' }
 }
 
-// 默认值表
-const defaultValueMap: AnyKeyProps = {
-  [FORM_TYPE_INPUT]: FORM_DEFAULT_VALUE_INPUT, // 输入框
-  [FORM_TYPE_NUMBER]: FORM_DEFAULT_VALUE_NUMBER, // 数字框
-  [FORM_TYPE_PERCENT]: FORM_DEFAULT_VALUE_PERCENT, // 数字框
-  [FORM_TYPE_PASSWORD]: FORM_DEFAULT_VALUE_PASSWORD, // 密码框
-  [FORM_TYPE_EDITOR]: FORM_DEFAULT_VALUE_EDITOR, // 富文本框
-  [FORM_TYPE_TEXTAREA]: FORM_DEFAULT_VALUE_TEXTAREA, // 多行文本框
-  [FORM_TYPE_SELECT]: FORM_DEFAULT_VALUE_SELECT, // 选择框
-  [FORM_TYPE_SWITCH]: FORM_DEFAULT_VALUE_SWITCH, // 开关
-  [FORM_TYPE_CHECKBOX]: FORM_DEFAULT_VALUE_CHECKBOX, // 多选框
-  [FORM_TYPE_CHECKBOX_GROUP]: FORM_DEFAULT_VALUE_CHECKBOX_GROUP, // 多选组
-  [FORM_TYPE_RADIO_GROUP]: FORM_DEFAULT_VALUE_RADIO_GROUP, // 单选组
-  [FORM_TYPE_DATE]: FORM_DEFAULT_VALUE_DATE, // 日期
-  [FORM_TYPE_DATE_RANGE]: FORM_DEFAULT_VALUE_DATE_RANGE, // 日期区间
-  [FORM_TYPE_EMPTY]: FORM_DEFAULT_VALUE_EMPTY // 空白框
+const fieldMap: AnyKeyProps = {}
+
+export const registerField = (field: RegisterFieldProps) => {
+  fieldMap[field.type] = field
 }
+
+// 注册输入框
+registerField({
+  type: FORM_TYPE_INPUT,
+  defaultValue: FORM_DEFAULT_VALUE_INPUT,
+  render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => (
+    <Input
+      placeholder={`请输入${field.title}`}
+      disabled={readonly}
+      maxLength={INPUT_DEFAULT_MAXLENGTH}
+      allowClear={FORM_DEFAULT_ALLOW_CLEAR}
+      {...field.props}
+    />
+  )
+})
+
+// 注册数字框
+registerField({
+  type: FORM_TYPE_NUMBER,
+  defaultValue: FORM_DEFAULT_VALUE_NUMBER,
+  render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => (
+    <InputNumber
+      placeholder={`请输入${field.title}`}
+      className="max-width"
+      disabled={readonly}
+      min={NUMBER_DEFAULT_MIN}
+      max={NUMBER_DEFAULT_MAX}
+      {...field.props}
+    />
+  )
+})
+
+// 注册百分比数字框
+registerField({
+  type: FORM_TYPE_PERCENT,
+  defaultValue: FORM_DEFAULT_VALUE_PERCENT,
+  render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => (
+    <InputNumber
+      placeholder={`请输入${field.title}`}
+      className="max-width"
+      disabled={readonly}
+      min={NUMBER_DEFAULT_MIN}
+      max={PERCENT_DEFAULT_MAX}
+      formatter={(value?: string | number) => (value !== '' ? `${value}%` : '')}
+      parser={(value?: string) => (value || '').replace('%', '')}
+      {...field.props}
+    />
+  )
+})
+
+// 注册密码框
+registerField({
+  type: FORM_TYPE_PASSWORD,
+  defaultValue: FORM_DEFAULT_VALUE_PASSWORD,
+  render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => (
+    <Input.Password placeholder={`请输入${field.title}`} disabled={readonly} allowClear={FORM_DEFAULT_ALLOW_CLEAR} {...field.props} />
+  )
+})
+
+// 注册富文本框
+registerField({
+  type: FORM_TYPE_EDITOR,
+  defaultValue: FORM_DEFAULT_VALUE_EDITOR,
+  render: (
+    field: AyFormField,
+    setFieldsValue: (params: AnyKeyProps) => void,
+    readonly: boolean,
+    addFieldListener: (key: string, fieldListener: FieldListener) => void
+  ) => {
+    return <AyEditor placeholder={`请输入${field.title}`} disabled={readonly} {...field.props} />
+  }
+})
+
+// 注册多行文本框
+registerField({
+  type: FORM_TYPE_TEXTAREA,
+  defaultValue: FORM_DEFAULT_VALUE_TEXTAREA,
+  render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => (
+    <Input.TextArea
+      placeholder={`请输入${field.title}`}
+      disabled={readonly}
+      allowClear={FORM_DEFAULT_ALLOW_CLEAR}
+      maxLength={TEXTAREA_DEFAULT_MAXLENGTH}
+      {...field.props}
+    />
+  )
+})
+
+// 注册选择框
+registerField({
+  type: FORM_TYPE_SELECT,
+  defaultValue: FORM_DEFAULT_VALUE_SELECT,
+  render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => (
+    <AySelect
+      placeholder={`请选择${field.title}`}
+      disabled={readonly}
+      allowClear={FORM_DEFAULT_ALLOW_CLEAR}
+      options={field.options}
+      {...field.props}
+    />
+  )
+})
+
+// 注册开关
+registerField({
+  type: FORM_TYPE_SWITCH,
+  defaultValue: FORM_DEFAULT_VALUE_SWITCH,
+  valuePropName: 'checked',
+  render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => <Switch disabled={readonly} {...field.props} />
+})
+
+// 注册单个选择框
+registerField({
+  type: FORM_TYPE_CHECKBOX,
+  defaultValue: FORM_DEFAULT_VALUE_CHECKBOX,
+  valuePropName: 'checked',
+  render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => <Checkbox disabled={readonly} {...field.props} />
+})
+
+// 注册多个选择框
+registerField({
+  type: FORM_TYPE_CHECKBOX_GROUP,
+  defaultValue: FORM_DEFAULT_VALUE_CHECKBOX_GROUP,
+  render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => (
+    <Checkbox.Group disabled={readonly} options={field.options} {...field.props} />
+  )
+})
+
+// 注册多个单选框
+registerField({
+  type: FORM_TYPE_RADIO_GROUP,
+  defaultValue: FORM_DEFAULT_VALUE_RADIO_GROUP,
+  render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => (
+    <Radio.Group disabled={readonly} options={field.options} {...field.props} />
+  )
+})
+
+const renderExtraFooter = (setFieldsValue: (params: AnyKeyProps) => void, field: AnyKeyProps) => {
+  /**
+   * 填充日期
+   * @param value 日期
+   */
+  const setValue = (value: moment.Moment) => {
+    setFieldsValue({
+      [field.key]: value
+    })
+  }
+  return (
+    <>
+      <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().startOf('day'))}>
+        今天凌晨
+      </a>
+      <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().endOf('day'))}>
+        今天晚上
+      </a>
+      <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().subtract(1, 'day').startOf('day'))}>
+        昨天凌晨
+      </a>
+      <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().subtract(1, 'day').endOf('day'))}>
+        昨天晚上
+      </a>
+      <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().startOf('month'))}>
+        月初
+      </a>
+      <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().endOf('month'))}>
+        月底
+      </a>
+      <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().subtract(1, 'month').startOf('month'))}>
+        上月初
+      </a>
+      <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().subtract(1, 'month').endOf('month'))}>
+        上月底
+      </a>
+    </>
+  )
+}
+
+// 注册日期
+registerField({
+  type: FORM_TYPE_DATE,
+  defaultValue: FORM_DEFAULT_VALUE_DATE,
+  render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => (
+    <DatePicker disabled={readonly} className="max-width" renderExtraFooter={() => renderExtraFooter(setFieldsValue, field)} {...field.props} />
+  )
+})
+
+// 区间日期快捷选项
+const ranges: any = {
+  今天: [moment().startOf('day'), moment().endOf('day')],
+  昨天: [moment().subtract(1, 'day'), moment().subtract(1, 'day').endOf('day')],
+  本周: [moment().startOf('week'), moment().endOf('day')],
+  上周: [moment().startOf('week').subtract(7, 'day'), moment().endOf('week').subtract(7, 'day')],
+  本月: [moment().startOf('month'), moment().endOf('day')],
+  上月: [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+}
+
+// 注册区间日期
+registerField({
+  type: FORM_TYPE_DATE_RANGE,
+  defaultValue: FORM_DEFAULT_VALUE_DATE_RANGE,
+  render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => (
+    <DatePicker.RangePicker disabled={readonly} className="max-width" ranges={ranges} {...(field.props as any)} />
+  )
+})
+
+// 注册空节点
+registerField({
+  type: FORM_TYPE_EMPTY,
+  defaultValue: FORM_DEFAULT_VALUE_EMPTY,
+  render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => <input hidden type="text" />
+})
 
 /**
  * 获取隐藏配置项
@@ -102,28 +318,6 @@ const getNoVisibleField = (field: AyFormField): AyFormField => {
     title: '',
     type: 'empty'
   }
-}
-
-/**
- * 获得配置列表
- * @param fields 配置列表
- */
-export const getDefaultValue = (fields: Array<AyFormField | AySearchField>) => {
-  let form: AnyKeyProps = {}
-  fields.forEach((field: AyFormField | AySearchField) => {
-    // 如果配置项里存在默认值，直接返回默认值，否则从默认值表里获取
-    if (field.hasOwnProperty('defaultValue')) {
-      // 日期类型的需要通过 moment 转一遍
-      if (field.type === FORM_TYPE_DATE && field.defaultValue) {
-        form[field.key] = moment(field.defaultValue)
-      } else {
-        form[field.key] = field.defaultValue
-      }
-    } else if (field.type) {
-      form[field.key] = defaultValueMap[field.type]
-    }
-  })
-  return form
 }
 
 /**
@@ -151,203 +345,61 @@ const getPlaceholder = (field: AyFormField): string => {
 }
 
 /**
- * 根据配置项生成 props
- * @param field 配置项
+ * 获得配置列表
+ * @param fields 配置列表
  */
-const getTagProps = (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly?: boolean) => {
-  let type = field.type || FORM_TYPE_INPUT
-  let props: AnyKeyProps = {
-    disabled: readonly,
-    placeholder: getPlaceholder(field) // 生成 placeholder
-  }
-
-  if (!type) {
-    return props
-  }
-
-  switch (type) {
-    case FORM_TYPE_INPUT:
-    case FORM_TYPE_PASSWORD:
-      // 字符最大长度 输入框、密码框
-      props.maxLength = INPUT_DEFAULT_MAXLENGTH
-      break
-
-    case FORM_TYPE_TEXTAREA:
-      // 字符最大长度 多行文本框
-      props.maxLength = TEXTAREA_DEFAULT_MAXLENGTH
-      break
-
-    case FORM_TYPE_NUMBER:
-      // 填充数字框的最大最小
-      props.min = NUMBER_DEFAULT_MIN
-      props.max = NUMBER_DEFAULT_MAX
-      break
-
-    case FORM_TYPE_PERCENT:
-      // 填充数字框的最大最小
-      props.min = NUMBER_DEFAULT_MIN
-      props.max = PERCENT_DEFAULT_MAX
-      props.formatter = (value: string) => (value !== '' ? `${value}%` : '')
-      props.parser = (value: string) => value.replace('%', '')
-      break
-
-    case FORM_TYPE_DATE:
-      // 填充日期的快捷选项
-      props.renderExtraFooter = (mode: string) => {
-        /**
-         * 填充日期
-         * @param value 日期
-         */
-        const setValue = (value: moment.Moment) => {
-          setFieldsValue({
-            [field.key]: value
-          })
-        }
-        return (
-          <>
-            <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().startOf('day'))}>
-              今天凌晨
-            </a>
-            <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().endOf('day'))}>
-              今天晚上
-            </a>
-            <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().subtract(1, 'day').startOf('day'))}>
-              昨天凌晨
-            </a>
-            <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().subtract(1, 'day').endOf('day'))}>
-              昨天晚上
-            </a>
-            <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().startOf('week'))}>
-              周一
-            </a>
-            <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().endOf('week'))}>
-              周末
-            </a>
-            <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().startOf('month'))}>
-              月初
-            </a>
-            <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().endOf('month'))}>
-              月底
-            </a>
-            <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().subtract(1, 'month').startOf('month'))}>
-              上月初
-            </a>
-            <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().subtract(1, 'month').endOf('month'))}>
-              上月底
-            </a>
-          </>
-        )
+export const getDefaultValue = (fields: Array<AyFormField | AySearchField>) => {
+  let form: AnyKeyProps = {}
+  fields.forEach((field: AyFormField | AySearchField) => {
+    // 如果配置项里存在默认值，直接返回默认值，否则从默认值表里获取
+    if (field.hasOwnProperty('defaultValue')) {
+      // 日期类型的需要通过 moment 转一遍
+      if (field.type === FORM_TYPE_DATE && field.defaultValue) {
+        form[field.key] = moment(field.defaultValue)
+      } else {
+        form[field.key] = field.defaultValue
       }
-      break
-
-    case FORM_TYPE_DATE_RANGE:
-      // 填充日期的快捷选项
-      props.ranges = {
-        今天: [moment().startOf('day'), moment().endOf('day')],
-        昨天: [moment().subtract(1, 'day'), moment().subtract(1, 'day').endOf('day')],
-        本周: [moment().startOf('week'), moment().endOf('day')],
-        上周: [moment().startOf('week').subtract(7, 'day'), moment().endOf('week').subtract(7, 'day')],
-        本月: [moment().startOf('month'), moment().endOf('day')],
-        上月: [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+    } else if (field.type) {
+      if (fieldMap[field.type]) {
+        const fieldItem = fieldMap[field.type]
+        let defaultValue = fieldItem.defaultValue
+        defaultValue = typeof defaultValue === 'object' ? copy(defaultValue) : defaultValue
+        form[field.key] = defaultValue
+      } else {
+        form[field.key] = undefined
       }
-      break
-
-    case FORM_TYPE_CHECKBOX_GROUP:
-    case FORM_TYPE_RADIO_GROUP:
-      // 填充选项 选择框、多选组、单选组
-      props.options = field.options
-      break
-  }
-
-  // 是否带清空按钮 选择框、输入框
-  if ([FORM_TYPE_SELECT, FORM_TYPE_INPUT, FORM_TYPE_PASSWORD].includes(type)) {
-    props.allowClear = FORM_DEFAULT_ALLOW_CLEAR
-  }
-
-  // 填充选项 选择框、多选组、单选组
-  if ([FORM_TYPE_SELECT, FORM_TYPE_CHECKBOX_GROUP, FORM_TYPE_RADIO_GROUP].includes(type)) {
-    props.options = field.options
-  }
-
-  props = {
-    ...props,
-    ...field.props
-  }
-
-  return props
+    }
+  })
+  return form
 }
 
 /**
  * 根据不同的 type 生成不同种类的标签 Tag
  * @param field 配置项
  */
-const getTag = (field: AyFormField, fields: Array<AyFormField>, setFieldsValue: (params: AnyKeyProps) => void, readonly?: boolean) => {
-  const { type } = field
-
+const getTag = (
+  field: AyFormField,
+  fields: Array<AyFormField>,
+  setFieldsValue: (params: AnyKeyProps) => void,
+  addFieldListener: (key: string, fieldListener: FieldListener) => void,
+  readonly?: boolean
+) => {
+  let { type } = field
+  type = type || 'input'
   let tag: ReactNode = null
-  const tagProps = getTagProps(field, setFieldsValue, readonly)
-
-  switch (type) {
-    default:
-    case FORM_TYPE_INPUT:
-      tag = <Input {...tagProps} />
-      break
-
-    case FORM_TYPE_NUMBER:
-    case FORM_TYPE_PERCENT:
-      tag = <InputNumber className="max-width" {...tagProps} />
-      break
-
-    case FORM_TYPE_PASSWORD:
-      tag = <Input.Password {...tagProps} />
-      break
-
-    case FORM_TYPE_TEXTAREA:
-      tag = <Input.TextArea {...tagProps} />
-      break
-
-    case FORM_TYPE_EDITOR:
-      tag = <AyEditor {...tagProps} />
-      break
-
-    case FORM_TYPE_SELECT:
-      tag = <AySelect {...tagProps} />
-      break
-
-    case FORM_TYPE_SWITCH:
-      tag = <Switch {...tagProps} />
-      break
-
-    case FORM_TYPE_CHECKBOX:
-      tag = <Checkbox {...tagProps}>{field.checkboxChildren}</Checkbox>
-      break
-
-    case FORM_TYPE_CHECKBOX_GROUP:
-      tag = <Checkbox.Group {...tagProps} />
-      break
-
-    case FORM_TYPE_RADIO_GROUP:
-      tag = <Radio.Group {...tagProps} />
-      break
-
-    case FORM_TYPE_DATE:
-      tag = <DatePicker className="max-width" {...tagProps} />
-      break
-
-    case FORM_TYPE_DATE_RANGE:
-      tag = <DatePicker.RangePicker className="max-width" {...tagProps} />
-      break
-
-    case FORM_TYPE_EMPTY:
-      tag = <input hidden type="text" />
-      break
-
-    case FORM_TYPE_CUSTOM:
-      if (typeof field.renderContent === 'function') {
-        tag = field.renderContent(field, field._values || getDefaultValue(fields))
-      }
-      break
+  if (fieldMap[type || '']) {
+    let fieldItem = fieldMap[type || '']
+    tag = fieldItem.render(field, setFieldsValue, readonly || false, addFieldListener)
+  } else {
+    switch (type) {
+      case FORM_TYPE_CUSTOM:
+        if (typeof field.renderContent === 'function') {
+          tag = field.renderContent(field, field._values || getDefaultValue(fields))
+        }
+        break
+    }
   }
+
   return tag
 }
 
@@ -363,7 +415,13 @@ const getTag = (field: AyFormField, fields: Array<AyFormField>, setFieldsValue: 
  * @param fields 配置列表
  * @param span Col 占位 0 ～ 24
  */
-const getFormItem = (fields: Array<AyFormField>, setFieldsValue: (params: AnyKeyProps) => void, span?: number, readonly?: boolean) => {
+const getFormItem = (
+  fields: Array<AyFormField>,
+  setFieldsValue: (params: AnyKeyProps) => void,
+  addFieldListener: (key: string, fieldListener: FieldListener) => void,
+  span?: number,
+  readonly?: boolean
+) => {
   return fields.map((field: AyFormField) => {
     let visible = true
 
@@ -392,9 +450,9 @@ const getFormItem = (fields: Array<AyFormField>, setFieldsValue: (params: AnyKey
       extra: field.help
     }
 
-    // 设定 开关、多选框 的值类型 （这是 ant design form 的限制）
-    if (field.type && [FORM_TYPE_SWITCH, FORM_TYPE_CHECKBOX].includes(field.type)) {
-      props.valuePropNaye = 'checked'
+    // 设定 开关、多选框 等的值类型 （这是 ant design form 的限制）
+    if (field.type && fieldMap[field.type]) {
+      props.valuePropName = fieldMap[field.type].valuePropName || 'value'
     }
 
     // 设置每个【表单项】的占位
@@ -424,9 +482,13 @@ const getFormItem = (fields: Array<AyFormField>, setFieldsValue: (params: AnyKey
       }
     }
 
-    let tag: ReactNode = getTag(field, fields, setFieldsValue, readonly)
+    let tag: ReactNode = getTag(field, fields, setFieldsValue, addFieldListener, readonly)
 
-    return <Col {...colProps}>{field.render ? field.render(field, field._values || getDefaultValue(fields)) : <Form.Item {...props}>{tag}</Form.Item>}</Col>
+    return (
+      <Col {...colProps}>
+        {field.render ? field.render(field, field._values || getDefaultValue(fields)) : <Form.Item {...props}>{tag}</Form.Item>}
+      </Col>
+    )
   })
 }
 
@@ -476,20 +538,32 @@ const handleConfirm = (values: AnyKeyProps, fields: Array<AyFormField>, onConfir
  * @param fields 所有的饿配置项
  * @param setFieldsValue 设置表单值的方法
  */
-const handleChange = (changedValues: AnyKeyProps, allValues: AnyKeyProps, fields: Array<AyFormField>, setFieldsValue: (params: AnyKeyProps) => void, setRefresh: any) => {
+const handleChange = (
+  changedValues: AnyKeyProps,
+  allValues: AnyKeyProps,
+  fields: Array<AyFormField>,
+  setFieldsValue: (params: AnyKeyProps) => void,
+  listnerList: Array<{ key: string; fieldListener: FieldListener }>
+) => {
   for (let key in changedValues) {
-    let field = fields.find((field) => field.key === key)
+    let field: AyFormField | undefined = fields.find((field) => field.key === key)
     if (field) {
       let value = changedValues[key]
       if (field.onChange) {
         field.onChange(value, allValues, setFieldsValue)
       }
+      // 如果监听器里命中目标，则触发目标事件
+      listnerList.forEach((item: { key: string; fieldListener: FieldListener }) => {
+        if (item.key === key && field) {
+          item.fieldListener(value, field)
+        }
+      })
     }
   }
 }
 
 /**
- * ant form 原生支持的方法尽数暴露出去
+ * antd form 原生支持的方法尽数暴露出去
  */
 const funcs = [
   'getFieldValue',
@@ -507,12 +581,12 @@ const funcs = [
   'validateFields'
 ]
 
-export default forwardRef(function AyForm(props: DpFormProps, ref: Ref<any>) {
+export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   const { fields, onConfirm, span, children, props: defaultProps, readonly, layout } = props
-  const [, setRefresh] = useState<number>(0)
 
   /** 控制 any form 的实例 */
   const formRef: MutableRefObject<any> = useRef()
+  const [listnerList, setListnerList] = useState<Array<any>>([])
   /** 暴露出去的 form 的实例，允许父组件通过 ref 调用方法 */
   const formInstans: AnyKeyProps = {}
   /** 填充方法 */
@@ -529,9 +603,17 @@ export default forwardRef(function AyForm(props: DpFormProps, ref: Ref<any>) {
     })
     formRef.current.setFieldsValue(values)
   }
-  formInstans.setRefresh = setRefresh
   /** 暴露方法 */
   useImperativeHandle(ref, () => formInstans)
+
+  const addFieldListener = (key: string, fieldListener: FieldListener) => {
+    let newListner = [...listnerList]
+    newListner.push({
+      key,
+      fieldListener
+    })
+    setListnerList(newListner)
+  }
 
   return (
     <div className="ay-form">
@@ -542,11 +624,11 @@ export default forwardRef(function AyForm(props: DpFormProps, ref: Ref<any>) {
         name={props.name || 'ay-form'}
         initialValues={getDefaultValue(fields)}
         onFinish={(values) => handleConfirm(values, fields, onConfirm)}
-        onValuesChange={(changedValues, allValues) => handleChange(changedValues, allValues, fields, formInstans.setFieldsValue, setRefresh)}
+        onValuesChange={(changedValues, allValues) => handleChange(changedValues, allValues, fields, formInstans.setFieldsValue, listnerList)}
         {...defaultProps}
       >
         <Row>
-          {getFormItem(fields, formInstans.setFieldsValue, span, readonly)}
+          {getFormItem(fields, formInstans.setFieldsValue, addFieldListener, span, readonly)}
           {children}
         </Row>
       </Form>

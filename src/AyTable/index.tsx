@@ -1,6 +1,6 @@
 import React, { useState, ReactNode, useCallback, useEffect, forwardRef, useImperativeHandle } from 'react'
 import AyButton from '../AyButton'
-import { Table, Space, Card, Tag } from 'antd'
+import { Table, Space, Card, Tag, Tooltip } from 'antd'
 import { TABLE_PAGESIZE, TABLE_START_PAGE, TABLE_CTRL_KEY } from '../constant'
 import { TableRowSelection } from 'antd/lib/table/interface'
 import { AyTableField } from './ay-table'
@@ -103,6 +103,18 @@ const getAyTableField = (fields: Array<any>, ctrl?: AyTableField): Array<AyTable
             }
           }
           return row ? row.label : text
+        }
+      }
+      if (field.ellipsis) {
+        tableField.ellipsis = {
+          showTitle: false
+        }
+        tableField.render = (text: string) => {
+          return (
+            <Tooltip placement={field.placement || 'topLeft'} title={text}>
+              <span>{text || ''}</span>
+            </Tooltip>
+          )
         }
       }
       return tableField
