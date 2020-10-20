@@ -1,76 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useRef, MutableRefObject, ReactElement, createContext, forwardRef, useImperativeHandle, Ref, ReactNode } from 'react'
+import React, { useRef, MutableRefObject, createContext, forwardRef, useImperativeHandle, Ref } from 'react'
 import AySearch from '../AySearch'
 import AyTable from '../AyTable'
-import AyDialogForm, { AyDialogFormProps } from '../AyDialogForm'
-import { FormRefProps, TableRefProps, AySearchTableField, Row } from './ay-search-table'
+import AyDialogForm from '../AyDialogForm'
+import { FormRefProps, TableRefProps, AySearchTableField, AySearchTableProps } from './ay-search-table'
 import useSelection from './use/useSelection'
 // import useDirective from './use/useDirective'
 import { isObj } from '../utils'
-import { AyDialogFormField } from '../AyDialogForm/ay-dialog-form'
 import { getDefaultValue } from '../AyForm'
-import { Option } from '../AyForm/ay-form'
-import { AyTableCtrlField, AyTableField } from '../AyTable/ay-table'
+import { AyTableField } from '../AyTable/ay-table'
 import './ay-search-table.less'
+import { AySearchField } from '../AySearch/ay-search'
 
 export const AySearchTableContext = createContext({})
-
-interface AySearchTableProps {
-  /** 标题 */
-  title?: string | ReactNode
-  /** 配置项 */
-  fields: Array<AySearchTableField>
-  /** 子元素 */
-  children?: Array<ReactElement> | ReactElement
-  /** 请求列表接口 */
-  api?(params: AnyKeyProps): Promise<AnyKeyProps>
-  /** 删除接口 Api */
-  deleteApi?(params: Array<string>): Promise<any>
-  /** 表格数据（当不需要 api，由自己控制时使用） */
-  data?: Array<AnyKeyProps>
-  /** 表格操作列（写法跟正常的 filed 一致） */
-  ctrl?: AyTableCtrlField
-  /** 为空时表示没有选框 */
-  selectionType?: 'checkbox' | 'radio'
-  /** 选项改变事件 */
-  onSelectionChange?(selection: Array<Row>): void
-  /** 列表的 rowKey */
-  rowKey?: string
-  /** 选择时列表展示的 key */
-  selectShowKey?: string
-  /** dialog form 的配置 */
-  dialogFormExtend?: AyDialogFormProps
-  /** 弹窗表单的配置项 */
-  formField?: Array<AyDialogFormField>
-  /** 滚动的 X 轴数值 */
-  scrollX?: number
-  /** 列表过滤 */
-  filterData?(data: AnyKeyProps): AnyKeyProps
-  /** 提交前过滤 */
-  beforeSearch?(data: AnyKeyProps): AnyKeyProps
-  /** 展开事件 */
-  onExpand?(expanded: boolean, record: AnyKeyProps): void
-  /** 分页参数 */
-  pagination?: any
-  /** 节点插入在查询和表格之间 */
-  center?: ReactNode
-  /** 表格查询完成监听 */
-  onLoad?(records: Array<AnyKeyProps>, data: any): void
-  /** 查询区域是否展示 */
-  searchVisible?: boolean
-  /** talbe 其它属性 */
-  tableExtend?: AnyKeyProps
-  /** 指令完成事件 */
-  onFinish?(key: string, data?: any): void
-  /** 导出文件 */
-  downloadApi?(params: AnyKeyProps): Promise<AnyKeyProps>
-  /** 在导入前面插入按钮 */
-  btnBefore?: ReactNode
-  /** 统计数据，放在导入按钮前面 */
-  dataAnalysis?: Array<Option>
-  /** 是否展示导出按钮 */
-  exportVisible?: boolean
-}
 
 /**
  * 转化并过滤成 ay-search 能用的 fields

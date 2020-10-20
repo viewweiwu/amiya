@@ -1,5 +1,26 @@
 import { ExtendField } from '../AySearchTable/ay-search-table'
+import { ModalProps } from 'antd/lib/modal'
+
 declare type ModeType = 'add' | 'update' | 'view' | 'custom'
+
+export interface AyDialogFormProps extends ModalProps {
+  /** 弹窗标题 */
+  title?: string
+  /** 表单项 */
+  fields: Array<AyDialogFormField>
+  /** form 的 span */
+  span?: number
+  /** 新增 api */
+  addApi?(params?: AnyKeyProps): Promise<AnyKeyProps>
+  /** 修改 api */
+  updateApi?(params?: AnyKeyProps): Promise<AnyKeyProps>
+  /** 弹窗宽度 */
+  width?: number
+  /** 表单名字 */
+  name?: string
+  /** 提交前校验 */
+  beforeSubmit?(params?: AnyKeyProps, mode?: string): boolean | AnyKeyProps
+}
 
 export interface AyDialogFormField extends Field {
   /** 弹窗选项 */

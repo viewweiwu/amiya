@@ -4,12 +4,8 @@ import AyButton from '../AyButton'
 import { Form, Col, Space, Card } from 'antd'
 import './ay-search.less'
 import { AyFormField } from '../AyForm/ay-form'
+import { AySearchField, AySearchProps } from './ay-search'
 const { SearchOutlined, ReloadOutlined, DownOutlined, UpOutlined } = require('@ant-design/icons')
-
-interface AySearchProps {
-  fields: Array<AySearchField>
-  onConfirm?(values: AnyKeyProps): void
-}
 
 /**
  * 获取 field 当前的位置，默认位置是 1，越往前越靠前
@@ -31,7 +27,6 @@ const getOrder = (field: any): number => {
 const getSearchFields = (fields: Array<AySearchField>, mini: boolean): Array<AyFormField> => {
   let newFields: Array<AyFormField> = fields.map((field, i) => {
     let newField: AyFormField = {
-      key: field.key,
       ...field,
       // 生成 order
       order: getOrder(field)

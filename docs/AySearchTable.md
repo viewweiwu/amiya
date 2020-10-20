@@ -2,7 +2,7 @@
 
 ## 示例：增删改查
 
-```jsx
+```tsx
 import React from 'react'
 import AySearchTable from 'amiya/lib/AySearchTable'
 import AyAction from 'amiya/lib/AyAction'
@@ -52,11 +52,13 @@ const emptyApi = () => {
   })
 }
 
-const fields = [
+const fields: Array[AySearchTableField] = [
   {
     title: '姓名',
     key: 'cname',
-    search: {},
+    search: {
+      visible: false
+    },
     dialog: {
       required: true
     }
@@ -115,7 +117,7 @@ const fields = [
   }
 ]
 
-const CtrlField = {
+const CtrlField: AyTableCtrlField = {
   width: 200,
   render: (value, record) => {
     return (
@@ -181,18 +183,3 @@ export default function Demo() {
 | onLoad            | 表格查询完成监听。                                                | (records: Array<Record\>, data: any) => void | -      |
 | searchVisible     | 查询区域是否展。                                                  | boolean                                      | true   |
 | tableExtend       | table 其它属性。                                                  | Object                                       | {}     |
-
-## FormType
-
-## Field 参数
-
-| 参数名  | 说明       | 参数类型       | 默认值  |
-| ------- | ---------- | -------------- | ------- |
-| title   | 标题       | string         | -       |
-| key     | 唯一 key   | string         | -       |
-| type    | 表单项类型 | FormType       | 'input' |
-| options | 表格       | Array<Option\> | -       |
-
-## AyFormField 参数
-
-跳转到 AyForm 查看

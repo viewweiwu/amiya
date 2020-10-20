@@ -3,15 +3,8 @@ import AyButton from '../AyButton'
 import { AySearchTableContext } from '../AySearchTable'
 import { success, info } from '../AyMessage'
 import { Modal } from 'antd'
+import { AyActionProps } from './ay-action'
 const { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined } = require('@ant-design/icons')
-
-interface AyActionProps {
-  /** 子元素 */
-  children: string
-  action?: 'add' | 'update' | 'delete' | 'batch-delete' | 'view' | string
-  record?: AnyKeyProps
-  [key: string]: any
-}
 
 const actionMap: AnyKeyProps = {}
 

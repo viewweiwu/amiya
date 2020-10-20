@@ -1,10 +1,7 @@
 import React, { ReactNode } from 'react'
 import { Divider } from 'antd'
 import AyAction from '../AyAction'
-
-interface AmCtrlProps extends AnyKeyProps {
-  children: Array<ReactNode> | ReactNode
-}
+import { AyCtrlProps } from './ay-ctrl'
 
 /**
  * 返回一个控制项
@@ -53,7 +50,7 @@ const getCtrlList = (children: Array<ReactNode> | ReactNode): Array<ReactNode> =
   return ctrlList
 }
 
-export default function AmCtrl(props: AmCtrlProps) {
+export default function AmCtrl(props: AyCtrlProps) {
   const { children } = props
   const ctrlList = getCtrlList(children)
 

@@ -1,38 +1,18 @@
 import React, { useState, forwardRef, useImperativeHandle, Ref, useRef, MutableRefObject, useCallback, ReactNode } from 'react'
-import { ModalProps } from 'antd/lib/modal'
 import AyDialog from '../AyDialog'
 import AyForm from '../AyForm'
 import AyButton from '../AyButton'
-import { AyDialogFormField, ModeType, AydialogFormRef } from './ay-dialog-form'
+import { AyDialogFormField, ModeType, AydialogFormRef, AyDialogFormProps } from './ay-dialog-form'
 import { AyFormField } from '../AyForm/ay-form'
 
 /** 新增模式 */
-const MODE_ADD = 'add'
+export const MODE_ADD = 'add'
 /** 修改模式 */
-const MODE_UPDATE = 'update'
+export const MODE_UPDATE = 'update'
 /** 详情模式 */
-const MODE_VIEW = 'view'
+export const MODE_VIEW = 'view'
 /** 自定义模式 */
-const MODE_CUSTOM = 'custom'
-
-export interface AyDialogFormProps extends ModalProps {
-  /** 弹窗标题 */
-  title?: string
-  /** 表单项 */
-  fields: Array<AyDialogFormField>
-  /** form 的 span */
-  span?: number
-  /** 新增 api */
-  addApi?(params?: AnyKeyProps): Promise<AnyKeyProps>
-  /** 修改 api */
-  updateApi?(params?: AnyKeyProps): Promise<AnyKeyProps>
-  /** 弹窗宽度 */
-  width?: number
-  /** 表单名字 */
-  name?: string
-  /** 提交前校验 */
-  beforeSubmit?(params?: AnyKeyProps, mode?: string): boolean | AnyKeyProps
-}
+export const MODE_CUSTOM = 'custom'
 
 /**
  * 过滤获得 form 的配置项

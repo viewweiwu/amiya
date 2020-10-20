@@ -1,7 +1,49 @@
 import { ReactNode } from 'react'
 import { Option } from '../AyForm/ay-form'
+import { TableRowSelection } from 'antd/lib/table/interface'
+import { AyDialogFormField, AyDialogFormProps } from '../AyDialogForm/ay-dialog-form'
 
-declare interface AyTableField {
+export interface AyTableProps {
+  title?: string | ReactNode
+  children?: ReactNode
+  header?: ReactNode
+  api?(params: AnyKeyProps): Promise<AnyKeyProps>
+  /** 列表项 */
+  fields: Array<AyTableField>
+  /** 列表数据 */
+  data?: Array<any>
+  /** 操作列 */
+  ctrl?: AyTableField
+  /** 表格前面的 selection */
+  rowSelection?: TableRowSelection<AnyKeyProps>
+  /** 表格查询完成监听 */
+  onLoad?(records: Array<AnyKeyProps>, data: any): void
+  /** rowKey */
+  rowKey?: string
+  /** 横向滚动宽度 */
+  scrollX?: number
+  /** 加载玩数据过滤 */
+  filterData?(data: AnyKeyProps): AnyKeyProps
+  /** 查询前过滤 */
+  beforeSearch?(data: AnyKeyProps): AnyKeyProps
+  /** 展开事件 */
+  onExpand?(expanded: boolean, record: AnyKeyProps): void
+  /** 分页参数 */
+  pagination?: any
+  className?: string
+  /** talbe 其它属性 */
+  tableExtend?: AnyKeyProps
+  /** 默认查询数据 */
+  defaultSearchValue?: AnyKeyProps
+  /** 在导入前面插入按钮 */
+  btnBefore?: ReactNode
+  /** 统计数据，放在导入按钮前面 */
+  dataAnalysis?: Array<Option>
+  /** 是否展示导出按钮 */
+  exportVisible?: boolean
+}
+
+export interface AyTableField {
   /** 标题 */
   title?: string
   /** 唯一 key，dataIndex 默认会跟次值一样 */
@@ -13,10 +55,12 @@ declare interface AyTableField {
   ctrl?: Array<ReactNode>
   /** 渲染方式，可选值，'tag' */
   renderType?: 'tag'
+  /** 是否隐藏这一列 */
+  hidden?: boolean
   [key: string]: any
 }
 
-declare interface AyTableCtrlField extends AyTableField {
+export interface AyTableCtrlField extends AyTableField {
   /** render 函数 */
   render(text: ReactNode, record: AnyKeyProps, index: number): ReactNode
 }

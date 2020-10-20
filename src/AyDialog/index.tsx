@@ -1,24 +1,7 @@
-import React, { ReactNode, SetStateAction, Dispatch } from 'react'
+import React from 'react'
 import { Modal } from 'antd'
-import { ModalFuncProps, ModalProps } from 'antd/lib/modal'
+import { AyDialogProps, AyConfirmProps } from './ay-dialog'
 const { ExclayationCircleOutlined } = require('@ant-design/icons')
-
-interface AyDialogProps extends ModalProps {
-  children: ReactNode
-  title: ReactNode
-  visible: boolean
-  setVisible: Dispatch<SetStateAction<boolean>>
-  onConfirm?(): void
-  loading?: boolean
-  footer?: ReactNode
-  width?: number
-}
-
-interface AyConfirmProps extends ModalFuncProps {
-  title: ReactNode
-  content: ReactNode
-  onConfirm(): void
-}
 
 export default function AyDialog(props: AyDialogProps) {
   const { title, children, setVisible, onConfirm, loading, footer, width } = props

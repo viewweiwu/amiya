@@ -1,9 +1,8 @@
-import React, { useState, ReactNode, useCallback, useEffect, forwardRef, useImperativeHandle } from 'react'
+import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle } from 'react'
 import AyButton from '../AyButton'
 import { Table, Space, Card, Tag, Tooltip } from 'antd'
 import { TABLE_PAGESIZE, TABLE_START_PAGE, TABLE_CTRL_KEY } from '../constant'
-import { TableRowSelection } from 'antd/lib/table/interface'
-import { AyTableField } from './ay-table'
+import { AyTableField, AyTableProps } from './ay-table'
 import { Option } from '../AyForm/ay-form'
 import { clearEmpty } from '../utils'
 import './ay-table.less'
@@ -23,46 +22,6 @@ export const setDefaultSearchFilter = (cb: (params: AnyKeyProps) => AnyKeyProps)
 
 export const setDefaultDataFilter = (cb: (params: AnyKeyProps) => AnyKeyProps) => {
   defaultDataFilter = cb
-}
-
-interface AyTableProps {
-  title?: string | ReactNode
-  children?: ReactNode
-  header?: ReactNode
-  api?(params: AnyKeyProps): Promise<AnyKeyProps>
-  /** 列表项 */
-  fields: Array<AyTableField>
-  /** 列表数据 */
-  data?: Array<any>
-  /** 操作列 */
-  ctrl?: AyTableField
-  /** 表格前面的 selection */
-  rowSelection?: TableRowSelection<AnyKeyProps>
-  /** 表格查询完成监听 */
-  onLoad?(records: Array<AnyKeyProps>, data: any): void
-  /** rowKey */
-  rowKey?: string
-  /** 横向滚动宽度 */
-  scrollX?: number
-  /** 加载玩数据过滤 */
-  filterData?(data: AnyKeyProps): AnyKeyProps
-  /** 查询前过滤 */
-  beforeSearch?(data: AnyKeyProps): AnyKeyProps
-  /** 展开事件 */
-  onExpand?(expanded: boolean, record: AnyKeyProps): void
-  /** 分页参数 */
-  pagination?: any
-  className?: string
-  /** talbe 其它属性 */
-  tableExtend?: AnyKeyProps
-  /** 默认查询数据 */
-  defaultSearchValue?: AnyKeyProps
-  /** 在导入前面插入按钮 */
-  btnBefore?: ReactNode
-  /** 统计数据，放在导入按钮前面 */
-  dataAnalysis?: Array<Option>
-  /** 是否展示导出按钮 */
-  exportVisible?: boolean
 }
 
 /**
@@ -342,7 +301,11 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
         dataSource={tableData}
         loading={loading}
         rowSelection={rowSelection}
-        pagination={pagination !== undefined ? pagination : { total, current: loadParams.pagination.current, onChange: onPageChange, showTotal: (total) => `共 ${total} 条` }}
+        pagination={
+          pagination !== undefined
+            ? pagination
+            : { total, current: loadParams.pagination.current, onChange: onPageChange, showTotal: (total) => `共 ${total} 条` }
+        }
         rowKey={rowKey || 'id'}
         scroll={{ x: scrollX }}
         {...tableExtend}

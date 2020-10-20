@@ -2,15 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import BraftEditor, { EditorState } from 'braft-editor'
 import 'braft-editor/dist/index.css'
 import './ay-editor.less'
-
-interface AyEditorProps {
-  /** 值 */
-  value?: any
-  /** change 事件监听 */
-  onChange?: (value: string) => void
-  disabled?: boolean
-  placeholder?: string
-}
+import { AyEditorProps } from './ay-editor'
 
 /**
  * 判断内容是否是空数据

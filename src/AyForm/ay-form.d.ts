@@ -1,5 +1,45 @@
 import { ReactNode } from 'react'
 
+export interface AyFormProps {
+  /** 配置项 */
+  fields: Array<AyFormField>
+  /** form 名称 */
+  name?: string
+  /** 子元素 */
+  children?: ReactNode
+  /** 控制元素 */
+  ref: any
+  /** 提交事件 */
+  onConfirm?(form: any): any
+  /** 默认 span 值 */
+  span?: number
+  /** form 的其它属性 */
+  props?: AnyKeyProps
+  /** 是否只读 */
+  readonly?: boolean
+  /** 布局 */
+  layout?: {
+    labelCol: AnyKeyProps
+    wrapperCol: AnyKeyProps
+  }
+}
+
+export interface RegisterFieldProps {
+  /** 类型 */
+  type: string
+  /** 默认值 */
+  defaultValue: any
+  /** formItem 的 valuePropName，比如 Checkbox 时，valuePropName = 'checked' */
+  valuePropName?: string
+  /** render */
+  render: (
+    field: AyFormField,
+    setFieldsValue: (params: AnyKeyProps) => void,
+    readonly: boolean,
+    addFieldListener: (key: string, fieldListener: FieldListener) => void
+  ) => ReactNode
+}
+
 /**
  * 可以选择下面 type 对应的类型
  * @param input 输入框
@@ -17,7 +57,7 @@ import { ReactNode } from 'react'
  * @param empty 空白框
  * @param custom 自定义，此时支持 renderContent
  */
-declare type FormType =
+export type FormType =
   | 'input'
   | 'password'
   | 'number'
@@ -38,7 +78,7 @@ declare type FormType =
 /**
  * 所有 field 的 最小单元，会被这些类型扩展: AyForm AySearch AyTable AySearchTable AyDialogForm
  */
-declare interface Field {
+export interface Field {
   /** 标题 */
   title?: string
   /** 相应的 key */
@@ -55,18 +95,17 @@ declare interface Field {
   options?: Array<Option>
 }
 
-declare interface Option {
+export interface Option {
   /** 页面展示的值 */
   label: string | number
-
   /** 实际所取到的值 */
   value: any
-
   /** 是否禁用 */
   disabled?: boolean
+  children: Array<Option>
 }
 
-declare interface AyFormField extends Field {
+export interface AyFormField extends Field {
   /** 相应的 key，会跟最后表单取到的项目相关; form 的 key 值必填 */
   key: string
   /** Grid Col 占位 [0 - 24] */
@@ -83,15 +122,13 @@ declare interface AyFormField extends Field {
   visible?: boolean | Function
   /** 是否展示，不会占位; 保留默认值 */
   hidden?: boolean | Function
-  /** 默认的属性 */
+  /** 原生的属性 */
   props?: {
     /** 输入框、选择框未输入文字时的提示 */
     placeholder?: string
     [key: string]: any
   }
   formItemProps?: AnyKeyProps
-  /** 多选框后面跟随的文字 */
-  checkboxChildren?: string | ReactNode
   /** 自定义 content 内容 */
   renderContent?(field: AyFormField, record: AnyKeyProps): ReactNode
   /** 自定义 render */
@@ -122,4 +159,4 @@ declare interface AyFormField extends Field {
  * @param value 变化的值
  * @param field 变化了的 field
  */
-type FieldListener = (value: any, field: AyFormField) => void
+export type FieldListener = (value: any, field: AyFormField) => void

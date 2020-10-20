@@ -42,49 +42,10 @@ import {
   NUMBER_DEFAULT_MAX,
   PERCENT_DEFAULT_MAX
 } from '../constant'
-import { AyFormField, FieldListener } from './ay-form'
+import { AyFormField, AyFormProps, FieldListener, RegisterFieldProps } from './ay-form'
 import { copy } from '../utils'
+import { AySearchField } from '../AySearch/ay-search'
 moment.locale('zh-cn')
-
-interface AyFormProps {
-  /** 配置项 */
-  fields: Array<AyFormField>
-  /** form 名称 */
-  name?: string
-  /** 子元素 */
-  children?: ReactNode
-  /** 控制元素 */
-  ref: any
-  /** 提交事件 */
-  onConfirm?(form: any): any
-  /** 默认 span 值 */
-  span?: number
-  /** form 的其它属性 */
-  props?: AnyKeyProps
-  /** 是否只读 */
-  readonly?: boolean
-  /** 布局 */
-  layout?: {
-    labelCol: AnyKeyProps
-    wrapperCol: AnyKeyProps
-  }
-}
-
-interface RegisterFieldProps {
-  /** 类型 */
-  type: string
-  /** 默认值 */
-  defaultValue: any
-  /** formItem 的 valuePropName，比如 Checkbox 时，valuePropName = 'checked' */
-  valuePropName?: string
-  /** render */
-  render: (
-    field: AyFormField,
-    setFieldsValue: (params: AnyKeyProps) => void,
-    readonly: boolean,
-    addFieldListener: (key: string, fieldListener: FieldListener) => void
-  ) => ReactNode
-}
 
 const defaultLayout = {
   labelCol: { flex: '120px' },

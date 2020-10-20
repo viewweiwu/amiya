@@ -1,6 +1,6 @@
 {
   "name": "amiya",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "amiya React component",
   "main": "lib/index.js",
   "module": "es/index.js",
