@@ -1,1 +1,5 @@
-export { default as AySelect } from './ay-select'
+import { AySelectProps } from './ay-select'
+
+declare const AySelect: React.ForwardRefExoticComponent<AySelectProps & React.RefAttributes<HTMLDivElement>>
+
+export default AySelect

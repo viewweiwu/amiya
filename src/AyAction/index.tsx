@@ -4,6 +4,7 @@ import { AySearchTableContext } from '../AySearchTable'
 import { success, info } from '../AyMessage'
 import { Modal } from 'antd'
 import { AyActionProps } from './ay-action'
+import { AnyKeyProps } from '../types/AnyKeyProps'
 const { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined } = require('@ant-design/icons')
 
 const actionMap: AnyKeyProps = {}
@@ -11,14 +12,17 @@ const actionMap: AnyKeyProps = {}
 /**
  * 注册一个 action
  */
-export function registerAction(actionName: string, action: (props: AnyKeyProps, record: AnyKeyProps, searchTable: AnyKeyProps) => AnyKeyProps) {
+export const registerAction = function (
+  actionName: string,
+  action: (props: AnyKeyProps, record: AnyKeyProps, searchTable: AnyKeyProps) => AnyKeyProps
+) {
   actionMap[actionName] = action
 }
 
 /**
  * 注册【新增】事件
  */
-registerAction('add', (props, record, searchTable) => {
+registerAction('add', (props, _record, searchTable) => {
   return {
     type: 'primary',
     icon: <PlusOutlined />,

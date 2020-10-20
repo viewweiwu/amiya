@@ -1,6 +1,7 @@
 import { ReactElement, ReactNode } from 'react'
 import { AyTableCtrlField } from '../AyTable/ay-table'
 import { AyDialogFormProps, AyDialogFormField } from '../AyDialog/ay-dialog'
+import { AnyKeyProps } from '../types/AnyKeyProps'
 
 export interface AySearchTableProps {
   /** 标题 */
@@ -58,7 +59,6 @@ export interface AySearchTableProps {
   /** 是否展示导出按钮 */
   exportVisible?: boolean
 }
-
 export interface ExtendField extends Field, AyFormField {
   key?: string
   /**

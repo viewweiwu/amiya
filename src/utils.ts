@@ -1,3 +1,5 @@
+import { AnyKeyProps } from './types/AnyKeyProps'
+
 /**
  * 拷贝对象
  * @param obj
@@ -74,7 +76,7 @@ export const digitUppercase = (n: number) => {
   let digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖']
   let unit = [
     ['元', '万', '亿'],
-    ['', '拾', '佰', '仟'],
+    ['', '拾', '佰', '仟']
   ]
   let head = n < 0 ? '欠' : ''
   n = Math.abs(n)
@@ -140,7 +142,16 @@ interface ListToTreeProps {
  * @param props 配置参数
  */
 export const listToTree = (props: ListToTreeProps) => {
-  const { data = [], parentKey = 'parentId', labelKey = 'name', childrenKey = 'children', valueKey = 'id', rootValue = null, hasChildren = false, format } = props
+  const {
+    data = [],
+    parentKey = 'parentId',
+    labelKey = 'name',
+    childrenKey = 'children',
+    valueKey = 'id',
+    rootValue = null,
+    hasChildren = false,
+    format
+  } = props
   let list = copy(data)
   let map: AnyKeyProps = {}
   let roots: Array<AnyKeyProps> = []
@@ -192,7 +203,7 @@ export const Base64 = {
         })
         .join('')
     )
-  },
+  }
 }
 
 // 根据充值类型 id 获取对应的中文描述

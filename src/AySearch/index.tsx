@@ -5,6 +5,7 @@ import { Form, Col, Space, Card } from 'antd'
 import './ay-search.less'
 import { AyFormField } from '../AyForm/ay-form'
 import { AySearchField, AySearchProps } from './ay-search'
+import { AnyKeyProps } from '../types/AnyKeyProps'
 const { SearchOutlined, ReloadOutlined, DownOutlined, UpOutlined } = require('@ant-design/icons')
 
 /**

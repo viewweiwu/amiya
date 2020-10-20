@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { Option } from '../AyForm/ay-form'
 import { TableRowSelection } from 'antd/lib/table/interface'
 import { AyDialogFormField, AyDialogFormProps } from '../AyDialogForm/ay-dialog-form'
+import { AnyKeyProps } from '../types/AnyKeyProps'
 
 export interface AyTableProps {
   title?: string | ReactNode

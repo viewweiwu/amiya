@@ -11,6 +11,7 @@ import { getDefaultValue } from '../AyForm'
 import { AyTableField } from '../AyTable/ay-table'
 import './ay-search-table.less'
 import { AySearchField } from '../AySearch/ay-search'
+import { AnyKeyProps } from '../types/AnyKeyProps'
 
 export const AySearchTableContext = createContext({})
 

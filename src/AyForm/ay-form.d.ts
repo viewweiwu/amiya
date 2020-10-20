@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { AnyKeyProps } from '../types/AnyKeyProps'
 
 export interface AyFormProps {
   /** 配置项 */

@@ -4,6 +4,7 @@ import AyForm from '../AyForm'
 import AyButton from '../AyButton'
 import { AyDialogFormField, ModeType, AydialogFormRef, AyDialogFormProps } from './ay-dialog-form'
 import { AyFormField } from '../AyForm/ay-form'
+import { AnyKeyProps } from '../types/AnyKeyProps'
 
 /** 新增模式 */
 export const MODE_ADD = 'add'

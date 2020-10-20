@@ -6,6 +6,7 @@ import { AyTableField, AyTableProps } from './ay-table'
 import { Option } from '../AyForm/ay-form'
 import { clearEmpty } from '../utils'
 import './ay-table.less'
+import { AnyKeyProps } from '../types/AnyKeyProps'
 const { DownloadOutlined } = require('@ant-design/icons')
 
 let defaultSearchFilter = (params: AnyKeyProps) => {

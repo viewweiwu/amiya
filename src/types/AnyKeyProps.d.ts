@@ -1,3 +1,3 @@
-declare interface AnyKeyProps {
+export interface AnyKeyProps {
   [key: string]: any
 }

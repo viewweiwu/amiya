@@ -1,1 +1,5 @@
-export { default as AySearch } from './ay-search'
+import { AySearchProps } from './ay-search'
+
+declare const AySearch: React.ForwardRefExoticComponent<AySearchProps & React.RefAttributes<HTMLDivElement>>
+
+export default AySearch

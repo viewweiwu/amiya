@@ -1,3 +1,6 @@
+import { AnyKeyProps } from '../types/AnyKeyProps'
+import { registerAction } from './index'
+
 export interface AyActionProps {
   /** 子元素 */
   children: string

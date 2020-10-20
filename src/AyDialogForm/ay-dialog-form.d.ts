@@ -1,4 +1,3 @@
-import { ExtendField } from '../AySearchTable/ay-search-table'
 import { ModalProps } from 'antd/lib/modal'
 
 declare type ModeType = 'add' | 'update' | 'view' | 'custom'

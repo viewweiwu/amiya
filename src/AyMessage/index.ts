@@ -5,12 +5,12 @@ export const success = (msg: ReactNode, duration?: number) => {
   return message.success(msg, duration)
 }
 
-export const error = (msg: ReactNode) => {
-  return message.error(msg)
+export const error = (msg: ReactNode, duration?: number) => {
+  return message.error(msg, duration)
 }
 
-export const info = (msg: ReactNode) => {
-  return message.info(msg)
+export const info = (msg: ReactNode, duration?: number) => {
+  return message.info(msg, duration)
 }
 
 export default {
