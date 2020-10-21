@@ -406,24 +406,21 @@ const data: Array<any> = [
     id: 1,
     cname: '阿米娅',
     name: 'amiya',
-    cg:
-      'http://prts.wiki/images/thumb/a/a0/%E5%8D%8A%E8%BA%AB%E5%83%8F_%E9%98%BF%E7%B1%B3%E5%A8%85_1.png/110px-%E5%8D%8A%E8%BA%AB%E5%83%8F_%E9%98%BF%E7%B1%B3%E5%A8%85_1.png',
+    cg: 'https://misc.hzzcckj.cn/upload/image/202010/aaaa793df000000.png',
     star: 5
   },
   {
     id: 2,
     cname: '能天使',
     name: 'Exusiai',
-    cg:
-      'http://prts.wiki/images/thumb/2/2e/%E5%8D%8A%E8%BA%AB%E5%83%8F_%E8%83%BD%E5%A4%A9%E4%BD%BF_1.png/110px-%E5%8D%8A%E8%BA%AB%E5%83%8F_%E8%83%BD%E5%A4%A9%E4%BD%BF_1.png',
+    cg: 'https://misc.hzzcckj.cn/upload/image/202010/aaaa7a7e6000000.png',
     star: 6
   },
   {
     id: 3,
     cname: '瑕光',
     name: 'Blemishine',
-    cg:
-      'http://prts.wiki/images/thumb/a/a6/%E5%8D%8A%E8%BA%AB%E5%83%8F_%E7%91%95%E5%85%89_1.png/110px-%E5%8D%8A%E8%BA%AB%E5%83%8F_%E7%91%95%E5%85%89_1.png',
+    cg: 'https://misc.hzzcckj.cn/upload/image/202010/aaaa7b481c00000.png',
     star: 6
   }
 ]
