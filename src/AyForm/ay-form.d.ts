@@ -16,9 +16,13 @@ export interface AyFormProps {
   span?: number
   /** form 的其它属性 */
   props?: AnyKeyProps
+  /** Form.Item 的其它属性 */
+  formItemProps?: AnyKeyProps
   /** 是否只读 */
   readonly?: boolean
+  /** 样式 */
   className?: string
+  /** 样式 */
   style: AnyKeyProps
   /** 布局 */
   layout?: {

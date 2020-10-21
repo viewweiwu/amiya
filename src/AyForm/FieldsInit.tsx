@@ -164,7 +164,7 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
   registerField(FORM_TYPE_CHECKBOX, {
     type: FORM_TYPE_CHECKBOX,
     defaultValue: FORM_DEFAULT_VALUE_CHECKBOX,
-    // valuePropName: 'checked',
+    valuePropName: 'checked',
     render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => (
       <Checkbox disabled={readonly} {...field.props} />
     )
@@ -187,46 +187,6 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
       <Radio.Group disabled={readonly} options={field.options} {...field.props} />
     )
   })
-  const renderExtraFooter = (setFieldsValue: (params: AnyKeyProps) => void, field: AnyKeyProps) => {
-    /**
-     * 填充日期
-     * @param value 日期
-     */
-    const setValue = (value: moment.Moment) => {
-      setFieldsValue({
-        [field.key]: value
-      })
-    }
-    return (
-      <>
-        <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().startOf('day'))}>
-          今天凌晨
-        </a>
-        <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().endOf('day'))}>
-          今天晚上
-        </a>
-        <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().subtract(1, 'day').startOf('day'))}>
-          昨天凌晨
-        </a>
-        <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().subtract(1, 'day').endOf('day'))}>
-          昨天晚上
-        </a>
-        <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().startOf('month'))}>
-          月初
-        </a>
-        <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().endOf('month'))}>
-          月底
-        </a>
-        <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().subtract(1, 'month').startOf('month'))}>
-          上月初
-        </a>
-        <a className="ant-picker-now-btn mr" onClick={() => setValue(moment().subtract(1, 'month').endOf('month'))}>
-          上月底
-        </a>
-      </>
-    )
-  }
-
   // 注册日期
   registerField(FORM_TYPE_DATE, {
     type: FORM_TYPE_DATE,
@@ -235,28 +195,23 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
       <DatePicker
         disabled={readonly}
         className="max-width"
-        renderExtraFooter={() => renderExtraFooter(setFieldsValue, field)}
+        placeholder={`请选择${field.title || ''}`}
         {...field.props}
       />
     )
   })
-
-  // 区间日期快捷选项
-  const ranges: any = {
-    今天: [moment().startOf('day'), moment().endOf('day')],
-    昨天: [moment().subtract(1, 'day'), moment().subtract(1, 'day').endOf('day')],
-    本周: [moment().startOf('week'), moment().endOf('day')],
-    上周: [moment().startOf('week').subtract(7, 'day'), moment().endOf('week').subtract(7, 'day')],
-    本月: [moment().startOf('month'), moment().endOf('day')],
-    上月: [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-  }
 
   // 注册区间日期
   registerField(FORM_TYPE_DATE_RANGE, {
     type: FORM_TYPE_DATE_RANGE,
     defaultValue: FORM_DEFAULT_VALUE_DATE_RANGE,
     render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => (
-      <DatePicker.RangePicker disabled={readonly} className="max-width" ranges={ranges} {...(field.props as any)} />
+      <DatePicker.RangePicker
+        placeholder={['开始日期', '结束日期']}
+        disabled={readonly}
+        className="max-width"
+        {...(field.props as any)}
+      />
     )
   })
 
