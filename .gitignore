@@ -8,3 +8,5 @@
 .umi
 .docz
 npm-debug.log*
+
+dist*

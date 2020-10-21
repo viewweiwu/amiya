@@ -1,6 +1,5 @@
 import { Input, Switch, Checkbox, Radio, DatePicker, InputNumber } from 'antd'
 import React from 'react'
-import moment from 'moment'
 import AyEditor from '../AyEditor'
 import AySelect from '../AySelect'
 import {

@@ -122,11 +122,6 @@ const fields: Array<AyFormField> = [
     title: 'DateRange',
     type: 'date-range',
     key: 'date-range'
-  },
-  {
-    title: 'DateRange',
-    type: 'date-range',
-    key: 'date-range'
   }
 ]
 
@@ -200,11 +195,13 @@ export default function Demo() {
 
 ## 日期添加快捷选项
 
-可以覆盖原本的 `date` 与 `date-range` 类型，达到全局添加默认选项的效果。
+可以注册日期类型来覆盖原本的 `date` 与 `date-range` 类型，达到全局添加默认选项的效果。
+
+注册时请把注册的代码放到全局入口处，全局使用只需要注册一次。
 
 ```tsx
 import React from 'react'
-import { AyForm, AyFormField, registerField } from 'amiya'
+import { AyForm, AyFormField, registerField, AyButton } from 'amiya'
 import { DatePicker, Row, Col } from 'antd'
 import moment from 'moment'
 
@@ -233,6 +230,7 @@ registerField('date-range', {
   )
 })
 
+// 日期快捷选项
 const renderExtraFooter = (setFieldsValue: (params: AnyKeyProps) => void, field: AnyKeyProps) => {
   /**
    * 填充日期
@@ -310,7 +308,218 @@ const fields: Array<AyFormField> = [
 ]
 
 export default function Demo() {
-  return <AyForm fields={fields} />
+  const handleConfirm = (form: any) => {
+    console.log(form)
+    alert(JSON.stringify(form))
+  }
+  return (
+    <AyForm fields={fields} onConfirm={handleConfirm}>
+      <AyButton block type="primary" htmlType="submit">
+        提交
+      </AyButton>
+    </AyForm>
+  )
+}
+```
+
+## 注册表单类型
+
+自定义表单项目，注册逻辑稍微复杂点的表单项。
+
+请尝试点击下方表单的 `角色选择` 按钮。
+
+注册时请把注册的代码放到全局入口处，全局使用只需要注册一次。
+
+```tsx
+import React, { useState, useMemo } from 'react'
+import { AyForm, AyButton, AyFormField, registerField, AyDialog } from 'amiya'
+import { Card } from 'antd'
+
+interface CharaSelectProps {
+  value?: string
+  onChange?: (value: string) => void
+}
+
+// 样式
+const styles = {
+  'chara-card': {
+    width: 120,
+    height: 250,
+    marginRight: 10,
+    backgroundColor: '#333',
+    position: 'relative',
+    overflow: 'hidden',
+    display: 'inline-block',
+    userSelect: 'none',
+    cursor: 'pointer'
+  },
+  rarity: {
+    top: 0,
+    left: 4,
+    zIndex: 1,
+    position: 'absolute'
+  },
+  cg: {
+    top: '50%',
+    left: '50%',
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    transform: 'translate(-50%, -50%)'
+  },
+  line: {
+    top: '60%',
+    left: 0,
+    width: '140%',
+    height: '50%',
+    padding: '8px 0',
+    boxShadow: '0 0 10px 10px gold',
+    zIndex: 1,
+    backgroundColor: 'rgba(0, 0, 0, .8)',
+    transform: 'rotate(30deg)',
+    transformOrigin: 'left top',
+    position: 'absolute'
+  },
+  name: {
+    left: 4,
+    bottom: 4,
+    width: '100%',
+    color: '#fff',
+    zIndex: 2,
+    position: 'absolute'
+  },
+  checked: {
+    top: '50%',
+    left: 0,
+    width: '100%',
+    color: '#fff',
+    backgroundColor: 'rgba(0, 0, 0, .8)',
+    zIndex: 10,
+    position: 'absolute',
+    textAlign: 'center'
+  }
+}
+
+// 数据
+const data: Array<any> = [
+  {
+    id: 1,
+    cname: '阿米娅',
+    name: 'amiya',
+    cg:
+      'http://prts.wiki/images/thumb/a/a0/%E5%8D%8A%E8%BA%AB%E5%83%8F_%E9%98%BF%E7%B1%B3%E5%A8%85_1.png/110px-%E5%8D%8A%E8%BA%AB%E5%83%8F_%E9%98%BF%E7%B1%B3%E5%A8%85_1.png',
+    star: 5
+  },
+  {
+    id: 2,
+    cname: '能天使',
+    name: 'Exusiai',
+    cg:
+      'http://prts.wiki/images/thumb/2/2e/%E5%8D%8A%E8%BA%AB%E5%83%8F_%E8%83%BD%E5%A4%A9%E4%BD%BF_1.png/110px-%E5%8D%8A%E8%BA%AB%E5%83%8F_%E8%83%BD%E5%A4%A9%E4%BD%BF_1.png',
+    star: 6
+  },
+  {
+    id: 3,
+    cname: '瑕光',
+    name: 'Blemishine',
+    cg:
+      'http://prts.wiki/images/thumb/a/a6/%E5%8D%8A%E8%BA%AB%E5%83%8F_%E7%91%95%E5%85%89_1.png/110px-%E5%8D%8A%E8%BA%AB%E5%83%8F_%E7%91%95%E5%85%89_1.png',
+    star: 6
+  }
+]
+
+// 人物卡片
+function CharaCard(props: any) {
+  const { chara, onClick, value } = props
+  return (
+    <div style={styles['chara-card']} onClick={onClick}>
+      <header style={styles['rarity']}>{''.padEnd(chara.star * 2, '⭐️')}</header>
+      <img style={styles['cg']} src={chara.cg} />
+      <div style={styles['line']}></div>
+      <div style={styles['shadow']}></div>
+      <div style={styles['name']}>
+        <div>{chara.name}</div>
+        <div style={styles['cname']}>{chara.cname}</div>
+      </div>
+      {value === chara.id && <div style={styles['checked']}>已选择</div>}
+    </div>
+  )
+}
+
+// 人物选择
+function CharaSelect(props: CharaSelectProps) {
+  const { value, onChange } = props
+  const [checked, setChecked] = useState<string>(value || '')
+  const [visible, setVisible] = useState<boolean>(false)
+
+  // 获得选中的人物
+  const activeChara = useMemo(() => {
+    return data.find((chara) => chara.id === value)
+  }, [value])
+
+  // 打开弹窗选择
+  const handleSelect = () => {
+    setChecked(value)
+    setVisible(true)
+  }
+
+  // 提交选择
+  const handleConfirm = () => {
+    onChange && onChange(checked)
+    setVisible(false)
+  }
+
+  return (
+    <div className="chara-select">
+      {activeChara ? (
+        <CharaCard chara={activeChara} onClick={handleSelect} />
+      ) : (
+        <AyButton onClick={handleSelect}>角色选择</AyButton>
+      )}
+      <AyDialog title="角色选择" visible={visible} setVisible={setVisible} onConfirm={handleConfirm}>
+        {data.map((chara) => {
+          return <CharaCard value={checked} key={chara.id} chara={chara} onClick={() => setChecked(chara.id)} />
+        })}
+      </AyDialog>
+    </div>
+  )
+}
+
+// 注册一个角色选择
+registerField('chara-select', {
+  type: '角色选择',
+  defaultValue: '',
+  render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => (
+    <CharaSelect {...field.props} />
+  )
+})
+
+const fields: Array<AyFormField> = [
+  {
+    title: '姓名',
+    key: 'input'
+  },
+  {
+    title: '选择人物',
+    type: 'chara-select',
+    key: 'chara',
+    required: true
+  }
+]
+
+export default function Demo() {
+  const handleConfirm = (form: any) => {
+    console.log(form)
+    alert(JSON.stringify(form))
+  }
+
+  return (
+    <AyForm span={24} fields={fields} style={{ width: 400, margin: '0 auto' }} onConfirm={handleConfirm}>
+      <AyButton type="primary" htmlType="submit" style={{ marginLeft: 120 }}>
+        提交
+      </AyButton>
+    </AyForm>
+  )
 }
 ```
 

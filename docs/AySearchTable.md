@@ -51,7 +51,7 @@ const emptyApi = () => {
   })
 }
 
-const fields: Array[AySearchTableField] = [
+const fields: Array<AySearchTableField> = [
   {
     title: '姓名',
     key: 'cname',

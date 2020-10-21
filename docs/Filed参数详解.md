@@ -19,11 +19,11 @@ const fields: Array<Field> = [
 
 | 值类型         | 说明                                                     | 默认值    |
 | -------------- | -------------------------------------------------------- | --------- |
-| input          | 输入框                                                   | ''        |
-| number         | 数字输入框                                               | null      |
-| percent        | 百分比输入框                                             | null      |
+| input          | 输入框，默认字符长度 30                                  | ''        |
+| number         | 数字输入框，0 ～ 99999999                                | null      |
+| percent        | 百分比输入框，0 ～ 100                                   | null      |
 | password       | 密码输入框                                               | ''        |
-| textarea       | 多行输入框                                               | ''        |
+| textarea       | 多行输入框，默认字符长度 200                             | ''        |
 | select         | 选择框                                                   | undefined |
 | switch         | 开关                                                     | false     |
 | checkbox       | 多选框（单个）                                           | false     |
