@@ -2,5 +2,5 @@
 export default {
   logo: './images/logo.jpg',
   publicPath: './',
-  base: '/yt-admin-react'
+  // base: '/yt-admin-react'
 };

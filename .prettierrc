@@ -3,5 +3,5 @@
   "singleQuote": true,
   "semi": false,
   "trailingComma": "none",
-  "printWidth": 150
+  "printWidth": 120
 }

@@ -5,6 +5,10 @@ export const success = (msg: ReactNode, duration?: number) => {
   return message.success(msg, duration)
 }
 
+export const warning = (msg: ReactNode, duration?: number) => {
+  return message.warning(msg, duration)
+}
+
 export const error = (msg: ReactNode, duration?: number) => {
   return message.error(msg, duration)
 }
@@ -16,5 +20,6 @@ export const info = (msg: ReactNode, duration?: number) => {
 export default {
   success,
   error,
-  info
+  info,
+  warning
 }

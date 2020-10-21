@@ -17,7 +17,15 @@ export default function AyDialog(props: AyDialogProps) {
   }
 
   return (
-    <Modal width={width} title={title} onOk={handleConfirm} onCancel={handleCancel} confirmLoading={loading} footer={footer} {...props}>
+    <Modal
+      width={width}
+      title={title}
+      onOk={handleConfirm}
+      onCancel={handleCancel}
+      confirmLoading={loading}
+      footer={footer}
+      {...props}
+    >
       {children}
     </Modal>
   )

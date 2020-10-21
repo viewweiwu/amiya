@@ -4,9 +4,8 @@
 
 ```tsx
 import React from 'react'
-import AySearchTable from 'amiya/lib/AySearchTable'
-import AyAction from 'amiya/lib/AyAction'
-import AyCtrl from 'amiya/lib/AyCtrl'
+import { AySearchTable, AyAction, AyCtrl, AySearchTableField } from 'amiya'
+import { AyTableCtrlField } from 'amiya/lib/AyTable/ay-table'
 import 'antd/dist/antd.min.css'
 
 /**
@@ -56,9 +55,6 @@ const fields: Array[AySearchTableField] = [
   {
     title: '姓名',
     key: 'cname',
-    search: {
-      visible: false
-    },
     dialog: {
       required: true
     }

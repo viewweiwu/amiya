@@ -9,7 +9,7 @@ export interface AyFormProps {
   /** 子元素 */
   children?: ReactNode
   /** 控制元素 */
-  ref: any
+  ref?: any
   /** 提交事件 */
   onConfirm?(form: any): any
   /** 默认 span 值 */
@@ -18,10 +18,12 @@ export interface AyFormProps {
   props?: AnyKeyProps
   /** 是否只读 */
   readonly?: boolean
+  className?: string
+  style: AnyKeyProps
   /** 布局 */
   layout?: {
-    labelCol: AnyKeyProps
-    wrapperCol: AnyKeyProps
+    labelCol?: AnyKeyProps
+    wrapperCol?: AnyKeyProps
   }
 }
 
@@ -103,7 +105,7 @@ export interface Option {
   value: any
   /** 是否禁用 */
   disabled?: boolean
-  children: Array<Option>
+  children?: Array<Option>
 }
 
 export interface AyFormField extends Field {

@@ -170,7 +170,6 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
       if (defaultSearchFilter) {
         searchParams = defaultSearchFilter(searchParams)
       }
-      console.log('列表查询数据', searchParams)
       setLoading(true)
       api(searchParams)
         .then((data) => {
