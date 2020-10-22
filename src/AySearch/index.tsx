@@ -13,10 +13,6 @@ const { SearchOutlined, ReloadOutlined, DownOutlined, UpOutlined } = require('@a
  * @param field form 配置项
  */
 const getOrder = (field: any): number => {
-  // 把 '开始时间', '结束时间' 放到最前面
-  if (field.title && ['开始时间', '结束时间'].includes(field.title)) {
-    return 0
-  }
   return field.order === undefined ? 1 : field.order
 }
 

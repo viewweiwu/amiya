@@ -1,9 +1,10 @@
 import { ReactNode } from 'react'
 import { AnyKeyProps } from '../types/AnyKeyProps'
+import { AySearchTableField } from '../AySearchTable/ay-search-table'
 
 export interface AyFormProps {
   /** 配置项 */
-  fields: Array<AyFormField>
+  fields: Array<AyFormField | AySearchTableField>
   /** form 名称 */
   name?: string
   /** 子元素 */
@@ -23,7 +24,7 @@ export interface AyFormProps {
   /** 样式 */
   className?: string
   /** 样式 */
-  style: AnyKeyProps
+  style?: AnyKeyProps
   /** 布局 */
   layout?: {
     labelCol?: AnyKeyProps

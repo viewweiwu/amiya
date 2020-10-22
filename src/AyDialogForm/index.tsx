@@ -1,7 +1,15 @@
-import React, { useState, forwardRef, useImperativeHandle, Ref, useRef, MutableRefObject, useCallback, ReactNode } from 'react'
+import React, {
+  useState,
+  forwardRef,
+  useImperativeHandle,
+  Ref,
+  useRef,
+  MutableRefObject,
+  useCallback,
+  ReactNode
+} from 'react'
 import AyDialog from '../AyDialog'
 import AyForm from '../AyForm'
-import AyButton from '../AyButton'
 import { AyDialogFormField, ModeType, AydialogFormRef, AyDialogFormProps } from './ay-dialog-form'
 import { AyFormField } from '../AyForm/ay-form'
 import { AnyKeyProps } from '../types/AnyKeyProps'
@@ -19,7 +27,11 @@ export const MODE_CUSTOM = 'custom'
  * 过滤获得 form 的配置项
  * @param fields 配置项 (dialog-form)
  */
-const getAyFormFields = (fields: Array<AyDialogFormField>, mode: ModeType, initParams: AnyKeyProps): Array<AyFormField> => {
+const getAyFormFields = (
+  fields: Array<AyDialogFormField>,
+  mode: ModeType,
+  initParams: AnyKeyProps
+): Array<AyFormField> => {
   return fields
     .filter((field) => {
       if (field.dialog && Array.isArray(field.dialog.hiddenMode) && mode) {
@@ -63,7 +75,7 @@ type Resolver = (value: AnyKeyProps) => void
 let dialogResolve: Resolver
 
 export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: Ref<AydialogFormRef>) {
-  const { fields, title, addApi, updateApi, span, width, name, beforeSubmit } = props
+  const { fields, title, addApi, updateApi, span, width, name, beforeSubmit, dialogExtend, formExtend, drawer } = props
   /** 弹窗是否可见 */
   const [visible, setVisible] = useState<boolean>(false)
   /** 当前所处于的模式 */
@@ -219,12 +231,21 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
       title={getTitle(mode, dialogTitle)}
       visible={visible}
       setVisible={setVisible}
+      drawer={drawer}
       onConfirm={onConfirm}
       loading={loading}
-      footer={mode === MODE_VIEW || config.readonly === true ? <AyButton onClick={() => setVisible(false)}>关闭</AyButton> : undefined}
-      {...props}
+      confirmVisible={mode !== MODE_VIEW && config.readonly !== true}
+      {...dialogExtend}
     >
-      <AyForm name={name} readonly={mode === MODE_VIEW} ref={formRef} fields={formFields} span={span || 22} onConfirm={handleSubmit} />
+      <AyForm
+        name={name}
+        readonly={mode === MODE_VIEW}
+        ref={formRef}
+        fields={formFields}
+        span={span || 22}
+        onConfirm={handleSubmit}
+        {...formExtend}
+      />
     </AyDialog>
   )
 })

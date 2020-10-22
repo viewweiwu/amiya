@@ -5,6 +5,7 @@
 ```tsx
 import React from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
+import 'antd/dist/antd.min.css'
 
 const fields: Array<AyFormField> = [
   {
@@ -55,6 +56,7 @@ export default function Demo() {
 ```tsx
 import React from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
+import 'antd/dist/antd.min.css'
 
 const fields: Array<AyFormField> = [
   {
@@ -146,6 +148,7 @@ export default function Demo() {
 ```tsx
 import React from 'react'
 import { AyForm, AyFormField } from 'amiya'
+import 'antd/dist/antd.min.css'
 
 const fields: Array<AyFormField> = [
   {
@@ -174,6 +177,7 @@ export default function Demo() {
 ```tsx
 import React from 'react'
 import { AyForm, AyFormField } from 'amiya'
+import 'antd/dist/antd.min.css'
 
 const fields: Array<AyFormField> = [
   {
@@ -334,6 +338,7 @@ export default function Demo() {
 import React, { useState, useMemo } from 'react'
 import { AyForm, AyButton, AyFormField, registerField, AyDialog } from 'amiya'
 import { Card } from 'antd'
+import 'antd/dist/antd.min.css'
 
 interface CharaSelectProps {
   value?: string

@@ -1,12 +1,16 @@
+import { AnyKeyProps } from './../types/AnyKeyProps.d'
 import { ModalProps } from 'antd/lib/modal'
+import { AySearchTableField } from '../AySearchTable/ay-search-table'
 
 declare type ModeType = 'add' | 'update' | 'view' | 'custom'
 
 export interface AyDialogFormProps extends ModalProps {
   /** 弹窗标题 */
   title?: string
+  /** 用抽屉来展示 */
+  drawer?: boolean
   /** 表单项 */
-  fields: Array<AyDialogFormField>
+  fields: Array<AyDialogFormField | AySearchTableField>
   /** form 的 span */
   span?: number
   /** 新增 api */
@@ -19,6 +23,10 @@ export interface AyDialogFormProps extends ModalProps {
   name?: string
   /** 提交前校验 */
   beforeSubmit?(params?: AnyKeyProps, mode?: string): boolean | AnyKeyProps
+  /** 表格其它属性扩展 */
+  dialogExtend?: AnyKeyProps
+  /** 表单其它属性扩展 */
+  formExtend?: AnyKeyProps
 }
 
 export interface AyDialogFormField extends Field {

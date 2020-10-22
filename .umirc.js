@@ -2,5 +2,5 @@
 export default {
   logo: './images/logo.jpg',
   publicPath: './',
-  base: '/amiya'
+  // base: '/amiya'
 };
