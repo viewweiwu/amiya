@@ -289,8 +289,12 @@ const formatValues = (values: AnyKeyProps, fields: Array<AyFormField | AySearchT
         result[field.startKey || 'startKey'] = value[0].format('YYYY-MM-DD HH:mm:ss')
         result[field.endKey || 'endKey'] = value[0].format('YYYY-MM-DD HH:mm:ss')
       } else if (field.type === FORM_TYPE_DATE) {
+        if (field?.props?.showTime === true) {
+          result[key] = value.format('YYYY-MM-DD HH:mm:ss')
+        } else {
+          result[key] = value.format('YYYY-MM-DD')
+        }
         // 单值类型直接转
-        result[key] = value.format('YYYY-MM-DD HH:mm:ss')
       } else {
         result[key] = value
       }
@@ -394,7 +398,26 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   /** 重写 */
   formInstans.getFieldValue = (key: string) => {
     if (inited) {
-      return formRef.current.getFieldValue(key)
+      let value = formRef.current.getFieldValue(key)
+      let field = fields.find((field) => field.key === key)
+      if (field && value) {
+        if (field.type === FORM_TYPE_DATE) {
+          // 日期格式化
+          if (field?.props?.showTime === true) {
+            value = value.format('YYYY-MM-DD HH:mm:ss')
+          } else {
+            value = value.format('YYYY-MM-DD')
+          }
+        } else if (field.type === FORM_TYPE_DATE_RANGE && value.length) {
+          // 日期区间格式化
+          if (field?.props?.showTime === true) {
+            value = [value[0].format('YYYY-MM-DD HH:mm:ss'), value[1].format('YYYY-MM-DD HH:mm:ss')]
+          } else {
+            value = [value[0].format('YYYY-MM-DD'), value[1].format('YYYY-MM-DD')]
+          }
+        }
+      }
+      return value
     } else {
       return getFieldDefaultValue(key, fields)
     }

@@ -130,9 +130,25 @@ const fields: Array<AyFormField> = [
     key: 'date'
   },
   {
+    title: 'Datetime',
+    type: 'date',
+    key: 'datetime',
+    props: {
+      showTime: true
+    }
+  },
+  {
     title: 'DateRange',
     type: 'date-range',
     key: 'date-range'
+  },
+  {
+    title: 'DatetimeRange',
+    type: 'date-range',
+    key: 'datetime-range',
+    props: {
+      showTime: true
+    }
   },
   {
     title: 'Editor',
@@ -142,7 +158,7 @@ const fields: Array<AyFormField> = [
 ]
 
 export default function Demo() {
-  const [readonly, setReadonly] = useState<boolean>(true)
+  const [readonly, setReadonly] = useState<boolean>(false)
 
   const handleConfirm = (form: any) => {
     console.log(form)
@@ -151,7 +167,10 @@ export default function Demo() {
 
   return (
     <>
-      <Switch chekced={readonly} defaultChecked={readonly} onChange={(value) => setReadonly(value)} />
+      <p>
+        <label style={{ marginRight: 4 }}>只读模式</label>
+        <Switch chekced={readonly} defaultChecked={readonly} onChange={(value) => setReadonly(value)} />
+      </p>
       <AyForm
         readonly={readonly}
         span={24}
@@ -248,15 +267,15 @@ const ranges: any = {
 registerField('date-range', {
   type: 'data-range',
   defaultValue: [],
-  render: ({ field, readonly }: any) => (
-    <DatePicker.RangePicker
-      placeholder={['开始日期', '结束日期']}
-      disabled={readonly}
-      className="max-width"
-      ranges={ranges}
-      {...(field.props as any)}
-    />
-  )
+  render: ({ field, readonly, getFieldValue }: AnyKeyProps) => {
+    let text = getFieldValue(field.key)
+    text = text.join('\n')
+    return readonly ? (
+      <span className="ay-form-text">{text || FORM_READONLY_EMPTY}</span>
+    ) : (
+      <DatePicker.RangePicker placeholder={['开始日期', '结束日期']} className="max-width" {...field.props} />
+    )
+  }
 })
 
 // 日期快捷选项
@@ -296,15 +315,12 @@ const renderExtraFooter = (setFieldsValue: (params: AnyKeyProps) => void, field:
 registerField('date', {
   type: 'date',
   defaultValue: null,
-  render: ({ field, readonly, setFieldsValue }: any) => (
-    <DatePicker
-      disabled={readonly}
-      className="max-width"
-      placeholder={`请选择${field.title || ''}`}
-      renderExtraFooter={() => renderExtraFooter(setFieldsValue, field)}
-      {...field.props}
-    />
-  )
+  render: ({ field, readonly, getFieldValue }: AnyKeyProps) =>
+    readonly ? (
+      <span className="ay-form-text">{getFieldValue(field.key) || FORM_READONLY_EMPTY}</span>
+    ) : (
+      <DatePicker className="max-width" placeholder={`请选择${field.title || ''}`} {...field.props} />
+    )
 })
 
 const fields: Array<AyFormField> = [
