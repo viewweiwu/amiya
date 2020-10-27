@@ -3,8 +3,8 @@ export default {
   // mode: 'site',
   logo: '/amiya/images/logo.jpg',
   publicPath: '/amiya/',
-  ssr: {},
-  exportStatic: {},
+  // ssr: {},
+  // exportStatic: {},
   base: '/amiya/'
-  // base: '/yt-admin-react'
+  // base: '/yt-admin-react/'
 };
