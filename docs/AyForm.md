@@ -54,8 +54,9 @@ export default function Demo() {
 ## 所有类型展示
 
 ```tsx
-import React from 'react'
+import React, { useState } from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
+import { Switch } from 'antd'
 import 'antd/dist/antd.min.css'
 
 const fields: Array<AyFormField> = [
@@ -98,6 +99,14 @@ const fields: Array<AyFormField> = [
     key: 'switch'
   },
   {
+    title: 'Checkbox',
+    type: 'checkbox',
+    key: 'checkbox',
+    props: {
+      children: '同意？'
+    }
+  },
+  {
     title: 'CheckboxGroup',
     type: 'checkbox-group',
     key: 'checkbox-group',
@@ -124,21 +133,37 @@ const fields: Array<AyFormField> = [
     title: 'DateRange',
     type: 'date-range',
     key: 'date-range'
+  },
+  {
+    title: 'Editor',
+    type: 'editor',
+    key: 'editor'
   }
 ]
 
 export default function Demo() {
+  const [readonly, setReadonly] = useState<boolean>(true)
+
   const handleConfirm = (form: any) => {
     console.log(form)
     alert(JSON.stringify(form))
   }
 
   return (
-    <AyForm span={24} fields={fields} onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
-      <AyButton block type="primary" htmlType="submit">
-        提交
-      </AyButton>
-    </AyForm>
+    <>
+      <Switch chekced={readonly} defaultChecked={readonly} onChange={(value) => setReadonly(value)} />
+      <AyForm
+        readonly={readonly}
+        span={24}
+        fields={fields}
+        onConfirm={handleConfirm}
+        style={{ width: 600, margin: '0 auto' }}
+      >
+        <AyButton block type="primary" htmlType="submit">
+          提交
+        </AyButton>
+      </AyForm>
+    </>
   )
 }
 ```
@@ -223,7 +248,7 @@ const ranges: any = {
 registerField('date-range', {
   type: 'data-range',
   defaultValue: [],
-  render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => (
+  render: ({ field, readonly }: any) => (
     <DatePicker.RangePicker
       placeholder={['开始日期', '结束日期']}
       disabled={readonly}
@@ -271,7 +296,7 @@ const renderExtraFooter = (setFieldsValue: (params: AnyKeyProps) => void, field:
 registerField('date', {
   type: 'date',
   defaultValue: null,
-  render: (field: AyFormField, setFieldsValue: (params: AnyKeyProps) => void, readonly: boolean) => (
+  render: ({ field, readonly, setFieldsValue }: any) => (
     <DatePicker
       disabled={readonly}
       className="max-width"

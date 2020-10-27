@@ -80,6 +80,8 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
   const [visible, setVisible] = useState<boolean>(false)
   /** 当前所处于的模式 */
   const [mode, setMode] = useState<ModeType>(MODE_ADD)
+  /** 表单是否可以编辑 */
+  const [readonly, setReadonly] = useState<boolean>(false)
   /** 是否正在保存中 */
   const [loading, setLoading] = useState<boolean>(false)
   /** 默认参数 */
@@ -101,6 +103,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
    * @param params 默认值
    */
   const initDialog = (params?: AnyKeyProps, config?: AnyKeyProps) => {
+    setReadonly(false)
     setConfig(config || {})
     if (config && config.fields) {
       formFields = getAyFormFields(config.fields, mode, initParams)
@@ -108,6 +111,10 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     } else {
       formFields = getAyFormFields(props.fields, mode, initParams)
       setFormFields(formFields)
+    }
+    // 设置标题
+    if (config && config.title) {
+      setDialogTitle(config.title)
     }
     // 打开弹窗
     setVisible(true)
@@ -123,10 +130,6 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
       })
     } else {
       setInitParams({})
-    }
-    // 设置标题
-    if (config && config.title) {
-      setDialogTitle(config.title)
     }
   }
 
@@ -162,6 +165,9 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     view: (params?: AnyKeyProps, config?: AnyKeyProps) => {
       setMode(MODE_VIEW)
       initDialog(params, config)
+      setTimeout(() => {
+        setReadonly(true)
+      })
     },
     /**
      * 自定义表单，打开表单
@@ -239,7 +245,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     >
       <AyForm
         name={name}
-        readonly={mode === MODE_VIEW}
+        readonly={readonly}
         ref={formRef}
         fields={formFields}
         span={span || 22}

@@ -167,4 +167,4 @@ export interface AyFormField extends Field {
  * @param value 变化的值
  * @param field 变化了的 field
  */
-export type FieldListener = (value: any, field: AyFormField) => void
+export type FieldListener = (value: any, field: AyFormField | AySearchTableField) => void

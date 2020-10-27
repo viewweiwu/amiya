@@ -148,5 +148,8 @@ export const FORM_DEFAULT_VALUE_DATE = undefined
 /** 表单默认值: 日期区间默认值 */
 export const FORM_DEFAULT_VALUE_DATE_RANGE = []
 
-/** 表单类型: 空白框 */
+/** 表单默认值: 空白框 */
 export const FORM_DEFAULT_VALUE_EMPTY = ''
+
+/** 表单 readonly 值 */
+export const FORM_READONLY_EMPTY = '-'

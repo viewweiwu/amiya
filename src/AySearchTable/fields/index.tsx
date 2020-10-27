@@ -5,6 +5,7 @@ import { RadioChangeEvent } from 'antd/lib/radio'
 import { AyConfirm } from '../../AyDialog'
 import { Option } from '../../AyForm/ay-form'
 import { success } from '../../AyMessage'
+import { AnyKeyProps } from '../../types/AnyKeyProps'
 
 export const OPTIONS_STATUS_ON = 1
 export const OPTIONS_STATUS_OFF = 2
@@ -15,7 +16,13 @@ export const OPTIONS_STATUS = [
   { label: OPTIONS_STATUS_OFF_LABEL, value: OPTIONS_STATUS_OFF }
 ]
 
-const handleChange = (value: boolean, record: AnyKeyProps, api?: any, rowKey?: string, beforeSubmit?: (params: AnyKeyProps, record: AnyKeyProps) => AnyKeyProps | boolean) => {
+const handleChange = (
+  value: boolean,
+  record: AnyKeyProps,
+  api?: any,
+  rowKey?: string,
+  beforeSubmit?: (params: AnyKeyProps, record: AnyKeyProps) => AnyKeyProps | boolean
+) => {
   let params: AnyKeyProps = {
     status: value ? OPTIONS_STATUS_ON : OPTIONS_STATUS_OFF,
     [rowKey || 'id']: record[rowKey || 'id']
@@ -60,7 +67,10 @@ export function getStatusField(field: AySearchTableField = {}, api?: any, rowKey
   }
 }
 
-export function getRadioField(field: AySearchTableField, onChange: (value: RadioChangeEvent, record: AnyKeyProps) => void): AySearchTableField {
+export function getRadioField(
+  field: AySearchTableField,
+  onChange: (value: RadioChangeEvent, record: AnyKeyProps) => void
+): AySearchTableField {
   const handleChange = (value: RadioChangeEvent, record: AnyKeyProps) => {
     AyConfirm({
       title: '提示',

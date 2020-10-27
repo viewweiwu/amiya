@@ -2,7 +2,7 @@ import { AnyKeyProps } from './../types/AnyKeyProps.d'
 import { ModalProps } from 'antd/lib/modal'
 import { AySearchTableField } from '../AySearchTable/ay-search-table'
 
-declare type ModeType = 'add' | 'update' | 'view' | 'custom'
+declare type ModeType = 'add' | 'update' | 'view' | 'custom' | string
 
 export interface AyDialogFormProps extends ModalProps {
   /** 弹窗标题 */
