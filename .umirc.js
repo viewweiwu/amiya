@@ -1,7 +1,10 @@
 // 配置文件内容
 export default {
-  logo: './images/logo.jpg',
-  publicPath: './',
-  // base: '/amiya'
+  // mode: 'site',
+  logo: '/amiya/images/logo.jpg',
+  publicPath: '/amiya/',
+  ssr: {},
+  exportStatic: {},
+  base: '/amiya/'
   // base: '/yt-admin-react'
 };

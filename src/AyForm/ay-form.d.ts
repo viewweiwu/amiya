@@ -124,6 +124,8 @@ export interface AyFormField extends Field {
   defaultValue?: any
   /** 是否默认必填 */
   required?: boolean
+  /** 是否默认只读 */
+  readonly?: boolean
   /** 权限配置 */
   rules?: Array<AnyKeyProps>
   /** 是否展示，保留占位; 保留默认值 */

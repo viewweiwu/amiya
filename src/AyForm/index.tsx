@@ -152,6 +152,7 @@ const getTag = (
   setFieldsValue: (params: AnyKeyProps) => void,
   getFieldValue: (key: string) => any,
   addFieldListener: (key: string, fieldListener: FieldListener) => void,
+  removeFiledListener: (key: string, fieldListener: FieldListener) => void,
   readonly?: boolean
 ) => {
   let { type } = field
@@ -162,8 +163,9 @@ const getTag = (
     tag = fieldItem.render({
       field,
       setFieldsValue,
-      readonly: readonly || false,
+      readonly: readonly || field.readonly || false,
       addFieldListener,
+      removeFiledListener,
       getFieldValue
     })
   } else {
@@ -196,6 +198,7 @@ const getFormItem = (
   setFieldsValue: (params: AnyKeyProps) => void,
   getFieldValue: (key: string) => any,
   addFieldListener: (key: string, fieldListener: FieldListener) => void,
+  removeFiledListener: (key: string, fieldListener: FieldListener) => void,
   span?: number,
   readonly?: boolean
 ) => {
@@ -259,7 +262,15 @@ const getFormItem = (
       }
     }
 
-    let tag: ReactNode = getTag(field, fields, setFieldsValue, getFieldValue, addFieldListener, readonly)
+    let tag: ReactNode = getTag(
+      field,
+      fields,
+      setFieldsValue,
+      getFieldValue,
+      addFieldListener,
+      removeFiledListener,
+      readonly
+    )
 
     return (
       <Col {...colProps}>
@@ -375,7 +386,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
 
   /** 控制 any form 的实例 */
   const formRef: MutableRefObject<any> = useRef()
-  const [listnerList, setListnerList] = useState<Array<any>>([])
+  let [listnerList, setListnerList] = useState<Array<any>>([])
   /** 暴露出去的 form 的实例，允许父组件通过 ref 调用方法 */
   const formInstans: AnyKeyProps = {}
   const [inited, setInited] = useState<boolean>(false)
@@ -427,12 +438,17 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   useImperativeHandle(ref, () => formInstans)
 
   const addFieldListener = (key: string, fieldListener: FieldListener) => {
-    let newListner = [...listnerList]
-    newListner.push({
+    listnerList.push({
       key,
       fieldListener
     })
-    setListnerList(newListner)
+    setListnerList(listnerList)
+  }
+
+  const removeFiledListener = (key: string, fieldListener: FieldListener) => {
+    let index = listnerList.findIndex((item) => item.fieldListener === fieldListener)
+    listnerList.splice(index, 1)
+    setListnerList(listnerList)
   }
 
   useEffect(() => {
@@ -456,7 +472,15 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
         {...defaultProps}
       >
         <Row>
-          {getFormItem(fields, formInstans.setFieldsValue, formInstans.getFieldValue, addFieldListener, span, readonly)}
+          {getFormItem(
+            fields,
+            formInstans.setFieldsValue,
+            formInstans.getFieldValue,
+            addFieldListener,
+            removeFiledListener,
+            span,
+            readonly
+          )}
           {children}
         </Row>
       </Form>
