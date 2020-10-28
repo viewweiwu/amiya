@@ -138,6 +138,7 @@ export interface AyFormField extends Field {
     placeholder?: string
     [key: string]: any
   }
+  /** formItem 的属性 */
   formItemProps?: AnyKeyProps
   /** 自定义 content 内容 */
   renderContent?(field: AyFormField, record: AnyKeyProps): ReactNode
@@ -147,14 +148,10 @@ export interface AyFormField extends Field {
   onChange?(value: ReactNode, values: AnyKeyProps, setFieldsValue: (params: AnyKeyProps) => void): void
   /** 提示文字 */
   help?: string | ReactNode
-
-  replaceReg?: RegExp
   /** 时间格式化的开始时间 */
   startKey?: string
   /** 时间格式化的结束时间 */
   endKey?: string
-
-  _field?: any
   /** 重新渲染 */
   reSetting?(params: AyFormField, mode: string): AyFormField
   /** 初始化参数 */
