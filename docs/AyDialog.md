@@ -1,6 +1,6 @@
 # AyDialog
 
-## 示例
+## 基础示例
 
 ```tsx
 import React, { useState } from 'react'

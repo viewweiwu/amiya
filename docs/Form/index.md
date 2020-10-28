@@ -1,6 +1,4 @@
-# Form
-
-AyForm
+# AyForm
 
 ## 登录示例
 
@@ -210,11 +208,6 @@ const fields: Array<AyFormField> = [
     props: {
       showTime: true
     }
-  },
-  {
-    title: 'Editor',
-    type: 'editor',
-    key: 'editor'
   }
 ]
 
@@ -230,7 +223,7 @@ export default function Demo() {
     <>
       <p>
         <label style={{ marginRight: 4 }}>只读模式</label>
-        <Switch chekced={readonly} defaultChecked={readonly} onChange={(value) => setReadonly(value)} />
+        <Switch defaultChecked={readonly} onChange={(value) => setReadonly(value)} />
       </p>
       <AyForm
         readonly={readonly}
@@ -302,18 +295,18 @@ export default function Demo() {
 }
 ```
 
-## 参数
+## Props 参数
 
 | 参数名    | 说明                                  | 参数类型                | 默认值    |
 | --------- | ------------------------------------- | ----------------------- | --------- |
 | fields    | 配置项                                | Array<[AyFormField][2]> | -         |
 | name      | form 名称，一般不需要填               | string                  | 'ay-form' |
-| onConfirm | 提交事件监听                          | (form: Object) => void  | -         |
 | span      | antd Grid 的 Col 组件的 span 属性类似 | 1 ～ 24                 | 12        |
 | footer    | 自定义底部按钮                        | ReactNode               | -         |
 | width     | 弹窗宽度                              | number                  | -         |
 | layout    | 布局参数, 查看下方 layout 参数        | Object                  | -         |
 | props     | antd Form 其它参数                    | [查看参数][1]           | -         |
+| onConfirm | 提交事件监听                          | (form: Object) => void  | -         |
 
 ## layout 参数
 
@@ -333,6 +326,16 @@ const layout = {
   wrapperCol: { flex: '200px' } // content 宽度
 }
 ```
+
+## Method 方法
+
+| 方法名                         | 说明                | 返回值         |
+| ------------------------------ | ------------------- | -------------- |
+| submit()                       | 主动提交表单        | -              |
+| resetFields()                  | 重置表单            | -              |
+| getFieldValue(key: string)     | 根据 key 获取表单值 | any            |
+| getFieldsValue()               | 获取所有表单值      | values: Object |
+| setFieldsValue(values: Object) | 设置表单值          | -              |
 
 [1]: https://ant-design.gitee.io/components/form-cn/#API
 [2]: /filed参数详解#ayformfield-参数
