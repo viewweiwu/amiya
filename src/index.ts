@@ -3,7 +3,6 @@ import AyAction, { registerAction } from './AyAction'
 import AyCtrl from './AyCtrl'
 import AyDialog from './AyDialog'
 import AyDialogForm from './AyDialogForm'
-import AyEditor from './AyEditor'
 import AyForm, { registerField } from './AyForm'
 import { success, info, error, warning } from './AyMessage'
 import AySearch from './AySearch'
@@ -18,7 +17,6 @@ export {
   AyCtrl,
   AyDialog,
   AyDialogForm,
-  AyEditor,
   AyForm,
   registerField,
   AySearch,
@@ -40,7 +38,6 @@ export default {
   AyCtrl,
   AyDialog,
   AyDialogForm,
-  AyEditor,
   AyForm,
   registerField,
   AySearch,

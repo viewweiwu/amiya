@@ -73,9 +73,6 @@ export const FORM_TYPE_PERCENT = 'percent'
 /** 表单类型: 密码框 */
 export const FORM_TYPE_PASSWORD = 'password'
 
-/** 表单类型: 富文本框 */
-export const FORM_TYPE_EDITOR = 'editor'
-
 /** 表单类型: 多行输入框 */
 export const FORM_TYPE_TEXTAREA = 'textarea'
 
@@ -120,9 +117,6 @@ export const FORM_DEFAULT_VALUE_PERCENT = null
 
 /** 表单默认值: 密码框默认值 */
 export const FORM_DEFAULT_VALUE_PASSWORD = ''
-
-/** 表单默认值: 富文本框默认值 */
-export const FORM_DEFAULT_VALUE_EDITOR = ''
 
 /** 表单默认值: 多行输入框默认值 */
 export const FORM_DEFAULT_VALUE_TEXTAREA = ''

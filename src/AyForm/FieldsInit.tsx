@@ -1,6 +1,5 @@
 import { Input, Switch, Checkbox, Radio, DatePicker, InputNumber } from 'antd'
 import React from 'react'
-import AyEditor from '../AyEditor'
 import AySelect from '../AySelect'
 import {
   FORM_DEFAULT_ALLOW_CLEAR,
@@ -16,7 +15,6 @@ import {
   FORM_DEFAULT_VALUE_DATE,
   FORM_DEFAULT_VALUE_DATE_RANGE,
   FORM_DEFAULT_VALUE_EMPTY,
-  FORM_DEFAULT_VALUE_EDITOR,
   FORM_DEFAULT_VALUE_PERCENT,
   FORM_TYPE_SWITCH,
   FORM_TYPE_CHECKBOX,
@@ -31,7 +29,6 @@ import {
   FORM_TYPE_EMPTY,
   FORM_TYPE_NUMBER,
   FORM_TYPE_PERCENT,
-  FORM_TYPE_EDITOR,
   TEXTAREA_DEFAULT_MAXLENGTH,
   INPUT_DEFAULT_MAXLENGTH,
   NUMBER_DEFAULT_MIN,
@@ -122,15 +119,6 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
           {...field.props}
         />
       )
-  })
-
-  // 注册富文本框
-  registerField(FORM_TYPE_EDITOR, {
-    type: FORM_TYPE_EDITOR,
-    defaultValue: FORM_DEFAULT_VALUE_EDITOR,
-    render: ({ field, readonly }: AnyKeyProps) => {
-      return <AyEditor placeholder={`请输入${field.title || ''}`} disabled={readonly} {...field.props} />
-    }
   })
 
   // 注册多行文本框

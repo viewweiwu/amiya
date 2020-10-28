@@ -406,7 +406,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
     formRef.current.setFieldsValue(values)
   }
 
-  /** 重写 */
+  /** 覆盖 antd Form getFieldValue 方法 */
   formInstans.getFieldValue = (key: string) => {
     if (inited) {
       let value = formRef.current.getFieldValue(key)

@@ -191,7 +191,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
         {searchVisible !== false ? <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} /> : null}
         {center}
         <AyTable {...tableProps} fields={tableFields} header={header}>
-          {dialogFormExtend ? <AyDialogForm ref={formRef} {...dialogFormExtend} /> : null}
+          {dialogFormExtend ? <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend} /> : null}
           {children}
         </AyTable>
       </AySearchTableContext.Provider>

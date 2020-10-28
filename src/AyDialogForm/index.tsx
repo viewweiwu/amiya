@@ -30,14 +30,16 @@ export const MODE_CUSTOM = 'custom'
 const getAyFormFields = (
   fields: Array<AyDialogFormField>,
   mode: ModeType,
-  initParams: AnyKeyProps
+  initParams: AnyKeyProps,
+  dialogOnly?: boolean
 ): Array<AyFormField> => {
   return fields
     .filter((field) => {
-      if (field.dialog && Array.isArray(field.dialog.hiddenMode) && mode) {
-        return !field.dialog.hiddenMode.includes(mode)
+      if (dialogOnly) {
+        return !!field.dialog
+      } else {
+        return true
       }
-      return field.dialog
     })
     .map((field) => {
       let dialog = field.dialog
@@ -53,9 +55,13 @@ const getAyFormFields = (
         formField = formField.reSetting(formField, mode)
       }
 
-      formField._field = field
-
       return formField
+    })
+    .filter((field) => {
+      if (field && Array.isArray(field.hiddenMode) && mode) {
+        return !field.hiddenMode.includes(mode)
+      }
+      return field
     })
 }
 
@@ -75,11 +81,24 @@ type Resolver = (value: AnyKeyProps) => void
 let dialogResolve: Resolver
 
 export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: Ref<AydialogFormRef>) {
-  const { fields, title, addApi, updateApi, span, width, name, beforeSubmit, dialogExtend, formExtend, drawer } = props
+  const {
+    fields,
+    title,
+    addApi,
+    updateApi,
+    span,
+    width,
+    name,
+    beforeSubmit,
+    dialogExtend,
+    formExtend,
+    drawer,
+    dialogOnly
+  } = props
   /** 弹窗是否可见 */
   const [visible, setVisible] = useState<boolean>(false)
   /** 当前所处于的模式 */
-  const [mode, setMode] = useState<ModeType>(MODE_ADD)
+  let [mode, setMode] = useState<ModeType>(MODE_ADD)
   /** 表单是否可以编辑 */
   const [readonly, setReadonly] = useState<boolean>(false)
   /** 是否正在保存中 */
@@ -87,7 +106,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
   /** 默认参数 */
   const [initParams, setInitParams] = useState<AnyKeyProps>({})
   /** form 需要的 fields */
-  let [formFields, setFormFields] = useState<Array<AyFormField>>(getAyFormFields(fields, mode, initParams))
+  let [formFields, setFormFields] = useState<Array<AyFormField>>(getAyFormFields(fields, mode, initParams, dialogOnly))
   /** form 控制 (需要主动调用里面的事件) */
   const formRef: MutableRefObject<any> = useRef()
   /** 默认弹窗标题 */
@@ -97,19 +116,20 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
 
   /**
    * 初始化弹窗
-   * @step 1、打开弹窗
+   * @step 1、打开弹窗，清空只读
    * @step 2、如果有值，清空表单值
    * @step 3、如果有默认参数、设置默认参数
    * @param params 默认值
+   * @param config 标题、fields 配置
    */
   const initDialog = (params?: AnyKeyProps, config?: AnyKeyProps) => {
     setReadonly(false)
     setConfig(config || {})
     if (config && config.fields) {
-      formFields = getAyFormFields(config.fields, mode, initParams)
+      formFields = getAyFormFields(config.fields, mode, initParams, dialogOnly)
       setFormFields(formFields)
     } else {
-      formFields = getAyFormFields(props.fields, mode, initParams)
+      formFields = getAyFormFields(props.fields, mode, initParams, dialogOnly)
       setFormFields(formFields)
     }
     // 设置标题
@@ -142,6 +162,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     add: (params?: AnyKeyProps, config?: AnyKeyProps) => {
       return new Promise((resolve: Resolver) => {
         dialogResolve = resolve
+        mode = MODE_ADD
         setMode(MODE_ADD)
         initDialog(params, config)
       })
@@ -153,6 +174,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     update: (params?: AnyKeyProps, config?: AnyKeyProps) => {
       return new Promise((resolve: Resolver) => {
         dialogResolve = resolve
+        mode = MODE_UPDATE
         setMode(MODE_UPDATE)
         initDialog(params, config)
       })
@@ -163,6 +185,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
      * @param config
      */
     view: (params?: AnyKeyProps, config?: AnyKeyProps) => {
+      mode = MODE_VIEW
       setMode(MODE_VIEW)
       initDialog(params, config)
       setTimeout(() => {
@@ -174,6 +197,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
      * @param params 默认值
      */
     open: (params?: AnyKeyProps, config?: AnyKeyProps) => {
+      mode = MODE_CUSTOM
       setMode(MODE_CUSTOM)
       initDialog(params, config)
     }
