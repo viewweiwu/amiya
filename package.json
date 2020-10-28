@@ -24,7 +24,6 @@
     "@types/react-dom": "^16.9.8",
     "amiya": "^0.0.29",
     "antd": "^4.7.2",
-    "braft-editor": "^2.3.9",
     "moment": "^2.27.0"
   },
   "peerDependencies": {
