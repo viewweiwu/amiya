@@ -21,10 +21,14 @@ export interface AyFormProps {
   formItemProps?: AnyKeyProps
   /** 是否只读 */
   readonly?: boolean
+  /** 是否用 Description 样式展示 */
+  desc?: boolean
   /** 样式 */
   className?: string
   /** 样式 */
   style?: AnyKeyProps
+  /** label 对齐方式 */
+  labelAlign?: 'left' | 'right'
   /** 布局 */
   layout?: {
     labelCol?: AnyKeyProps

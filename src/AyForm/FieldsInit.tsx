@@ -50,8 +50,8 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
   registerField(FORM_TYPE_INPUT, {
     type: FORM_TYPE_INPUT,
     defaultValue: FORM_DEFAULT_VALUE_INPUT,
-    render: ({ field, readonly, getFieldValue }: AnyKeyProps) =>
-      readonly ? (
+    render: ({ field, readonly, getFieldValue }: AnyKeyProps) => {
+      return readonly ? (
         <span className="ay-form-text">{getFieldValue(field.key) || FORM_READONLY_EMPTY}</span>
       ) : (
         <Input
@@ -62,6 +62,7 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
           {...field.props}
         />
       )
+    }
   })
 
   // 注册数字框

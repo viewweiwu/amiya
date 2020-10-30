@@ -53,6 +53,116 @@ export default function Demo() {
 }
 ```
 
+## 表单布局
+
+默认会是右侧，label 跟 content 在一起展示。此示例演示如何将 label 展示在顶部。
+
+```tsx
+import React from 'react'
+import { AyForm, AyFormField } from 'amiya'
+import 'antd/dist/antd.min.css'
+
+type FormLayout = 'horizontal' | 'vertical' | 'inline'
+
+const fields: Array<AyFormField> = [
+  {
+    title: 'Field A',
+    key: 'a'
+  },
+  {
+    title: 'Field B',
+    key: 'b'
+  }
+]
+
+export default function Demo() {
+  return (
+    <AyForm
+      layout={{ labelCol: { flex: '100%' } }}
+      labelAlign="left"
+      span={24}
+      fields={fields}
+      style={{ width: 400, margin: '0 auto' }}
+    />
+  )
+}
+```
+
+## 创造一个连体 Field
+
+可以通过一些特殊的技巧，创造一个连体的 Field，一般常见于右侧多一个 Checkbox。
+
+```tsx
+import React, { useState, MutableRefObject, useRef } from 'react'
+import { AyForm, AyFormField, AyButton } from 'amiya'
+import 'antd/dist/antd.min.css'
+
+export default function Demo() {
+  const formRef: MutableRefObject<any> = useRef()
+
+  // 如果中途会变动 fields，请把 fields 写在函数内部
+  const fields: Array<AyFormField> = [
+    {
+      title: 'Field B',
+      type: 'checkbox',
+      key: 'a',
+      required: true,
+      onChange: (value, allValues, setFieldsValue) => {
+        // 控制其它 field 的 readonly
+        fields[1].readonly = value
+        // 控制其它 field 的 校验
+        fields[1].rules = value ? [] : [{ required: true, message: '请输入 Field B' }]
+        // 清空 b 的表单值
+        formRef.current.resetFields(['b'])
+        // 重新渲染 form
+        formRef.current.refreshFields()
+      },
+      props: {
+        children: '是否填写',
+        style: {
+          float: 'right'
+        }
+      },
+      formItemProps: {
+        labelCol: { flex: '120px' },
+        style: {
+          marginBottom: 0
+        }
+      }
+    },
+    {
+      key: 'b',
+      readonly: false,
+      props: {
+        placeholder: '请输入 Field B'
+      },
+      rules: [{ required: true, message: '请输入 Field B' }]
+    }
+  ]
+
+  const handleConfirm = (form: any) => {
+    console.log(form)
+    alert(JSON.stringify(form))
+  }
+
+  return (
+    <AyForm
+      ref={formRef}
+      layout={{ labelCol: { flex: '100%' } }}
+      labelAlign="left"
+      span={24}
+      fields={fields}
+      onConfirm={handleConfirm}
+      style={{ width: 400, margin: '0 auto' }}
+    >
+      <AyButton block type="primary" htmlType="submit">
+        提交
+      </AyButton>
+    </AyForm>
+  )
+}
+```
+
 ## 表单项只读
 
 ```tsx
@@ -241,6 +351,122 @@ export default function Demo() {
 }
 ```
 
+## Desc 模式
+
+```tsx
+import React, { useState, MutableRefObject, useEffect, useRef } from 'react'
+import { AyForm, AyButton, AyFormField } from 'amiya'
+import { Switch, Form, Row, Col } from 'antd'
+import 'antd/dist/antd.min.css'
+
+const fields: Array<AyFormField> = [
+  {
+    title: '姓名',
+    key: 'cname'
+  },
+  {
+    title: '英文名',
+    key: 'name'
+  },
+  {
+    title: '初始HP',
+    key: 'defaultHp',
+    type: 'number'
+  },
+  {
+    title: '初始攻击',
+    key: 'defaultAtk',
+    type: 'number'
+  },
+  {
+    title: '职业',
+    key: 'job',
+    type: 'select',
+    options: [
+      { label: '狙击干员', value: '1' },
+      { label: '医疗干员', value: '2' },
+      { label: '术师干员', value: '3' }
+    ]
+  },
+  {
+    title: '上线时间',
+    key: 'createDate',
+    type: 'date',
+    props: {
+      showTime: true
+    }
+  },
+  {
+    title: '简介',
+    type: 'textarea',
+    key: 'desc',
+    span: 24,
+    props: {
+      rows: 6
+    }
+  }
+]
+
+export default function Demo() {
+  const [readonly, setReadonly] = useState<boolean>(false)
+  const [desc, setDesc] = useState<boolean>(false)
+  const formRef: MutableRefObject<any> = useRef()
+
+  const handleConfirm = (form: any) => {
+    console.log(form)
+    alert(JSON.stringify(form))
+  }
+
+  useEffect(() => {
+    formRef.current.setFieldsValue({
+      cname: '阿米娅',
+      name: 'Amiya',
+      defaultHp: 720,
+      defaultAtk: 100,
+      job: '3',
+      createDate: '2019-4-30 10:00:00',
+      desc: `
+初始开放
+【物理强度】普通
+【战场机动】标准
+【生理耐受】普通
+【战术规划】优良
+【战斗技巧】标准
+【源石技艺适应性】■■
+
+客观履历
+
+初始开放
+罗德岛的公开领袖，在内部拥有最高执行权。虽然，从外表上看起来仅仅是个不成熟的少女，实际上，她却是深受大家信任的合格的领袖。
+现在，阿米娅正带领着罗德岛，为了感染者的未来，为了让这片大地挣脱矿石病的阴霾而不懈努力。
+      `
+    })
+  }, [])
+
+  return (
+    <>
+      <p>
+        <label style={{ marginRight: 4 }}>只读模式</label>
+        <Switch defaultChecked={readonly} onChange={(value) => setReadonly(value)} />
+        <label style={{ marginRight: 4, marginLeft: 10 }}>Desc</label>
+        <Switch defaultChecked={desc} onChange={(value) => setDesc(value)} />
+      </p>
+      <AyForm ref={formRef} readonly={readonly} desc={desc} fields={fields} onConfirm={handleConfirm}>
+        {!readonly && (
+          <Col span={24}>
+            <Form.Item style={desc ? { paddintTop: 10 } : {}}>
+              <AyButton block type="primary" htmlType="submit">
+                提交
+              </AyButton>
+            </Form.Item>
+          </Col>
+        )}
+      </AyForm>
+    </>
+  )
+}
+```
+
 ## tooltip 提示
 
 ```tsx
@@ -297,16 +523,17 @@ export default function Demo() {
 
 ## Props 参数
 
-| 参数名    | 说明                                  | 参数类型                | 默认值    |
-| --------- | ------------------------------------- | ----------------------- | --------- |
-| fields    | 配置项                                | Array<[AyFormField][2]> | -         |
-| name      | form 名称，一般不需要填               | string                  | 'ay-form' |
-| span      | antd Grid 的 Col 组件的 span 属性类似 | 1 ～ 24                 | 12        |
-| footer    | 自定义底部按钮                        | ReactNode               | -         |
-| width     | 弹窗宽度                              | number                  | -         |
-| layout    | 布局参数, 查看下方 layout 参数        | Object                  | -         |
-| props     | antd Form 其它参数                    | [查看参数][1]           | -         |
-| onConfirm | 提交事件监听                          | (form: Object) => void  | -         |
+| 参数名        | 说明                                  | 参数类型                | 默认值    |
+| ------------- | ------------------------------------- | ----------------------- | --------- |
+| fields        | 配置项                                | Array<[AyFormField][2]> | -         |
+| name          | form 名称，一般不需要填               | string                  | 'ay-form' |
+| span          | antd Grid 的 Col 组件的 span 属性类似 | 1 ～ 24                 | 12        |
+| readonly      | 只读模式                              | boolean                 | false     |
+| desc          | Descripts 模式                        | boolean                 | false     |
+| layout        | 布局参数, 查看下方 layout 参数        | Object                  | -         |
+| props         | antd Form 其它参数                    | [查看参数][1]           | -         |
+| formItemProps | antd Form.Item 其它参数               | Object                  | -         |
+| onConfirm     | 提交事件监听                          | (form: Object) => void  | -         |
 
 ## layout 参数
 

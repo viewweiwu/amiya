@@ -75,15 +75,15 @@ const getPlaceholder = (field: AyFormField | AySearchTableField): string => {
   }
 
   if (!field.type) {
-    return `请输入${field.title}`
+    return `请输入${field.title || ''}`
   }
 
   if (
     [FORM_TYPE_INPUT, FORM_TYPE_NUMBER, FORM_TYPE_PERCENT, FORM_TYPE_PASSWORD, FORM_TYPE_TEXTAREA].includes(field.type)
   ) {
-    return `请输入${field.title}`
+    return `请输入${field.title || ''}`
   } else if ([FORM_TYPE_SELECT, FORM_TYPE_DATE].includes(field.type)) {
-    return `请选择${field.title}`
+    return `请选择${field.title || ''}`
   }
 
   return field.title || ''
@@ -382,7 +382,19 @@ const funcs = [
 ]
 
 export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
-  const { fields, onConfirm, span, children, props: defaultProps, readonly, layout, className, style } = props
+  const {
+    fields,
+    onConfirm,
+    span,
+    children,
+    props: defaultProps,
+    readonly,
+    desc,
+    layout,
+    className,
+    style,
+    labelAlign
+  } = props
 
   /** 控制 any form 的实例 */
   const formRef: MutableRefObject<any> = useRef()
@@ -390,6 +402,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   /** 暴露出去的 form 的实例，允许父组件通过 ref 调用方法 */
   const formInstans: AnyKeyProps = {}
   const [inited, setInited] = useState<boolean>(false)
+  let [mirrorFields, setMirrorFields] = useState<Array<AyFormField | AySearchTableField>>(fields)
 
   /** 填充方法 */
   funcs.forEach((func) => {
@@ -404,6 +417,12 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
       }
     })
     formRef.current.setFieldsValue(values)
+  }
+
+  // 改变 field
+  formInstans.refreshFields = () => {
+    mirrorFields = [...fields]
+    setMirrorFields(mirrorFields)
   }
 
   /** 覆盖 antd Form getFieldValue 方法 */
@@ -456,24 +475,23 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   }, [])
 
   return (
-    <div className="ay-form">
+    <div className={`ay-form ${className || ''} ${desc ? 'desc' : ''} ${readonly ? 'readony' : ''}`} style={style}>
       <Form
         ref={formRef}
         {...defaultLayout}
         {...layout}
-        className={className}
-        style={style}
+        labelAlign={labelAlign}
         name={props.name || 'ay-form'}
-        initialValues={getDefaultValue(fields)}
-        onFinish={(values) => handleConfirm(values, fields, onConfirm)}
+        initialValues={getDefaultValue(mirrorFields)}
+        onFinish={(values) => handleConfirm(values, mirrorFields, onConfirm)}
         onValuesChange={(changedValues, allValues) =>
-          handleChange(changedValues, allValues, fields, formInstans.setFieldsValue, listnerList)
+          handleChange(changedValues, allValues, mirrorFields, formInstans.setFieldsValue, listnerList)
         }
         {...defaultProps}
       >
         <Row>
           {getFormItem(
-            fields,
+            mirrorFields,
             formInstans.setFieldsValue,
             formInstans.getFieldValue,
             addFieldListener,

@@ -171,6 +171,7 @@ const fields: Array<AyDialogFormField> = [
     type: 'select',
     key: 'job',
     options: [
+      { label: '狙击干员狙击干员狙击干员狙击干员狙击干员狙击干员狙击干员狙击干员', value: '4' },
       { label: '狙击干员', value: '1' },
       { label: '医疗干员', value: '2' },
       { label: '术师干员', value: '3' }
@@ -232,3 +233,20 @@ export default function Demo() {
   )
 }
 ```
+
+| 参数名       | 说明                                                 | 参数类型                                        | 默认值      |
+| ------------ | ---------------------------------------------------- | ----------------------------------------------- | ----------- |
+| title        | 默认标题，可以不用设置，不同模式下，自动展示不同文案 | string                                          | -           |
+| drawer       | 是否 Drawer 模式展示                                 | boolean                                         | false       |
+| span         | AyForm 的 span                                       | 1 ～ 24                                         | 24          |
+| width        | 弹窗宽度                                             | number                                          | -           |
+| fields       | 表单项                                               | Array<[AyDialogFormField][aydialogformfield]>   | []          |
+| addApi       | 新增 api，需要是 Promise 形式的接口                  | Promise                                         | null        |
+| updateApi    | 修改 api，需要是 Promise 形式的接口                  | Promise                                         | null        |
+| name         | 表单唯一名字                                         | stirng                                          | 'ay-form'   |
+| beforeSubmit | 提交前过滤，返回 false 则不提交。                    | (params?: AnyKeyProps, mode?: string)=> boolean | AnyKeyProps | null |
+| dialogExtend | 弹窗的其它参数。                                     | Object                                          | null        |
+| formExtend   | 表单的其它参数。                                     | Object                                          | null        |
+| dialogOnly   | 表单项是否默认不展示，只有写 dialog 才展示。         | boolean                                         | false       |
+
+[aydialogformfield]: /filed参数详解#aydialogformfield

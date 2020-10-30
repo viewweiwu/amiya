@@ -76,6 +76,78 @@ const fields: Array<Field> = [
 | reSetting     | 重新渲染                                                   | (params: AyFormField, mode: string) => AyFormField                     | -       |
 | order         | 顺序                                                       | number                                                                 | -       |
 
+## AyDialogFormField
+
+AyDialogFormField 扩展 AyFormField 的参数，其它的参数请参考 [AyFormField][ayformfield]。
+
+| 参数名  | 说明                   | 参数类型                | 默认值  |
+| ------- | ---------------------- | ----------------------- | ------- |
+| title   | 标题                   | string                  | -       |
+| key     | 唯一 key               | string                  | -       |
+| type    | 表单项类型             | [FormType][formtype]    | 'input' |
+| options | AyFormField 的 options | Array<[Option][option]> | -       |
+| dialog  | 具体说明看下方         | AyFormField             | -       |
+
+### AyDialogFormField 的 dialog 参数说明
+
+```javascript
+import React from 'react'
+import { AydialogFormRef, AyDialogForm, success } from 'amiya'
+import 'antd/dist/antd.min.css'
+
+const fields: Array<AyDialogFormField> = [
+  {
+    title: '中文名',
+    key: 'cname'
+  },
+  {
+    title: '简介',
+    type: 'textarea',
+    key: 'job',
+    required: true
+  }
+]
+
+// dialogOnly 模式下，只有写了 dialog 属性才会被展示
+// 一般情况下不会这么写，只有跟 AySearchTable 一起使用的时候才会有写成这样
+// AySearchTable 的 dialogFormExtend 默认 dialogOnly true
+const fieldsDilogOnly: Array<AyDialogFormField> = [
+  {
+    title: '中文名',
+    key: 'cname',
+    // 写个空对象也可以
+    dialog: {}
+  },
+  {
+    title: '简介',
+    type: 'textarea',
+    key: 'job',
+    dialog: {
+      // 上面基础的 title、type、key、options 会生效之外，其它属性需要写在 dialog 内部
+      props: {
+        rows: 4
+      },
+      required: true
+    }
+  }
+]
+
+export default function Demo() {
+  return (
+    <div>
+      {
+        // 非 dialogOnly 正确的使用方法
+      }
+      <AyDialogForm fields={fields} />
+      {
+        // dialogOnly 正确的写发
+      }
+      <AyDialogForm dialogOnly fields={fieldsDilogOnly} />
+    </div>
+  )
+}
+```
+
 ## AyTableField
 
 一般情况下不会用到这个 AyTableField，它寄生与 AySearchTableField，所以请不要单独使用。
@@ -84,7 +156,7 @@ const fields: Array<Field> = [
 | ---------- | ------------------------------------ | ------------------------------------------------------------------ | ------ |
 | title      | 标题                                 | string                                                             | -      |
 | key        | 唯一 key，dataIndex 默认会跟次值一样 | string                                                             | -      |
-| options    | 唯一 key，dataIndex 默认会跟次值一样 | Array<[Option][option]>                                            | -      |
+| options    | 可选项，展示会根据这个值变化         | Array<[Option][option]>                                            | -      |
 | hidden     | 隐藏这一列                           | boolean                                                            | -      |
 | render     | 自定义展示列                         | (text: ReactNode, record: AnyKeyProps, index: number) => ReactNode | -      |
 | renderType | 美化展示列                           | 'tag'                                                              | -      |
