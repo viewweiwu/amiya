@@ -70,9 +70,9 @@ const getTableFields = (fields: Array<AySearchTableField>): Array<AyTableField> 
 
 /**
  * 判断该节点是否只出现在底部
- * @param node AyAction 节点
+ * @param node AyAction 按钮
  */
-const isFooterExtraOnly = (node: any) => {
+const isFooterActionOnly = (node: any) => {
   if (!node || !node.props) {
     return false
   }
@@ -80,19 +80,25 @@ const isFooterExtraOnly = (node: any) => {
   return props.tableFooterExtraOnly === true
 }
 
-const getTableExtraBtns = (children: ReactNode): { footerNodes: Array<ReactNode>; rightNodes: Array<ReactNode> } => {
+/**
+ * 获取表格底部以及右侧 AyAction 按钮
+ * @param node AyAction 按钮
+ */
+const getTableActionBtns = (children: ReactNode): { footerNodes: Array<ReactNode>; rightNodes: Array<ReactNode> } => {
+  /** 右侧按钮 */
   const footerNodes: Array<ReactNode> = []
+  /** 底部按钮 */
   const rightNodes: Array<ReactNode> = []
   if (Array.isArray(children)) {
     children.forEach((node: any) => {
-      if (isFooterExtraOnly(node)) {
+      if (isFooterActionOnly(node)) {
         footerNodes.push(node)
       } else {
         rightNodes.push(node)
       }
     })
   } else {
-    if (isFooterExtraOnly(children)) {
+    if (isFooterActionOnly(children)) {
       footerNodes.push(children)
     } else {
       rightNodes.push(children)
@@ -149,7 +155,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     onSelectionChange,
     selectShowKey
   })
-  const { footerNodes, rightNodes } = getTableExtraBtns(children)
+  const { footerNodes, rightNodes } = getTableActionBtns(children)
   /** 查询完成，刷新列表 */
   const onConfirm = (values: AnyKeyProps) => {
     tableRef.current.reset(values)
