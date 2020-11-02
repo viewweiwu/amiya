@@ -1,5 +1,4 @@
-import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle } from 'react'
-import AyButton from '../AyButton'
+import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle, ReactNode } from 'react'
 import { Table, Space, Card, Tag, Tooltip } from 'antd'
 import { TABLE_PAGESIZE, TABLE_START_PAGE, TABLE_CTRL_KEY } from '../constant'
 import { AyTableField, AyTableProps } from './ay-table'
@@ -7,7 +6,6 @@ import { Option } from '../AyForm/ay-form'
 import { clearEmpty } from '../utils'
 import './ay-table.less'
 import { AnyKeyProps } from '../types/AnyKeyProps'
-const { DownloadOutlined } = require('@ant-design/icons')
 
 let defaultSearchFilter = (params: AnyKeyProps) => {
   return params
@@ -120,9 +118,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     pagination,
     tableExtend,
     defaultSearchValue,
-    btnBefore,
-    dataAnalysis,
-    exportVisible
+    btnBefore
   } = props
   /** 表格配置 */
   const ayTableFields: Array<AyTableField> = getAyTableField(fields, ctrl)
@@ -225,15 +221,6 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     updateLoadParams({ current, pageSize })
   }
 
-  const handleDownLoad = () => {
-    if (api) {
-      let downloadParams = getParams()
-      downloadParams._download = true
-      downloadParams._downloadTitle = title || ''
-      api(downloadParams)
-    }
-  }
-
   useImperativeHandle(ref, () => ({
     /**
      * 刷新页面
@@ -267,25 +254,12 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
           <div className="ay-table-header-right">
             <Space>
               {btnBefore}
-              {dataAnalysis
-                ? dataAnalysis.map((option: Option) => (
-                    <span className="table-analysis-item" key={option.label}>
-                      <span>{option.label}：</span>
-                      <Tag color="cyan">{option.value.toLocaleString()}</Tag>
-                    </span>
-                  ))
-                : null}
               {total ? (
                 <span className="table-analysis-item">
                   <span>数量：</span>
                   <Tag color="cyan">{total} 条</Tag>
                 </span>
               ) : null}
-              {exportVisible && api && (
-                <AyButton icon={<DownloadOutlined />} onClick={handleDownLoad}>
-                  导出
-                </AyButton>
-              )}
               {children}
             </Space>
           </div>
@@ -304,7 +278,12 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
         pagination={
           pagination !== undefined
             ? pagination
-            : { total, current: loadParams.pagination.current, onChange: onPageChange, showTotal: (total) => `共 ${total} 条` }
+            : {
+                total,
+                current: loadParams.pagination.current,
+                onChange: onPageChange,
+                showTotal: (total) => `共 ${total} 条`
+              }
         }
         rowKey={rowKey || 'id'}
         scroll={{ x: scrollX }}

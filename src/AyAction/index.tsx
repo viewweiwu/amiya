@@ -7,7 +7,7 @@ import { AyActionProps } from './ay-action'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 const { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined } = require('@ant-design/icons')
 
-const actionMap: AnyKeyProps = {}
+export const actionMap: AnyKeyProps = {}
 
 /**
  * 注册一个 action
@@ -88,9 +88,10 @@ registerAction('delete', (props, record, searchTable) => {
 /**
  * 注册【批量删除】事件
  */
-registerAction('batch-delete', (props, record, searchTable) => {
+registerAction('batch-delete', (props, _record, searchTable) => {
   return {
     icon: <DeleteOutlined />,
+    tableFooterExtraOnly: true,
     onClick: () => {
       let selection = searchTable?.selection || []
       if (!selection.length) {
@@ -119,15 +120,23 @@ registerAction('batch-delete', (props, record, searchTable) => {
   }
 })
 
-export default function AyAction(props: AyActionProps) {
-  const searchTable: any = useContext(AySearchTableContext)
+/**
+ * 获得转换后 action props
+ * @param props 当前 props
+ * @param searchTable searchTable 对象
+ */
+export const getActionProps = (props: AyActionProps, searchTable: any) => {
   const { action, record } = props
-
   let targetAction = actionMap[action || '']
   if (targetAction) {
     let actionProps: AnyKeyProps = targetAction(props, record, searchTable)
-    return <AyButton {...actionProps} />
+    return actionProps
   }
+  return props
+}
 
-  return <AyButton {...props} />
+export default function AyAction(props: AyActionProps) {
+  const searchTable: any = useContext(AySearchTableContext)
+  const actionProps = getActionProps(props, searchTable)
+  return <AyButton {...actionProps} />
 }

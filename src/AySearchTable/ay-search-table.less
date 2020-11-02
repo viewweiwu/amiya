@@ -1,6 +1,9 @@
 @import '../less/variable.less';
 
 .ay-search-table {
+  position: relative;
+  padding-bottom: 50px;
+
   .ant-pagination {
     margin-right: @space  !important;
   }
@@ -34,4 +37,18 @@
   width: 300px;
   max-height: 180px;
   overflow: auto;
+}
+
+.ay-search-table-footer-extra {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: @space @space2;
+  box-shadow: 0 -6px 16px -8px rgba(0,0,0,.08), 0 -9px 28px 0 rgba(0,0,0,.05), 0 -12px 48px 16px rgba(0,0,0,.03);
+  background-color: #fff;
+  z-index: 101;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

@@ -20,6 +20,8 @@ interface UseSelectionProps {
 interface UseSelectionReturns {
   /** 头部元素 */
   header: ReactNode
+  /** 只有消息部分 */
+  message: ReactNode
   /** 生成的 antd rowSelection */
   rowSelection: AnyKeyProps | undefined
   /** ☑️已选中的选项 */
@@ -148,29 +150,23 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
     </div>
   )
 
-  /** 头部已选中的提示 */
-  const header = selectionKeys.length ? (
-    <Alert
-      className="am-search-table-alert"
-      message={
-        <div>
-          <span>
-            已选择：
-            <Popover title="已经选中的选项" content={popContent}>
-              <a>{selection.length}</a>
-            </Popover>{' '}
-            条
-          </span>
-          <AyAction className="ml" type="link" size="small" onClick={clearSelection}>
-            清空
-          </AyAction>
-        </div>
-      }
-      showIcon
-    />
-  ) : (
-    ''
+  const message = (
+    <div>
+      <span>
+        已选择：
+        <Popover title="已经选中的选项" content={popContent}>
+          <a>{selection.length}</a>
+        </Popover>{' '}
+        条
+      </span>
+      <AyAction className="ml" type="link" size="small" onClick={clearSelection}>
+        清空
+      </AyAction>
+    </div>
   )
+
+  /** 头部已选中的提示 */
+  const header = selectionKeys.length ? <Alert className="am-search-table-alert" message={message} showIcon /> : ''
 
   useEffect(() => {
     if (onSelectionChange) {
@@ -178,5 +174,5 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
     }
   }, [onSelectionChange, selection])
 
-  return { header, rowSelection, selection, clearSelection }
+  return { header, message, rowSelection, selection, clearSelection }
 }

@@ -1,17 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useRef, MutableRefObject, createContext, forwardRef, useImperativeHandle, Ref } from 'react'
+import React, { useRef, MutableRefObject, createContext, forwardRef, useImperativeHandle, Ref, ReactNode } from 'react'
 import AySearch from '../AySearch'
 import AyTable from '../AyTable'
 import AyDialogForm from '../AyDialogForm'
 import { FormRefProps, TableRefProps, AySearchTableField, AySearchTableProps } from './ay-search-table'
 import useSelection from './use/useSelection'
-// import useDirective from './use/useDirective'
 import { isObj } from '../utils'
 import { getDefaultValue } from '../AyForm'
 import { AyTableField } from '../AyTable/ay-table'
 import './ay-search-table.less'
 import { AySearchField } from '../AySearch/ay-search'
 import { AnyKeyProps } from '../types/AnyKeyProps'
+import { Space } from 'antd'
+import { getActionProps } from '../AyAction'
 
 export const AySearchTableContext = createContext({})
 
@@ -67,6 +68,42 @@ const getTableFields = (fields: Array<AySearchTableField>): Array<AyTableField> 
   })
 }
 
+/**
+ * 判断该节点是否只出现在底部
+ * @param node AyAction 节点
+ */
+const isFooterExtraOnly = (node: any) => {
+  if (!node || !node.props) {
+    return false
+  }
+  const props = getActionProps(node.props, {})
+  return props.tableFooterExtraOnly === true
+}
+
+const getTableExtraBtns = (children: ReactNode): { footerNodes: Array<ReactNode>; rightNodes: Array<ReactNode> } => {
+  const footerNodes: Array<ReactNode> = []
+  const rightNodes: Array<ReactNode> = []
+  if (Array.isArray(children)) {
+    children.forEach((node: any) => {
+      if (isFooterExtraOnly(node)) {
+        footerNodes.push(node)
+      } else {
+        rightNodes.push(node)
+      }
+    })
+  } else {
+    if (isFooterExtraOnly(children)) {
+      footerNodes.push(children)
+    } else {
+      rightNodes.push(children)
+    }
+  }
+  return {
+    rightNodes,
+    footerNodes
+  }
+}
+
 export default forwardRef(function AySearchTable(props: AySearchTableProps, ref: Ref<any>) {
   const {
     fields,
@@ -106,25 +143,13 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   /** 列表项 */
   const tableFields: Array<AyTableField> = getTableFields(fields)
   /** 使用勾选 */
-  const { header, rowSelection, selection, clearSelection } = useSelection({
+  const { header, message, rowSelection, selection, clearSelection } = useSelection({
     rowKey: rowKey || 'id',
     selectionType,
     onSelectionChange,
     selectShowKey
   })
-  /** 使用指令操作 */
-  // const [newChildren, newCtrl] = useDirective({
-  //   children,
-  //   tableRef,
-  //   formRef,
-  //   selection,
-  //   ctrl,
-  //   deleteApi,
-  //   clearSelection,
-  //   rowKey,
-  //   onFinish
-  // })
-
+  const { footerNodes, rightNodes } = getTableExtraBtns(children)
   /** 查询完成，刷新列表 */
   const onConfirm = (values: AnyKeyProps) => {
     tableRef.current.reset(values)
@@ -190,10 +215,16 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
       <AySearchTableContext.Provider value={{ formRef, tableRef, selection, deleteApi, rowKey, clearSelection }}>
         {searchVisible !== false ? <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} /> : null}
         {center}
+        {dialogFormExtend ? <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend} /> : null}
         <AyTable {...tableProps} fields={tableFields} header={header}>
-          {dialogFormExtend ? <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend} /> : null}
-          {children}
+          {rightNodes}
         </AyTable>
+        {selection.length && footerNodes.length ? (
+          <div className="ay-search-table-footer-extra">
+            {message}
+            <Space>{footerNodes}</Space>
+          </div>
+        ) : null}
       </AySearchTableContext.Provider>
     </div>
   )

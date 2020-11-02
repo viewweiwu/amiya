@@ -118,7 +118,7 @@ export default function Demo() {
         formRef.current.refreshFields()
       },
       props: {
-        children: '是否填写',
+        children: '之后填写',
         style: {
           float: 'right'
         }
@@ -408,8 +408,8 @@ const fields: Array<AyFormField> = [
 ]
 
 export default function Demo() {
-  const [readonly, setReadonly] = useState<boolean>(false)
-  const [desc, setDesc] = useState<boolean>(false)
+  const [readonly, setReadonly] = useState<boolean>(true)
+  const [desc, setDesc] = useState<boolean>(true)
   const formRef: MutableRefObject<any> = useRef()
 
   const handleConfirm = (form: any) => {
@@ -556,13 +556,14 @@ const layout = {
 
 ## Method 方法
 
-| 方法名                         | 说明                | 返回值         |
-| ------------------------------ | ------------------- | -------------- |
-| submit()                       | 主动提交表单        | -              |
-| resetFields()                  | 重置表单            | -              |
-| getFieldValue(key: string)     | 根据 key 获取表单值 | any            |
-| getFieldsValue()               | 获取所有表单值      | values: Object |
-| setFieldsValue(values: Object) | 设置表单值          | -              |
+| 方法名                         | 说明                                                      | 返回值         |
+| ------------------------------ | --------------------------------------------------------- | -------------- |
+| submit()                       | 主动提交表单                                              | -              |
+| resetFields()                  | 重置表单                                                  | -              |
+| getFieldValue(key: string)     | 根据 key 获取表单值                                       | any            |
+| getFieldsValue()               | 获取所有表单值                                            | values: Object |
+| setFieldsValue(values: Object) | 设置表单值                                                | -              |
+| refreshFields()                | 重新渲染表单，如果动态改变了 fields，可以用此参数重新渲染 | -              |
 
 [1]: https://ant-design.gitee.io/components/form-cn/#API
 [2]: /filed参数详解#ayformfield-参数

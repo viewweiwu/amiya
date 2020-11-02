@@ -5,6 +5,8 @@ export interface AyButtonProps extends ButtonProps {
   confirm?: boolean
   /** 确认事件 */
   onConfirm?(): void
+  /** 是否只在表格扩展显示 */
+  tableFooterExtraOnly?: boolean
   /** 自定义确认消息 */
   confirmMsg?: React.ReactNode
   /** 权限 */
