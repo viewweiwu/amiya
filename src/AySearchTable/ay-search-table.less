@@ -1,9 +1,6 @@
 @import '../less/variable.less';
 
 .ay-search-table {
-  position: relative;
-  padding-bottom: 50px;
-
   .ant-pagination {
     margin-right: @space  !important;
   }
@@ -23,6 +20,23 @@
   .ant-alert {
     margin: @space;
   }
+
+  &:-webkit-full-screen {
+    padding: @space2;
+    background-color: #fff;
+  }
+}
+
+.ay-search-table-extra-fields-edit-line {
+  margin: @gap 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ay-search-table-extra-fields-edit-line-right {
+  display: flex;
+  align-items: center;
 }
 
 .ay-search-table-alert {
@@ -39,7 +53,11 @@
   overflow: auto;
 }
 
-.ay-search-table-footer-extra {
+.yt-search-table-extra-btns {
+  margin-left: @space;
+}
+
+.ay-search-table-footer-actions {
   left: 0;
   bottom: 0;
   width: 100%;

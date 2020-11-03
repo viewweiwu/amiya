@@ -1,9 +1,26 @@
+import { SizeType } from 'antd/lib/config-provider/SizeContext'
+import { AnyKeyProps } from './../types/AnyKeyProps.d'
 import { ReactElement, ReactNode } from 'react'
 import { AyTableCtrlField } from '../AyTable/ay-table'
 import { AyDialogFormProps, AyDialogFormField } from '../AyDialog/ay-dialog'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 
-export interface AySearchTableProps {
+export interface SearchTableInitConfig extends AnyKeyProps {
+  /** 扩展栏是否显示 */
+  extraVisible?: boolean
+  /** 扩展栏【刷新】按钮是否显示 */
+  extraRefreshVisible: boolean
+  /** 扩展栏【密度】按钮是否显示 */
+  extraSizeVisible: boolean
+  /** 扩展栏【密度】按钮默认值 */
+  extraSizeDefaultValue: SizeType
+  /** 扩展栏【展示列】按钮是否显示 */
+  extraSettingVisible: boolean
+  /** 扩展栏【全屏】按钮是否显示 */
+  extraFullpageVisible: boolean
+}
+
+export interface AySearchTableProps extends SearchTableInitConfig {
   /** 标题 */
   title?: string | ReactNode
   /** 配置项 */
@@ -50,14 +67,8 @@ export interface AySearchTableProps {
   tableExtend?: AnyKeyProps
   /** 指令完成事件 */
   onFinish?(key: string, data?: any): void
-  /** 导出文件 */
-  downloadApi?(params: AnyKeyProps): Promise<AnyKeyProps>
   /** 在导入前面插入按钮 */
   btnBefore?: ReactNode
-  /** 统计数据，放在导入按钮前面 */
-  dataAnalysis?: Array<Option>
-  /** 是否展示导出按钮 */
-  exportVisible?: boolean
 }
 export interface ExtendField extends Field, AyFormField {
   key?: string

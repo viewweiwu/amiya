@@ -8,6 +8,7 @@ export interface AyTableProps {
   title?: string | ReactNode
   children?: ReactNode
   header?: ReactNode
+  size?: SizeType
   api?(params: AnyKeyProps): Promise<AnyKeyProps>
   /** 列表项 */
   fields: Array<AyTableField>
@@ -58,6 +59,9 @@ export interface AyTableField {
   renderType?: 'tag'
   /** 是否隐藏这一列 */
   hidden?: boolean
+  __extraTouched?: boolean
+  __hidden?: boolean
+  __order?: number
   [key: string]: any
 }
 

@@ -1,18 +1,35 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useRef, MutableRefObject, createContext, forwardRef, useImperativeHandle, Ref, ReactNode } from 'react'
+import React, {
+  useRef,
+  MutableRefObject,
+  createContext,
+  forwardRef,
+  useImperativeHandle,
+  Ref,
+  ReactNode,
+  useState
+} from 'react'
 import AySearch from '../AySearch'
 import AyTable from '../AyTable'
 import AyDialogForm from '../AyDialogForm'
-import { FormRefProps, TableRefProps, AySearchTableField, AySearchTableProps } from './ay-search-table'
 import useSelection from './use/useSelection'
+import {
+  FormRefProps,
+  TableRefProps,
+  AySearchTableField,
+  AySearchTableProps,
+  SearchTableInitConfig
+} from './ay-search-table'
 import { isObj } from '../utils'
 import { getDefaultValue } from '../AyForm'
 import { AyTableField } from '../AyTable/ay-table'
-import './ay-search-table.less'
 import { AySearchField } from '../AySearch/ay-search'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { Space } from 'antd'
 import { getActionProps } from '../AyAction'
+import Fullscreen from 'fullscreen-react'
+import './ay-search-table.less'
+import useExtraBtn, { setSearchTableExtraDefaultValue } from './use/useExtraBtn'
 
 export const AySearchTableContext = createContext({})
 
@@ -84,30 +101,38 @@ const isFooterActionOnly = (node: any) => {
  * 获取表格底部以及右侧 AyAction 按钮
  * @param node AyAction 按钮
  */
-const getTableActionBtns = (children: ReactNode): { footerNodes: Array<ReactNode>; rightNodes: Array<ReactNode> } => {
+const getTableActionBtns = (
+  children: ReactNode
+): { footerActions: Array<ReactNode>; rightActions: Array<ReactNode> } => {
   /** 右侧按钮 */
-  const footerNodes: Array<ReactNode> = []
+  const footerActions: Array<ReactNode> = []
   /** 底部按钮 */
-  const rightNodes: Array<ReactNode> = []
+  const rightActions: Array<ReactNode> = []
   if (Array.isArray(children)) {
     children.forEach((node: any) => {
       if (isFooterActionOnly(node)) {
-        footerNodes.push(node)
+        footerActions.push(node)
       } else {
-        rightNodes.push(node)
+        rightActions.push(node)
       }
     })
   } else {
     if (isFooterActionOnly(children)) {
-      footerNodes.push(children)
+      footerActions.push(children)
     } else {
-      rightNodes.push(children)
+      rightActions.push(children)
     }
   }
   return {
-    rightNodes,
-    footerNodes
+    rightActions,
+    footerActions
   }
+}
+
+/** 初始化查询表格配置 */
+export const setSearchTableDefaultValue = (config: SearchTableInitConfig) => {
+  // 初始化扩展列
+  setSearchTableExtraDefaultValue(config)
 }
 
 export default forwardRef(function AySearchTable(props: AySearchTableProps, ref: Ref<any>) {
@@ -133,9 +158,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     searchVisible,
     tableExtend,
     pagination,
-    btnBefore,
-    dataAnalysis,
-    exportVisible
+    btnBefore
   } = props
 
   /** form 控制 */
@@ -147,7 +170,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   /** 查询项 */
   const searchFields: Array<AySearchField> = getSearchFields(fields)
   /** 列表项 */
-  const tableFields: Array<AyTableField> = getTableFields(fields)
+  const [tableFields, setTableFields] = useState<Array<AyTableField>>(getTableFields(fields))
   /** 使用勾选 */
   const { header, message, rowSelection, selection, clearSelection } = useSelection({
     rowKey: rowKey || 'id',
@@ -155,7 +178,9 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     onSelectionChange,
     selectShowKey
   })
-  const { footerNodes, rightNodes } = getTableActionBtns(children)
+  /** action 展示，底部 or 右侧 */
+  const { footerActions, rightActions } = getTableActionBtns(children)
+  const { extraBtns, size, isEnter, setIsEnter } = useExtraBtn(tableRef, tableFields, setTableFields, props)
   /** 查询完成，刷新列表 */
   const onConfirm = (values: AnyKeyProps) => {
     tableRef.current.reset(values)
@@ -199,6 +224,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     ref: tableRef,
     rowSelection,
     api,
+    size,
     data,
     title,
     ctrl,
@@ -211,27 +237,28 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     tableExtend,
     pagination,
     defaultSearchValue: getDefaultValue(searchFields),
-    btnBefore,
-    dataAnalysis,
-    exportVisible
+    btnBefore
   }
 
   return (
-    <div className="ay-search-table">
-      <AySearchTableContext.Provider value={{ formRef, tableRef, selection, deleteApi, rowKey, clearSelection }}>
-        {searchVisible !== false ? <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} /> : null}
-        {center}
-        {dialogFormExtend ? <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend} /> : null}
-        <AyTable {...tableProps} fields={tableFields} header={header}>
-          {rightNodes}
-        </AyTable>
-        {selection.length && footerNodes.length ? (
-          <div className="ay-search-table-footer-extra">
-            {message}
-            <Space>{footerNodes}</Space>
-          </div>
-        ) : null}
-      </AySearchTableContext.Provider>
-    </div>
+    <Fullscreen isEnter={isEnter} onChange={setIsEnter}>
+      <div className="ay-search-table full-screenable-node">
+        <AySearchTableContext.Provider value={{ formRef, tableRef, selection, deleteApi, rowKey, clearSelection }}>
+          {searchVisible !== false ? <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} /> : null}
+          {center}
+          {dialogFormExtend ? <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend} /> : null}
+          <AyTable {...tableProps} fields={tableFields} header={header}>
+            {rightActions}
+            {extraBtns}
+          </AyTable>
+          {selection.length && footerActions.length ? (
+            <div className="ay-search-table-footer-actions">
+              {message}
+              <Space>{footerActions}</Space>
+            </div>
+          ) : null}
+        </AySearchTableContext.Provider>
+      </div>
+    </Fullscreen>
   )
 })

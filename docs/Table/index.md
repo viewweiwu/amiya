@@ -33,10 +33,12 @@ const listApi = () => {
         createDate: '2019年4月30日 10:00'
       }
     ]
-    resolve({
-      content: data,
-      total: 2
-    })
+    setTimeout(() => {
+      resolve({
+        content: data,
+        total: 2
+      })
+    }, 1000)
   })
 }
 
@@ -334,3 +336,7 @@ export default function Demo() {
 | onLoad            | 表格查询完成监听。                                                | (records: Array<Record\>, data: any) => void | -      |
 | searchVisible     | 查询区域是否展。                                                  | boolean                                      | true   |
 | tableExtend       | table 其它属性。                                                  | Object                                       | {}     |
+
+extra 右侧扩展按钮配置参考[此处][1]。
+
+[1]: ./table/全局扩展按钮配置

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle, ReactNode } from 'react'
+import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { Table, Space, Card, Tag, Tooltip } from 'antd'
 import { TABLE_PAGESIZE, TABLE_START_PAGE, TABLE_CTRL_KEY } from '../constant'
 import { AyTableField, AyTableProps } from './ay-table'
@@ -31,16 +31,20 @@ export const setDefaultDataFilter = (cb: (params: AnyKeyProps) => AnyKeyProps) =
  *
  * @param fields 配置项目
  */
-const getAyTableField = (fields: Array<any>, ctrl?: AyTableField): Array<AyTableField> => {
+const getAyTableFields = (fields: Array<any>, ctrl?: AyTableField): Array<AyTableField> => {
   let tableFields = fields
     .filter((field) => {
+      if (field.__extraTouched) {
+        return field.__hidden === false
+      }
       return field.hidden !== true
     })
     .map((field) => {
       let tableField: AnyKeyProps = {
         key: field.key,
         dataIndex: field.key,
-        ...field
+        ...field,
+        title: field.__alias || field.title
       }
       if (field.render) {
         tableField.render = field.render
@@ -63,6 +67,7 @@ const getAyTableField = (fields: Array<any>, ctrl?: AyTableField): Array<AyTable
           return row ? row.label : text
         }
       }
+      // 多余显示 ...
       if (field.ellipsis) {
         tableField.ellipsis = {
           showTitle: false
@@ -81,8 +86,19 @@ const getAyTableField = (fields: Array<any>, ctrl?: AyTableField): Array<AyTable
   if (ctrl && ctrl.render && tableFields.every((field) => field.key !== 'ctrl')) {
     ctrl.key = TABLE_CTRL_KEY
     ctrl.title = ctrl.title || '操作'
+    ctrl.order = 999
+    ctrl.__order = 999
     tableFields.push(ctrl)
   }
+  tableFields = tableFields.sort((a: AyTableField, b: AyTableField) => {
+    return a.order - b.order
+  })
+  if (tableFields.some((field) => field.__extraTouched)) {
+    tableFields = tableFields.sort((a: AyTableField, b: AyTableField) => {
+      return (a.__order || 0) - (b?.__order || 0)
+    })
+  }
+
   return tableFields
 }
 
@@ -104,6 +120,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     fields,
     header,
     api,
+    size,
     data,
     children,
     title,
@@ -121,7 +138,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     btnBefore
   } = props
   /** 表格配置 */
-  const ayTableFields: Array<AyTableField> = getAyTableField(fields, ctrl)
+  const ayTableFields: Array<AyTableField> = getAyTableFields(fields, ctrl)
   /** 表格数据 */
   const [tableData, setTableData] = useState<Array<AnyKeyProps>>(data || [])
   /** 是否正在加载 */
@@ -286,6 +303,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
               }
         }
         rowKey={rowKey || 'id'}
+        size={size}
         scroll={{ x: scrollX }}
         {...tableExtend}
       />
