@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Dispatch, useState } from 'react'
+import React, { ChangeEvent, Dispatch, useEffect, useState } from 'react'
 import AyButton from '../../AyButton'
 import { Dropdown, Menu, Checkbox, Space, Tooltip, Input } from 'antd'
 import { AyTableField } from '../../AyTable/ay-table'
@@ -29,7 +29,7 @@ let defaultConfig: SearchTableInitConfig = {
   /** 扩展栏【展示列】按钮是否显示 */
   extraSettingVisible: true,
   /** 扩展栏【全屏】按钮是否显示 */
-  extraFullpageVisible: false
+  extraFullscreenVisible: true
 }
 interface FieldEdit {
   /** 是否选中 */
@@ -193,7 +193,7 @@ export default function useExtraBtn(
     extraSizeVisible,
     extraSizeDefaultValue,
     extraSettingVisible,
-    extraFullpageVisible
+    extraFullscreenVisible
   } = config
   /** 表格尺寸 */
   const [size, setSize] = useState<SizeType>(extraSizeDefaultValue)
@@ -209,6 +209,15 @@ export default function useExtraBtn(
   const handleSizeChange = (e: any) => {
     setSize(e.key)
   }
+
+  useEffect(() => {
+    // body 的 style 防止滚动
+    if (isEnter) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+  }, [isEnter])
 
   const extraBtns = extraVisible ? (
     <div className="yt-search-table-extra-btns">
@@ -237,7 +246,7 @@ export default function useExtraBtn(
 
         {extraSettingVisible ? fieldsEdit : null}
 
-        {extraFullpageVisible ? (
+        {extraFullscreenVisible ? (
           isEnter ? (
             <Tooltip title="还原">
               <AyButton

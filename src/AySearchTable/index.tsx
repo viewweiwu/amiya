@@ -27,7 +27,6 @@ import { AySearchField } from '../AySearch/ay-search'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { Space } from 'antd'
 import { getActionProps } from '../AyAction'
-import Fullscreen from 'fullscreen-react'
 import './ay-search-table.less'
 import useExtraBtn, { setSearchTableExtraDefaultValue } from './use/useExtraBtn'
 
@@ -180,7 +179,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   })
   /** action 展示，底部 or 右侧 */
   const { footerActions, rightActions } = getTableActionBtns(children)
-  const { extraBtns, size, isEnter, setIsEnter } = useExtraBtn(tableRef, tableFields, setTableFields, props)
+  const { extraBtns, size, isEnter } = useExtraBtn(tableRef, tableFields, setTableFields, props)
   /** 查询完成，刷新列表 */
   const onConfirm = (values: AnyKeyProps) => {
     tableRef.current.reset(values)
@@ -241,24 +240,22 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   }
 
   return (
-    <Fullscreen isEnter={isEnter} onChange={setIsEnter}>
-      <div className="ay-search-table full-screenable-node">
-        <AySearchTableContext.Provider value={{ formRef, tableRef, selection, deleteApi, rowKey, clearSelection }}>
-          {searchVisible !== false ? <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} /> : null}
-          {center}
-          {dialogFormExtend ? <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend} /> : null}
-          <AyTable {...tableProps} fields={tableFields} header={header}>
-            {rightActions}
-            {extraBtns}
-          </AyTable>
-          {selection.length && footerActions.length ? (
-            <div className="ay-search-table-footer-actions">
-              {message}
-              <Space>{footerActions}</Space>
-            </div>
-          ) : null}
-        </AySearchTableContext.Provider>
-      </div>
-    </Fullscreen>
+    <div className={`ay-search-table ${isEnter ? 'full' : null}`}>
+      <AySearchTableContext.Provider value={{ formRef, tableRef, selection, deleteApi, rowKey, clearSelection }}>
+        {searchVisible !== false ? <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} /> : null}
+        {center}
+        {dialogFormExtend ? <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend} /> : null}
+        <AyTable {...tableProps} fields={tableFields} header={header}>
+          {rightActions}
+          {extraBtns}
+        </AyTable>
+        {selection.length && footerActions.length ? (
+          <div className="ay-search-table-footer-actions">
+            {message}
+            <Space>{footerActions}</Space>
+          </div>
+        ) : null}
+      </AySearchTableContext.Provider>
+    </div>
   )
 })

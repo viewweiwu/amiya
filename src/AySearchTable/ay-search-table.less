@@ -21,9 +21,16 @@
     margin: @space;
   }
 
-  &:-webkit-full-screen {
+  &.full {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     padding: @space2;
     background-color: #fff;
+    z-index: 999;
+    position: fixed;
+    overflow: auto;
   }
 }
 

@@ -17,7 +17,7 @@ export interface SearchTableInitConfig extends AnyKeyProps {
   /** 扩展栏【展示列】按钮是否显示 */
   extraSettingVisible: boolean
   /** 扩展栏【全屏】按钮是否显示 */
-  extraFullpageVisible: boolean
+  extraFullscreenVisible: boolean
 }
 
 export interface AySearchTableProps extends SearchTableInitConfig {
