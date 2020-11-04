@@ -100,6 +100,7 @@ const CtrlField: AyTableCtrlField = {
         <AyAction>详情</AyAction>
         <AyAction>删除</AyAction>
         <AyAction>审批</AyAction>
+        <AyAction>复制</AyAction>
       </AyCtrl>
     )
   }
@@ -146,6 +147,7 @@ export default function Demo() {
       <AyAction>修改</AyAction>
       <AyAction>详情</AyAction>
       <AyAction>删除</AyAction>
+      <AyAction>审批</AyAction>
       <AyAction>审批</AyAction>
     </AyCtrl>
   )
