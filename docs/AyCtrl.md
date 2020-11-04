@@ -91,21 +91,15 @@ const fields: Array<AySearchTableField> = [
   }
 ]
 
-// record、action 只有在 AySearchTable 下才会有作用
 const CtrlField: AyTableCtrlField = {
-  width: 200,
+  width: 240,
   render: (value, record) => {
     return (
       <AyCtrl>
-        <AyAction record={record} action="update">
-          编辑
-        </AyAction>
-        <AyAction record={record} action="view">
-          详情
-        </AyAction>
-        <AyAction record={record} action="delete">
-          删除
-        </AyAction>
+        <AyAction>编辑</AyAction>
+        <AyAction>详情</AyAction>
+        <AyAction>删除</AyAction>
+        <AyAction>审批</AyAction>
       </AyCtrl>
     )
   }

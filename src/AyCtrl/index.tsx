@@ -44,7 +44,8 @@ const getCtrlList = (children: Array<ReactNode> | ReactNode, props: AyCtrlProps)
     return [getCtrlItem(children, 'key')]
   }
 
-  for (let i = 0; i < max; i++) {
+  // 渲染没有折叠前的按钮
+  for (let i = 0; i < (children.length <= max + 1 ? children.length : max); i++) {
     let node = children[i]
     if (!node) {
       continue
@@ -59,7 +60,7 @@ const getCtrlList = (children: Array<ReactNode> | ReactNode, props: AyCtrlProps)
   }
 
   // 多余的按钮会变成下拉菜单
-  if (children.length > max) {
+  if (children.length > max + 1) {
     const menuList = []
 
     for (let i = max; i < children.length; i++) {
