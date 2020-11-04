@@ -69,3 +69,10 @@ export interface AyTableCtrlField extends AyTableField {
   /** render 函数 */
   render(text: ReactNode, record: AnyKeyProps, index: number): ReactNode
 }
+
+export interface RenderProps {
+  text: string
+  record: AnyKeyProps
+  index: number
+  field: AnyKeyProps
+}

@@ -9,15 +9,15 @@ export interface SearchTableInitConfig extends AnyKeyProps {
   /** 扩展栏是否显示 */
   extraVisible?: boolean
   /** 扩展栏【刷新】按钮是否显示 */
-  extraRefreshVisible: boolean
+  extraRefreshVisible?: boolean
   /** 扩展栏【密度】按钮是否显示 */
-  extraSizeVisible: boolean
+  extraSizeVisible?: boolean
   /** 扩展栏【密度】按钮默认值 */
-  extraSizeDefaultValue: SizeType
+  extraSizeDefaultValue?: SizeType
   /** 扩展栏【展示列】按钮是否显示 */
-  extraSettingVisible: boolean
+  extraSettingVisible?: boolean
   /** 扩展栏【全屏】按钮是否显示 */
-  extraFullscreenVisible: boolean
+  extraFullscreenVisible?: boolean
 }
 
 export interface AySearchTableProps extends SearchTableInitConfig {

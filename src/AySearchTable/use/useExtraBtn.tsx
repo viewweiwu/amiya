@@ -1,8 +1,8 @@
 import React, { ChangeEvent, Dispatch, useEffect, useState } from 'react'
 import AyButton from '../../AyButton'
+import AyDialog from '../../AyDialog'
 import { Dropdown, Menu, Checkbox, Space, Tooltip, Input } from 'antd'
 import { AyTableField } from '../../AyTable/ay-table'
-import { AyDialog } from '../..'
 import { SizeType } from 'antd/lib/config-provider/SizeContext'
 import { AySearchTableProps, SearchTableInitConfig } from '../ay-search-table'
 
@@ -45,7 +45,7 @@ interface FieldEdit {
 }
 
 export const setSearchTableExtraDefaultValue = (config: SearchTableInitConfig) => {
-  defaultConfig = config
+  defaultConfig = Object.assign({}, defaultConfig, config)
 }
 
 const useFieldsEdit = (

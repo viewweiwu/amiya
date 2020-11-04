@@ -1,27 +1,50 @@
-import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle } from 'react'
+import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle, ReactNode } from 'react'
 import { Table, Space, Card, Tag, Tooltip } from 'antd'
 import { TABLE_PAGESIZE, TABLE_START_PAGE, TABLE_CTRL_KEY } from '../constant'
-import { AyTableField, AyTableProps } from './ay-table'
+import { AyTableField, AyTableProps, RenderProps } from './ay-table'
 import { Option } from '../AyForm/ay-form'
 import { clearEmpty } from '../utils'
 import './ay-table.less'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 
+/** 默认请求前列表过滤 */
 let defaultSearchFilter = (params: AnyKeyProps) => {
   return params
 }
 
+/** 默认请求后列表过滤 */
 let defaultDataFilter = (params: AnyKeyProps) => {
   return params
 }
 
+/** 自定义请求前过滤 */
 export const setDefaultSearchFilter = (cb: (params: AnyKeyProps) => AnyKeyProps) => {
   defaultSearchFilter = cb
 }
 
+/** 自定义请求后过滤 */
 export const setDefaultDataFilter = (cb: (params: AnyKeyProps) => AnyKeyProps) => {
   defaultDataFilter = cb
 }
+
+let renderMap: AnyKeyProps = {}
+
+export const registerTableRender = (key: string, render: (props: RenderProps) => ReactNode) => {
+  renderMap[key] = render
+}
+
+registerTableRender('__options', ({ field, text }: RenderProps) => {
+  let option = field.options.find((option: Option) => option.value === text)
+  return option ? option.label : text
+})
+
+registerTableRender('__elipsis', ({ text, field }: RenderProps) => {
+  return (
+    <Tooltip placement={field.placement || 'topLeft'} title={text}>
+      <span>{text || ''}</span>
+    </Tooltip>
+  )
+})
 
 /**
  * 重新过滤配置项
@@ -49,37 +72,31 @@ const getAyTableFields = (fields: Array<any>, ctrl?: AyTableField): Array<AyTabl
       if (field.render) {
         tableField.render = field.render
       }
-      if (field.options && !field.render) {
-        tableField.render = (text: string) => {
-          let row = field.options.find((option: Option) => option.value === text)
-          if (row) {
-            if (field.renderType === 'tag') {
-              return <Tag color={row.color}>{row ? row.label : text}</Tag>
-            } else if (row.color) {
-              return (
-                <span>
-                  <span className={`circle ${row.color}`}></span>
-                  {row ? row.label : text}
-                </span>
-              )
-            }
-          }
-          return row ? row.label : text
-        }
+
+      // options 自动注册
+      if (field.options && !field.render && !tableField.renderType) {
+        tableField.renderType = '__options'
       }
+
       // 多余显示 ...
       if (field.ellipsis) {
         tableField.ellipsis = {
           showTitle: false
         }
-        tableField.render = (text: string) => {
-          return (
-            <Tooltip placement={field.placement || 'topLeft'} title={text}>
-              <span>{text || ''}</span>
-            </Tooltip>
-          )
+        tableField.renderType = '__ellipsis'
+      }
+
+      if (
+        !tableField.render &&
+        renderMap[tableField.renderType] &&
+        typeof renderMap[tableField.renderType] === 'function'
+      ) {
+        console.log(111)
+        tableField.render = (text: ReactNode, record: AnyKeyProps, index: number) => {
+          return renderMap[tableField.renderType]({ text, record, index, field: tableField })
         }
       }
+
       return tableField
     })
 

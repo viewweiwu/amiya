@@ -67,6 +67,13 @@ const fields: Array<AySearchTableField> = [
     search: {},
     dialog: {
       required: true
+    },
+    table: {
+      renderType: 'tag',
+      colorMap: {
+        Amiya: 'cyan',
+        Exusiai: 'orange'
+      }
     }
   },
   {

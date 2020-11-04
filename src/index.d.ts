@@ -11,7 +11,7 @@ export { default as AyTable } from './AyTable'
 
 export { registerAction } from './AyAction'
 export { registerField } from './AyForm'
-export { setDefaultSearchFilter, setDefaultDataFilter } from './AyTable'
+export { setDefaultSearchFilter, setDefaultDataFilter, registerTableRender } from './AyTable'
 export { setSearchTableDefaultValue } from './AySearchTable'
 export { AySearchTableField } from './AySearchTable/ay-search-table'
 export { AyFormField, Option } from './AyForm/ay-form'
