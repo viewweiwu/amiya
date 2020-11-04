@@ -72,9 +72,7 @@ registerAction('delete', (props, record, searchTable) => {
     confirmMsg: '你确定要删除此行吗？',
     onConfirm: () => {
       if (searchTable?.deleteApi && record) {
-        const params = {
-          [searchTable?.rowKey || 'id']: record[searchTable?.rowKey || 'id']
-        }
+        const params = [record[searchTable?.rowKey || 'id']]
         searchTable?.deleteApi(params).then((data: any) => {
           success('删除成功')
           searchTable?.tableRef.current.refresh()
@@ -104,9 +102,7 @@ registerAction('batch-delete', (props, _record, searchTable) => {
           content: `您勾选了 ${selection.length} 个，确定要删除吗？`,
           icon: <ExclamationCircleOutlined />,
           onOk: () => {
-            let params: AnyKeyProps = {
-              [searchTable?.rowKey || 'id']: selection.map((row: any) => row[searchTable?.rowKey || 'id'])
-            }
+            let params: Array<string> = selection.map((row: any) => row[searchTable?.rowKey || 'id'])
             searchTable?.deleteApi(params).then((data: any) => {
               success('批量删除成功')
               searchTable?.clearSelection()

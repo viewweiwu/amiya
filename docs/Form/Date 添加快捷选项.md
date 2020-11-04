@@ -45,7 +45,7 @@ registerField('date-range', {
 })
 
 // 日期快捷选项
-const renderExtraFooter = (setFieldsValue: (params: AnyKeyProps) => void, field: AnyKeyProps) => {
+const renderExtraFooter = ({ setFieldsValue, field }: AnyKeyProps) => {
   /**
    * 填充日期
    * @param value 日期
@@ -81,12 +81,12 @@ const renderExtraFooter = (setFieldsValue: (params: AnyKeyProps) => void, field:
 registerField('date', {
   type: 'date',
   defaultValue: null,
-  render: ({ field, readonly, getFieldValue }: AnyKeyProps) =>
+  render: ({ field, readonly, getFieldValue, setFieldsValue }: AnyKeyProps) =>
     readonly ? (
       <span className="ay-form-text">{getFieldValue(field.key) || '-'}</span>
     ) : (
       <DatePicker
-        renderExtraFooter={renderExtraFooter}
+        renderExtraFooter={() => renderExtraFooter({ setFieldsValue, field })}
         className="max-width"
         placeholder={`请选择${field.title || ''}`}
         {...field.props}

@@ -45,7 +45,8 @@ const listApi = () => {
 /**
  * 测试接口，实际过程中请使用 axios 接口
  * */
-const emptyApi = () => {
+const emptyApi = (params?: any) => {
+  console.log(params)
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve()
@@ -130,11 +131,11 @@ const CtrlField: AyTableCtrlField = {
         <AyAction record={record} action="update">
           编辑
         </AyAction>
-        <AyAction record={record} action="delete">
-          删除
-        </AyAction>
         <AyAction record={record} action="view">
           详情
+        </AyAction>
+        <AyAction record={record} action="delete">
+          删除
         </AyAction>
       </AyCtrl>
     )

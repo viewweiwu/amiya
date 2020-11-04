@@ -4,8 +4,8 @@ import { TABLE_PAGESIZE, TABLE_START_PAGE, TABLE_CTRL_KEY } from '../constant'
 import { AyTableField, AyTableProps, RenderProps } from './ay-table'
 import { Option } from '../AyForm/ay-form'
 import { clearEmpty } from '../utils'
-import './ay-table.less'
 import { AnyKeyProps } from '../types/AnyKeyProps'
+import './ay-table.less'
 
 /** 默认请求前列表过滤 */
 let defaultSearchFilter = (params: AnyKeyProps) => {
@@ -91,7 +91,6 @@ const getAyTableFields = (fields: Array<any>, ctrl?: AyTableField): Array<AyTabl
         renderMap[tableField.renderType] &&
         typeof renderMap[tableField.renderType] === 'function'
       ) {
-        console.log(111)
         tableField.render = (text: ReactNode, record: AnyKeyProps, index: number) => {
           return renderMap[tableField.renderType]({ text, record, index, field: tableField })
         }

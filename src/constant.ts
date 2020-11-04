@@ -10,6 +10,12 @@ export const LAYOUT_SIDE_WIDTH = 270
 /** 标签页 loading 时间 */
 export const TAB_LOADING_TIME = 1000
 
+/** AyCtrl 默认数量 */
+export const CTRL_DEFAULT_MAX = 3
+
+/** AyCtrl 默认数量 */
+export const CTRL_DEFAULT_MORE_TEXT = '更多'
+
 // --------------------------------------------------------------
 // ------------------------ table 默认配置 -----------------------
 // --------------------------------------------------------------
