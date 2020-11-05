@@ -2,167 +2,7 @@
 
 ## 示例：增删改查
 
-```tsx
-import React from 'react'
-import { AySearchTable, AyAction, AyCtrl, AySearchTableField } from 'amiya'
-import { AyTableCtrlField } from 'amiya/lib/AyTable/ay-table'
-import 'antd/dist/antd.min.css'
-
-/**
- * 测试接口，实际过程中请使用 axios 接口
- * */
-const listApi = () => {
-  return new Promise((resolve) => {
-    const data = [
-      {
-        id: '1',
-        name: 'Amiya',
-        cname: '阿米娅',
-        defaultHp: 699,
-        defaultAtk: 276,
-        job: '3',
-        createDate: '2019年4月30日 10:00'
-      },
-      {
-        id: '2',
-        name: 'Exusiai',
-        cname: '能天使',
-        defaultHp: 711,
-        defaultAtk: 183,
-        job: '2',
-        createDate: '2019年4月30日 10:00'
-      }
-    ]
-    setTimeout(() => {
-      resolve({
-        content: data,
-        total: 2
-      })
-    }, 1000)
-  })
-}
-
-/**
- * 测试接口，实际过程中请使用 axios 接口
- * */
-const emptyApi = (params?: any) => {
-  console.log(params)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve()
-    }, 300)
-  })
-}
-
-const fields: Array<AySearchTableField> = [
-  {
-    title: '姓名',
-    key: 'cname',
-    dialog: {
-      required: true
-    }
-  },
-  {
-    title: '英文名',
-    key: 'name',
-    search: {},
-    dialog: {
-      required: true
-    },
-    table: {
-      renderType: 'tag',
-      colorMap: {
-        Amiya: 'cyan',
-        Exusiai: 'orange'
-      }
-    }
-  },
-  {
-    title: '初始HP',
-    key: 'defaultHp',
-    dialog: {}
-  },
-  {
-    title: '初始攻击',
-    key: 'defaultAtk',
-    dialog: {}
-  },
-  {
-    title: '职业',
-    key: 'job',
-    type: 'select',
-    search: {},
-    dialog: {},
-    options: [
-      { label: '狙击干员', value: '1' },
-      { label: '医疗干员', value: '2' },
-      { label: '术师干员', value: '3' }
-    ]
-  },
-  {
-    title: '上线时间',
-    key: 'createDate'
-  },
-  {
-    title: '上线开始时间',
-    key: 'startDate',
-    type: 'date',
-    search: {},
-    table: {
-      hidden: true
-    }
-  },
-  {
-    title: '上线结束时间',
-    key: 'endDate',
-    type: 'date',
-    search: {},
-    table: {
-      hidden: true
-    }
-  }
-]
-
-const CtrlField: AyTableCtrlField = {
-  width: 200,
-  render: (value, record) => {
-    return (
-      <AyCtrl>
-        <AyAction record={record} action="update">
-          编辑
-        </AyAction>
-        <AyAction record={record} action="view">
-          详情
-        </AyAction>
-        <AyAction record={record} action="delete">
-          删除
-        </AyAction>
-      </AyCtrl>
-    )
-  }
-}
-
-export default function Demo() {
-  return (
-    <AySearchTable
-      title="表格标题"
-      selectionType="checkbox"
-      api={listApi}
-      fields={fields}
-      ctrl={CtrlField}
-      deleteApi={emptyApi}
-      dialogFormExtend={{
-        fields: fields,
-        updateApi: emptyApi,
-        addApi: emptyApi
-      }}
-    >
-      <AyAction action="batch-delete">批量删除</AyAction>
-      <AyAction action="add">新建</AyAction>
-    </AySearchTable>
-  )
-}
-```
+<code src="./Demo.tsx" />
 
 ## 弹窗改抽屉
 
@@ -170,55 +10,14 @@ export default function Demo() {
 import React from 'react'
 import { AySearchTable, AyAction, AyCtrl, AySearchTableField } from 'amiya'
 import { AyTableCtrlField } from 'amiya/lib/AyTable/ay-table'
+import { listApi, addApi, updateApi, deleteApi, professionOptions } from '../api'
 import 'antd/dist/antd.min.css'
-
-/**
- * 测试接口，实际过程中请使用 axios 接口
- * */
-const listApi = () => {
-  return new Promise((resolve) => {
-    const data = [
-      {
-        id: '1',
-        name: 'Amiya',
-        cname: '阿米娅',
-        defaultHp: 699,
-        defaultAtk: 276,
-        job: '3',
-        createDate: '2019年4月30日 10:00'
-      },
-      {
-        id: '2',
-        name: 'Exusiai',
-        cname: '能天使',
-        defaultHp: 711,
-        defaultAtk: 183,
-        job: '2',
-        createDate: '2019年4月30日 10:00'
-      }
-    ]
-    resolve({
-      content: data,
-      total: 2
-    })
-  })
-}
-
-/**
- * 测试接口，实际过程中请使用 axios 接口
- * */
-const emptyApi = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve()
-    }, 300)
-  })
-}
 
 const fields: Array<AySearchTableField> = [
   {
     title: '姓名',
     key: 'cname',
+    search: {},
     dialog: {
       required: true
     }
@@ -243,19 +42,18 @@ const fields: Array<AySearchTableField> = [
   },
   {
     title: '职业',
-    key: 'job',
+    key: 'profession',
     type: 'select',
     search: {},
     dialog: {},
-    options: [
-      { label: '狙击干员', value: '1' },
-      { label: '医疗干员', value: '2' },
-      { label: '术师干员', value: '3' }
-    ]
+    options: professionOptions
   },
   {
     title: '上线时间',
-    key: 'createDate'
+    key: 'createDate',
+    table: {
+      renderType: 'date'
+    }
   },
   {
     title: '上线开始时间',
@@ -304,12 +102,12 @@ export default function Demo() {
       api={listApi}
       fields={fields}
       ctrl={CtrlField}
-      deleteApi={emptyApi}
+      deleteApi={deleteApi}
       dialogFormExtend={{
         drawer: true,
         fields: fields,
-        updateApi: emptyApi,
-        addApi: emptyApi
+        updateApi,
+        addApi
       }}
     >
       <AyAction action="batch-delete">批量删除</AyAction>

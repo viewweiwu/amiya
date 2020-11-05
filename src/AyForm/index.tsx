@@ -403,11 +403,14 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   const formInstans: AnyKeyProps = {}
   const [inited, setInited] = useState<boolean>(false)
   let [mirrorFields, setMirrorFields] = useState<Array<AyFormField | AySearchTableField>>(fields)
+  /** 刷新渲染用 */
+  let [refresh, setRefresh] = useState<number>(0)
 
   /** 填充方法 */
   funcs.forEach((func) => {
     formInstans[func] = (...args: any) => formRef.current[func](...args)
   })
+
   formInstans.setFieldsValue = (values: AnyKeyProps) => {
     fields.forEach((field) => {
       if (field.type === FORM_TYPE_DATE) {
@@ -417,6 +420,8 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
       }
     })
     formRef.current.setFieldsValue(values)
+    refresh += 1
+    setRefresh(refresh)
   }
 
   // 改变 field
@@ -424,6 +429,10 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
     mirrorFields = [...fields]
     setMirrorFields(mirrorFields)
   }
+
+  useEffect(() => {
+    setMirrorFields(fields)
+  }, [fields])
 
   /** 覆盖 antd Form getFieldValue 方法 */
   formInstans.getFieldValue = (key: string) => {

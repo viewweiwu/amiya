@@ -1,5 +1,9 @@
 # 【更新日志】
 
+## 0.3.2
+
+1. fix: AyForm readonly 状态下 setFieldsValue 渲染延迟。[#1](https://github.com/viewweiwu/amiya/issues/1)
+
 ## 0.3.1
 
 1. fix: AyCtrl max 数量刚好等于 children 数量时，不需要折叠。
@@ -24,3 +28,7 @@
 
 1. feat: 添加表格 extra 按钮。
 2. feat: 添加表格 tableFooterExtraOnly 展示。
+
+## 0.0.x
+
+... 此前正在基建，省略 30 个版本。

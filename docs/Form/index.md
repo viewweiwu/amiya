@@ -380,7 +380,7 @@ const fields: Array<AyFormField> = [
   },
   {
     title: '职业',
-    key: 'job',
+    key: 'profession',
     type: 'select',
     options: [
       { label: '狙击干员', value: '1' },
@@ -423,7 +423,7 @@ export default function Demo() {
       name: 'Amiya',
       defaultHp: 720,
       defaultAtk: 100,
-      job: '3',
+      profession: '3',
       createDate: '2019-4-30 10:00:00',
       desc: `
 初始开放
@@ -450,6 +450,9 @@ export default function Demo() {
         <Switch defaultChecked={readonly} onChange={(value) => setReadonly(value)} />
         <label style={{ marginRight: 4, marginLeft: 10 }}>Desc</label>
         <Switch defaultChecked={desc} onChange={(value) => setDesc(value)} />
+        <AyButton style={{ marginLeft: 10 }} onClick={() => formRef.current.setFieldsValue({ createDate: new Date() })}>
+          填充上线时间
+        </AyButton>
       </p>
       <AyForm ref={formRef} readonly={readonly} desc={desc} fields={fields} onConfirm={handleConfirm}>
         {!readonly && (

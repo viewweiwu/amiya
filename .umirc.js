@@ -5,6 +5,6 @@ export default {
   publicPath: '/amiya/',
   // ssr: {},
   // exportStatic: {},
-  base: '/amiya/'
+  base: '/amiya/',
   // base: '/yt-admin-react/'
 };

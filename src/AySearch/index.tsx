@@ -36,13 +36,13 @@ const getSearchFields = (fields: Array<AySearchField>, mini: boolean): Array<AyF
   })
   // 排序
   newFields.sort((a: any, b: any) => {
-    return a.order - b.order
+    return b.order - a.order
   })
   return newFields
 }
 
 const getMiniLabel = (mini: boolean) => {
-  return mini ? '收缩' : '展开'
+  return mini ? '展开' : '收缩'
 }
 
 /**
@@ -66,7 +66,7 @@ const funcs = [
 
 export default forwardRef(function AySearch(props: AySearchProps, ref) {
   const { fields, onConfirm } = props
-  const [mini, setMini] = useState<boolean>(false)
+  const [mini, setMini] = useState<boolean>(true)
   const searchFields: Array<AyFormField> = getSearchFields(fields, mini)
 
   /** 控制 any form 的实例 */
@@ -107,7 +107,7 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
   const ToogleBtn = (
     <AyButton type="link" onClick={toggleMini}>
       {getMiniLabel(mini)}
-      {mini ? <UpOutlined /> : <DownOutlined />}
+      {mini ? <DownOutlined /> : <UpOutlined />}
     </AyButton>
   )
 

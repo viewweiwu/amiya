@@ -17,7 +17,7 @@ const fields: Array<AyDialogFormField> = [
   {
     title: '职业',
     type: 'select',
-    key: 'job',
+    key: 'profession',
     options: [
       { label: '狙击干员', value: '1' },
       { label: '医疗干员', value: '2' },
@@ -72,7 +72,7 @@ const fields: Array<AyDialogFormField> = [
   {
     title: '职业',
     type: 'select',
-    key: 'job',
+    key: 'profession',
     options: [
       { label: '狙击干员', value: '1' },
       { label: '医疗干员', value: '2' },
@@ -97,7 +97,7 @@ export default function Demo() {
   const handleUpdate = () => {
     let values = {
       cname: '阿米娅',
-      job: '3'
+      profession: '3'
     }
     dialogFormRef.current.update(values).then(() => {
       success('修改成功')
@@ -113,7 +113,7 @@ export default function Demo() {
   const handleView = () => {
     let values = {
       cname: '阿米娅',
-      job: '3'
+      profession: '3'
     }
     dialogFormRef.current.view(values)
   }
@@ -169,7 +169,7 @@ const fields: Array<AyDialogFormField> = [
   {
     title: '职业',
     type: 'select',
-    key: 'job',
+    key: 'profession',
     options: [
       { label: '狙击干员狙击干员狙击干员狙击干员狙击干员狙击干员狙击干员狙击干员', value: '4' },
       { label: '狙击干员', value: '1' },
@@ -196,7 +196,7 @@ export default function Demo() {
   const handleUpdate = () => {
     let values = {
       cname: '阿米娅',
-      job: '3'
+      profession: '3'
     }
     dialogFormRef.current.update(values).then(() => {
       success('修改成功')
@@ -212,7 +212,7 @@ export default function Demo() {
   const handleView = () => {
     let values = {
       cname: '阿米娅',
-      job: '3'
+      profession: '3'
     }
     dialogFormRef.current.view(values)
   }

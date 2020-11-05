@@ -6,6 +6,7 @@ import { Option } from '../AyForm/ay-form'
 import { clearEmpty } from '../utils'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import './ay-table.less'
+import moment from 'moment'
 
 /** 默认请求前列表过滤 */
 let defaultSearchFilter = (params: AnyKeyProps) => {
@@ -44,6 +45,10 @@ registerTableRender('__elipsis', ({ text, field }: RenderProps) => {
       <span>{text || ''}</span>
     </Tooltip>
   )
+})
+
+registerTableRender('date', ({ text, field }: RenderProps) => {
+  return moment(text).format('YYYY-MM-DD HH:mm:SS')
 })
 
 /**

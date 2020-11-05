@@ -143,12 +143,16 @@ import 'antd/dist/antd.min.css'
 
 export default function Demo() {
   return (
-    <AyCtrl more={2} more="...">
-      <AyAction>修改</AyAction>
-      <AyAction>详情</AyAction>
-      <AyAction>删除</AyAction>
-      <AyAction>审批</AyAction>
-      <AyAction>审批</AyAction>
+    <AyCtrl max={2} more="...">
+      <AyAction onClick={() => alert('修改')}>修改</AyAction>
+      <AyAction onClick={() => alert('详情')}>详情</AyAction>
+      <AyAction confirm confirmMsg="确定要删除吗？" onConfirm={() => alert('删除')}>
+        删除
+      </AyAction>
+      <AyAction confirm confirmMsg="确定要审批吗？" onConfirm={() => alert('审批')}>
+        审批
+      </AyAction>
+      <AyAction onClick={() => alert('复制')}>复制</AyAction>
     </AyCtrl>
   )
 }
