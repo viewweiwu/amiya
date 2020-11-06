@@ -1,5 +1,9 @@
 # 【更新日志】
 
+## 0.3.3
+
+1. fix: 修复表格定位出错。[#2](https://github.com/viewweiwu/amiya/issues/2)
+
 ## 0.3.2
 
 1. fix: AyForm readonly 状态下 setFieldsValue 渲染延迟。[#1](https://github.com/viewweiwu/amiya/issues/1)
