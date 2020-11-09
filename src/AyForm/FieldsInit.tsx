@@ -16,6 +16,7 @@ import {
   FORM_DEFAULT_VALUE_DATE_RANGE,
   FORM_DEFAULT_VALUE_EMPTY,
   FORM_DEFAULT_VALUE_PERCENT,
+  FORM_DEFAULT_VALUE_SEARCH,
   FORM_TYPE_SWITCH,
   FORM_TYPE_CHECKBOX,
   FORM_TYPE_CHECKBOX_GROUP,
@@ -29,6 +30,7 @@ import {
   FORM_TYPE_EMPTY,
   FORM_TYPE_NUMBER,
   FORM_TYPE_PERCENT,
+  FORM_TYPE_SEARCH,
   TEXTAREA_DEFAULT_MAXLENGTH,
   INPUT_DEFAULT_MAXLENGTH,
   NUMBER_DEFAULT_MIN,
@@ -59,6 +61,31 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
           disabled={readonly}
           maxLength={INPUT_DEFAULT_MAXLENGTH}
           allowClear={FORM_DEFAULT_ALLOW_CLEAR}
+          {...field.props}
+        />
+      )
+    }
+  })
+
+  // 注册搜索框
+  registerField(FORM_TYPE_SEARCH, {
+    type: FORM_TYPE_SEARCH,
+    defaultValue: FORM_DEFAULT_VALUE_SEARCH,
+    render: ({ field, readonly, getFieldValue, formInstans }: AnyKeyProps) => {
+      return readonly ? (
+        <span className="ay-form-text">{getFieldValue(field.key) || FORM_READONLY_EMPTY}</span>
+      ) : (
+        <Input.Search
+          placeholder={`请输入${field.title || ''}`}
+          disabled={readonly}
+          onPressEnter={(e) => {
+            e.preventDefault()
+            formInstans.submit()
+          }}
+          onSearch={() => formInstans.submit()}
+          maxLength={INPUT_DEFAULT_MAXLENGTH}
+          allowClear={FORM_DEFAULT_ALLOW_CLEAR}
+          enterButton
           {...field.props}
         />
       )

@@ -70,6 +70,9 @@ export const FORM_DEFAULT_ALLOW_CLEAR = true
 /** 表单类型: 输入框 */
 export const FORM_TYPE_INPUT = 'input'
 
+/** 表单类型: 搜索框 */
+export const FORM_TYPE_SEARCH = 'search'
+
 /** 表单类型: 数字 */
 export const FORM_TYPE_NUMBER = 'number'
 
@@ -114,6 +117,9 @@ export const FORM_TYPE_CUSTOM = 'custom'
 // --------------------------------------------------------------
 /** 表单默认值: 输入框默认值 */
 export const FORM_DEFAULT_VALUE_INPUT = ''
+
+/** 表单默认值: 搜索框默认值 */
+export const FORM_DEFAULT_VALUE_SEARCH = ''
 
 /** 表单默认值: 数字框默认值 */
 export const FORM_DEFAULT_VALUE_NUMBER = null
