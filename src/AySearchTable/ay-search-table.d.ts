@@ -1,8 +1,8 @@
 import { SizeType } from 'antd/lib/config-provider/SizeContext'
-import { AnyKeyProps } from './../types/AnyKeyProps.d'
 import { ReactElement, ReactNode } from 'react'
-import { AyTableCtrlField } from '../AyTable/ay-table'
-import { AyDialogFormProps, AyDialogFormField } from '../AyDialog/ay-dialog'
+import { AyTableCtrlField, AyTableField } from '../AyTable/ay-table'
+import { AyFormField, Field } from '../AyForm/ay-form'
+import { AyDialogFormProps, AyDialogFormField, ModeType } from '../AyDialogForm/ay-dialog-form'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 
 export interface SearchTableInitConfig extends AnyKeyProps {
@@ -69,8 +69,10 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   onFinish?(key: string, data?: any): void
   /** 在导入前面插入按钮 */
   btnBefore?: ReactNode
+  /** 更多查询数据, 额外带的查询数据用 */
+  extendSearchParams?: AnyKeyProps
 }
-export interface ExtendField extends Field, AyFormField {
+export interface ExtendField extends Omit<AyFormField, 'key'> {
   key?: string
   /**
    * 是否必填

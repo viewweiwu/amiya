@@ -71,6 +71,7 @@ export interface RegisterFieldProps {
  */
 export type FormType =
   | 'input'
+  | 'search'
   | 'password'
   | 'number'
   | 'percent'

@@ -47,7 +47,7 @@ export default function AyButton(props: AyButtonProps) {
     }
   }
   return (
-    <Button className="ay-button" {...params} style={style}>
+    <Button className={`ay-button ${props.className || ''}`} {...params} style={style}>
       {props.children}
     </Button>
   )

@@ -149,6 +149,7 @@ export const getFieldDefaultValue = (key: string, fields: Array<AyFormField | Ay
 const getTag = (
   field: AyFormField | AySearchTableField,
   fields: Array<AyFormField | AySearchTableField>,
+  formInstans: AnyKeyProps,
   setFieldsValue: (params: AnyKeyProps) => void,
   getFieldValue: (key: string) => any,
   addFieldListener: (key: string, fieldListener: FieldListener) => void,
@@ -163,6 +164,7 @@ const getTag = (
     tag = fieldItem.render({
       field,
       setFieldsValue,
+      formInstans,
       readonly: readonly || field.readonly || false,
       addFieldListener,
       removeFiledListener,
@@ -195,6 +197,7 @@ const getTag = (
  */
 const getFormItem = (
   fields: Array<AyFormField | AySearchTableField>,
+  formInstans: AnyKeyProps,
   setFieldsValue: (params: AnyKeyProps) => void,
   getFieldValue: (key: string) => any,
   addFieldListener: (key: string, fieldListener: FieldListener) => void,
@@ -265,6 +268,7 @@ const getFormItem = (
     let tag: ReactNode = getTag(
       field,
       fields,
+      formInstans,
       setFieldsValue,
       getFieldValue,
       addFieldListener,
@@ -501,6 +505,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
         <Row>
           {getFormItem(
             mirrorFields,
+            formInstans,
             formInstans.setFieldsValue,
             formInstans.getFieldValue,
             addFieldListener,

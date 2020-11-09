@@ -1,3 +1,4 @@
+import { AnyKeyProps } from './../types/AnyKeyProps.d'
 import { ReactNode } from 'react'
 import { Option } from '../AyForm/ay-form'
 import { TableRowSelection } from 'antd/lib/table/interface'
@@ -43,6 +44,8 @@ export interface AyTableProps {
   dataAnalysis?: Array<Option>
   /** 是否展示导出按钮 */
   exportVisible?: boolean
+  /** 更多查询数据, 额外带的查询数据用 */
+  extendSearchParams?: AnyKeyProps
 }
 
 export interface AyTableField {
@@ -55,8 +58,8 @@ export interface AyTableField {
   render?(text: ReactNode, record: AnyKeyProps, index: number): ReactNode
   /** 控制列 */
   ctrl?: Array<ReactNode>
-  /** 渲染方式，可选值，'tag' */
-  renderType?: 'tag'
+  /** 渲染方式 */
+  renderType?: string
   /** 是否隐藏这一列 */
   hidden?: boolean
   __extraTouched?: boolean
