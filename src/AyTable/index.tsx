@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle, ReactNode } from 'react'
-import { Table, Space, Card, Tag, Tooltip } from 'antd'
+import { Table, Space, Card, Tooltip } from 'antd'
 import { TABLE_PAGESIZE, TABLE_START_PAGE, TABLE_CTRL_KEY } from '../constant'
 import { AyTableField, AyTableProps, RenderProps } from './ay-table'
 import { Option } from '../AyForm/ay-form'
@@ -47,7 +47,7 @@ registerTableRender('__elipsis', ({ text, field }: RenderProps) => {
   )
 })
 
-registerTableRender('date', ({ text, field }: RenderProps) => {
+registerTableRender('datetime', ({ text }: RenderProps) => {
   return moment(text).format('YYYY-MM-DD HH:mm:SS')
 })
 
@@ -156,6 +156,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     pagination,
     tableExtend,
     defaultSearchValue,
+    extendSearchParams,
     btnBefore
   } = props
   /** 表格配置 */
@@ -182,6 +183,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     let searchParams: AnyKeyProps = {
       currentPage: loadParams.pagination.current,
       pageSize: loadParams.pagination.size,
+      ...extendSearchParams,
       ...loadParams.search
     }
     if (beforeSearch) {
@@ -287,17 +289,11 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
       {title || btnBefore || children ? (
         <header className="ay-table-header">
           <div className="ay-table-header-left">
-            <Space size="large">{title && <h2 className="ay-table-title">{title}</h2>}</Space>
+            <Space>{typeof title === 'string' ? <h2 className="ay-table-title">{title}</h2> : title}</Space>
           </div>
           <div className="ay-table-header-right">
             <Space>
               {btnBefore}
-              {total ? (
-                <span className="table-analysis-item">
-                  <span>数量：</span>
-                  <Tag color="cyan">{total} 条</Tag>
-                </span>
-              ) : null}
               {children}
             </Space>
           </div>

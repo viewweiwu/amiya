@@ -10,6 +10,7 @@ import React, {
   useState
 } from 'react'
 import AySearch from '../AySearch'
+import AyForm from '../AyForm'
 import AyTable from '../AyTable'
 import AyDialogForm from '../AyDialogForm'
 import useSelection from './use/useSelection'
@@ -29,6 +30,7 @@ import { Space } from 'antd'
 import { getActionProps } from '../AyAction'
 import './ay-search-table.less'
 import useExtraBtn, { setSearchTableExtraDefaultValue } from './use/useExtraBtn'
+import { AyButton } from '..'
 
 export const AySearchTableContext = createContext({})
 
@@ -36,12 +38,14 @@ export const AySearchTableContext = createContext({})
  * 转化并过滤成 ay-search 能用的 fields
  * @param fields 查询表格的 fields
  */
-const getSearchFields = (fields: Array<AySearchTableField>): Array<AySearchField> => {
-  return fields
+const getSearchFields = (fields: Array<AySearchTableField>) => {
+  let searchFields: Array<AySearchField> = []
+  let moreSearchFields: Array<AySearchField> = []
+  fields
     .filter((field: AySearchTableField) => {
       return isObj(field.search)
     })
-    .map((field: AySearchTableField) => {
+    .forEach((field: AySearchTableField) => {
       const search = field.search
       if (!search) {
         return {
@@ -57,8 +61,17 @@ const getSearchFields = (fields: Array<AySearchTableField>): Array<AySearchField
         options: field.options || [],
         ...search
       }
-      return searchField
+      if (searchField.position === 'more') {
+        searchField.span = 24
+        moreSearchFields.push(searchField)
+      } else {
+        searchFields.push(searchField)
+      }
     })
+  return {
+    searchFields,
+    moreSearchFields
+  }
 }
 
 /**
@@ -157,7 +170,8 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     searchVisible,
     tableExtend,
     pagination,
-    btnBefore
+    btnBefore,
+    extendSearchParams
   } = props
 
   /** form 控制 */
@@ -165,9 +179,11 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   /** table 控制 */
   const tableRef: MutableRefObject<TableRefProps> = useRef() as MutableRefObject<TableRefProps>
   /** search 控制 */
-  const searchRef: MutableRefObject<TableRefProps> = useRef() as MutableRefObject<TableRefProps>
+  const searchRef: MutableRefObject<AnyKeyProps> = useRef() as MutableRefObject<TableRefProps>
+  /** search 控制 */
+  const moreSearchRef: MutableRefObject<AnyKeyProps> = useRef() as MutableRefObject<TableRefProps>
   /** 查询项 */
-  const searchFields: Array<AySearchField> = getSearchFields(fields)
+  const { searchFields, moreSearchFields } = getSearchFields(fields)
   /** 列表项 */
   const [tableFields, setTableFields] = useState<Array<AyTableField>>(getTableFields(fields))
   /** 使用勾选 */
@@ -180,9 +196,18 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   /** action 展示，底部 or 右侧 */
   const { footerActions, rightActions } = getTableActionBtns(children)
   const { extraBtns, size, isEnter } = useExtraBtn(tableRef, tableFields, setTableFields, props)
+
   /** 查询完成，刷新列表 */
-  const onConfirm = (values: AnyKeyProps) => {
-    tableRef.current.reset(values)
+  const onConfirm = () => {
+    // 更多查询数据
+    let moreSearchValues = moreSearchRef.current.getFieldsValue()
+    // 头顶查询数据
+    let searchValues = searchRef.current.getFieldsValue()
+    // 合并查询
+    tableRef.current.reset({
+      moreSearchValues,
+      searchValues
+    })
   }
 
   /** 暴露方法 */
@@ -235,8 +260,9 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     onLoad,
     tableExtend,
     pagination,
-    defaultSearchValue: getDefaultValue(searchFields),
-    btnBefore
+    defaultSearchValue: getDefaultValue([...searchFields, ...moreSearchFields]),
+    btnBefore,
+    extendSearchParams
   }
 
   return (
@@ -246,6 +272,17 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
         {center}
         {dialogFormExtend ? <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend} /> : null}
         <AyTable {...tableProps} fields={tableFields} header={header}>
+          {
+            <AyForm
+              className="ay-search-table-more"
+              span={24}
+              ref={moreSearchRef}
+              fields={moreSearchFields}
+              onConfirm={onConfirm}
+            >
+              <AyButton className="ay-search-table-more-submit" htmlType="submit"></AyButton>
+            </AyForm>
+          }
           {rightActions}
           {extraBtns}
         </AyTable>
