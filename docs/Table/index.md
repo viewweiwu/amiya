@@ -52,7 +52,7 @@ const fields: Array<AySearchTableField> = [
     title: '上线时间',
     key: 'createDate',
     table: {
-      renderType: 'date'
+      renderType: 'datetime'
     }
   },
   {
@@ -119,29 +119,30 @@ export default function Demo() {
 
 ## 参数
 
-| 参数名            | 说明                                                              | 参数类型                                     | 默认值 |
-| ----------------- | ----------------------------------------------------------------- | -------------------------------------------- | ------ |
-| title             | 表格标题，显示在左上角的文字                                      | string \| ReactNode                          | ''     |
-| fields            | 配置项                                                            | Array<AySearchTableField\>                   | []     |
-| selectionType     | 是否开启勾选                                                      | 'checkbox'                                   | -      |
-| children          | 放在左上角的按钮                                                  | ReactNode                                    | -      |
-| api               | 列表分页接口                                                      | Promise                                      | -      |
-| deleteApi         | 批量删除接口                                                      | Promise                                      | -      |
-| data              | 表格静态数据，不希望表格做请求，自己定义数据。                    | Array<Record\>                               | -      |
-| ctrl              | 列表每一行后面数据跟着的按钮渲染。                                | AySearchTableField                           | -      |
-| onSelectionChange | 选项改变事件                                                      | (selection: Array<Record\>): void            | -      |
-| rowKey            | 列表每一行的唯一标志                                              | string                                       | 'id'   |
-| selectShowKey     | 批量删除,勾选时，在表格顶部会有数字，点击数字可以看到选项的名称。 | string                                       | 'name' |
-| dialogFormExtend  | dialog form 的配置。                                              | AyDialogFormProps                            | {}     |
-| scrollX           | 滚动的 X 轴数值。                                                 | number                                       | -      |
-| filterData        | 列表数据过滤。                                                    | (data: Object) => Object                     | -      |
-| beforeSearch      | 提交前过滤。                                                      | (data: Object) => Object                     | -      |
-| onExpand          | 展开事件。                                                        | (expanded: boolean, record: Record) => void  | -      |
-| pagination        | 分页参数。                                                        | antd 分页一致                                | -      |
-| center            | 节点插入在查询和表格之间。                                        | ReactNode                                    | -      |
-| onLoad            | 表格查询完成监听。                                                | (records: Array<Record\>, data: any) => void | -      |
-| searchVisible     | 查询区域是否展。                                                  | boolean                                      | true   |
-| tableExtend       | table 其它属性。                                                  | Object                                       | {}     |
+| 参数名             | 说明                                                              | 参数类型                                     | 默认值 |
+| ------------------ | ----------------------------------------------------------------- | -------------------------------------------- | ------ |
+| title              | 表格标题，显示在左上角的文字                                      | string \| ReactNode                          | ''     |
+| fields             | 配置项                                                            | Array<AySearchTableField\>                   | []     |
+| selectionType      | 是否开启勾选                                                      | 'checkbox'                                   | -      |
+| children           | 放在右上角的按钮                                                  | ReactNode                                    | -      |
+| api                | 列表分页接口                                                      | Promise                                      | -      |
+| deleteApi          | 批量删除接口                                                      | Promise                                      | -      |
+| data               | 表格静态数据，不希望表格做请求，自己定义数据。                    | Array<Record\>                               | -      |
+| ctrl               | 列表每一行后面数据跟着的按钮渲染。                                | AySearchTableField                           | -      |
+| onSelectionChange  | 选项改变事件                                                      | (selection: Array<Record\>): void            | -      |
+| rowKey             | 列表每一行的唯一标志                                              | string                                       | 'id'   |
+| selectShowKey      | 批量删除,勾选时，在表格顶部会有数字，点击数字可以看到选项的名称。 | string                                       | 'name' |
+| dialogFormExtend   | dialog form 的配置。                                              | AyDialogFormProps                            | {}     |
+| scrollX            | 滚动的 X 轴数值。                                                 | number                                       | -      |
+| filterData         | 列表数据过滤。                                                    | (data: Object) => Object                     | -      |
+| beforeSearch       | 提交前过滤。                                                      | (data: Object) => Object                     | -      |
+| onExpand           | 展开事件。                                                        | (expanded: boolean, record: Record) => void  | -      |
+| pagination         | 分页参数。                                                        | antd 分页一致                                | -      |
+| center             | 节点插入在查询和表格之间。                                        | ReactNode                                    | -      |
+| onLoad             | 表格查询完成监听。                                                | (records: Array<Record\>, data: any) => void | -      |
+| searchVisible      | 查询区域是否展。                                                  | boolean                                      | true   |
+| tableExtend        | table 其它属性。                                                  | Object                                       | {}     |
+| extendSearchParams | table 查询时额外查询参数。                                        | Object                                       | {}     |
 
 extra 右侧扩展按钮配置参考[此处][1]。
 

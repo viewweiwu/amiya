@@ -170,19 +170,18 @@ const fields: Array<AySearchTableField> = [
   {
     title: '', // 表格、查询、编辑 的标题
     key: '', // 表格、查询、编辑 的 key
-    type: '', // 表格、查询、编辑 的 FormType
+    type: '', // 查询、编辑 的 FormType
     options: [], // 表格、查询、编辑 的  选项
     // 定义在此处的优先级更高，如果没有，则使用外层的参数
     search: {
-      title: '',
-      key: '',
-      type: '',
-      options: []
+      position: 'more' // 如果写了此参数，该查询项会出现在表格右侧
     },
     // 定义在此处的优先级更高，如果没有，则使用外层的参数
     dialog: {},
     // 定义在此处的优先级更高，如果没有，则使用外层的参数
-    table: {}
+    table: {
+      renderType: 'datetime' | string // 决定表格渲染方式
+    }
   }
 ]
 ```

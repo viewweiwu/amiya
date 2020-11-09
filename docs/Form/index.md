@@ -234,6 +234,11 @@ const fields: Array<AyFormField> = [
     key: 'input'
   },
   {
+    title: 'Search',
+    key: 'search',
+    type: 'search'
+  },
+  {
     title: 'Number',
     type: 'number',
     key: 'number'

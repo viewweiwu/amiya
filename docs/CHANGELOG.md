@@ -1,4 +1,16 @@
+---
+order: 1
+---
+
 # 【更新日志】
+
+## 0.4.0
+
+1. feat: AySearchTable 支持把表单项放在顶部右侧。[#4](https://github.com/viewweiwu/amiya/issues/4)
+2. feat: 去掉 AySearchTable 条数展示。
+3. feat: AyForm 新增 search type。[#3](https://github.com/viewweiwu/amiya/issues/3)
+4. feat: AySearchTable 支持传递额外查询条件[#6](https://github.com/viewweiwu/amiya/issues/6)
+5. fix: 修复 AySearchTable rules 报错。[#5](https://github.com/viewweiwu/amiya/issues/5)
 
 ## 0.3.3
 
