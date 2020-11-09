@@ -13,6 +13,7 @@ export { registerAction } from './AyAction'
 export { registerField } from './AyForm'
 export { setDefaultSearchFilter, setDefaultDataFilter, registerTableRender } from './AyTable'
 export { setSearchTableDefaultValue } from './AySearchTable'
+export { AyTableCtrlField } from './AyTable/ay-table'
 export { AySearchTableField } from './AySearchTable/ay-search-table'
 export { AyFormField, Option } from './AyForm/ay-form'
 

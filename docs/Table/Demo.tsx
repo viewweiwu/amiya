@@ -1,6 +1,5 @@
 import React from 'react'
-import { AySearchTable, AyAction, AyCtrl, AySearchTableField } from 'amiya'
-import { AyTableCtrlField } from 'amiya/lib/AyTable/ay-table'
+import { AySearchTable, AyAction, AyCtrl, AySearchTableField, AyTableCtrlField } from 'amiya'
 import { listApi, addApi, updateApi, deleteApi, professionOptions } from '../api'
 import 'antd/dist/antd.min.css'
 
