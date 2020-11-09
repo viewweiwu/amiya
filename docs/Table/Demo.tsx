@@ -19,7 +19,7 @@ const fields: Array<AySearchTableField> = [
     search: {},
     dialog: {
       required: true,
-      rules: [{ pattern: /^[a-zA-Z0-9]$/, message: '请输入字母或者数字' }]
+      rules: [{ pattern: /^[a-z|A-Z|0-9]{1,}$/, message: '请输入字母或者数字' }]
     }
   },
   {

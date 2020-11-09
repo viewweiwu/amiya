@@ -52,6 +52,52 @@ registerTableRender('datetime', ({ text }: RenderProps) => {
 })
 
 /**
+ * 转化获得 field
+ * @param field table Field
+ */
+const getAyTableField = (field: AnyKeyProps) => {
+  let tableField: AnyKeyProps = {
+    key: field.key,
+    dataIndex: field.key,
+    ...field,
+    title: field.__alias || field.title
+  }
+  if (field.render) {
+    tableField.render = field.render
+  }
+
+  if (Array.isArray(field.children)) {
+    field.children = field.children.map((field) => {
+      return getAyTableField(field)
+    })
+  }
+
+  // options 自动注册
+  if (field.options && !field.render && !tableField.renderType) {
+    tableField.renderType = '__options'
+  }
+
+  // 多余显示 ...
+  if (field.ellipsis) {
+    tableField.ellipsis = {
+      showTitle: false
+    }
+    tableField.renderType = '__ellipsis'
+  }
+
+  if (
+    !tableField.render &&
+    renderMap[tableField.renderType] &&
+    typeof renderMap[tableField.renderType] === 'function'
+  ) {
+    tableField.render = (text: ReactNode, record: AnyKeyProps, index: number) => {
+      return renderMap[tableField.renderType]({ text, record, index, field: tableField })
+    }
+  }
+  return tableField
+}
+
+/**
  * 重新过滤配置项
  *
  * 1、先过滤隐藏项目
@@ -68,40 +114,7 @@ const getAyTableFields = (fields: Array<any>, ctrl?: AyTableField): Array<AyTabl
       return field.hidden !== true
     })
     .map((field) => {
-      let tableField: AnyKeyProps = {
-        key: field.key,
-        dataIndex: field.key,
-        ...field,
-        title: field.__alias || field.title
-      }
-      if (field.render) {
-        tableField.render = field.render
-      }
-
-      // options 自动注册
-      if (field.options && !field.render && !tableField.renderType) {
-        tableField.renderType = '__options'
-      }
-
-      // 多余显示 ...
-      if (field.ellipsis) {
-        tableField.ellipsis = {
-          showTitle: false
-        }
-        tableField.renderType = '__ellipsis'
-      }
-
-      if (
-        !tableField.render &&
-        renderMap[tableField.renderType] &&
-        typeof renderMap[tableField.renderType] === 'function'
-      ) {
-        tableField.render = (text: ReactNode, record: AnyKeyProps, index: number) => {
-          return renderMap[tableField.renderType]({ text, record, index, field: tableField })
-        }
-      }
-
-      return tableField
+      return getAyTableField(field)
     })
 
   if (ctrl && ctrl.render && tableFields.every((field) => field.key !== 'ctrl')) {
@@ -111,9 +124,12 @@ const getAyTableFields = (fields: Array<any>, ctrl?: AyTableField): Array<AyTabl
     ctrl.__order = 999
     tableFields.push(ctrl)
   }
+  // 排序
   tableFields = tableFields.sort((a: AyTableField, b: AyTableField) => {
     return a.order - b.order
   })
+
+  //
   if (tableFields.some((field) => field.__extraTouched)) {
     tableFields = tableFields.sort((a: AyTableField, b: AyTableField) => {
       return (a.__order || 0) - (b?.__order || 0)
