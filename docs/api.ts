@@ -58,19 +58,27 @@ loadData()
 
 /**
  * 模拟列表请求接口，实际过程中请使用 axios 接口
+ * @param params 查询参数
  * */
 export const listApi = (params) => {
   console.info(params)
+  const searchParams = {
+    ...params.search,
+    ...params.filters
+  }
   return new Promise((resolve) => {
     setTimeout(() => {
+      // 筛选
       let content = data.filter((item) => {
         let result = true
-        for (let key in params) {
-          let value = params[key]
-          if (item.hasOwnProperty(key) && item[key]) {
+        for (let key in searchParams) {
+          // 查询值
+          let value = searchParams[key]
+          if (item.hasOwnProperty(key) && item[key] !== undefined) {
             if (
-              (typeof value === 'string' && !item[key].includes(value)) ||
-              (typeof value === 'number' && item[key] === value)
+              (Array.isArray(value) && !value.includes(item[key] + '')) ||
+              (typeof value === 'number' && Number(item[key]) === value) ||
+              (typeof value === 'string' && !(value + '').includes(item[key] + ''))
             ) {
               result = false
             }
@@ -78,8 +86,17 @@ export const listApi = (params) => {
         }
         return result
       })
-      let totalCount = content.length
-      content = content.slice(params.pageSize * (params.currentPage - 1), params.pageSize * params.currentPage)
+      // 排序
+      const sorts = params.sorts || []
+      sorts.forEach((option) => {
+        const { key, order } = option
+        content.sort((a, b) => (order === 'descend' ? a[key] - b[key] : b[key] - a[key]))
+      })
+      // 总数
+      const totalCount = content.length
+      // 分页
+      const page = params.pagination
+      content = content.slice(page.pageSize * (page.current - 1), page.pageSize * page.current)
       resolve({
         content,
         totalCount

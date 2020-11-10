@@ -205,8 +205,8 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     let searchValues = searchRef.current.getFieldsValue()
     // 合并查询
     tableRef.current.reset({
-      moreSearchValues,
-      searchValues
+      ...moreSearchValues,
+      ...searchValues
     })
   }
 

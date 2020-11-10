@@ -152,14 +152,18 @@ export default function Demo() {
 
 一般情况下不会用到这个 AyTableField，它寄生与 AySearchTableField，所以请不要单独使用。
 
-| 参数名     | 说明                                 | 参数类型                                                           | 默认值 |
-| ---------- | ------------------------------------ | ------------------------------------------------------------------ | ------ |
-| title      | 标题                                 | string                                                             | -      |
-| key        | 唯一 key，dataIndex 默认会跟次值一样 | string                                                             | -      |
-| options    | 可选项，展示会根据这个值变化         | Array<[Option][option]>                                            | -      |
-| hidden     | 隐藏这一列                           | boolean                                                            | -      |
-| render     | 自定义展示列                         | (text: ReactNode, record: AnyKeyProps, index: number) => ReactNode | -      |
-| renderType | 美化展示列                           | 'tag'                                                              | -      |
+| 参数名         | 说明                                           | 参数类型                                                           | 默认值 |
+| -------------- | ---------------------------------------------- | ------------------------------------------------------------------ | ------ |
+| title          | 标题                                           | string                                                             | -      |
+| key            | 唯一 key，dataIndex 默认会跟次值一样           | string                                                             | -      |
+| options        | 可选项，展示会根据这个值变化                   | Array<[Option][option]>                                            | -      |
+| hidden         | 隐藏这一列                                     | boolean                                                            | -      |
+| render         | 自定义展示列                                   | (text: ReactNode, record: AnyKeyProps, index: number) => ReactNode | -      |
+| renderType     | 美化展示列                                     | 'tag'                                                              | -      |
+| filter         | 筛选                                           | boolean                                                            | -      |
+| filterMultiple | 筛选是否支持多选                               | boolean                                                            | false  |
+| sort           | 排序                                           | boolean                                                            | -      |
+| sortOrder      | 排序权重，越大越重，不设置则表示不需要多列筛选 | number                                                             | -      |
 
 ## AySearchTableField
 

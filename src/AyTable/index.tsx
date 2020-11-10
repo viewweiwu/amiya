@@ -55,7 +55,7 @@ registerTableRender('datetime', ({ text }: RenderProps) => {
  * 转化获得 field
  * @param field table Field
  */
-const getAyTableField = (field: AnyKeyProps) => {
+const getAyTableField = (field: AnyKeyProps, params: AnyKeyProps) => {
   let tableField: AnyKeyProps = {
     key: field.key,
     dataIndex: field.key,
@@ -68,13 +68,33 @@ const getAyTableField = (field: AnyKeyProps) => {
 
   if (Array.isArray(field.children)) {
     field.children = field.children.map((field) => {
-      return getAyTableField(field)
+      return getAyTableField(field, params)
     })
   }
 
   // options 自动注册
   if (field.options && !field.render && !tableField.renderType) {
     tableField.renderType = '__options'
+  }
+
+  // 处理筛选
+  if (field.filter && field.options) {
+    tableField.filters = field.filters || JSON.parse(JSON.stringify(field.options).replace(/"label"/g, '"text"'))
+    tableField.filteredValue = params.filters[field.key]
+    field.filterMultiple = field.filterMultiple || false
+    // field.onFilter = field.onFilter || ((value: string, record: AnyKeyProps) => record[field.key] === value)
+    // field.filterMultiple = field.filterMultiple || false
+  }
+
+  // 处理排序
+  if (field.sort) {
+    if (field.sortOrder) {
+      tableField.sorter = field.sorter || { multiple: field.sortOrder }
+    } else {
+      tableField.sorter = true
+    }
+    delete tableField.sort
+    delete tableField.sortOrder
   }
 
   // 多余显示 ...
@@ -105,7 +125,7 @@ const getAyTableField = (field: AnyKeyProps) => {
  *
  * @param fields 配置项目
  */
-const getAyTableFields = (fields: Array<any>, ctrl?: AyTableField): Array<AyTableField> => {
+const getAyTableFields = (fields: Array<any>, params: AnyKeyProps, ctrl?: AyTableField): Array<AyTableField> => {
   let tableFields = fields
     .filter((field) => {
       if (field.__extraTouched) {
@@ -114,7 +134,7 @@ const getAyTableFields = (fields: Array<any>, ctrl?: AyTableField): Array<AyTabl
       return field.hidden !== true
     })
     .map((field) => {
-      return getAyTableField(field)
+      return getAyTableField(field, params)
     })
 
   if (ctrl && ctrl.render && tableFields.every((field) => field.key !== 'ctrl')) {
@@ -145,8 +165,10 @@ interface LoadParams {
     /** 当前第 n 页 */
     current: number
     /** 每页多少条 */
-    size: number
+    pageSize: number
   }
+  sorts: Array<AnyKeyProps>
+  filters: AnyKeyProps
   /** 查询额外参数 */
   search: AnyKeyProps
 }
@@ -175,33 +197,38 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     extendSearchParams,
     btnBefore
   } = props
+  /** 表格查询的数据 */
+  const [loadParams, setLoadParams] = useState<LoadParams>({
+    pagination: {
+      pageSize: TABLE_PAGESIZE,
+      current: TABLE_START_PAGE
+    },
+    filters: {},
+    sorts: [],
+    search: clearEmpty(defaultSearchValue || {})
+  })
   /** 表格配置 */
-  const ayTableFields: Array<AyTableField> = getAyTableFields(fields, ctrl)
+  const ayTableFields: Array<AyTableField> = getAyTableFields(fields, loadParams, ctrl)
   /** 表格数据 */
   const [tableData, setTableData] = useState<Array<AnyKeyProps>>(data || [])
   /** 是否正在加载 */
   const [loading, setLoading] = useState<boolean>(false)
   /** 总共多少条 */
   const [total, setTotal] = useState<number>(0)
-  /** 表格查询的数据 */
-  const [loadParams, setLoadParams] = useState<LoadParams>({
-    pagination: {
-      size: TABLE_PAGESIZE,
-      current: TABLE_START_PAGE
-    },
-    search: clearEmpty(defaultSearchValue || {})
-  })
 
   /**
    * 获得查询前的参数
    */
   const getParams = () => {
     let searchParams: AnyKeyProps = {
-      currentPage: loadParams.pagination.current,
-      pageSize: loadParams.pagination.size,
-      ...extendSearchParams,
-      ...loadParams.search
+      ...loadParams,
+      ...extendSearchParams
     }
+    // 默认筛选过滤
+    if (defaultSearchFilter) {
+      searchParams = defaultSearchFilter(searchParams)
+    }
+    // 主动筛选过滤
     if (beforeSearch) {
       searchParams = beforeSearch(searchParams)
     }
@@ -219,9 +246,6 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
   const loadData = useCallback(() => {
     if (api) {
       let searchParams: AnyKeyProps = getParams()
-      if (defaultSearchFilter) {
-        searchParams = defaultSearchFilter(searchParams)
-      }
       setLoading(true)
       api(searchParams)
         .then((data) => {
@@ -255,7 +279,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
         ...loadParams
       }
       if (pageSize !== undefined) {
-        newLoadParams.pagination.size = pageSize
+        newLoadParams.pagination.pageSize = pageSize
       }
       if (current !== undefined) {
         newLoadParams.pagination.current = current
@@ -267,14 +291,37 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     },
     [loadParams]
   )
-
-  /**
-   * 监听分页改变事件，设置当前页 或 设置每页页数
-   * @param current 当前第几页
-   * @param pageSize 每页多少条
-   */
-  const onPageChange = (current: number, pageSize?: number) => {
-    updateLoadParams({ current, pageSize })
+  const handleTableChange = (pagination: any, filters: any, sorter: any) => {
+    let newParams: LoadParams = {
+      ...loadParams
+    }
+    newParams.pagination = {
+      pageSize: pagination.pageSize,
+      current: pagination.current
+    }
+    // 获取过滤参数
+    newParams.filters = {}
+    for (let key in filters) {
+      newParams.filters[key] = filters[key]
+    }
+    // 获取排序参数
+    newParams.sorts = []
+    if (Array.isArray(sorter)) {
+      sorter.forEach((option) => {
+        newParams.sorts.push({
+          key: option.field,
+          order: option.order
+        })
+      })
+    } else if (sorter.field) {
+      newParams.sorts = [
+        {
+          key: sorter.field,
+          order: sorter.order
+        }
+      ]
+    }
+    setLoadParams(newParams)
   }
 
   useImperativeHandle(ref, () => ({
@@ -331,10 +378,10 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
             : {
                 total,
                 current: loadParams.pagination.current,
-                onChange: onPageChange,
                 showTotal: (total) => `共 ${total} 条`
               }
         }
+        onChange={handleTableChange}
         rowKey={rowKey || 'id'}
         size={size}
         scroll={{ x: scrollX }}
