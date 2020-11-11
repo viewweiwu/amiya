@@ -1,4 +1,4 @@
-import AyButton from './AyButton'
+import AyButton, { setPermissionList } from './AyButton'
 import AyAction, { registerAction } from './AyAction'
 import AyCtrl from './AyCtrl'
 import AyDialog from './AyDialog'
@@ -14,6 +14,7 @@ export {
   AyAction,
   registerAction,
   AyButton,
+  setPermissionList,
   AyCtrl,
   AyDialog,
   AyDialogForm,
@@ -37,6 +38,7 @@ export default {
   AyAction,
   registerAction,
   AyButton,
+  setPermissionList,
   AyCtrl,
   AyDialog,
   AyDialogForm,

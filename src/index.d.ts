@@ -9,6 +9,7 @@ export { default as AySearchTable } from './AySearchTable'
 export { default as AySelect } from './AySelect'
 export { default as AyTable } from './AyTable'
 
+export { setPermissionList } from './AyButton'
 export { registerAction } from './AyAction'
 export { registerField } from './AyForm'
 export { setDefaultSearchFilter, setDefaultDataFilter, registerTableRender } from './AyTable'

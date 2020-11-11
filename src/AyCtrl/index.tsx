@@ -1,8 +1,8 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import { Divider, Dropdown, Menu } from 'antd'
 import { AyCtrlProps } from './ay-ctrl'
 import AyAction from '../AyAction'
-import AyButton from '../AyButton'
+import AyButton, { addRefresh, hasPermission } from '../AyButton'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { CTRL_DEFAULT_MAX, CTRL_DEFAULT_MORE_TEXT } from '../constant'
 
@@ -22,7 +22,7 @@ const getCtrlItem = (node: any, key?: any, defaultProps?: AnyKeyProps) => {
  * 将子节点转化成 AyAction 按钮
  * @param children 子节点
  */
-const getCtrlList = (children: Array<ReactNode> | ReactNode, props: AyCtrlProps): Array<ReactNode> => {
+const getCtrlList = (children: Array<ReactNode>, props: AyCtrlProps): Array<ReactNode> => {
   const {
     max = CTRL_DEFAULT_MAX,
     more = (
@@ -32,17 +32,18 @@ const getCtrlList = (children: Array<ReactNode> | ReactNode, props: AyCtrlProps)
     )
   } = props
   let ctrlList: Array<ReactNode> = []
-  if (!children) {
+
+  if (!children.length || !children[0]) {
     return []
   }
 
-  if (Array.isArray(children) && children.length === 0) {
-    // 没有节点存在
-    return []
-  } else if (!Array.isArray(children)) {
-    // 如果节点只有一个元素
-    return [getCtrlItem(children, 'key')]
+  // 如果节点只有一个元素
+  if (children.length === 1) {
+    return [getCtrlItem(children[0], 'key')]
   }
+
+  // 过滤掉无权限按钮
+  children = children.filter((node: any) => hasPermission(node?.props?.permission))
 
   // 渲染没有折叠前的按钮
   for (let i = 0; i < (children.length <= max + 1 ? children.length : max); i++) {
@@ -97,8 +98,16 @@ const getCtrlList = (children: Array<ReactNode> | ReactNode, props: AyCtrlProps)
 }
 
 export default function AmCtrl(props: AyCtrlProps) {
-  const { children } = props
+  const [, setRefresh] = useState<number>(0)
+  let { children } = props
+  if (!Array.isArray(children)) {
+    children = [children]
+  }
   const ctrlList = getCtrlList(children, props)
+
+  useEffect(() => {
+    addRefresh(setRefresh)
+  }, [])
 
   return <div className="ay-ctrl">{ctrlList}</div>
 }

@@ -1,5 +1,8 @@
 import { ButtonProps } from 'antd/lib/button'
 
+// 设置权限列表
+export declare function setPermissionList(list: Array<string>): void
+
 export interface AyButtonProps extends ButtonProps {
   /** true 会有确认，false: 无确认 */
   confirm?: boolean
