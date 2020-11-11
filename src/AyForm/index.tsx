@@ -9,7 +9,7 @@ import React, {
   useEffect
 } from 'react'
 import { Form, Row, Col } from 'antd'
-import { AyFormField, AyFormProps, FieldListener, RegisterFieldProps } from './ay-form'
+import { AyFormField, AyFormProps, FieldListener, RegisterFieldProps, ColSize } from './ay-form'
 import { copy } from '../utils'
 import { AySearchField } from '../AySearch/ay-search'
 import { AnyKeyProps } from '../types/AnyKeyProps'
@@ -29,6 +29,7 @@ import './ay-form.less'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 import { AySearchTableField } from '../AySearchTable/ay-search-table'
+import { ColProps } from 'antd/lib/col'
 
 moment.locale('zh-cn')
 
@@ -97,22 +98,23 @@ export const getDefaultValue = (fields: Array<AyFormField | AySearchField | AySe
   let form: AnyKeyProps = {}
   fields.forEach((field: AyFormField | AySearchField | AySearchTableField) => {
     let type = field.type || 'input'
+    const key = field?.key || ''
     // 如果配置项里存在默认值，直接返回默认值，否则从默认值表里获取
     if (field.hasOwnProperty('defaultValue')) {
       // 日期类型的需要通过 moment 转一遍
       if (type === FORM_TYPE_DATE && field.defaultValue) {
-        form[field.key] = moment(field.defaultValue)
+        form[key] = moment(field.defaultValue)
       } else {
-        form[field.key] = field.defaultValue
+        form[key] = field.defaultValue
       }
     } else if (type) {
       if (fieldMap[type]) {
         const fieldItem = fieldMap[type]
         let defaultValue = fieldItem.defaultValue
         defaultValue = typeof defaultValue === 'object' ? copy(defaultValue) : defaultValue
-        form[field.key] = defaultValue
+        form[key] = defaultValue
       } else {
-        form[field.key] = undefined
+        form[key] = undefined
       }
     }
   })
@@ -150,8 +152,6 @@ const getTag = (
   field: AyFormField | AySearchTableField,
   fields: Array<AyFormField | AySearchTableField>,
   formInstans: AnyKeyProps,
-  setFieldsValue: (params: AnyKeyProps) => void,
-  getFieldValue: (key: string) => any,
   addFieldListener: (key: string, fieldListener: FieldListener) => void,
   removeFiledListener: (key: string, fieldListener: FieldListener) => void,
   readonly?: boolean
@@ -163,12 +163,12 @@ const getTag = (
     let fieldItem = fieldMap[type || '']
     tag = fieldItem.render({
       field,
-      setFieldsValue,
+      setFieldsValue: formInstans.setFieldsValue,
       formInstans,
       readonly: readonly || field.readonly || false,
       addFieldListener,
       removeFiledListener,
-      getFieldValue
+      getFieldValue: formInstans.getFieldValue
     })
   } else {
     switch (type) {
@@ -198,13 +198,11 @@ const getTag = (
 const getFormItem = (
   fields: Array<AyFormField | AySearchTableField>,
   formInstans: AnyKeyProps,
-  setFieldsValue: (params: AnyKeyProps) => void,
-  getFieldValue: (key: string) => any,
   addFieldListener: (key: string, fieldListener: FieldListener) => void,
   removeFiledListener: (key: string, fieldListener: FieldListener) => void,
-  span?: number,
-  readonly?: boolean
+  props: AyFormProps
 ) => {
+  const { span, readonly, formLayout } = props
   return fields.map((field: AyFormField | AySearchTableField) => {
     let visible = true
 
@@ -239,15 +237,19 @@ const getFormItem = (
     }
 
     // 设置每个【表单项】的占位
-    const colProps = {
+    const colProps: ColProps = {
       span: field.span !== 0 ? field.span || span || 12 : span || 12,
-      offset: field.offset,
-      key: field.key
+      offset: field.offset
     }
 
     // 不保留占位
     if (hidden) {
       colProps.span = 0
+      colProps.xs = 0
+      colProps.sm = 0
+      colProps.md = 0
+      colProps.lg = 0
+      colProps.xl = 0
     }
 
     // 填充 rules 属性
@@ -265,24 +267,21 @@ const getFormItem = (
       }
     }
 
-    let tag: ReactNode = getTag(
-      field,
-      fields,
-      formInstans,
-      setFieldsValue,
-      getFieldValue,
-      addFieldListener,
-      removeFiledListener,
-      readonly
+    let tag: ReactNode = getTag(field, fields, formInstans, addFieldListener, removeFiledListener, readonly)
+
+    const content = field.render ? (
+      field.render(field, field._values || getDefaultValue(fields))
+    ) : (
+      <Form.Item {...props}>{tag}</Form.Item>
     )
 
+    if (formLayout === 'inline') {
+      return content
+    }
+
     return (
-      <Col {...colProps}>
-        {field.render ? (
-          field.render(field, field._values || getDefaultValue(fields))
-        ) : (
-          <Form.Item {...props}>{tag}</Form.Item>
-        )}
+      <Col key={field.key} {...colProps}>
+        {content}
       </Col>
     )
   })
@@ -388,8 +387,8 @@ const funcs = [
 export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   const {
     fields,
+    formLayout = 'horizontal',
     onConfirm,
-    span,
     children,
     props: defaultProps,
     readonly,
@@ -418,8 +417,8 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   formInstans.setFieldsValue = (values: AnyKeyProps) => {
     fields.forEach((field) => {
       if (field.type === FORM_TYPE_DATE) {
-        if (values[field.key]) {
-          values[field.key] = moment(values[field.key])
+        if (values[field?.key || '']) {
+          values[field?.key || ''] = moment(values[field?.key || ''])
         }
       }
     })
@@ -483,6 +482,14 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
     setListnerList(listnerList)
   }
 
+  const formItemLayout =
+    formLayout === 'horizontal'
+      ? {
+          ...defaultLayout,
+          ...layout
+        }
+      : null
+
   useEffect(() => {
     setInited(true)
   }, [])
@@ -491,9 +498,9 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
     <div className={`ay-form ${className || ''} ${desc ? 'desc' : ''} ${readonly ? 'readony' : ''}`} style={style}>
       <Form
         ref={formRef}
-        {...defaultLayout}
-        {...layout}
+        {...formItemLayout}
         labelAlign={labelAlign}
+        layout={formLayout}
         name={props.name || 'ay-form'}
         initialValues={getDefaultValue(mirrorFields)}
         onFinish={(values) => handleConfirm(values, mirrorFields, onConfirm)}
@@ -502,17 +509,8 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
         }
         {...defaultProps}
       >
-        <Row>
-          {getFormItem(
-            mirrorFields,
-            formInstans,
-            formInstans.setFieldsValue,
-            formInstans.getFieldValue,
-            addFieldListener,
-            removeFiledListener,
-            span,
-            readonly
-          )}
+        <Row gutter={formLayout === 'horizontal' ? undefined : 8}>
+          {getFormItem(mirrorFields, formInstans, addFieldListener, removeFiledListener, props)}
           {children}
         </Row>
       </Form>

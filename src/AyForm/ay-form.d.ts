@@ -2,6 +2,15 @@ import { ReactNode } from 'react'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { AySearchTableField } from '../AySearchTable/ay-search-table'
 
+export interface ColSize {
+  xs?: number
+  sm?: number
+  md?: number
+  lg?: number
+  xl?: number
+  xxl?: number
+}
+
 export interface AyFormProps {
   /** 配置项 */
   fields: Array<AyFormField | AySearchTableField>
@@ -34,6 +43,7 @@ export interface AyFormProps {
     labelCol?: AnyKeyProps
     wrapperCol?: AnyKeyProps
   }
+  formLayout?: 'horizontal' | 'vertical' | 'inline'
 }
 
 export interface RegisterFieldProps {
