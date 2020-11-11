@@ -38,13 +38,7 @@ export default function Demo() {
   }
 
   return (
-    <AyForm
-      span={24}
-      fields={fields}
-      onConfirm={handleConfirm}
-      style={{ width: 400, margin: '0 auto' }}
-      layout={{ labelCol: { flex: '100px' } }}
-    >
+    <AyForm span={24} fields={fields} onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
       <AyButton block type="primary" htmlType="submit">
         提交
       </AyButton>
@@ -58,11 +52,18 @@ export default function Demo() {
 默认会是右侧，label 跟 content 在一起展示。此示例演示如何将 label 展示在顶部。
 
 ```tsx
-import React from 'react'
+import React, { useState } from 'react'
 import { AyForm, AyFormField } from 'amiya'
+import { Radio } from 'antd'
 import 'antd/dist/antd.min.css'
 
 type FormLayout = 'horizontal' | 'vertical' | 'inline'
+
+const options = [
+  { label: 'horizontal', value: 'horizontal' },
+  { label: 'vertical', value: 'vertical' },
+  { label: 'inline', value: 'inline' }
+]
 
 const fields: Array<AyFormField> = [
   {
@@ -76,14 +77,13 @@ const fields: Array<AyFormField> = [
 ]
 
 export default function Demo() {
+  const [formLayout, setFormLayout] = useState<FormLayout>('horizontal')
+
   return (
-    <AyForm
-      layout={{ labelCol: { flex: '100%' } }}
-      labelAlign="left"
-      span={24}
-      fields={fields}
-      style={{ width: 400, margin: '0 auto' }}
-    />
+    <>
+      <Radio.Group options={options} onChange={(e) => setFormLayout(e.target.value)} value={formLayout} />
+      <AyForm span={24} fields={fields} style={{ width: 600, margin: '10px auto 0' }} formLayout={formLayout} />
+    </>
   )
 }
 ```
@@ -531,17 +531,18 @@ export default function Demo() {
 
 ## Props 参数
 
-| 参数名        | 说明                                  | 参数类型                | 默认值    |
-| ------------- | ------------------------------------- | ----------------------- | --------- |
-| fields        | 配置项                                | Array<[AyFormField][2]> | -         |
-| name          | form 名称，一般不需要填               | string                  | 'ay-form' |
-| span          | antd Grid 的 Col 组件的 span 属性类似 | 1 ～ 24                 | 12        |
-| readonly      | 只读模式                              | boolean                 | false     |
-| desc          | Descripts 模式                        | boolean                 | false     |
-| layout        | 布局参数, 查看下方 layout 参数        | Object                  | -         |
-| props         | antd Form 其它参数                    | [查看参数][1]           | -         |
-| formItemProps | antd Form.Item 其它参数               | Object                  | -         |
-| onConfirm     | 提交事件监听                          | (form: Object) => void  | -         |
+| 参数名        | 说明                                  | 参数类型                               | 默认值       |
+| ------------- | ------------------------------------- | -------------------------------------- | ------------ |
+| fields        | 配置项                                | Array<[AyFormField][2]>                | -            |
+| name          | form 名称，一般不需要填               | string                                 | 'ay-form'    |
+| span          | antd Grid 的 Col 组件的 span 属性类似 | 1 ～ 24                                | 12           |
+| readonly      | 只读模式                              | boolean                                | false        |
+| desc          | Descripts 模式                        | boolean                                | false        |
+| layout        | 布局参数, 查看下方 layout 参数        | Object                                 | -            |
+| formLayout    | 布局方式                              | 'horizontal' \| 'vertical' \| 'inline' | 'horizontal' |
+| props         | antd Form 其它参数                    | [查看参数][1]                          | -            |
+| formItemProps | antd Form.Item 其它参数               | Object                                 | -            |
+| onConfirm     | 提交事件监听                          | (form: Object) => void                 | -            |
 
 ## layout 参数
 
@@ -562,6 +563,71 @@ const layout = {
 }
 ```
 
+## AyFormField 参数
+
+| 参数名        | 说明                                                       | 参数类型                                                               | 默认值  |
+| ------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------- | ------- |
+| title         | 相应的 key，会跟最后表单取到的项目相关; form 的 key 值必填 | string                                                                 | -       |
+| key           | 唯一 key                                                   | string                                                                 | -       |
+| type          | 表单项类型                                                 | [FormType][formtype]                                                   | 'input' |
+| options       | 表格                                                       | Array<[Option][option]>                                                | -       |
+| span          | Grid Col 占位 [0 - 24]                                     | number                                                                 | -       |
+| defaultValue  | 默认值                                                     | any                                                                    | -       |
+| required      | 是否必填                                                   | boolean                                                                | -       |
+| rules         | 自定义权限                                                 | rules                                                                  | -       |
+| visible       | 是否展示，保留占位; 保留默认值                             | rules                                                                  | -       |
+| hidden        | 是否展示，不会占位; 保留默认值                             | boolean \| Function                                                    | -       |
+| props         | 原生的属性                                                 | Object                                                                 | -       |
+| formItemProps | FormItem 层原生的属性                                      | Object                                                                 | -       |
+| renderContent | 自定义 content 内容，需要指定 type: 'custom'               | (field: AyFormField, record: Record) => ReactNode                      | -       |
+| onChange      | 数据变化监听                                               | (field: AyFormField, record: Record, setFieldsValue: Function) => void | -       |
+| help          | 在表单下会有一段提示文字                                   | string \| ReactNode                                                    | -       |
+| startKey      | 时间格式化的开始时间                                       | string                                                                 | -       |
+| endKey        | 时间格式化的结束时间                                       | string                                                                 | -       |
+| reSetting     | 重新渲染                                                   | (params: AyFormField, mode: string) => AyFormField                     | -       |
+| order         | 顺序                                                       | number                                                                 | -       |
+
+## FormType
+
+FormType 是指写 field 时候的 type 的可选项。
+在系统里面预置了下面几种表单类型。如果要自定义类型，请参考 registerField。
+
+```typescript
+const fields: Array<Field> = [
+  {
+    type: 'input' // FormType 指此处可选的值
+  }
+]
+```
+
+<hr />
+
+| 值类型         | 说明                                                     | 默认值    |
+| -------------- | -------------------------------------------------------- | --------- |
+| input          | 输入框，默认字符长度 30                                  | ''        |
+| number         | 数字输入框，0 ～ 99999999                                | null      |
+| percent        | 百分比输入框，0 ～ 100                                   | null      |
+| password       | 密码输入框                                               | ''        |
+| textarea       | 多行输入框，默认字符长度 200                             | ''        |
+| select         | 选择框                                                   | undefined |
+| switch         | 开关                                                     | false     |
+| checkbox       | 多选框（单个）                                           | false     |
+| checkbox-group | 多选框（多个）                                           | []        |
+| radio-group    | 单选框（多个）                                           | null      |
+| date           | 日期                                                     | undefined |
+| date-range     | 日期区间                                                 | []        |
+| empty          | 空白框                                                   | -         |
+| custom         | 自定义 renderContent 使用，需要在同一层定义 defaultValue | -         |
+
+## Option 参数
+
+| 参数名   | 说明     | 参数类型                | 默认值 |
+| -------- | -------- | ----------------------- | ------ |
+| label    | 显示选项 | string \| number        | -      |
+| value    | 值       | any                     | -      |
+| disabled | 是否禁用 | boolean                 | -      |
+| children | 子元素   | Array<[Option][option]> | -      |
+
 ## Method 方法
 
 | 方法名                         | 说明                                                      | 返回值         |
@@ -573,5 +639,8 @@ const layout = {
 | setFieldsValue(values: Object) | 设置表单值                                                | -              |
 | refreshFields()                | 重新渲染表单，如果动态改变了 fields，可以用此参数重新渲染 | -              |
 
-[1]: https://ant-design.gitee.io/components/form-cn/#API
-[2]: /filed参数详解#ayformfield-参数
+[1]: ./form#layout-参数
+[2]: ./form#ayformfield-参数
+[formtype]: ./form#formtype
+[option]: ./form#option-参数
+[ayformfield]: ./form#ayformfield-参数

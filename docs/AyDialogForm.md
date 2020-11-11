@@ -234,19 +234,150 @@ export default function Demo() {
 }
 ```
 
-| 参数名       | 说明                                                 | 参数类型                                        | 默认值      |
-| ------------ | ---------------------------------------------------- | ----------------------------------------------- | ----------- |
-| title        | 默认标题，可以不用设置，不同模式下，自动展示不同文案 | string                                          | -           |
-| drawer       | 是否 Drawer 模式展示                                 | boolean                                         | false       |
-| span         | AyForm 的 span                                       | 1 ～ 24                                         | 24          |
-| width        | 弹窗宽度                                             | number                                          | -           |
-| fields       | 表单项                                               | Array<[AyDialogFormField][aydialogformfield]>   | []          |
-| addApi       | 新增 api，需要是 Promise 形式的接口                  | Promise                                         | null        |
-| updateApi    | 修改 api，需要是 Promise 形式的接口                  | Promise                                         | null        |
-| name         | 表单唯一名字                                         | stirng                                          | 'ay-form'   |
-| beforeSubmit | 提交前过滤，返回 false 则不提交。                    | (params?: AnyKeyProps, mode?: string)=> boolean | AnyKeyProps | null |
-| dialogExtend | 弹窗的其它参数。                                     | Object                                          | null        |
-| formExtend   | 表单的其它参数。                                     | Object                                          | null        |
-| dialogOnly   | 表单项是否默认不展示，只有写 dialog 才展示。         | boolean                                         | false       |
+<hr/>
 
-[aydialogformfield]: /filed参数详解#aydialogformfield
+| 参数名       | 说明                                                                                                    | 参数类型                                        | 默认值      |
+| ------------ | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | ----------- |
+| title        | 默认标题，可以不用设置，不同模式下，自动展示不同文案                                                    | string                                          | -           |
+| drawer       | 是否 Drawer 模式展示                                                                                    | boolean                                         | false       |
+| span         | AyForm 的 span                                                                                          | 1 ～ 24                                         | 24          |
+| width        | 弹窗宽度                                                                                                | number                                          | -           |
+| fields       | 表单项                                                                                                  | Array<[AyDialogFormField][aydialogformfield]>   | []          |
+| addApi       | 新增 api，需要是 Promise 形式的接口                                                                     | Promise                                         | null        |
+| updateApi    | 修改 api，需要是 Promise 形式的接口                                                                     | Promise                                         | null        |
+| name         | 表单唯一名字                                                                                            | stirng                                          | 'ay-form'   |
+| beforeSubmit | 提交前过滤，返回 false 则不提交。                                                                       | (params?: AnyKeyProps, mode?: string)=> boolean | AnyKeyProps | null |
+| dialogExtend | 弹窗的其它参数。                                                                                        | Object                                          | null        |
+| formExtend   | 表单的其它参数。                                                                                        | Object                                          | null        |
+| dialogOnly   | 表单项是否默认不展示，只有写 dialog 才展示。另外 AySearchTable 内置了一个 AyDialogForm，且此参数为 true | boolean                                         | false       |
+
+## AyDialogFormField
+
+AyDialogFormField 扩展 AyFormField 的参数，其它的参数请参考 [AyFormField][ayformfield]。
+
+| 参数名  | 说明                                                                  | 参数类型                   | 默认值  |
+| ------- | --------------------------------------------------------------------- | -------------------------- | ------- |
+| title   | 标题                                                                  | string                     | -       |
+| key     | 唯一 key                                                              | string                     | -       |
+| type    | 表单项类型                                                            | [FormType][formtype]       | 'input' |
+| options | AyFormField 的 options                                                | Array<[Option][option]>    | -       |
+| dialog  | 需要设置 dialogOnly 为 ture 才会生效，否则此处参数跟 AyFormField 一致 | [AyFormField][ayformfield] | -       |
+
+<hr/>
+
+```js
+const fields: Array<AyDialogFormField> = [
+  // 没有设置 dialogOnly 的情况下，field 写法跟 AyFormField 一致，所有的 field 都会展示
+  {
+    title: '中文名',
+    key: 'cname',
+    required: true
+  },
+  {
+    title: '职业',
+    type: 'select',
+    key: 'profession',
+    options: [
+      { label: '狙击干员', value: '1' },
+      { label: '医疗干员', value: '2' },
+      { label: '术师干员', value: '3' }
+    ]
+  },
+  // 设置了 dialogOnly 的情况下，只有写了 dialog，参数才能被展示，且参数需要写在 dialog 内部
+  {
+    title: '备注',
+    key: 'desc',
+    dialog: {
+      required: true
+    }
+  }
+]
+
+// 如果 AyDialogForm 设置了 dialogOnly，那么会过滤调非 dialog 的参数
+// 上面的 fields 会被转成这样
+const fields: Array<AyDialogFormField> = [
+  {
+    title: '备注',
+    key: 'desc',
+    required: true
+  }
+]
+```
+
+<hr/>
+
+```tsx
+import React, { useState, MutableRefObject, useRef } from 'react'
+import { AyDialog, AyButton, AydialogFormRef, AyDialogForm, success } from 'amiya'
+import { Space } from 'antd'
+import 'antd/dist/antd.min.css'
+
+const fields: Array<AyDialogFormField> = [
+  // 没有设置 dialogOnly 的情况下，field 写法跟 AyFormField 一致，所有的 field 都会展示
+  {
+    title: '中文名',
+    key: 'cname',
+    required: true
+  },
+  {
+    title: '职业',
+    type: 'select',
+    key: 'profession',
+    options: [
+      { label: '狙击干员', value: '1' },
+      { label: '医疗干员', value: '2' },
+      { label: '术师干员', value: '3' }
+    ]
+  },
+  // 设置了 dialogOnly 的情况下，只有写了 dialog，参数才能被展示，且参数需要写在 dialog 内部
+  {
+    title: '备注',
+    key: 'desc',
+    dialog: {
+      required: true
+    }
+  }
+]
+
+// 模拟新增请求
+const emptyApi = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve()
+    }, 1000)
+  })
+}
+
+export default function Demo() {
+  const dialogFormRef: MutableRefObject<AydialogFormRef> = useRef() as MutableRefObject<AydialogFormRef>
+  const dialogOnlyFormRef: MutableRefObject<AydialogFormRef> = useRef() as MutableRefObject<AydialogFormRef>
+
+  const handleAdd = () => {
+    dialogFormRef.current.add().then(() => {
+      success('新增成功')
+    })
+  }
+
+  const handleDialogAdd = () => {
+    dialogOnlyFormRef.current.add().then(() => {
+      success('新增成功')
+    })
+  }
+
+  return (
+    <div>
+      <Space>
+        <AyButton onClick={() => handleAdd()}>不设置 dialogOnly</AyButton>
+        <AyButton onClick={() => handleDialogAdd()}>设置了 dialogOnly</AyButton>
+      </Space>
+      <AyDialogForm ref={dialogFormRef} fields={fields} addApi={emptyApi} />
+      <AyDialogForm dialogOnly ref={dialogOnlyFormRef} fields={fields} addApi={emptyApi} />
+    </div>
+  )
+}
+```
+
+[formtype]: ./form#formtype
+[option]: ./form#option-参数
+[aydialogformfield]: ./ay-dialog-form#aydialogformfield
+[ayformfield]: ./form#ayformfield-参数
