@@ -42,8 +42,8 @@ const getCtrlList = (children: Array<ReactNode>, props: AyCtrlProps): Array<Reac
     return [getCtrlItem(children[0], 'key')]
   }
 
-  // 过滤掉无权限按钮
-  children = children.filter((node: any) => hasPermission(node?.props?.permission))
+  // 过滤掉无权限按钮和 null
+  children = children.filter((node: any) => node !== null && hasPermission(node?.props?.permission))
 
   // 渲染没有折叠前的按钮
   for (let i = 0; i < (children.length <= max + 1 ? children.length : max); i++) {

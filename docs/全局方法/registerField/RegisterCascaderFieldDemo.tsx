@@ -1,25 +1,41 @@
 import React, { useState } from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
-import { Switch } from 'antd'
 import './amiya-init'
 import 'antd/dist/antd.min.css'
+import { Switch } from 'antd'
 
 const fields: Array<AyFormField> = [
   {
-    title: '姓名',
-    key: 'input'
+    title: '角色',
+    key: 'chara',
+    type: 'select',
+    options: [
+      {
+        label: '阿米娅',
+        value: 'amiya'
+      },
+      {
+        label: '能天使',
+        value: 'exusiai'
+      }
+    ]
   },
   {
-    title: '选择人物',
-    // 自定义 FormType，具体实现，请切换到 amiya-init.tsx 查看
-    type: 'chara-select',
-    key: 'chara',
-    required: true
+    title: '职业选择',
+    type: 'job-select',
+    key: 'job'
+  },
+  // 注册过后，可以同时存在多个
+  {
+    title: '职业选择2',
+    type: 'job-select',
+    key: 'job2'
   }
 ]
 
-export default function RegisterFieldDemo() {
+export default function RegisterCascaderFieldDemo() {
   const [readonly, setReadonly] = useState<boolean>(false)
+
   const handleConfirm = (form: any) => {
     console.log(form)
     alert(JSON.stringify(form))

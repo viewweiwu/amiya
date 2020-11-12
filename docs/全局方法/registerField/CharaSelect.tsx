@@ -1,10 +1,11 @@
-import React, { useState, useMemo } from 'react'
-import { AyButton, AyDialog } from 'amiya'
+import React, { useState, useMemo, ReactNode } from 'react'
+import { AyButton, AyDialog, Option } from 'amiya'
 import './index.less'
 
 interface CharaSelectProps {
   value?: string
   onChange?: (value: string) => void
+  readonly?: boolean
 }
 
 // 数据
@@ -52,7 +53,7 @@ function CharaCard(props: any) {
 
 // 人物选择
 export default function CharaSelect(props: CharaSelectProps) {
-  const { value, onChange } = props
+  const { value, onChange, readonly } = props
   const [checked, setChecked] = useState<string>(value || '')
   const [visible, setVisible] = useState<boolean>(false)
 
@@ -79,21 +80,36 @@ export default function CharaSelect(props: CharaSelectProps) {
     onChange && onChange('')
   }
 
-  return (
-    <div className="chara-select">
-      {activeChara ? (
+  let content: ReactNode = readonly ? null : <AyButton onClick={handleSelect}>角色选择</AyButton>
+
+  // 如果已经有选中的
+  if (activeChara) {
+    if (readonly) {
+      // 只读模式只需要渲染卡片
+      return <CharaCard chara={activeChara} onClick={handleSelect} />
+    } else {
+      // 渲染卡片和清空
+      content = (
         <>
           <CharaCard chara={activeChara} onClick={handleSelect} />
-          <AyButton onClick={handleClear}>清空</AyButton>
+          <p>
+            <AyButton onClick={handleClear}>清空</AyButton>
+          </p>
         </>
-      ) : (
-        <AyButton onClick={handleSelect}>角色选择</AyButton>
+      )
+    }
+  }
+
+  return (
+    <div className="chara-select">
+      {content}
+      {readonly ? null : (
+        <AyDialog title="角色选择" visible={visible} setVisible={setVisible} onConfirm={handleConfirm}>
+          {data.map((chara) => {
+            return <CharaCard value={checked} key={chara.id} chara={chara} onClick={() => setChecked(chara.id)} />
+          })}
+        </AyDialog>
       )}
-      <AyDialog title="角色选择" visible={visible} setVisible={setVisible} onConfirm={handleConfirm}>
-        {data.map((chara) => {
-          return <CharaCard value={checked} key={chara.id} chara={chara} onClick={() => setChecked(chara.id)} />
-        })}
-      </AyDialog>
     </div>
   )
 }
