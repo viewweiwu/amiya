@@ -55,6 +55,7 @@ export default function AyButton(props: AyButtonProps) {
   delete params.tableFooterExtraOnly
   delete params.action
   delete params.api
+  delete params.onFinish
   delete params.__simple
 
   if (props.confirm) {

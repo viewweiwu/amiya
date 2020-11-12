@@ -241,7 +241,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
           .then(
             (data: any) => {
               if (dialogResolve) {
-                dialogResolve(data)
+                dialogResolve({ data, values, params, record: initParams })
               }
               setVisible(false)
             },

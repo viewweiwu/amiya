@@ -8,5 +8,6 @@ export interface AyActionProps {
   tableFooterExtraOnly?: boolean
   action?: 'add' | 'update' | 'delete' | 'batch-delete' | 'view' | string
   record?: AnyKeyProps
+  inFinish?: (res: any) => void
   [key: string]: any
 }

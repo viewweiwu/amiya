@@ -27,9 +27,13 @@ registerAction('add', (props, _record, searchTable) => {
     type: 'primary',
     icon: <PlusOutlined />,
     onClick: () => {
-      searchTable.formRef?.current?.add().then(() => {
+      searchTable.formRef?.current?.add().then((res: any) => {
         success(props.children + '成功')
         searchTable.tableRef.current.refresh()
+        // 请求完成回调
+        if (props.onFinish) {
+          props.onFinish(res)
+        }
       })
     },
     ...props
@@ -42,9 +46,13 @@ registerAction('add', (props, _record, searchTable) => {
 registerAction('update', (props, record, searchTable) => {
   return {
     onClick: () => {
-      searchTable.formRef?.current?.update(record).then(() => {
+      searchTable.formRef?.current?.update(record).then((res: any) => {
         success(props.children + '成功')
         searchTable.tableRef.current.refresh()
+        // 请求完成回调
+        if (props.onFinish) {
+          props.onFinish(res)
+        }
       })
     },
     ...props
@@ -76,6 +84,10 @@ registerAction('delete', (props, record, searchTable) => {
         searchTable?.deleteApi(params).then((data: any) => {
           success('删除成功')
           searchTable?.tableRef.current.refresh()
+          // 请求完成回调
+          if (props.onFinish) {
+            props.onFinish({ data, params })
+          }
         })
       }
     },
@@ -107,6 +119,10 @@ registerAction('batch-delete', (props, _record, searchTable) => {
               success('批量删除成功')
               searchTable?.clearSelection()
               searchTable?.tableRef.current.refresh()
+              // 请求完成回调
+              if (props.onFinish) {
+                props.onFinish({ data, params })
+              }
             })
           }
         })
