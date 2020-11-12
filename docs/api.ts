@@ -61,7 +61,7 @@ loadData()
  * @param params 查询参数
  * */
 export const listApi = (params) => {
-  console.info(params)
+  console.info('列表请求数据', params)
   const searchParams = {
     ...params.search,
     ...params.filters
@@ -109,10 +109,9 @@ export const listApi = (params) => {
  * 测试接口，实际过程中请使用 axios 接口
  * */
 export const emptyApi = (params?: any) => {
-  console.info(params)
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve()
+      resolve({ msg: '请求成功' })
     }, 300)
   })
 }
@@ -127,7 +126,10 @@ export const addApi = (params) => {
       id: Date.now(),
       ...params
     })
-    resolve()
+    resolve({
+      msg: '请求成功',
+      data: Date.now()
+    })
   })
 }
 
@@ -144,7 +146,10 @@ export const updateApi = (params) => {
         ...params
       }
     }
-    resolve()
+    resolve({
+      msg: '请求成功',
+      data: data[index]
+    })
   })
 }
 
@@ -153,11 +158,13 @@ export const updateApi = (params) => {
  * @param params 删除的 id
  */
 export const deleteApi = (params) => {
-  console.info(params)
   return new Promise((resolve) => {
     data = data.filter((row) => {
       return !params.includes(row.id)
     })
-    resolve()
+    resolve({
+      msg: '删除成功',
+      data: null
+    })
   })
 }

@@ -41,6 +41,6 @@ export default function Demo() {
 | confirmMsg | 确认框提示文字，需要先设置 confirm 属性为 true | string   | -      |
 | onConfirm  | 确认完成事件，需要先设置 confirm 属性为 true   | Function | -      |
 | onClick    | 点击事件                                       | Function | -      |
-| permission | 权限                                           | strng    | -      |
+| permission | 权限                                           | string   | -      |
 
 其它属性保持跟 antd Button 属性一致。

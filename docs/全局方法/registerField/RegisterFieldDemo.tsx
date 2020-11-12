@@ -17,7 +17,7 @@ const fields: Array<AyFormField> = [
   }
 ]
 
-export default function Demo() {
+export default function RegisterFieldDemo() {
   const handleConfirm = (form: any) => {
     console.log(form)
     alert(JSON.stringify(form))

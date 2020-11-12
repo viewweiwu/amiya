@@ -85,7 +85,7 @@ const CtrlField: AyTableCtrlField = {
   }
 }
 
-export default function Demo() {
+export default function AySearchTableDemo() {
   return (
     <AySearchTable
       title="表格标题"
@@ -101,7 +101,7 @@ export default function Demo() {
       }}
     >
       <AyAction action="batch-delete">批量删除</AyAction>
-      <AyAction action="add">新建</AyAction>
+      <AyAction action="add">新增</AyAction>
     </AySearchTable>
   )
 }

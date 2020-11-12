@@ -75,7 +75,14 @@ export default function Demo() {
  */
 registerAction('actionName', (props, record, searchTable) => {
   return {
-    onClick: () => {}
+    onClick: () => {
+      // 如果需要 回调的话，请在请求完成后补充上这个
+      someApi().then(() => {
+        if (props.onFinish) {
+          props.onFinish()
+        }
+      })
+    }
     ...props
   }
 })
@@ -83,8 +90,9 @@ registerAction('actionName', (props, record, searchTable) => {
 /**
  * @desc 使用案例
  * @param actionName 指已经注册过后的名字
+ * @param onFinish 注册时补充了回调的话，会调用到参数，此处参数由注册时决定
  */
-<AyAction action="actionName">Amiya<AyAction>
+<AyAction action="actionName" onFinish={() => {}}>Amiya<AyAction>
 ```
 
 ## 覆盖默认实现
@@ -107,13 +115,16 @@ amiya 自带 5 种 action，它们分别是：
  */
 registerAction('add', (props, _record, searchTable) => {
   return {
-    // 比如你可以去掉默认的高亮
-    // type: 'primary',
+    type: 'primary',
     icon: <PlusOutlined />,
     onClick: () => {
-      searchTable.formRef?.current?.add().then(() => {
+      searchTable.formRef?.current?.add().then((res: any) => {
         success(props.children + '成功')
         searchTable.tableRef.current.refresh()
+        // 请求完成回调
+        if (props.onFinish) {
+          props.onFinish(res)
+        }
       })
     },
     ...props

@@ -7,4 +7,4 @@
 1. 编写可控组件（CharaSelect.tsx）。
 2. 注册成为 FormType（amiya-init.tsx）。
 
-<code src="./Demo.tsx" />
+<code src="./RegisterFieldDemo.tsx" />
