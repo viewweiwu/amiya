@@ -33,7 +33,7 @@ const getCtrlList = (children: Array<ReactNode>, props: AyCtrlProps): Array<Reac
   } = props
   let ctrlList: Array<ReactNode> = []
 
-  if (!children.length || !children[0]) {
+  if (!children.length || (children.length === 1 && !children[0])) {
     return []
   }
 
