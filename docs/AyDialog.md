@@ -1,5 +1,7 @@
 # AyDialog
 
+![amiya AyDialog](https://misc.hzzcckj.cn/upload/image/202011/ac64d2e7e400000.png)
+
 ## 基础示例
 
 ```tsx

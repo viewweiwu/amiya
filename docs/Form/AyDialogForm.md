@@ -1,5 +1,7 @@
 # AyDialogForm
 
+![amiya AyDialogForm](https://misc.hzzcckj.cn/upload/image/202011/ac64ff591400000.png)
+
 ## 基础示例
 
 ```tsx
@@ -375,6 +377,31 @@ export default function Demo() {
     </div>
   )
 }
+```
+
+## Methods
+
+| 参数名                                     | 说明   | 返回值  |
+| ------------------------------------------ | ------ | ------- |
+| view(formValues: Object, config: Object)   | 查看   | Promise |
+| update(formValues: Object, config: Object) | 修改   | Promise |
+| add(formValues: Object, config: Object)    | 新增   | Promise |
+| open(formValues: Object, config: Object)   | 自定义 | Promise |
+
+### formValues
+
+- Type: Object
+- Default: {}
+
+打开弹窗后，表单的默认值。
+
+### config
+
+- Type: Object
+- Default: {}
+
+```js
+add({}, { title: '自定义标题' })
 ```
 
 [formtype]: ./form#formtype

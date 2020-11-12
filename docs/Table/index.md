@@ -1,5 +1,14 @@
 # AySearchTable
 
+![amiya AySearchTable](https://misc.hzzcckj.cn/upload/image/202011/ac6556223800000.png)
+
+[查看大图](https://misc.hzzcckj.cn/upload/image/202011/ac6556223800000.png)
+
+1. 自带 AySearch、AyTable、AyDialogForm（1 个）。
+2. 下可能会使用到 AyCtrl、AyAction 等。
+3. AySearch、AyTable 只在内部，不需要用户写。
+4. 点击 新建、编辑、详情 按钮，会打开 AyDialogForm，平时都是隐藏看不见的。
+
 ## 示例：增删改查
 
 <code src="./Demo.tsx" />

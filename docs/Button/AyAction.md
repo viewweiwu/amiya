@@ -16,4 +16,4 @@ export default function Demo() {
 
 ## 配合 AySearchTable
 
-<code src="./Table/Demo.tsx" />
+<code src="../Table/Demo.tsx" />

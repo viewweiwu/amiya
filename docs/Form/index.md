@@ -1,5 +1,7 @@
 # AyForm
 
+![amiya AyForm](https://misc.hzzcckj.cn/upload/image/202011/ac64675b2800000.png)
+
 ## 登录示例
 
 ```tsx
