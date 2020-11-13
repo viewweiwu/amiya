@@ -1,6 +1,7 @@
 import AyButton, { setPermissionList } from './AyButton'
 import AyAction, { registerAction } from './AyAction'
 import AyCtrl from './AyCtrl'
+import AyCard from './AyCard'
 import AyDialog from './AyDialog'
 import AyDialogForm from './AyDialogForm'
 import AyForm, { registerField } from './AyForm'
@@ -11,6 +12,7 @@ import AySelect from './AySelect'
 import AyTable, { setDefaultDataFilter, setDefaultSearchFilter, registerTableRender } from './AyTable'
 
 export {
+  AyCard,
   AyAction,
   registerAction,
   AyButton,
@@ -35,6 +37,7 @@ export {
 }
 
 export default {
+  AyCard,
   AyAction,
   registerAction,
   AyButton,
