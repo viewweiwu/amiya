@@ -16,13 +16,11 @@
   &.desc {
     padding-right: 0;
 
-
-    border-right: 1px solid @ay-form-desc-border-color;
-    border-bottom: 1px solid @ay-form-desc-border-color;
-
     .ant-form-item {
-      border-top: 1px solid @ay-form-desc-border-color;
-      border-left: 1px solid @ay-form-desc-border-color;
+      height: calc(100% + 1px);
+      margin-top: -1px;
+      margin-left: -1px;
+      border: 1px solid @ay-form-desc-border-color;
       margin-bottom: 0;
     }
 
@@ -40,6 +38,10 @@
       border-color: #fff;
       background-color: #fff;
     }
+  }
+
+  .ay-card {
+    margin-bottom: 12px;
   }
 }
 

@@ -8,8 +8,9 @@ import React, {
   useState,
   useEffect
 } from 'react'
+import AyCard from '../AyCard'
 import { Form, Row, Col } from 'antd'
-import { AyFormField, AyFormProps, FieldListener, RegisterFieldProps, ColSize } from './ay-form'
+import { AyFormField, AyFormProps, FieldListener, RegisterFieldProps } from './ay-form'
 import { copy } from '../utils'
 import { AySearchField } from '../AySearch/ay-search'
 import { AnyKeyProps } from '../types/AnyKeyProps'
@@ -97,6 +98,13 @@ const getPlaceholder = (field: AyFormField | AySearchTableField): string => {
 export const getDefaultValue = (fields: Array<AyFormField | AySearchField | AySearchTableField>) => {
   let form: AnyKeyProps = {}
   fields.forEach((field: AyFormField | AySearchField | AySearchTableField) => {
+    if (field.type === 'card') {
+      form = {
+        ...form,
+        ...getDefaultValue(field.children || [])
+      }
+      return
+    }
     let type = field.type || 'input'
     const key = field?.key || ''
     // 如果配置项里存在默认值，直接返回默认值，否则从默认值表里获取
@@ -202,8 +210,27 @@ const getFormItem = (
   removeFiledListener: (key: string, fieldListener: FieldListener) => void,
   props: AyFormProps
 ) => {
-  const { span, readonly, formLayout } = props
+  const { span, readonly, formLayout, gutter } = props
+  const ayFormProps: AyFormProps = props
   return fields.map((field: AyFormField | AySearchTableField) => {
+    if (field.type === 'card') {
+      return (
+        <Col key={field.key ?? Math.random()} span={24}>
+          <AyCard title={field.title} {...field.props}>
+            <Row gutter={gutter}>
+              {getFormItem(
+                field.children as Array<AyFormField | AySearchTableField>,
+                formInstans,
+                addFieldListener,
+                removeFiledListener,
+                ayFormProps
+              )}
+            </Row>
+          </AyCard>
+        </Col>
+      )
+    }
+
     let visible = true
 
     // 隐藏该项目，保留占位，但是保留值
@@ -295,6 +322,9 @@ const getFormItem = (
 const formatValues = (values: AnyKeyProps, fields: Array<AyFormField | AySearchTableField>): AnyKeyProps => {
   let result: AnyKeyProps = {}
   for (let key in values) {
+    if (key.startsWith('__')) {
+      continue
+    }
     let value = values[key]
     let field = fields.find((field) => field.key === key)
     if (value && field) {
@@ -396,7 +426,8 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
     layout,
     className,
     style,
-    labelAlign
+    labelAlign,
+    gutter
   } = props
 
   /** 控制 any form 的实例 */
@@ -509,7 +540,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
         }
         {...defaultProps}
       >
-        <Row gutter={formLayout === 'horizontal' ? undefined : 8}>
+        <Row gutter={gutter}>
           {getFormItem(mirrorFields, formInstans, addFieldListener, removeFiledListener, props)}
           {children}
         </Row>

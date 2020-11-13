@@ -38,6 +38,8 @@ export interface AyFormProps {
   style?: AnyKeyProps
   /** label 对齐方式 */
   labelAlign?: 'left' | 'right'
+  /** 表单的间距 */
+  gutter?: number
   /** 布局 */
   layout?: {
     labelCol?: AnyKeyProps
