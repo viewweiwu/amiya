@@ -533,18 +533,19 @@ export default function Demo() {
 
 ## Props 参数
 
-| 参数名        | 说明                                  | 参数类型                               | 默认值       |
-| ------------- | ------------------------------------- | -------------------------------------- | ------------ |
-| fields        | 配置项                                | Array<[AyFormField][2]>                | -            |
-| name          | form 名称，一般不需要填               | string                                 | 'ay-form'    |
-| span          | antd Grid 的 Col 组件的 span 属性类似 | 1 ～ 24                                | 12           |
-| readonly      | 只读模式                              | boolean                                | false        |
-| desc          | Descripts 模式                        | boolean                                | false        |
-| layout        | 布局参数, 查看下方 layout 参数        | Object                                 | -            |
-| formLayout    | 布局方式                              | 'horizontal' \| 'vertical' \| 'inline' | 'horizontal' |
-| props         | antd Form 其它参数                    | [查看参数][1]                          | -            |
-| formItemProps | antd Form.Item 其它参数               | Object                                 | -            |
-| onConfirm     | 提交事件监听                          | (form: Object) => void                 | -            |
+| 参数名        | 说明                                         | 参数类型                               | 默认值       |
+| ------------- | -------------------------------------------- | -------------------------------------- | ------------ |
+| fields        | 配置项                                       | Array<[AyFormField][2]>                | -            |
+| name          | form 名称，一般不需要填                      | string                                 | 'ay-form'    |
+| span          | antd Grid 的 Col 组件的 span 属性类似        | 1 ～ 24                                | 12           |
+| readonly      | 只读模式                                     | boolean                                | false        |
+| desc          | Descripts 模式                               | boolean                                | false        |
+| layout        | 布局参数, 查看下方 layout 参数               | Object                                 | -            |
+| formLayout    | 布局方式                                     | 'horizontal' \| 'vertical' \| 'inline' | 'horizontal' |
+| props         | antd Form 其它参数                           | [查看参数][1]                          | -            |
+| formItemProps | antd Form.Item 其它参数                      | Object                                 | -            |
+| onConfirm     | 提交事件监听                                 | (form: Object) => void                 | -            |
+| gutter        | 表单项横向之间的间距，Row 上面的 gutter 属性 | number                                 | -            |
 
 ## layout 参数
 
@@ -604,22 +605,23 @@ const fields: Array<Field> = [
 
 <hr />
 
-| 值类型         | 说明                                                     | 默认值    |
-| -------------- | -------------------------------------------------------- | --------- |
-| input          | 输入框，默认字符长度 30                                  | ''        |
-| number         | 数字输入框，0 ～ 99999999                                | null      |
-| percent        | 百分比输入框，0 ～ 100                                   | null      |
-| password       | 密码输入框                                               | ''        |
-| textarea       | 多行输入框，默认字符长度 200                             | ''        |
-| select         | 选择框                                                   | undefined |
-| switch         | 开关                                                     | false     |
-| checkbox       | 多选框（单个）                                           | false     |
-| checkbox-group | 多选框（多个）                                           | []        |
-| radio-group    | 单选框（多个）                                           | null      |
-| date           | 日期                                                     | undefined |
-| date-range     | 日期区间                                                 | []        |
-| empty          | 空白框                                                   | -         |
-| custom         | 自定义 renderContent 使用，需要在同一层定义 defaultValue | -         |
+| 值类型         | 说明                                                                 | 默认值    |
+| -------------- | -------------------------------------------------------------------- | --------- |
+| input          | 输入框，默认字符长度 30                                              | ''        |
+| number         | 数字输入框，0 ～ 99999999                                            | null      |
+| percent        | 百分比输入框，0 ～ 100                                               | null      |
+| password       | 密码输入框                                                           | ''        |
+| textarea       | 多行输入框，默认字符长度 200                                         | ''        |
+| select         | 选择框                                                               | undefined |
+| switch         | 开关                                                                 | false     |
+| checkbox       | 多选框（单个）                                                       | false     |
+| checkbox-group | 多选框（多个）                                                       | []        |
+| radio-group    | 单选框（多个）                                                       | null      |
+| date           | 日期                                                                 | undefined |
+| date-range     | 日期区间                                                             | []        |
+| empty          | 空白框                                                               | -         |
+| custom         | 自定义 renderContent 使用，需要在同一层定义 defaultValue             | -         |
+| card           | 会用 AyCard 包裹住底下的 form，具体使用可以看 [卡片表单][cardform]。 | -         |
 
 ## Option 参数
 
@@ -646,3 +648,4 @@ const fields: Array<Field> = [
 [formtype]: ./form#formtype
 [option]: ./form#option-参数
 [ayformfield]: ./form#ayformfield-参数
+[cardform]: ./form/卡片表单

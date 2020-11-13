@@ -70,3 +70,47 @@ registerField(FormType, {
 5. 使用组件
 
 <code src="./RegisterCascaderFieldDemo.tsx" />
+
+## addFieldListener 与 removeFiledListener
+
+这两个参数可以做到在组件内部去监听 form 的其它表单值的变化。
+
+```js
+// 实际使用的 fields
+const fields = [
+  {
+    title: 'Field A',
+    key: 'a',
+    type: 'input'
+  },
+  {
+    title: 'Field B',
+    key: 'b',
+    type: 'custom-type'
+  }
+]
+```
+
+此时自定义组件内部，可以监听其它表单值的变化，来产生联动效果。
+
+```js
+// custom type 组件内部实现
+useEffect(() => {
+  const handleCharaChange = (value: any) => {
+    // 监听变化
+    // ...
+  }
+  // 添加监听事件
+  if (addFieldListener) {
+    // 可以监听 key 为 a 的表单值变化
+    addFieldListener('a', handleChange)
+  }
+  // 记得销毁
+  return () => {
+    if (removeFiledListener) {
+      // 去除监听
+      removeFiledListener('a', handleChange)
+    }
+  }
+}, [])
+```
