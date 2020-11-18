@@ -39,7 +39,7 @@ registerTableRender('__options', ({ field, text }: RenderProps) => {
   return option ? option.label : text
 })
 
-registerTableRender('__elipsis', ({ text, field }: RenderProps) => {
+registerTableRender('__ellipsis', ({ text, field }: RenderProps) => {
   return (
     <Tooltip placement={field.placement || 'topLeft'} title={text}>
       <span>{text || ''}</span>
