@@ -7,7 +7,8 @@ import React, {
   useImperativeHandle,
   Ref,
   ReactNode,
-  useState
+  useState,
+  useMemo
 } from 'react'
 import AySearch from '../AySearch'
 import AyForm from '../AyForm'
@@ -124,14 +125,14 @@ const getTableActionBtns = (
     children.forEach((node: any) => {
       if (isFooterActionOnly(node)) {
         footerActions.push(node)
-      } else {
+      } else if (node) {
         rightActions.push(node)
       }
     })
   } else {
     if (isFooterActionOnly(children)) {
       footerActions.push(children)
-    } else {
+    } else if (children) {
       rightActions.push(children)
     }
   }
@@ -265,6 +266,31 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     extendSearchParams
   }
 
+  /** 表格子元素 */
+  const tableChildren = useMemo(() => {
+    const children = []
+    if (moreSearchFields && moreSearchFields.length) {
+      children.push(
+        <AyForm
+          className="ay-search-table-more"
+          span={24}
+          ref={moreSearchRef}
+          fields={moreSearchFields}
+          onConfirm={onConfirm}
+        >
+          <AyButton className="ay-search-table-more-submit" htmlType="submit"></AyButton>
+        </AyForm>
+      )
+    }
+    if (rightActions && rightActions.length) {
+      children.push(rightActions)
+    }
+    if (extraBtns) {
+      children.push(extraBtns)
+    }
+    return children.length ? children : null
+  }, [moreSearchRef, moreSearchFields, onConfirm, rightActions, extraBtns])
+
   return (
     <div className={`ay-search-table ${isEnter ? 'full' : null}`}>
       <AySearchTableContext.Provider value={{ formRef, tableRef, selection, deleteApi, rowKey, clearSelection }}>
@@ -272,19 +298,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
         {center}
         {dialogFormExtend ? <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend} /> : null}
         <AyTable {...tableProps} fields={tableFields} header={header}>
-          {
-            <AyForm
-              className="ay-search-table-more"
-              span={24}
-              ref={moreSearchRef}
-              fields={moreSearchFields}
-              onConfirm={onConfirm}
-            >
-              <AyButton className="ay-search-table-more-submit" htmlType="submit"></AyButton>
-            </AyForm>
-          }
-          {rightActions}
-          {extraBtns}
+          {tableChildren}
         </AyTable>
         {selection.length && footerActions.length ? (
           <div className="ay-search-table-footer-actions">

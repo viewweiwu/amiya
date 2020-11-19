@@ -361,9 +361,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
             </Space>
           </div>
         </header>
-      ) : (
-        ''
-      )}
+      ) : null}
       {header}
       <Table
         bordered
