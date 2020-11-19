@@ -1,6 +1,6 @@
 # registerAction
 
-用于注册 AyAction 的 action 事件。
+注册 AyAction 的 action 事件。
 
 观察下面例子的 批量审批、审批 按钮，是通过全局注册的。
 

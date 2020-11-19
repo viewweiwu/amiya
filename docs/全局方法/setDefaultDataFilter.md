@@ -4,9 +4,11 @@ order: 2
 
 # setDefaultDataFilter
 
+请求后处理。
+
 ![amiya AySearchTable](https://misc.hzzcckj.cn/upload/image/202011/acf47931f000000.png)
 
-全局 AySearchTable `请求后`过滤。
+全局 AySearchTable `请求后` 处理。
 
 后端提供的查询接口返回的数据往往有自己的风格，可以使用此方法来对请求后做一个数据重组，来重新“喂”给 AySearchTable。
 

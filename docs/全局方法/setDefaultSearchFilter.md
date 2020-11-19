@@ -4,6 +4,8 @@ order: 1
 
 # setDefaultSearchFilter
 
+请求前处理。
+
 ![amiya AySearchTable](https://misc.hzzcckj.cn/upload/image/202011/acf47931f000000.png)
 
 全局 AySearchTable `请求前` 处理。

@@ -1,5 +1,7 @@
 # registerField
 
+注册表单类型。
+
 可以注册一个 FormType，供其它地方使用。
 
 注册一个 FormType 总共需要 2 个步骤。
