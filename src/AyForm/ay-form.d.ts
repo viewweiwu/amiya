@@ -118,7 +118,7 @@ export interface Field {
    * @param disable 是否禁用
    */
   options?: Array<Option>
-  [key = string]: any
+  [key: string]: any
 }
 
 export interface Option {

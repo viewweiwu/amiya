@@ -45,7 +45,7 @@ export interface AyDialogProps extends ModalProps {
   cancelBefore?: ReactNode
   /** 关闭按钮后置元素 */
   cancelAfter?: ReactNode
-  [key = string]: any
+  [key: string]: any
 }
 
 export interface AyConfirmProps extends ModalFuncProps {

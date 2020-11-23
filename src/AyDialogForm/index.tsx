@@ -34,14 +34,14 @@ const getAyFormFields = (
   dialogOnly?: boolean
 ): Array<AyFormField> => {
   return fields
-    .filter((field) => {
+    .filter(field => {
       if (dialogOnly) {
         return !!field.dialog
       } else {
         return true
       }
     })
-    .map((field) => {
+    .map(field => {
       let dialog = field.dialog
 
       let formField: AyFormField = {
@@ -57,7 +57,7 @@ const getAyFormFields = (
 
       return formField
     })
-    .filter((field) => {
+    .filter(field => {
       if (field && Array.isArray(field.hiddenMode) && mode) {
         return !field.hiddenMode.includes(mode)
       }
@@ -220,7 +220,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
    */
   const handleSubmit = useCallback(
     (values: AnyKeyProps) => {
-      const apiMap = {
+      const apiMap: AnyKeyProps = {
         [MODE_ADD]: addApi,
         [MODE_UPDATE]: updateApi,
         [MODE_CUSTOM]: config.api

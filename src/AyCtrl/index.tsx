@@ -103,7 +103,7 @@ export default function AmCtrl(props: AyCtrlProps) {
   if (!Array.isArray(children)) {
     children = [children]
   }
-  const ctrlList = getCtrlList(children, props)
+  const ctrlList = getCtrlList(children as Array<ReactNode>, props)
 
   useEffect(() => {
     addRefresh(setRefresh)
