@@ -152,6 +152,7 @@ export default function Demo() {
 | searchVisible      | 查询区域是否展。                                                  | boolean                                         | true   |
 | tableExtend        | table 其它属性。                                                  | Object                                          | {}     |
 | extendSearchParams | table 查询时额外查询参数。                                        | Object                                          | {}     |
+| after              | 可以在表格底部插入 AyAction                                       | ReactNode                                       | -      |
 
 extra 右侧扩展按钮配置参考[此处][1]。
 
