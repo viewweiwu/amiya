@@ -220,7 +220,7 @@ export default function useExtraBtn(
   }, [isEnter])
 
   const extraBtns = extraVisible ? (
-    <div className="yt-search-table-extra-btns">
+    <div className="yt-search-table-extra-btns" key="yt-search-table-extra-btns">
       <Space>
         {extraRefreshVisible ? (
           <Tooltip title="刷新">

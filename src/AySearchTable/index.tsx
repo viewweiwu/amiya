@@ -172,7 +172,8 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     tableExtend,
     pagination,
     btnBefore,
-    extendSearchParams
+    extendSearchParams,
+    after
   } = props
 
   /** form 控制 */
@@ -201,9 +202,9 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   /** 查询完成，刷新列表 */
   const onConfirm = () => {
     // 更多查询数据
-    let moreSearchValues = moreSearchRef.current.getFieldsValue()
+    let moreSearchValues = moreSearchRef.current?.getFieldsValue() || {}
     // 头顶查询数据
-    let searchValues = searchRef.current.getFieldsValue()
+    let searchValues = searchRef.current?.getFieldsValue() || {}
     // 合并查询
     tableRef.current.reset({
       ...moreSearchValues,
@@ -273,6 +274,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
       children.push(
         <AyForm
           className="ay-search-table-more"
+          key="ay-search-table-more"
           span={24}
           ref={moreSearchRef}
           fields={moreSearchFields}
@@ -306,6 +308,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
             <Space>{footerActions}</Space>
           </div>
         ) : null}
+        {after}
       </AySearchTableContext.Provider>
     </div>
   )
