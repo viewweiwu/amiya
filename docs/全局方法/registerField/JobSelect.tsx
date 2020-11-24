@@ -4,7 +4,7 @@ import { FieldListener } from 'amiya/lib/AyForm/ay-form'
 
 interface JobSelectProps {
   value?: string
-  onChange?: (value: string) => void
+  onChange?: (value: string | null) => void
   placeholder?: string
   readonly?: boolean
   /** 添加 field 监听 */
@@ -14,15 +14,15 @@ interface JobSelectProps {
 }
 
 const getValueByOptions = (value: any, options: Array<Option>) => {
-  let option = options.find((option) => option.value === value)
+  let option = options.find(option => option.value === value)
   return option ? option.label : value
 }
 
 // 【模拟】延迟一秒获取职业列表
-const getOptions = (value): Promise<any> => {
-  return new Promise((resolve) => {
+const getOptions = (value: string): Promise<any> => {
+  return new Promise(resolve => {
     setTimeout(() => {
-      let options = []
+      let options: Array<Option> = []
       if (value === 'amiya') {
         // amiya 的可选职业
         options = [

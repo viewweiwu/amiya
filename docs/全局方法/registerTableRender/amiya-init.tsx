@@ -2,11 +2,12 @@ import React from 'react'
 import { AyButton, registerTableRender, Option } from 'amiya'
 import { RenderProps } from 'amiya/lib/AyTable/ay-table'
 import { Tag, Popover, Space, Rate } from 'antd'
-import 'antd/dist/antd.min.css'
 import { InfoCircleOutlined } from '@ant-design/icons'
+import { AnyKeyProps } from '@/types/AnyKeyProps'
+import 'antd/dist/antd.min.css'
 
 // 此函数只需要注册一次，你可以放在全局
-const colorMap = {
+const colorMap: AnyKeyProps = {
   治疗: 'green',
   支援: 'magenta',
   爆发: 'red',
@@ -24,7 +25,7 @@ registerTableRender('tag', ({ text, record, field }: RenderProps) => {
   }
   return (
     <>
-      {text.map((item) => (
+      {text.map(item => (
         <Tag color={colorMap[item] || ''} key={item}>
           {item}
         </Tag>

@@ -1,5 +1,5 @@
 import React, { useState, useMemo, ReactNode } from 'react'
-import { AyButton, AyDialog, Option } from 'amiya'
+import { AyButton, AyDialog } from 'amiya'
 import './index.less'
 
 interface CharaSelectProps {
@@ -59,12 +59,12 @@ export default function CharaSelect(props: CharaSelectProps) {
 
   // 获得选中的人物
   const activeChara = useMemo(() => {
-    return data.find((chara) => chara.id === value)
+    return data.find(chara => chara.id === value)
   }, [value])
 
   // 打开弹窗选择
   const handleSelect = () => {
-    setChecked(value)
+    setChecked(value || '')
     setVisible(true)
   }
 
@@ -105,7 +105,7 @@ export default function CharaSelect(props: CharaSelectProps) {
       {content}
       {readonly ? null : (
         <AyDialog title="角色选择" visible={visible} setVisible={setVisible} onConfirm={handleConfirm}>
-          {data.map((chara) => {
+          {data.map(chara => {
             return <CharaCard value={checked} key={chara.id} chara={chara} onClick={() => setChecked(chara.id)} />
           })}
         </AyDialog>

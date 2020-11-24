@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
+import { Switch } from 'antd'
 import './amiya-init'
 import 'antd/dist/antd.min.css'
-import { Switch } from 'antd'
 
 const fields: Array<AyFormField> = [
   {
@@ -45,7 +45,7 @@ export default function RegisterCascaderFieldDemo() {
     <>
       <p>
         <label style={{ marginRight: 4 }}>只读模式</label>
-        <Switch defaultChecked={readonly} onChange={(value) => setReadonly(value)} />
+        <Switch defaultChecked={readonly} onChange={value => setReadonly(value)} />
       </p>
       <AyForm
         readonly={readonly}

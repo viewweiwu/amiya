@@ -1,3 +1,4 @@
+import { AnyKeyProps } from './../es/types/AnyKeyProps.d'
 // import charaData from './character_table.min.json'
 
 // console.log(charaData)
@@ -16,7 +17,7 @@ export const professionOptions = [
 /**
  * 模拟数据
  */
-let data = []
+let data: Array<AnyKeyProps> = []
 
 // 没有数据，加载数据
 const loadData = () => {
@@ -26,7 +27,8 @@ const loadData = () => {
     if (local) {
       data = JSON.parse(local)
     } else {
-      import('./character_table.min.json').then((json) => {
+      // @ts-ignore
+      import('./character_table.min.json').then(json => {
         let list = []
         let amiya
         for (let key in json) {
@@ -60,16 +62,16 @@ loadData()
  * 模拟列表请求接口，实际过程中请使用 axios 接口
  * @param params 查询参数
  * */
-export const listApi = (params) => {
+export const listApi = (params: AnyKeyProps) => {
   console.info('列表请求数据', params)
   const searchParams = {
     ...params.search,
     ...params.filters
   }
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(() => {
       // 筛选
-      let content = data.filter((item) => {
+      let content = data.filter(item => {
         let result = true
         for (let key in searchParams) {
           // 查询值
@@ -88,7 +90,7 @@ export const listApi = (params) => {
       })
       // 排序
       const sorts = params.sorts || []
-      sorts.forEach((option) => {
+      sorts.forEach((option: AnyKeyProps) => {
         const { key, order } = option
         content.sort((a, b) => (order === 'descend' ? a[key] - b[key] : b[key] - a[key]))
       })
@@ -108,8 +110,8 @@ export const listApi = (params) => {
 /**
  * 测试接口，实际过程中请使用 axios 接口
  * */
-export const emptyApi = (params?: any) => {
-  return new Promise((resolve) => {
+export const emptyApi = (params?: any): Promise<any> => {
+  return new Promise(resolve => {
     setTimeout(() => {
       resolve({ msg: '请求成功' })
     }, 300)
@@ -120,8 +122,8 @@ export const emptyApi = (params?: any) => {
  * 模拟新增
  * @param params 保存参数
  */
-export const addApi = (params) => {
-  return new Promise((resolve) => {
+export const addApi = (params: AnyKeyProps): Promise<any> => {
+  return new Promise(resolve => {
     data.unshift({
       id: Date.now(),
       ...params
@@ -137,9 +139,9 @@ export const addApi = (params) => {
  * 模拟修改
  * @param params 保存参数
  */
-export const updateApi = (params) => {
-  return new Promise((resolve) => {
-    let index: number = data.findIndex((row) => row.id === params.id)
+export const updateApi = (params: AnyKeyProps): Promise<any> => {
+  return new Promise(resolve => {
+    let index: number = data.findIndex(row => row.id === params.id)
     if (index >= 0 && data[index]) {
       data[index] = {
         ...data[index],
@@ -157,9 +159,9 @@ export const updateApi = (params) => {
  * 模拟删除
  * @param params 删除的 id
  */
-export const deleteApi = (params) => {
-  return new Promise((resolve) => {
-    data = data.filter((row) => {
+export const deleteApi = (params: AnyKeyProps): Promise<any> => {
+  return new Promise(resolve => {
+    data = data.filter(row => {
       return !params.includes(row.id)
     })
     resolve({

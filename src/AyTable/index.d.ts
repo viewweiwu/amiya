@@ -17,7 +17,7 @@ export declare function setDefaultDataFilter(params: AnyKeyProps): AnyKeyProps
  * 自定义表格渲染
  * @param params 渲染参数
  */
-export declare function registerTableRender(key: 'string', params: AnyKeyProps): void
+export declare function registerTableRender(key: string, params: AnyKeyProps): void
 
 declare const AyTable: React.ForwardRefExoticComponent<AyTableProps & React.RefAttributes<HTMLDivElement>>
 

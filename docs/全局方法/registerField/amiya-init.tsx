@@ -1,5 +1,5 @@
 import React from 'react'
-import { registerField, Option } from 'amiya'
+import { registerField } from 'amiya'
 import CharaSelect from './CharaSelect'
 import JobSelect from './JobSelect'
 
@@ -16,7 +16,7 @@ registerField('chara-select', {
 registerField('job-select', {
   type: 'job-select',
   defaultValue: null,
-  render: ({ field, readonly, addFieldListener, removeFiledListener, getFieldValue }: any) => {
+  render: ({ field, readonly, addFieldListener, removeFiledListener }: any) => {
     return (
       <JobSelect
         readonly={readonly}
