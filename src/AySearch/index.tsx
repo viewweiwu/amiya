@@ -74,7 +74,7 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
   /** 暴露出去的 form 的实例，允许父组件通过 ref 调用方法 */
   const formInstans: AnyKeyProps = {}
   /** 填充方法 */
-  funcs.forEach((func) => {
+  funcs.forEach(func => {
     formInstans[func] = (...args: any) => formRef.current[func](...args)
   })
   useImperativeHandle(ref, () => formInstans)

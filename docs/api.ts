@@ -62,7 +62,7 @@ loadData()
  * 模拟列表请求接口，实际过程中请使用 axios 接口
  * @param params 查询参数
  * */
-export const listApi = (params: AnyKeyProps) => {
+export const listApi = (params: AnyKeyProps): Promise<any> => {
   console.info('列表请求数据', params)
   const searchParams = {
     ...params.search,
