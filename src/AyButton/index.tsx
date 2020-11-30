@@ -9,12 +9,19 @@ export const addRefresh = (setRefresh: any) => {
   refreshList.push(setRefresh)
 }
 
+export const removeRefresh = (setRefresh: any) => {
+  let refreshIndex = refreshList.findIndex(item => item === setRefresh)
+  if (refreshIndex >= 0) {
+    refreshList.splice(refreshIndex, 1)
+  }
+}
+
 // 权限列表
 let permissionList: Array<string> = []
 
 export const setPermissionList = (list: Array<string>) => {
   permissionList = list
-  refreshList.forEach((setRefresh) => {
+  refreshList.forEach(setRefresh => {
     setRefresh(Math.random())
   })
 }
@@ -37,6 +44,9 @@ export default function AyButton(props: AyButtonProps) {
 
   useEffect(() => {
     addRefresh(setRefresh)
+    return () => {
+      removeRefresh(setRefresh)
+    }
   }, [])
 
   if (params.permission && !permissionList.includes(params.permission)) {

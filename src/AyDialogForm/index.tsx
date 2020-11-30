@@ -6,7 +6,8 @@ import React, {
   useRef,
   MutableRefObject,
   useCallback,
-  ReactNode
+  ReactNode,
+  useEffect
 } from 'react'
 import AyDialog from '../AyDialog'
 import AyForm from '../AyForm'
@@ -45,7 +46,7 @@ const getAyFormFields = (
       let dialog = field.dialog
 
       let formField: AyFormField = {
-        key: '',
+        key: '_',
         ...field,
         ...dialog,
         _values: initParams
@@ -114,6 +115,10 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
   /** 打开弹窗的配置 */
   const [config, setConfig] = useState<AnyKeyProps>({})
 
+  useEffect(() => {
+    setFormFields(getAyFormFields(fields, mode, initParams, dialogOnly))
+  }, [fields])
+
   /**
    * 初始化弹窗
    * @step 1、打开弹窗，清空只读
@@ -128,6 +133,10 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     if (config && config.fields) {
       formFields = getAyFormFields(config.fields, mode, initParams, dialogOnly)
       setFormFields(formFields)
+      // 同步刷新 renderContent、render 函数
+      useEffect(() => {
+        setFormFields(getAyFormFields(config.fields, mode, initParams, dialogOnly))
+      }, [config.fields])
     } else {
       formFields = getAyFormFields(props.fields, mode, initParams, dialogOnly)
       setFormFields(formFields)
@@ -200,6 +209,9 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
       mode = MODE_CUSTOM
       setMode(MODE_CUSTOM)
       initDialog(params, config)
+    },
+    refreshFields: () => {
+      formRef.current.refreshFields()
     }
   }))
 

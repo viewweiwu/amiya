@@ -20,12 +20,9 @@ export * from './AySearchTable/ay-search-table'
 export * from './AySelect/ay-select'
 export * from './AyTable/ay-table'
 
-export { setPermissionList } from './AyButton'
 export { registerAction } from './AyAction'
 export { registerField } from './AyForm'
 export { setDefaultSearchFilter, setDefaultDataFilter, registerTableRender } from './AyTable'
 export { setSearchTableDefaultValue } from './AySearchTable'
-export { AyDialogFormField, AydialogFormRef } from './AyDialogForm/ay-dialog-form'
-export { AySearchTableField } from './AySearchTable/ay-search-table'
 
 export { success, info, error } from './AyMessage'
