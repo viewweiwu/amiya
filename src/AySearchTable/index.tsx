@@ -8,7 +8,8 @@ import React, {
   Ref,
   ReactNode,
   useState,
-  useMemo
+  useMemo,
+  useEffect
 } from 'react'
 import AySearch from '../AySearch'
 import AyForm from '../AyForm'
@@ -199,6 +200,10 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   const { footerActions, rightActions } = getTableActionBtns(children)
   const { extraBtns, size, isEnter } = useExtraBtn(tableRef, tableFields, setTableFields, props)
 
+  useEffect(() => {
+    setTableFields(getTableFields(fields))
+  }, [fields])
+
   /** 查询完成，刷新列表 */
   const onConfirm = () => {
     // 更多查询数据
@@ -243,6 +248,12 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
      */
     getSelection() {
       return selection
+    },
+    /**
+     * 刷新布局
+     */
+    doLayout() {
+      setTableFields(getTableFields(fields))
     }
   }))
 

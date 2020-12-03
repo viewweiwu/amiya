@@ -67,7 +67,7 @@ const getAyTableField = (field: AnyKeyProps, params: AnyKeyProps) => {
   }
 
   if (Array.isArray(field.children)) {
-    field.children = field.children.map((field) => {
+    field.children = field.children.map(field => {
       return getAyTableField(field, params)
     })
   }
@@ -127,17 +127,20 @@ const getAyTableField = (field: AnyKeyProps, params: AnyKeyProps) => {
  */
 const getAyTableFields = (fields: Array<any>, params: AnyKeyProps, ctrl?: AyTableField): Array<AyTableField> => {
   let tableFields = fields
-    .filter((field) => {
+    .filter(field => {
       if (field.__extraTouched) {
         return field.__hidden === false
       }
+      if (typeof field.hidden === 'function') {
+        return field.hidden()
+      }
       return field.hidden !== true
     })
-    .map((field) => {
+    .map(field => {
       return getAyTableField(field, params)
     })
 
-  if (ctrl && ctrl.render && tableFields.every((field) => field.key !== 'ctrl')) {
+  if (ctrl && ctrl.render && tableFields.every(field => field.key !== 'ctrl')) {
     ctrl.key = TABLE_CTRL_KEY
     ctrl.title = ctrl.title || '操作'
     ctrl.order = 999
@@ -150,7 +153,7 @@ const getAyTableFields = (fields: Array<any>, params: AnyKeyProps, ctrl?: AyTabl
   })
 
   //
-  if (tableFields.some((field) => field.__extraTouched)) {
+  if (tableFields.some(field => field.__extraTouched)) {
     tableFields = tableFields.sort((a: AyTableField, b: AyTableField) => {
       return (a.__order || 0) - (b?.__order || 0)
     })
@@ -248,7 +251,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
       let searchParams: AnyKeyProps = getParams()
       setLoading(true)
       api(searchParams)
-        .then((data) => {
+        .then(data => {
           data = defaultDataFilter(data)
           let content = data.content
           if (filterData) {
@@ -307,7 +310,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     // 获取排序参数
     newParams.sorts = []
     if (Array.isArray(sorter)) {
-      sorter.forEach((option) => {
+      sorter.forEach(option => {
         newParams.sorts.push({
           key: option.field,
           order: option.order
@@ -376,7 +379,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
             : {
                 total,
                 current: loadParams.pagination.current,
-                showTotal: (total) => `共 ${total} 条`
+                showTotal: total => `共 ${total} 条`
               }
         }
         onChange={handleTableChange}

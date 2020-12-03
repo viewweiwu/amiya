@@ -60,7 +60,7 @@ export interface AyTableField {
   /** 渲染方式 */
   renderType?: string
   /** 是否隐藏这一列 */
-  hidden?: boolean
+  hidden?: boolean | (() => boolean)
   __extraTouched?: boolean
   __hidden?: boolean
   __order?: number

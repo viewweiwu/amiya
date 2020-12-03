@@ -200,7 +200,7 @@ const fields: Array<AySearchTableField> = [
 | title          | 标题                                           | string                                                             | -        |
 | key            | 唯一 key，dataIndex 默认会跟次值一样           | string                                                             | -        |
 | options        | 可选项，展示会根据这个值变化                   | Array<[Option][option]>                                            | -        |
-| hidden         | 隐藏这一列                                     | boolean                                                            | -        |
+| hidden         | 隐藏这一列                                     | boolean \| () => boolean                                           | -        |
 | render         | 自定义展示列                                   | (text: ReactNode, record: AnyKeyProps, index: number) => ReactNode | -        |
 | renderType     | 美化展示列，可以[全局注册][rendertype]         | 'datetime'                                                         | 'string' | - |
 | filter         | 筛选                                           | boolean                                                            | -        |

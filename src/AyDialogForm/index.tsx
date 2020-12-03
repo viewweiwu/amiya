@@ -119,6 +119,10 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     setFormFields(getAyFormFields(fields, mode, initParams, dialogOnly))
   }, [fields])
 
+  useEffect(() => {
+    setDialogTitle(title)
+  }, [title])
+
   /**
    * 初始化弹窗
    * @step 1、打开弹窗，清空只读
