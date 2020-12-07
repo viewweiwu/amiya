@@ -1,5 +1,5 @@
 import { SizeType } from 'antd/lib/config-provider/SizeContext'
-import { ReactElement, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { AyTableCtrlField, AyTableField } from '../AyTable/ay-table'
 import { AyFormField, Field } from '../AyForm/ay-form'
 import { AyDialogFormProps, AyDialogFormField, ModeType } from '../AyDialogForm/ay-dialog-form'
@@ -26,7 +26,7 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   /** 配置项 */
   fields: Array<AySearchTableField>
   /** 子元素 */
-  children?: Array<ReactElement> | ReactElement
+  children?: Array<ReactNode> | ReactNode
   /** 请求列表接口 */
   api?(params: AnyKeyProps): Promise<AnyKeyProps>
   /** 删除接口 Api */

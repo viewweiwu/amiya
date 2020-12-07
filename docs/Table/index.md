@@ -138,21 +138,21 @@ export default function Demo() {
 | deleteApi          | 批量删除接口                                                      | Promise                                         | -      |
 | data               | 表格静态数据，不希望表格做请求，自己定义数据。                    | Array<Record\>                                  | -      |
 | ctrl               | 列表每一行后面数据跟着的按钮渲染。                                | AySearchTableField                              | -      |
-| onSelectionChange  | 选项改变事件                                                      | (selection: Array<Record\>): void               | -      |
 | rowKey             | 列表每一行的唯一标志                                              | string                                          | 'id'   |
 | selectShowKey      | 批量删除,勾选时，在表格顶部会有数字，点击数字可以看到选项的名称。 | string                                          | 'name' |
 | dialogFormExtend   | dialog form 的配置。                                              | AyDialogFormProps                               | {}     |
 | scrollX            | 滚动的 X 轴数值。                                                 | number                                          | -      |
 | filterData         | 列表数据过滤。                                                    | (data: Object) => Object                        | -      |
 | beforeSearch       | 提交前过滤。                                                      | (data: Object) => Object                        | -      |
-| onExpand           | 展开事件。                                                        | (expanded: boolean, record: Record) => void     | -      |
 | pagination         | 分页参数。                                                        | antd 分页一致                                   | -      |
 | center             | 节点插入在查询和表格之间。                                        | ReactNode                                       | -      |
-| onLoad             | 表格查询完成监听。                                                | (records: Array<Record\>, data: any) => void    | -      |
 | searchVisible      | 查询区域是否展。                                                  | boolean                                         | true   |
 | tableExtend        | table 其它属性。                                                  | Object                                          | {}     |
 | extendSearchParams | table 查询时额外查询参数。                                        | Object                                          | {}     |
 | after              | 可以在表格底部插入 AyAction                                       | ReactNode                                       | -      |
+| onExpand           | 展开事件。                                                        | (expanded: boolean, record: Record) => void     | -      |
+| onLoad             | 表格查询完成监听。                                                | (records: Array<Record\>, data: any) => void    | -      |
+| onSelectionChange  | 选项改变事件                                                      | (selection: Array<Record\>): void               | -      |
 
 extra 右侧扩展按钮配置参考[此处][1]。
 
@@ -216,6 +216,15 @@ const fields: Array<AySearchTableField> = [
 | value    | 值       | any                     | -      |
 | disabled | 是否禁用 | boolean                 | -      |
 | children | 子元素   | Array<[Option][option]> | -      |
+
+## Method 方法
+
+| 方法名           | 说明                     | 返回值        |
+| ---------------- | ------------------------ | ------------- |
+| refresh()        | 重新发起请求             | -             |
+| reset()          | 回到第一页，重新发起请求 | -             |
+| clearSelection() | 清空所有选项             | -             |
+| getSelection()   | 获取所有选项             | Array<Record> |
 
 [1]: ./table/全局扩展按钮配置
 [option]: ./table#option-参数
