@@ -163,6 +163,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     rowKey,
     dialogFormExtend,
     scrollX,
+    height,
     filterData,
     beforeSearch,
     selectShowKey,
@@ -267,6 +268,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     ctrl,
     rowKey,
     scrollX,
+    height,
     filterData,
     beforeSearch,
     onExpand,
@@ -305,7 +307,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   }, [moreSearchRef, moreSearchFields, onConfirm, rightActions, extraBtns])
 
   return (
-    <div className={`ay-search-table ${isEnter ? 'full' : null}`}>
+    <div className={`ay-search-table ${isEnter ? 'full' : ''}`}>
       <AySearchTableContext.Provider value={{ formRef, tableRef, selection, deleteApi, rowKey, clearSelection }}>
         {searchVisible !== false ? <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} /> : null}
         {center}

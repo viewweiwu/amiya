@@ -198,7 +198,8 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     tableExtend,
     defaultSearchValue,
     extendSearchParams,
-    btnBefore
+    btnBefore,
+    height
   } = props
   /** 表格查询的数据 */
   const [loadParams, setLoadParams] = useState<LoadParams>({
@@ -351,7 +352,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
   }, [data])
 
   return (
-    <Card className={`ay-table ${className}`}>
+    <Card className={`ay-table ${className || ''}`}>
       {title || btnBefore || children ? (
         <header className="ay-table-header">
           <div className="ay-table-header-left">
@@ -385,7 +386,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
         onChange={handleTableChange}
         rowKey={rowKey || 'id'}
         size={size}
-        scroll={{ x: scrollX }}
+        scroll={{ x: scrollX, y: height }}
         {...tableExtend}
       />
     </Card>

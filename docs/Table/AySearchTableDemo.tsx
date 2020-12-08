@@ -95,6 +95,7 @@ export default function AySearchTableDemo() {
       fields={fields}
       ctrl={CtrlField}
       deleteApi={deleteApi}
+      height={200}
       dialogFormExtend={{
         fields: fields,
         updateApi,

@@ -24,6 +24,8 @@ export interface AyTableProps {
   rowKey?: string
   /** 横向滚动宽度 */
   scrollX?: number
+  /** 表格高度 */
+  height?: number
   /** 加载玩数据过滤 */
   filterData?(data: AnyKeyProps): AnyKeyProps
   /** 查询前过滤 */

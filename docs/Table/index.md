@@ -142,6 +142,7 @@ export default function Demo() {
 | selectShowKey      | 批量删除,勾选时，在表格顶部会有数字，点击数字可以看到选项的名称。 | string                                          | 'name' |
 | dialogFormExtend   | dialog form 的配置。                                              | AyDialogFormProps                               | {}     |
 | scrollX            | 滚动的 X 轴数值。                                                 | number                                          | -      |
+| height             | 表格滚动高度。                                                    | number                                          | -      |
 | filterData         | 列表数据过滤。                                                    | (data: Object) => Object                        | -      |
 | beforeSearch       | 提交前过滤。                                                      | (data: Object) => Object                        | -      |
 | pagination         | 分页参数。                                                        | antd 分页一致                                   | -      |
@@ -219,12 +220,12 @@ const fields: Array<AySearchTableField> = [
 
 ## Method 方法
 
-| 方法名           | 说明                     | 返回值        |
-| ---------------- | ------------------------ | ------------- |
-| refresh()        | 重新发起请求             | -             |
-| reset()          | 回到第一页，重新发起请求 | -             |
-| clearSelection() | 清空所有选项             | -             |
-| getSelection()   | 获取所有选项             | Array<Record> |
+| 方法名           | 说明                     | 返回值         |
+| ---------------- | ------------------------ | -------------- |
+| refresh()        | 重新发起请求             | -              |
+| reset()          | 回到第一页，重新发起请求 | -              |
+| clearSelection() | 清空所有选项             | -              |
+| getSelection()   | 获取所有选项             | Array<Record\> |
 
 [1]: ./table/全局扩展按钮配置
 [option]: ./table#option-参数

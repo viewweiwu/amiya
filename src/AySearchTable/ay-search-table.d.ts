@@ -49,6 +49,8 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   formField?: Array<AyDialogFormField>
   /** 滚动的 X 轴数值 */
   scrollX?: number
+  /** 表格高度 */
+  height?: number
   /** 列表过滤 */
   filterData?(data: AnyKeyProps): AnyKeyProps
   /** 提交前过滤 */
