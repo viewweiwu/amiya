@@ -29,10 +29,6 @@ export default function AySearchTableDemo() {
       key: 'cname',
       dialog: {
         required: true
-      },
-      table: {
-        __extraTouched: true,
-        __hidden: true
       }
     },
     {
