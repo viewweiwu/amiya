@@ -27,11 +27,12 @@ export default function AySearchTableDemo() {
     {
       title: '姓名',
       key: 'cname',
-      search: {
-        type: 'custom'
-      },
       dialog: {
         required: true
+      },
+      table: {
+        __extraTouched: true,
+        __hidden: true
       }
     },
     {
@@ -95,7 +96,6 @@ export default function AySearchTableDemo() {
       fields={fields}
       ctrl={CtrlField}
       deleteApi={deleteApi}
-      height={200}
       dialogFormExtend={{
         fields: fields,
         updateApi,

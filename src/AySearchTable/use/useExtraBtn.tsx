@@ -55,7 +55,7 @@ const useFieldsEdit = (
   const [visible, setVisible] = useState<boolean>(false)
   let [normalFields, setNormalFields] = useState<Array<FieldEdit>>(
     tableFields
-      .filter((field) => {
+      .filter(field => {
         // 已经设置过展示的，直接通过判定
         if (field.__extraTouched) {
           return true
@@ -64,7 +64,7 @@ const useFieldsEdit = (
       })
       .map((field, i) => {
         return {
-          checked: field.__hidden !== false,
+          checked: field.__hidden === false || field.__hidden === undefined,
           title: field.title || '',
           key: field.key || '',
           order: field.__order ?? i,
@@ -129,7 +129,7 @@ const useFieldsEdit = (
    */
   const handleConfirm = () => {
     let newFields = [...tableFields]
-    newFields.forEach((field) => {
+    newFields.forEach(field => {
       let target: FieldEdit | undefined = normalFields.find((item: FieldEdit) => item.key === field.key)
       if (target) {
         field.__extraTouched = true
@@ -149,7 +149,7 @@ const useFieldsEdit = (
           return (
             <div className="ay-search-table-extra-fields-edit-line" key={fieldEdit.key}>
               <div className="ay-search-table-extra-fields-edit-line-left">
-                <Checkbox defaultChecked={fieldEdit.checked} onChange={(e) => handleCheckedChange(i, e.target.checked)}>
+                <Checkbox defaultChecked={fieldEdit.checked} onChange={e => handleCheckedChange(i, e.target.checked)}>
                   {fieldEdit.title}
                 </Checkbox>
               </div>
