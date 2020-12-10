@@ -214,8 +214,17 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
       setMode(MODE_CUSTOM)
       initDialog(params, config)
     },
+    /**
+     * 刷新
+     */
     refreshFields: () => {
-      formRef.current.refreshFields()
+      setFormFields(getAyFormFields(fields, mode, initParams, dialogOnly))
+    },
+    /**
+     * 获取 form ref
+     */
+    getFormRef: () => {
+      return formRef
     }
   }))
 

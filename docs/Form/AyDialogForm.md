@@ -39,7 +39,7 @@ const fields: Array<AyDialogFormField> = [
 
 // 模拟新增请求
 const emptyApi = () => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(() => {
       resolve()
     }, 1000)
@@ -94,7 +94,7 @@ const fields: Array<AyDialogFormField> = [
 
 // 模拟新增 & 保存请求
 const emptyApi = () => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(() => {
       resolve()
     }, 1000)
@@ -133,7 +133,7 @@ export default function Demo() {
     <div>
       <p>
         <label style={{ marginRight: 4 }}>展示侧边</label>
-        <Switch defaultChecked={drawer} onChange={(value) => setDrawer(value)} />
+        <Switch defaultChecked={drawer} onChange={value => setDrawer(value)} />
       </p>
       <Space>
         <AyButton onClick={() => handleAdd()}>新增</AyButton>
@@ -193,7 +193,7 @@ const fields: Array<AyDialogFormField> = [
 
 // 模拟新增 & 保存请求
 const emptyApi = () => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(() => {
       resolve()
     }, 1000)
@@ -232,7 +232,7 @@ export default function Demo() {
     <div>
       <p>
         <label style={{ marginRight: 4 }}>展示侧边</label>
-        <Switch defaultChecked={drawer} onChange={(value) => setDrawer(value)} />
+        <Switch defaultChecked={drawer} onChange={value => setDrawer(value)} />
       </p>
       <Space>
         <AyButton onClick={() => handleAdd()}>新增</AyButton>
@@ -352,7 +352,7 @@ const fields: Array<AyDialogFormField> = [
 
 // 模拟新增请求
 const emptyApi = () => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(() => {
       resolve()
     }, 1000)
@@ -390,12 +390,14 @@ export default function Demo() {
 
 ## Methods
 
-| 参数名                                     | 说明   | 返回值  |
-| ------------------------------------------ | ------ | ------- |
-| view(formValues: Object, config: Object)   | 查看   | Promise |
-| update(formValues: Object, config: Object) | 修改   | Promise |
-| add(formValues: Object, config: Object)    | 新增   | Promise |
-| open(formValues: Object, config: Object)   | 自定义 | Promise |
+| 参数名                                     | 说明          | 返回值  |
+| ------------------------------------------ | ------------- | ------- |
+| view(formValues: Object, config: Object)   | 查看          | Promise |
+| update(formValues: Object, config: Object) | 修改          | Promise |
+| add(formValues: Object, config: Object)    | 新增          | Promise |
+| open(formValues: Object, config: Object)   | 自定义        | Promise |
+| refreshFields()                            | 重新渲染 form | -       |
+| getFormRef()                               | 获取 form ref | FormRef |
 
 ### formValues
 
