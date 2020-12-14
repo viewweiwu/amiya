@@ -83,7 +83,7 @@ export default function Demo() {
 
   return (
     <>
-      <Radio.Group options={options} onChange={(e) => setFormLayout(e.target.value)} value={formLayout} />
+      <Radio.Group options={options} onChange={e => setFormLayout(e.target.value)} value={formLayout} />
       <AyForm span={24} fields={fields} style={{ width: 600, margin: '10px auto 0' }} formLayout={formLayout} />
     </>
   )
@@ -340,7 +340,7 @@ export default function Demo() {
     <>
       <p>
         <label style={{ marginRight: 4 }}>只读模式</label>
-        <Switch defaultChecked={readonly} onChange={(value) => setReadonly(value)} />
+        <Switch defaultChecked={readonly} onChange={value => setReadonly(value)} />
       </p>
       <AyForm
         readonly={readonly}
@@ -454,9 +454,9 @@ export default function Demo() {
     <>
       <p>
         <label style={{ marginRight: 4 }}>只读模式</label>
-        <Switch defaultChecked={readonly} onChange={(value) => setReadonly(value)} />
+        <Switch defaultChecked={readonly} onChange={value => setReadonly(value)} />
         <label style={{ marginRight: 4, marginLeft: 10 }}>Desc</label>
-        <Switch defaultChecked={desc} onChange={(value) => setDesc(value)} />
+        <Switch defaultChecked={desc} onChange={value => setDesc(value)} />
         <AyButton style={{ marginLeft: 10 }} onClick={() => formRef.current.setFieldsValue({ createDate: new Date() })}>
           填充上线时间
         </AyButton>
@@ -568,27 +568,27 @@ const layout = {
 
 ## AyFormField 参数
 
-| 参数名        | 说明                                                       | 参数类型                                                               | 默认值  |
-| ------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------- | ------- |
-| title         | 相应的 key，会跟最后表单取到的项目相关; form 的 key 值必填 | string                                                                 | -       |
-| key           | 唯一 key                                                   | string                                                                 | -       |
-| type          | 表单项类型                                                 | [FormType][formtype]                                                   | 'input' |
-| options       | 表格                                                       | Array<[Option][option]>                                                | -       |
-| span          | Grid Col 占位 [0 - 24]                                     | number                                                                 | -       |
-| defaultValue  | 默认值                                                     | any                                                                    | -       |
-| required      | 是否必填                                                   | boolean                                                                | -       |
-| rules         | 自定义权限                                                 | rules                                                                  | -       |
-| visible       | 是否展示，保留占位; 保留默认值                             | rules                                                                  | -       |
-| hidden        | 是否展示，不会占位; 保留默认值                             | boolean \| Function                                                    | -       |
-| props         | 原生的属性                                                 | Object                                                                 | -       |
-| formItemProps | FormItem 层原生的属性                                      | Object                                                                 | -       |
-| renderContent | 自定义 content 内容，需要指定 type: 'custom'               | (field: AyFormField, record: Record) => ReactNode                      | -       |
-| onChange      | 数据变化监听                                               | (field: AyFormField, record: Record, setFieldsValue: Function) => void | -       |
-| help          | 在表单下会有一段提示文字                                   | string \| ReactNode                                                    | -       |
-| startKey      | 时间格式化的开始时间                                       | string                                                                 | -       |
-| endKey        | 时间格式化的结束时间                                       | string                                                                 | -       |
-| reSetting     | 重新渲染                                                   | (params: AyFormField, mode: string) => AyFormField                     | -       |
-| order         | 顺序                                                       | number                                                                 | -       |
+| 参数名        | 说明                                                                                | 参数类型                                                               | 默认值  |
+| ------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------- |
+| title         | 相应的 key，会跟最后表单取到的项目相关; form 的 key 值必填                          | string                                                                 | -       |
+| key           | 唯一 key，<span style="color: #f06;">当 key 以双下划线开头时，提交会被忽略。</span> | string                                                                 | -       |
+| type          | 表单项类型                                                                          | [FormType][formtype]                                                   | 'input' |
+| options       | 表格                                                                                | Array<[Option][option]>                                                | -       |
+| span          | Grid Col 占位 [0 - 24]                                                              | number                                                                 | -       |
+| defaultValue  | 默认值                                                                              | any                                                                    | -       |
+| required      | 是否必填                                                                            | boolean                                                                | -       |
+| rules         | 自定义权限                                                                          | rules                                                                  | -       |
+| visible       | 是否展示，保留占位; 保留默认值                                                      | rules                                                                  | -       |
+| hidden        | 是否展示，不会占位; 保留默认值                                                      | boolean \| Function                                                    | -       |
+| props         | 原生的属性                                                                          | Object                                                                 | -       |
+| formItemProps | FormItem 层原生的属性                                                               | Object                                                                 | -       |
+| renderContent | 自定义 content 内容，需要指定 type: 'custom'                                        | (field: AyFormField, record: Record) => ReactNode                      | -       |
+| onChange      | 数据变化监听                                                                        | (field: AyFormField, record: Record, setFieldsValue: Function) => void | -       |
+| help          | 在表单下会有一段提示文字                                                            | string \| ReactNode                                                    | -       |
+| startKey      | 时间格式化的开始时间                                                                | string                                                                 | -       |
+| endKey        | 时间格式化的结束时间                                                                | string                                                                 | -       |
+| reSetting     | 重新渲染                                                                            | (params: AyFormField, mode: string) => AyFormField                     | -       |
+| order         | 顺序                                                                                | number                                                                 | -       |
 
 ## FormType
 
@@ -622,6 +622,8 @@ const fields: Array<Field> = [
 | empty          | 空白框                                                               | -         |
 | custom         | 自定义 renderContent 使用，需要在同一层定义 defaultValue             | -         |
 | card           | 会用 AyCard 包裹住底下的 form，具体使用可以看 [卡片表单][cardform]。 | -         |
+| group          | 组合表单，具体使用可以看 [组合表单][groupform]。                     | -         |
+| input-group    | 带输入框的组合表单，具体使用可以看 [组合表单][groupform]。           | -         |
 
 ## Option 参数
 
@@ -649,3 +651,4 @@ const fields: Array<Field> = [
 [option]: ./form#option-参数
 [ayformfield]: ./form#ayformfield-参数
 [cardform]: ./form/卡片表单
+[groupform]: ./form/组合表单

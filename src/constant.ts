@@ -112,6 +112,15 @@ export const FORM_TYPE_EMPTY = 'empty'
 /** 表单类型: 自定义 */
 export const FORM_TYPE_CUSTOM = 'custom'
 
+/** 表单类型: 卡片表单 */
+export const FORM_TYPE_CARD = 'card'
+
+/** 表单类型: 组合表单 */
+export const FORM_TYPE_GROUP = 'group'
+
+/** 表单类型: 组合输入框 */
+export const FORM_TYPE_INPUT_GROUP = 'input-group'
+
 // --------------------------------------------------------------
 // ------------------------ form 表单默认值 -----------------------
 // --------------------------------------------------------------

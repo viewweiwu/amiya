@@ -9,7 +9,7 @@ import React, {
   useEffect
 } from 'react'
 import AyCard from '../AyCard'
-import { Form, Row, Col } from 'antd'
+import { Form, Row, Col, Input } from 'antd'
 import { AyFormField, AyFormProps, FieldListener, RegisterFieldProps } from './ay-form'
 import { copy } from '../utils'
 import { AySearchField } from '../AySearch/ay-search'
@@ -24,7 +24,10 @@ import {
   FORM_TYPE_TEXTAREA,
   FORM_TYPE_DATE_RANGE,
   FORM_TYPE_NUMBER,
-  FORM_TYPE_PERCENT
+  FORM_TYPE_PERCENT,
+  FORM_TYPE_CARD,
+  FORM_TYPE_GROUP,
+  FORM_TYPE_INPUT_GROUP
 } from '../constant'
 import './ay-form.less'
 import moment from 'moment'
@@ -98,7 +101,7 @@ const getPlaceholder = (field: AyFormField | AySearchTableField): string => {
 export const getDefaultValue = (fields: Array<AyFormField | AySearchField | AySearchTableField>) => {
   let form: AnyKeyProps = {}
   fields.forEach((field: AyFormField | AySearchField | AySearchTableField) => {
-    if (field.type === 'card') {
+    if (field.type === FORM_TYPE_CARD || field.type === FORM_TYPE_GROUP || field.type === FORM_TYPE_INPUT_GROUP) {
       form = {
         ...form,
         ...getDefaultValue(field.children || [])
@@ -133,7 +136,7 @@ export const getFieldDefaultValue = (key: string, fields: Array<AyFormField | Ay
   if (!key) {
     return ''
   }
-  let field = fields.find((field) => field.key === key)
+  let field = fields.find(field => field.key === key)
   if (field) {
     let type = field.type || 'input'
     // 如果配置项里存在默认值，直接返回默认值，否则从默认值表里获取
@@ -193,27 +196,27 @@ const getTag = (
 
 /**
  * 通过配置列表转 Form.Item
- * @step 1、判断是否隐藏、保留占位 (visible)
- * @step 2、判断是否隐藏、不保留占位 (hidden)
- * @step 3、计算 Form.Item props 的默认基础属性
- * @step 4、设置特殊标签特殊属性
- * @step 5、设置隐藏占位 (hidden)
- * @step 6、填充 rules 属性
- * @step 7、使用 required 填充 rules
  * @param fields 配置列表
- * @param span Col 占位 0 ～ 24
+ * @param formInstans form 实例
+ * @param addFieldListener 添加 form 监听事件
+ * @param removeFiledListener 移除 form 监听事件
+ * @param props form 的 props
+ * @param childrenType 子类型
  */
 const getFormItem = (
   fields: Array<AyFormField | AySearchTableField>,
   formInstans: AnyKeyProps,
   addFieldListener: (key: string, fieldListener: FieldListener) => void,
   removeFiledListener: (key: string, fieldListener: FieldListener) => void,
-  props: AyFormProps
+  props: AyFormProps,
+  childrenType?: 'group' | 'card' | 'input-group'
 ) => {
   const { span, readonly, formLayout, gutter } = props
   const ayFormProps: AyFormProps = props
   return fields.map((field: AyFormField | AySearchTableField) => {
-    if (field.type === 'card') {
+    const fieldSpan = field.span !== 0 ? field.span || span || 12 : span || 12
+
+    if (field.type === FORM_TYPE_CARD) {
       return (
         <Col key={field.key ?? Math.random()} span={24}>
           <AyCard title={field.title} {...field.props}>
@@ -223,7 +226,8 @@ const getFormItem = (
                 formInstans,
                 addFieldListener,
                 removeFiledListener,
-                ayFormProps
+                ayFormProps,
+                FORM_TYPE_CARD
               )}
             </Row>
           </AyCard>
@@ -258,6 +262,11 @@ const getFormItem = (
       extra: field.help
     }
 
+    // 组合元素的 formItem 不需要样式
+    if (childrenType === FORM_TYPE_GROUP || childrenType === FORM_TYPE_INPUT_GROUP) {
+      props.noStyle = true
+    }
+
     // 设定 开关、多选框 等的值类型 （这是 ant design form 的限制）
     if (field.type && fieldMap[field.type]) {
       props.valuePropName = fieldMap[field.type].valuePropName || 'value'
@@ -265,7 +274,7 @@ const getFormItem = (
 
     // 设置每个【表单项】的占位
     const colProps: ColProps = {
-      span: field.span !== 0 ? field.span || span || 12 : span || 12,
+      span: fieldSpan,
       offset: field.offset
     }
 
@@ -294,7 +303,41 @@ const getFormItem = (
       }
     }
 
-    let tag: ReactNode = getTag(field, fields, formInstans, addFieldListener, removeFiledListener, readonly)
+    let tag: ReactNode
+
+    switch (field.type) {
+      case FORM_TYPE_GROUP:
+        tag = (
+          <Row className="ay-form-group">
+            {getFormItem(
+              field.children as Array<AyFormField | AySearchTableField>,
+              formInstans,
+              addFieldListener,
+              removeFiledListener,
+              ayFormProps,
+              FORM_TYPE_GROUP
+            )}
+          </Row>
+        )
+        break
+      case FORM_TYPE_INPUT_GROUP:
+        tag = (
+          <Input.Group compact>
+            {getFormItem(
+              field.children as Array<AyFormField | AySearchTableField>,
+              formInstans,
+              addFieldListener,
+              removeFiledListener,
+              ayFormProps,
+              FORM_TYPE_INPUT_GROUP
+            )}
+          </Input.Group>
+        )
+        break
+      default:
+        tag = getTag(field, fields, formInstans, addFieldListener, removeFiledListener, readonly)
+        break
+    }
 
     const content = field.render ? (
       field.render(field, field._values || getDefaultValue(fields))
@@ -302,7 +345,7 @@ const getFormItem = (
       <Form.Item {...props}>{tag}</Form.Item>
     )
 
-    if (formLayout === 'inline') {
+    if (formLayout === 'inline' || childrenType === FORM_TYPE_INPUT_GROUP) {
       return content
     }
 
@@ -326,7 +369,7 @@ const formatValues = (values: AnyKeyProps, fields: Array<AyFormField | AySearchT
       continue
     }
     let value = values[key]
-    let field = fields.find((field) => field.key === key)
+    let field = fields.find(field => field.key === key)
     if (value && field) {
       if (value.length && field.type === FORM_TYPE_DATE_RANGE) {
         // 区间类型取 startKey 与 endKey
@@ -379,7 +422,7 @@ const handleChange = (
   listnerList: Array<{ key: string; fieldListener: FieldListener }>
 ) => {
   for (let key in changedValues) {
-    let field: AyFormField | AySearchTableField | undefined = fields.find((field) => field.key === key)
+    let field: AyFormField | AySearchTableField | undefined = fields.find(field => field.key === key)
     if (field) {
       let value = changedValues[key]
       if (field.onChange) {
@@ -393,6 +436,26 @@ const handleChange = (
       })
     }
   }
+}
+
+/**
+ * 获取 AyForm 样式
+ * @param className 外部 className
+ * @param desc 是否处于文档模式
+ * @param readonly 是否处于只读模式
+ */
+const getAyFormClassName = (className?: string, desc?: boolean, readonly?: boolean) => {
+  const classList = ['ay-form']
+  if (className) {
+    classList.push(className)
+  }
+  if (desc) {
+    classList.push('desc')
+  }
+  if (readonly) {
+    classList.push('readonly')
+  }
+  return classList.join(' ')
 }
 
 /**
@@ -441,12 +504,12 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   let [refresh, setRefresh] = useState<number>(0)
 
   /** 填充方法 */
-  funcs.forEach((func) => {
+  funcs.forEach(func => {
     formInstans[func] = (...args: any) => formRef.current[func](...args)
   })
 
   formInstans.setFieldsValue = (values: AnyKeyProps) => {
-    fields.forEach((field) => {
+    fields.forEach(field => {
       if (field.type === FORM_TYPE_DATE) {
         if (values[field?.key || '']) {
           values[field?.key || ''] = moment(values[field?.key || ''])
@@ -472,7 +535,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   formInstans.getFieldValue = (key: string) => {
     if (inited) {
       let value = formRef.current.getFieldValue(key)
-      let field = fields.find((field) => field.key === key)
+      let field = fields.find(field => field.key === key)
       if (field && value) {
         if (field.type === FORM_TYPE_DATE) {
           // 日期格式化
@@ -508,7 +571,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   }
 
   const removeFiledListener = (key: string, fieldListener: FieldListener) => {
-    let index = listnerList.findIndex((item) => item.fieldListener === fieldListener)
+    let index = listnerList.findIndex(item => item.fieldListener === fieldListener)
     listnerList.splice(index, 1)
     setListnerList(listnerList)
   }
@@ -526,7 +589,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   }, [])
 
   return (
-    <div className={`ay-form ${className || ''} ${desc ? 'desc' : ''} ${readonly ? 'readony' : ''}`} style={style}>
+    <div className={getAyFormClassName(className, desc, readonly)} style={style}>
       <Form
         ref={formRef}
         {...formItemLayout}
@@ -534,7 +597,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
         layout={formLayout}
         name={props.name || 'ay-form'}
         initialValues={getDefaultValue(mirrorFields)}
-        onFinish={(values) => handleConfirm(values, mirrorFields, onConfirm)}
+        onFinish={values => handleConfirm(values, mirrorFields, onConfirm)}
         onValuesChange={(changedValues, allValues) =>
           handleChange(changedValues, allValues, mirrorFields, formInstans.setFieldsValue, listnerList)
         }
