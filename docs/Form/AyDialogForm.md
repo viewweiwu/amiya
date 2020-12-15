@@ -17,15 +17,6 @@ const fields: Array<AyDialogFormField> = [
     required: true
   },
   {
-    title: '测试',
-    dialog: {
-      type: 'custom',
-      renderContent: () => {
-        return <span>hello</span>
-      }
-    }
-  },
-  {
     title: '职业',
     type: 'select',
     key: 'profession',

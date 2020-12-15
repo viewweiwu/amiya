@@ -226,6 +226,7 @@ const fields: Array<AySearchTableField> = [
 | reset()          | 回到第一页，重新发起请求 | -              |
 | clearSelection() | 清空所有选项             | -              |
 | getSelection()   | 获取所有选项             | Array<Record\> |
+| getTableData()   | 获取表格数据             | Array<Record\> |
 
 [1]: ./table/全局扩展按钮配置
 [option]: ./table#option-参数

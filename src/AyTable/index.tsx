@@ -1,12 +1,13 @@
 import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle, ReactNode } from 'react'
-import { Table, Space, Card, Tooltip } from 'antd'
-import { TABLE_PAGESIZE, TABLE_START_PAGE, TABLE_CTRL_KEY } from '../constant'
-import { AyTableField, AyTableProps, RenderProps } from './ay-table'
-import { Option } from '../AyForm/ay-form'
+import { Table, Space, Card } from 'antd'
+import core from './core'
+import RenderMapInit from './RenderMapInit'
+import { TABLE_PAGESIZE, TABLE_START_PAGE } from '../constant'
+import { AyTableField, AyTableProps, RenderProps, LoadParams } from './ay-table'
 import { clearEmpty } from '../utils'
 import { AnyKeyProps } from '../types/AnyKeyProps'
+import components from './EditableTable'
 import './ay-table.less'
-import moment from 'moment'
 
 /** 默认请求前列表过滤 */
 let defaultSearchFilter = (params: AnyKeyProps) => {
@@ -28,153 +29,19 @@ export const setDefaultDataFilter = (cb: (params: AnyKeyProps) => AnyKeyProps) =
   defaultDataFilter = cb
 }
 
+/** 自定义渲染模板 */
 let renderMap: AnyKeyProps = {}
 
+/** 注册自定义渲染模板 */
 export const registerTableRender = (key: string, render: (props: RenderProps) => ReactNode) => {
   renderMap[key] = render
 }
 
-registerTableRender('__options', ({ field, text }: RenderProps) => {
-  let option = field.options.find((option: Option) => option.value === text)
-  return option ? option.label : text
-})
+/** 安装默认渲染模板 */
+RenderMapInit.install(registerTableRender)
 
-registerTableRender('__ellipsis', ({ text, field }: RenderProps) => {
-  return (
-    <Tooltip placement={field.placement || 'topLeft'} title={text}>
-      <span>{text || ''}</span>
-    </Tooltip>
-  )
-})
-
-registerTableRender('datetime', ({ text }: RenderProps) => {
-  return moment(text).format('YYYY-MM-DD HH:mm:SS')
-})
-
-/**
- * 转化获得 field
- * @param field table Field
- */
-const getAyTableField = (field: AnyKeyProps, params: AnyKeyProps) => {
-  let tableField: AnyKeyProps = {
-    key: field.key,
-    dataIndex: field.key,
-    ...field,
-    title: field.__alias || field.title
-  }
-  if (field.render) {
-    tableField.render = field.render
-  }
-
-  if (Array.isArray(field.children)) {
-    field.children = field.children.map(field => {
-      return getAyTableField(field, params)
-    })
-  }
-
-  // options 自动注册
-  if (field.options && !field.render && !tableField.renderType) {
-    tableField.renderType = '__options'
-  }
-
-  // 处理筛选
-  if (field.filter && field.options) {
-    tableField.filters = field.filters || JSON.parse(JSON.stringify(field.options).replace(/"label"/g, '"text"'))
-    tableField.filteredValue = params.filters[field.key]
-    field.filterMultiple = field.filterMultiple || false
-    // field.onFilter = field.onFilter || ((value: string, record: AnyKeyProps) => record[field.key] === value)
-    // field.filterMultiple = field.filterMultiple || false
-  }
-
-  // 处理排序
-  if (field.sort) {
-    if (field.sortOrder) {
-      tableField.sorter = field.sorter || { multiple: field.sortOrder }
-    } else {
-      tableField.sorter = true
-    }
-    delete tableField.sort
-    delete tableField.sortOrder
-  }
-
-  // 多余显示 ...
-  if (field.ellipsis) {
-    tableField.ellipsis = {
-      showTitle: false
-    }
-    tableField.renderType = '__ellipsis'
-  }
-
-  if (
-    !tableField.render &&
-    renderMap[tableField.renderType] &&
-    typeof renderMap[tableField.renderType] === 'function'
-  ) {
-    tableField.render = (text: ReactNode, record: AnyKeyProps, index: number) => {
-      return renderMap[tableField.renderType]({ text, record, index, field: tableField })
-    }
-  }
-  return tableField
-}
-
-/**
- * 重新过滤配置项
- *
- * 1、先过滤隐藏项目
- * 2、过滤成 antd Table 需要的 columns
- *
- * @param fields 配置项目
- */
-const getAyTableFields = (fields: Array<any>, params: AnyKeyProps, ctrl?: AyTableField): Array<AyTableField> => {
-  let tableFields = fields
-    .filter(field => {
-      if (field.__extraTouched) {
-        return field.__hidden === false
-      }
-      if (typeof field.hidden === 'function') {
-        return field.hidden()
-      }
-      return field.hidden !== true
-    })
-    .map(field => {
-      return getAyTableField(field, params)
-    })
-
-  if (ctrl && ctrl.render && tableFields.every(field => field.key !== 'ctrl')) {
-    ctrl.key = TABLE_CTRL_KEY
-    ctrl.title = ctrl.title || '操作'
-    ctrl.order = 999
-    ctrl.__order = 999
-    tableFields.push(ctrl)
-  }
-  // 排序
-  tableFields = tableFields.sort((a: AyTableField, b: AyTableField) => {
-    return a.order - b.order
-  })
-
-  //
-  if (tableFields.some(field => field.__extraTouched)) {
-    tableFields = tableFields.sort((a: AyTableField, b: AyTableField) => {
-      return (a.__order || 0) - (b?.__order || 0)
-    })
-  }
-
-  return tableFields
-}
-
-interface LoadParams {
-  /** 分页参数 */
-  pagination: {
-    /** 当前第 n 页 */
-    current: number
-    /** 每页多少条 */
-    pageSize: number
-  }
-  sorts: Array<AnyKeyProps>
-  filters: AnyKeyProps
-  /** 查询额外参数 */
-  search: AnyKeyProps
-}
+/** 获取表格渲染列 */
+const { getAyTableFields } = core.install(renderMap)
 
 export default forwardRef(function AyTable(props: AyTableProps, ref) {
   const {
@@ -211,10 +78,10 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     sorts: [],
     search: clearEmpty(defaultSearchValue || {})
   })
-  /** 表格配置 */
-  const ayTableFields: Array<AyTableField> = getAyTableFields(fields, loadParams, ctrl)
   /** 表格数据 */
   const [tableData, setTableData] = useState<Array<AnyKeyProps>>(data || [])
+  /** 表格配置 */
+  const ayTableFields: Array<AyTableField> = getAyTableFields(fields, loadParams, tableData, setTableData, ctrl)
   /** 是否正在加载 */
   const [loading, setLoading] = useState<boolean>(false)
   /** 总共多少条 */
@@ -340,6 +207,12 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
      */
     reset(search: AnyKeyProps) {
       updateLoadParams({ search, current: TABLE_START_PAGE })
+    },
+    /**
+     * 获取表格数据
+     */
+    getTableData() {
+      return tableData
     }
   }))
 
@@ -371,6 +244,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
         bordered
         onExpand={onExpand}
         columns={ayTableFields}
+        components={components}
         dataSource={tableData}
         loading={loading}
         rowSelection={rowSelection}

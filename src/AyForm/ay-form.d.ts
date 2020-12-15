@@ -150,6 +150,8 @@ export interface AyFormField extends Field {
   visible?: boolean | Function
   /** 是否展示，不会占位; 保留默认值 */
   hidden?: boolean | Function
+  /** 是否可编辑 */
+  editable?: boolean
   /** 原生的属性 */
   props?: {
     /** 输入框、选择框未输入文字时的提示 */

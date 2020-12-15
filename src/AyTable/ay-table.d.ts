@@ -80,3 +80,17 @@ export interface RenderProps {
   index: number
   field: AnyKeyProps
 }
+
+export interface LoadParams {
+  /** 分页参数 */
+  pagination: {
+    /** 当前第 n 页 */
+    current: number
+    /** 每页多少条 */
+    pageSize: number
+  }
+  sorts: Array<AnyKeyProps>
+  filters: AnyKeyProps
+  /** 查询额外参数 */
+  search: AnyKeyProps
+}

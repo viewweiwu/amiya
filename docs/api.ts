@@ -1,7 +1,4 @@
 import { AnyKeyProps } from './../es/types/AnyKeyProps.d'
-// import charaData from './character_table.min.json'
-
-// console.log(charaData)
 
 export const professionOptions = [
   { label: '近卫干员', value: 'WARRIOR', icon: require('./images/图标_职业_近卫.png') },
@@ -50,7 +47,7 @@ const loadData = () => {
         }
         data = list.reverse()
         data.unshift(amiya)
-        console.log(data)
+        localStorage.setItem('CHARA_DATA', JSON.stringify(data))
       })
     }
   }

@@ -27,9 +27,7 @@ export default function AySearchTableDemo() {
     {
       title: '姓名',
       key: 'cname',
-      dialog: {
-        required: true
-      }
+      type: 'group'
     },
     {
       title: '英文名',

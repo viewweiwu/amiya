@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import Select from 'antd/lib/select'
 import { Option } from '../AyForm/ay-form'
 import { AySelectProps } from './ay-select'
@@ -7,7 +7,7 @@ const getOptions = (options: Array<Option> | undefined) => {
   if (!options) {
     return []
   }
-  return options.map((option) => {
+  return options.map(option => {
     return (
       <Select.Option value={option.value} key={option.value}>
         {option.label}
@@ -16,7 +16,11 @@ const getOptions = (options: Array<Option> | undefined) => {
   })
 }
 
-export default function AySelect(props: AySelectProps) {
+export default forwardRef(function AySelect(props: AySelectProps, ref: any) {
   const { options } = props
-  return <Select {...props}>{getOptions(options)}</Select>
-}
+  return (
+    <Select ref={ref} {...props}>
+      {getOptions(options)}
+    </Select>
+  )
+})

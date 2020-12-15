@@ -109,6 +109,7 @@ export interface AySearchTableField extends Field {
 export interface TableRefProps {
   refresh(): void
   reset(search: AnyKeyProps): void
+  getTableData(): Array<AnyKeyProps>
 }
 
 export interface FormRefProps {

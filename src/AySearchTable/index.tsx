@@ -255,6 +255,12 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
      */
     doLayout() {
       setTableFields(getTableFields(fields))
+    },
+    /**
+     * 获取表格数据
+     */
+    getTableData() {
+      return tableRef.current.getTableData()
     }
   }))
 
