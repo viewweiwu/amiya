@@ -75,6 +75,8 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   extendSearchParams?: AnyKeyProps
   /** 表格底部插入按钮 */
   after?: ReactNode
+  /** 表格编辑模式 */
+  editMode?: 'row' | 'col'
 }
 export interface ExtendField extends Omit<AyFormField, 'key'> {
   key?: string

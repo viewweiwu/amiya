@@ -32,11 +32,21 @@ export default function Demo() {
 - Type: string
 - Default: -
 - 可选值: `view`、`add`、`update`、`delete`、`batch-delete`
+
   - `view`: 查看表单详情，一般用于查看某一行数据的详情，触发 `AyDialogForm` `view` 事件。
   - `add`: 新增表单，打开新增表单的弹窗，触发 `AyDialogForm` `add` 事件，完成后会刷新列表。
   - `update`: 修改表单，打开修改表单的弹窗，触发 `AyDialogForm` `update` 事件，完成后会刷新列表。
   - `delete`: 删除行，会触发确认删除事件，会根据 `AySearchTable` 的 `deleteApi` 来删除数据，完成后会刷新列表。
   - `batch-delete`: 批量删除，会触发确认批量删除事件，会根据 `AySearchTable` 的 `deleteApi` 来删除数据，完成后会刷新列表。
+
+- 可编辑表格可选值: `editable-add`、`editable-update`、`editable-delete`、`editable-confirm`、`editable-cancel`
+  - `editable-add`: 新增一行数据。
+  - `editable-update`: 此行进入编辑状态。
+  - `editable-delete`: 删除此行数据。
+  - `editable-confirm`: 表单会进入校验，校验通过则会保存。
+  - `editable-cancel`: 取消编辑。
+
+[查看更多可编辑表格细节](/table/可编辑表格#可编辑行)
 
 ### onFinish
 
@@ -157,10 +167,10 @@ const CtrlField: AyTableCtrlField = {
   render: (value, record) => {
     return (
       <AyCtrl>
-        <AyAction record={record} action="update" onFinish={(result) => console.info('编辑完成', result)}>
+        <AyAction record={record} action="update" onFinish={result => console.info('编辑完成', result)}>
           编辑
         </AyAction>
-        <AyAction record={record} action="delete" onFinish={(result) => console.info('删除完成', result)}>
+        <AyAction record={record} action="delete" onFinish={result => console.info('删除完成', result)}>
           删除
         </AyAction>
         <AyAction record={record} action="view">
@@ -186,10 +196,10 @@ export default function AySearchTableDemo() {
         addApi
       }}
     >
-      <AyAction action="batch-delete" onFinish={(result) => console.info('批量删除完成', result)}>
+      <AyAction action="batch-delete" onFinish={result => console.info('批量删除完成', result)}>
         批量删除
       </AyAction>
-      <AyAction action="add" onFinish={(result) => console.info('新增完成', result)}>
+      <AyAction action="add" onFinish={result => console.info('新增完成', result)}>
         新增
       </AyAction>
     </AySearchTable>
@@ -199,4 +209,4 @@ export default function AySearchTableDemo() {
 
 `action` 是可以被注册的，请查看[注册方式][注册方式]
 
-[注册方式]: http://localhost:8000/amiya/%E5%85%A8%E5%B1%80%E6%96%B9%E6%B3%95/register-action
+[注册方式]: /全局方法/register-action

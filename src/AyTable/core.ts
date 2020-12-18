@@ -119,7 +119,7 @@ export const install = (renderMap: AnyKeyProps) => {
         return getAyTableField(field, params, tableData, setTableData)
       })
 
-    if (ctrl && ctrl.render && tableFields.every(field => field.key !== 'ctrl')) {
+    if (ctrl && ctrl.render && tableFields.every(field => field.key !== TABLE_CTRL_KEY)) {
       ctrl.key = TABLE_CTRL_KEY
       ctrl.title = ctrl.title || '操作'
       ctrl.order = 999
@@ -131,7 +131,7 @@ export const install = (renderMap: AnyKeyProps) => {
       return a.order - b.order
     })
 
-    //
+    // 二次排序
     if (tableFields.some(field => field.__extraTouched)) {
       tableFields = tableFields.sort((a: AyTableField, b: AyTableField) => {
         return (a.__order || 0) - (b?.__order || 0)

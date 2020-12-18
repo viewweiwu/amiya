@@ -47,6 +47,8 @@ export interface AyTableProps {
   exportVisible?: boolean
   /** 更多查询数据, 额外带的查询数据用 */
   extendSearchParams?: AnyKeyProps
+  /** 表格编辑模式 */
+  editMode?: 'row' | 'col'
 }
 
 export interface AyTableField {

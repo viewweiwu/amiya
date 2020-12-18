@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { AySearchTable, AySearchTableField, AyButton } from 'amiya'
+import { AySearchTable, AySearchTableField, AyButton, AyTableCtrlField, AyAction, AyCtrl } from 'amiya'
 import { listApi, professionOptions } from '../api'
 import 'antd/dist/antd.min.css'
 
@@ -38,9 +38,39 @@ const fields: Array<AySearchTableField> = [
   },
   {
     title: '英文名',
-    key: 'name'
+    key: 'name',
+    table: {
+      editable: true
+    }
   }
 ]
+
+const CtrlField: AyTableCtrlField = {
+  width: 200,
+  render: (_, record) => {
+    let actions = []
+    if (record.editing) {
+      actions = [
+        <AyAction key="editable-confirm" action="editable-confirm" record={record}>
+          确定
+        </AyAction>,
+        <AyAction key="editable-cancel" action="editable-cancel" record={record}>
+          取消
+        </AyAction>
+      ]
+    } else {
+      actions = [
+        <AyAction key="editable-update" action="editable-update" record={record}>
+          编辑
+        </AyAction>,
+        <AyAction key="editable-delete" action="editable-delete" record={record}>
+          删除
+        </AyAction>
+      ]
+    }
+    return <AyCtrl>{actions}</AyCtrl>
+  }
+}
 
 export default function Demo() {
   const tableRef = useRef<any>(null)
@@ -54,10 +84,13 @@ export default function Demo() {
     <AySearchTable
       ref={tableRef}
       searchVisible={false}
+      pagination={false}
       api={listApi}
       fields={fields}
-      editMode="col"
-      title="可编辑单元格"
+      ctrl={CtrlField}
+      editMode="row"
+      title="可编辑行"
+      after={<AyAction action="editable-add">新增</AyAction>}
     >
       <AyButton type="primary" onClick={handleLog}>
         打印表格数据

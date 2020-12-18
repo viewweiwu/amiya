@@ -27,13 +27,17 @@ export const install = (registerTableRender: (key: string, render: (props: Rende
   registerTableRender('editable-cell-input', ({ text, field }: RenderProps) => {
     const inputRef = useRef<any>(null)
 
-    return ({ editing, save }: AnyKeyProps) => {
+    return ({ editing, mode, save }: AnyKeyProps) => {
       useEffect(() => {
-        if (editing) {
+        if (editing && mode === 'col') {
           inputRef.current.focus()
         }
       }, [editing])
-      return !editing ? text : <Input {...field.contentProps} ref={inputRef} onBlur={save} onPressEnter={save} />
+      return !editing ? (
+        text
+      ) : (
+        <Input placeholder="请输入" {...field.contentProps} ref={inputRef} onBlur={save} onPressEnter={save} />
+      )
     }
   })
 
@@ -42,16 +46,23 @@ export const install = (registerTableRender: (key: string, render: (props: Rende
     const options = field.options || []
     const label = options.find((option: Option) => option.value === text)?.label || ''
 
-    return ({ editing, save }: AnyKeyProps) => {
+    return ({ editing, save, mode }: AnyKeyProps) => {
       useEffect(() => {
-        if (editing) {
+        if (editing && mode === 'col') {
           selectRef.current.focus()
         }
       }, [editing])
       return !editing ? (
         label
       ) : (
-        <AySelect style={{ width: '100%' }} {...field.contentProps} ref={selectRef} options={options} onBlur={save} />
+        <AySelect
+          placeholder="请选择"
+          style={{ width: '100%' }}
+          {...field.contentProps}
+          ref={selectRef}
+          options={options}
+          onBlur={save}
+        />
       )
     }
   })

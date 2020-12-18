@@ -175,7 +175,8 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     pagination,
     btnBefore,
     extendSearchParams,
-    after
+    after,
+    editMode
   } = props
 
   /** form 控制 */
@@ -283,6 +284,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     pagination,
     defaultSearchValue: getDefaultValue([...searchFields, ...moreSearchFields]),
     btnBefore,
+    editMode,
     extendSearchParams
   }
 
@@ -314,7 +316,9 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
 
   return (
     <div className={`ay-search-table ${isEnter ? 'full' : ''}`}>
-      <AySearchTableContext.Provider value={{ formRef, tableRef, selection, deleteApi, rowKey, clearSelection }}>
+      <AySearchTableContext.Provider
+        value={{ formRef, tableRef, selection, deleteApi, rowKey, clearSelection, searchTableRef: ref }}
+      >
         {searchVisible !== false ? <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} /> : null}
         {center}
         {dialogFormExtend ? <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend} /> : null}

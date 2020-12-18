@@ -1,12 +1,12 @@
 import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle, ReactNode } from 'react'
 import { Table, Space, Card } from 'antd'
-import core from './core'
-import RenderMapInit from './RenderMapInit'
 import { TABLE_PAGESIZE, TABLE_START_PAGE } from '../constant'
 import { AyTableField, AyTableProps, RenderProps, LoadParams } from './ay-table'
 import { clearEmpty } from '../utils'
 import { AnyKeyProps } from '../types/AnyKeyProps'
-import components from './EditableTable'
+import core from './core'
+import RenderMapInit from './RenderMapInit'
+import { getComponents } from './EditableTable'
 import './ay-table.less'
 
 /** 默认请求前列表过滤 */
@@ -66,7 +66,8 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     defaultSearchValue,
     extendSearchParams,
     btnBefore,
-    height
+    height,
+    editMode
   } = props
   /** 表格查询的数据 */
   const [loadParams, setLoadParams] = useState<LoadParams>({
@@ -213,6 +214,34 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
      */
     getTableData() {
       return tableData
+    },
+    /**
+     * 设置表格数据
+     */
+    setTableData(tableData: Array<AnyKeyProps>) {
+      setTableData(tableData)
+    },
+    /**
+     * 根据 id 删除某一行数据
+     */
+    deleteRowByKey(key: string) {
+      let newTableData = [...tableData]
+      let index = newTableData.findIndex(row => row[rowKey || 'id'] === key)
+      console.log(index)
+      if (index >= 0) {
+        newTableData.splice(index, 1)
+        setTableData(newTableData)
+      }
+    },
+    /**
+     * 新增一行数据
+     * @param row 新增的数据
+     * @param type 新增在前面还是后面
+     */
+    addRow(row: AnyKeyProps, type: 'before' | 'after' = 'after') {
+      let newTableData = [...tableData]
+      newTableData[type === 'after' ? 'push' : 'unshift'](row)
+      setTableData(newTableData)
     }
   }))
 
@@ -244,7 +273,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
         bordered
         onExpand={onExpand}
         columns={ayTableFields}
-        components={components}
+        components={getComponents(editMode)}
         dataSource={tableData}
         loading={loading}
         rowSelection={rowSelection}

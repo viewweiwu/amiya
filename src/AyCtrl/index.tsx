@@ -1,11 +1,10 @@
 import React, { ReactNode, useEffect, useState } from 'react'
 import { Divider, Dropdown, Menu } from 'antd'
-import { AyCtrlProps } from './ay-ctrl'
-import AyAction from '../AyAction'
 import AyButton, { addRefresh, hasPermission } from '../AyButton'
+import AyAction from '../AyAction'
 import { AnyKeyProps } from '../types/AnyKeyProps'
+import { AyCtrlProps } from './ay-ctrl'
 import { CTRL_DEFAULT_MAX, CTRL_DEFAULT_MORE_TEXT } from '../constant'
-
 const { DownOutlined } = require('@ant-design/icons')
 
 /**
@@ -97,7 +96,7 @@ const getCtrlList = (children: Array<ReactNode>, props: AyCtrlProps): Array<Reac
   return ctrlList
 }
 
-export default function AmCtrl(props: AyCtrlProps) {
+export default function AyCtrl(props: AyCtrlProps) {
   const [, setRefresh] = useState<number>(0)
   let { children } = props
   if (!Array.isArray(children)) {
