@@ -28,7 +28,8 @@ registerAction('add', (props, _record, searchTable) => {
     type: 'primary',
     icon: <PlusOutlined />,
     onClick: () => {
-      searchTable.formRef?.current?.add().then((res: any) => {
+      console.log(props)
+      searchTable.formRef?.current?.add({ ...props.params }).then((res: any) => {
         success(props.children + '成功')
         searchTable.tableRef.current.refresh()
         // 请求完成回调
@@ -47,7 +48,7 @@ registerAction('add', (props, _record, searchTable) => {
 registerAction('update', (props, record, searchTable) => {
   return {
     onClick: () => {
-      searchTable.formRef?.current?.update(record).then((res: any) => {
+      searchTable.formRef?.current?.update({ ...props.params, ...record }).then((res: any) => {
         success(props.children + '成功')
         searchTable.tableRef.current.refresh()
         // 请求完成回调
@@ -66,7 +67,7 @@ registerAction('update', (props, record, searchTable) => {
 registerAction('view', (props, record, searchTable) => {
   return {
     onClick: () => {
-      searchTable.formRef?.current?.view(record)
+      searchTable.formRef?.current?.view({ ...props.params, ...record })
     },
     ...props
   }

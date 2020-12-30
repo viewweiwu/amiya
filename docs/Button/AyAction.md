@@ -22,10 +22,11 @@ export default function Demo() {
 
 ## 参数
 
-| 参数名   | 说明                            | 参数类型   | 默认值 |
-| -------- | ------------------------------- | ---------- | ------ |
-| action   | action 名称，具体查看下方注释。 | string     | -      |
-| onFinish | 接口完成事件，具体查看下方注释  | Function() | -      |
+| 参数名   | 说明                                                  | 参数类型   | 默认值 |
+| -------- | ----------------------------------------------------- | ---------- | ------ |
+| action   | action 名称，具体查看下方注释。                       | string     | -      |
+| onFinish | 接口完成事件，具体查看下方注释                        | Function() | -      |
+| params   | 打开弹窗前，添加的默认值，只有 add、view、update 有效 | object     | -      |
 
 ### action
 
@@ -205,6 +206,28 @@ export default function AySearchTableDemo() {
     </AySearchTable>
   )
 }
+```
+
+### params
+
+目前支持 add、update、view 3 个 action 设置弹窗默认值。
+
+```js
+/**
+ * pamras 支持打开弹窗的默认值，如果跟 record 同 key，则会取 record 的值。
+*/
+<AyAction action="add" params={{ test: 123 }}}>新增</AyAction>
+
+/**
+ * pamras 支持打开弹窗的默认值，如果跟 record 同 key，则会取 record 的值。
+*/
+<AyAction action="update"  params={{ test: 123 }}>新增</AyAction>
+
+/**
+ * pamras 支持打开弹窗的默认值，如果跟 record 同 key，则会取 record 的值。
+*/
+<AyAction action="view" params={{ test: 123 }}>详情</AyAction>
+
 ```
 
 `action` 是可以被注册的，请查看[注册方式][注册方式]

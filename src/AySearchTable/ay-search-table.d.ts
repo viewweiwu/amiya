@@ -88,6 +88,8 @@ export interface ExtendField extends Omit<AyFormField, 'key'> {
   required?: boolean
   /** 默认值 */
   defaultValue?: any
+  /** 是否只读 */
+  readonly?: boolean
   /** 属性 */
   props?: AnyKeyProps
   /** date-range 时有用，是否在提交时拆解多个属性并且转化成字符串 */
