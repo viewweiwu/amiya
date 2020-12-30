@@ -10,4 +10,5 @@
 npm-debug.log*
 
 dist*
+docs-dist*
 .umi*

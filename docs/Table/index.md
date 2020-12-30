@@ -150,7 +150,8 @@ export default function Demo() {
 | searchVisible      | 查询区域是否展。                                                  | boolean                                         | true   |
 | tableExtend        | table 其它属性。                                                  | Object                                          | {}     |
 | extendSearchParams | table 查询时额外查询参数。                                        | Object                                          | {}     |
-| after              | 可以在表格底部插入 AyAction                                       | ReactNode                                       | -      |
+| after              | 可以在表格底部插入 AyAction。                                     | ReactNode                                       | -      |
+| autoload           | 表格渲染时自动发起请求。                                          | booelan                                         | true   |
 | onExpand           | 展开事件。                                                        | (expanded: boolean, record: Record) => void     | -      |
 | onLoad             | 表格查询完成监听。                                                | (records: Array<Record\>, data: any) => void    | -      |
 | onSelectionChange  | 选项改变事件                                                      | (selection: Array<Record\>): void               | -      |

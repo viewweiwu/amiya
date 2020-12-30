@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { AySearchTable, AyAction, AyCtrl, AySearchTableField, AyTableCtrlField } from 'amiya'
 import { listApi, addApi, updateApi, deleteApi, professionOptions } from '../api'
 import 'antd/dist/antd.min.css'
@@ -23,6 +23,7 @@ const CtrlField: AyTableCtrlField = {
 }
 
 export default function AySearchTableDemo() {
+  const [test, setTest] = useState('')
   const fields: Array<AySearchTableField> = [
     {
       title: '姓名',
@@ -90,12 +91,17 @@ export default function AySearchTableDemo() {
       fields={fields}
       ctrl={CtrlField}
       deleteApi={deleteApi}
+      autoload={false}
+      extendSearchParams={{
+        test
+      }}
       dialogFormExtend={{
         fields: fields,
         updateApi,
         addApi
       }}
     >
+      <AyAction onClick={() => setTest('test')}>设置</AyAction>
       <AyAction action="batch-delete">批量删除</AyAction>
       <AyAction action="add">新增</AyAction>
     </AySearchTable>

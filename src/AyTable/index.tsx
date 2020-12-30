@@ -58,6 +58,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     onLoad,
     rowKey,
     scrollX,
+    autoload,
     filterData,
     beforeSearch,
     onExpand,
@@ -94,7 +95,10 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
   const getParams = () => {
     let searchParams: AnyKeyProps = {
       ...loadParams,
-      ...extendSearchParams
+      search: {
+        ...extendSearchParams,
+        ...loadParams.search
+      }
     }
     // 默认筛选过滤
     if (defaultSearchFilter) {
@@ -246,7 +250,9 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
   }))
 
   useEffect(() => {
-    loadData()
+    if (autoload !== false) {
+      loadData()
+    }
   }, [loadData])
 
   useEffect(() => {

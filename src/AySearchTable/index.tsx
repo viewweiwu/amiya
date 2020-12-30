@@ -176,7 +176,8 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     btnBefore,
     extendSearchParams,
     after,
-    editMode
+    editMode,
+    autoload
   } = props
 
   /** form 控制 */
@@ -285,7 +286,8 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     defaultSearchValue: getDefaultValue([...searchFields, ...moreSearchFields]),
     btnBefore,
     editMode,
-    extendSearchParams
+    extendSearchParams,
+    autoload
   }
 
   /** 表格子元素 */

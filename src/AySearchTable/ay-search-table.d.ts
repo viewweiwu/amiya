@@ -77,6 +77,8 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   after?: ReactNode
   /** 表格编辑模式 */
   editMode?: 'row' | 'col'
+  /** 表格是否自动请求 */
+  autoload?: boolean
 }
 export interface ExtendField extends Omit<AyFormField, 'key'> {
   key?: string
