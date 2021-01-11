@@ -3,6 +3,7 @@
 /es
 /lib
 /node_modules
+/docs-dist
 /umd
 /es
 .umi
@@ -10,5 +11,4 @@
 npm-debug.log*
 
 dist*
-docs-dist*
 .umi*
