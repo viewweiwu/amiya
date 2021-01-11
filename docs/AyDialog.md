@@ -105,5 +105,24 @@ export default function Demo() {
 | confirmAfter   | 确定按钮后置元素               | ReactNode                           | -      |
 | cancelBefore   | 关闭按钮前置元素               | ReactNode                           | -      |
 | cancelAfter    | 关闭按钮后置元素               | ReactNode                           | -      |
+| className      | 样式                           | -                                   | -      |
+
+### 样式设置注意点
+
+```html
+// 注意样式设置时，样式会在外层，如果想要设置 body 里的元素样式，请尝试这样写。
+
+<AyDialog className="dialog-class"> </AyDialog>
+<AyDialog className="drawer-class" drawer> </AyDialog>
+
+<style>
+  .dialog-class .ant-modal-body {
+    // 这里设置弹窗样式
+  }
+  .drawer-class .ant-drawer-body {
+    // 这里设置侧边弹窗样式
+  }
+</style>
+```
 
 [1]: https://ant-design.gitee.io/components/modal-cn/#API

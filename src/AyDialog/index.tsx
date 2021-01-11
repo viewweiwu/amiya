@@ -40,7 +40,19 @@ export function AyDialogFooter(props: AyDialogProps, handleCancel: () => void, h
 }
 
 export default function AyDialog(props: AyDialogProps) {
-  const { title, titleBefore, titleAfter, children, visible, setVisible, onConfirm, footer, width, drawer } = props
+  const {
+    title,
+    titleBefore,
+    titleAfter,
+    children,
+    visible,
+    setVisible,
+    onConfirm,
+    footer,
+    width,
+    drawer,
+    className
+  } = props
 
   const handleCancel = () => {
     setVisible(false)
@@ -54,6 +66,7 @@ export default function AyDialog(props: AyDialogProps) {
 
   const dialogProps = drawer
     ? {
+        className,
         width: width || 500,
         title: (
           <Space>
@@ -68,6 +81,7 @@ export default function AyDialog(props: AyDialogProps) {
         footer: footer || AyDialogFooter(props, handleCancel, handleConfirm)
       }
     : {
+        className,
         width: width || 500,
         title: (
           <Space>
