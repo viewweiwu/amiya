@@ -15,6 +15,8 @@ interface UseSelectionProps {
   /** 📢表格选择改变触发事件 */
   onSelectionChange?(selection: Array<Row>): void
   selectShowKey?: string
+  /** 选择功能的配置 */
+  rowSelection?: AnyKeyProps
 }
 
 interface UseSelectionReturns {
@@ -23,7 +25,7 @@ interface UseSelectionReturns {
   /** 只有消息部分 */
   message: ReactNode
   /** 生成的 antd rowSelection */
-  rowSelection: AnyKeyProps | undefined
+  tableRowSelection: AnyKeyProps | undefined
   /** ☑️已选中的选项 */
   selection: Array<Row>
   /** 清空所有选项 */
@@ -31,14 +33,15 @@ interface UseSelectionReturns {
 }
 
 export default function useSelection(_props: UseSelectionProps): UseSelectionReturns {
-  const { rowKey, selectionType, onSelectionChange, selectShowKey } = _props
+  const { rowKey, selectionType, onSelectionChange, selectShowKey, rowSelection } = _props
   const [selectionKeys, setSelectionKeys] = useState<Array<ReactText>>([])
   const [selection, setSelection] = useState<Array<Row>>([])
 
-  let rowSelection: AnyKeyProps | undefined
+  let tableRowSelection: AnyKeyProps | undefined
 
   if (selectionType) {
-    rowSelection = {
+    tableRowSelection = {
+      ...rowSelection,
       type: selectionType,
       selectedRowKeys: selectionKeys,
       onSelect: (record: Row, selected: boolean) => {
@@ -81,7 +84,7 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
     let newKeys = [...selectionKeys]
     let newSelection = [...selection]
 
-    rows.forEach((row) => {
+    rows.forEach(row => {
       if (!row) {
         return
       }
@@ -105,7 +108,7 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
     let newSelection = [...selection]
 
     if (i === null && record) {
-      i = newKeys.findIndex((key) => key === record[rowKey])
+      i = newKeys.findIndex(key => key === record[rowKey])
     }
 
     if (typeof i === 'number') {
@@ -125,8 +128,8 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
     let newKeys = [...selectionKeys]
     let newSelection = [...selection]
 
-    rows.forEach((row) => {
-      let index = newKeys.findIndex((item) => item === row[rowKey])
+    rows.forEach(row => {
+      let index = newKeys.findIndex(item => item === row[rowKey])
       if (index >= 0) {
         newKeys.splice(index, 1)
         newSelection.splice(index, 1)
@@ -174,5 +177,7 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
     }
   }, [onSelectionChange, selection])
 
-  return { header, message, rowSelection, selection, clearSelection }
+  console.log(tableRowSelection)
+
+  return { header, message, tableRowSelection, selection, clearSelection }
 }

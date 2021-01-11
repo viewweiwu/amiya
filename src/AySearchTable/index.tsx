@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {
   useRef,
   MutableRefObject,
@@ -177,7 +176,8 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     extendSearchParams,
     after,
     editMode,
-    autoload
+    autoload,
+    rowSelection
   } = props
 
   /** form 控制 */
@@ -193,11 +193,12 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   /** 列表项 */
   const [tableFields, setTableFields] = useState<Array<AyTableField>>(getTableFields(fields))
   /** 使用勾选 */
-  const { header, message, rowSelection, selection, clearSelection } = useSelection({
+  const { header, message, tableRowSelection, selection, clearSelection } = useSelection({
     rowKey: rowKey || 'id',
     selectionType,
     onSelectionChange,
-    selectShowKey
+    selectShowKey,
+    rowSelection
   })
   /** action 展示，底部 or 右侧 */
   const { footerActions, rightActions } = getTableActionBtns(children)
@@ -268,7 +269,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
 
   const tableProps: AnyKeyProps = {
     ref: tableRef,
-    rowSelection,
+    rowSelection: tableRowSelection,
     api,
     size,
     data,

@@ -90,7 +90,6 @@ export default function AySearchTableDemo() {
       fields={fields}
       ctrl={CtrlField}
       deleteApi={deleteApi}
-      autoload={false}
       dialogFormExtend={{
         fields: fields,
         updateApi,

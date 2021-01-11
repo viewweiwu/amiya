@@ -79,6 +79,8 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   editMode?: 'row' | 'col'
   /** 表格是否自动请求 */
   autoload?: boolean
+  /** 选择功能的配置 */
+  rowSelection?: AnyKeyProps
 }
 export interface ExtendField extends Omit<AyFormField, 'key'> {
   key?: string
