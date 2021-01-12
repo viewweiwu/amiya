@@ -136,7 +136,7 @@ export const getFieldDefaultValue = (key: string, fields: Array<AyFormField | Ay
   if (!key) {
     return ''
   }
-  let field = fields.find(field => field.key === key)
+  let field: any = getField(key, fields)
   if (field) {
     let type = field.type || 'input'
     // 如果配置项里存在默认值，直接返回默认值，否则从默认值表里获取
@@ -357,6 +357,25 @@ const getFormItem = (
   })
 }
 
+const getField = (key: string, fields: Array<AyFormField | AySearchTableField>) => {
+  let field: AyFormField | AySearchTableField | null = null
+
+  const loop = (fields: Array<AyFormField | AySearchTableField>) => {
+    for (let i = 0; i < fields.length; i++) {
+      let item = fields[i]
+      if (item.key === key) {
+        field = item
+      } else if (Array.isArray(item.children) && item.children.length) {
+        loop(item.children)
+      }
+    }
+  }
+
+  loop(fields)
+
+  return field
+}
+
 /**
  * 格式化 日期
  * @param values 格式化的数据
@@ -369,24 +388,29 @@ const formatValues = (values: AnyKeyProps, fields: Array<AyFormField | AySearchT
       continue
     }
     let value = values[key]
-    let field = fields.find(field => field.key === key)
+    let field: any = getField(key, fields)
     if (value && field) {
-      if (value.length && field.type === FORM_TYPE_DATE_RANGE) {
+      // 获得格式化日期格式
+      let formatRule: string = field?.props?.showTime === true ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'
+      if (field.formatRule) {
+        formatRule = field.formatRule
+      }
+      if (Array.isArray(value) && field.type === FORM_TYPE_DATE_RANGE) {
         // 区间类型取 startKey 与 endKey
-        result[field.startKey || 'startKey'] = value[0].format('YYYY-MM-DD HH:mm:ss')
-        result[field.endKey || 'endKey'] = value[0].format('YYYY-MM-DD HH:mm:ss')
+        result[field.startKey || 'startDate'] = value[0]?.format(formatRule) || null
+        result[field.endKey || 'endDate'] = value[1]?.format(formatRule) || null
       } else if (field.type === FORM_TYPE_DATE) {
-        if (field?.props?.showTime === true) {
-          result[key] = value.format('YYYY-MM-DD HH:mm:ss')
-        } else {
-          result[key] = value.format('YYYY-MM-DD')
-        }
         // 单值类型直接转
+        result[key] = value?.format(formatRule) || null
       } else {
         result[key] = value
       }
     } else {
       result[key] = value
+      // undefined 视为 null
+      if (value === undefined) {
+        result[key] = null
+      }
     }
   }
   return result
@@ -422,7 +446,7 @@ const handleChange = (
   listnerList: Array<{ key: string; fieldListener: FieldListener }>
 ) => {
   for (let key in changedValues) {
-    let field: AyFormField | AySearchTableField | undefined = fields.find(field => field.key === key)
+    let field: any = getField(key, fields)
     if (field) {
       let value = changedValues[key]
       if (field.onChange) {
@@ -532,25 +556,26 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   }, [fields])
 
   /** 覆盖 antd Form getFieldValue 方法 */
-  formInstans.getFieldValue = (key: string) => {
+  formInstans.getFieldValue = (key: string, readonly?: boolean) => {
     if (inited) {
       let value = formRef.current.getFieldValue(key)
-      let field = fields.find(field => field.key === key)
+      let field: any = getField(key, fields)
       if (field && value) {
+        // 获得格式化日期格式
+        let formatRule: string = field?.props?.showTime === true ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'
+        if (field.formatRule) {
+          formatRule = field.formatRule
+        }
+        // 只读模式下，格式化日期取 readonlyFormatRule
+        if (field.readonlyFormatRule && readonly) {
+          formatRule = field.readonlyFormatRule
+        }
         if (field.type === FORM_TYPE_DATE) {
           // 日期格式化
-          if (field?.props?.showTime === true) {
-            value = value.format('YYYY-MM-DD HH:mm:ss')
-          } else {
-            value = value.format('YYYY-MM-DD')
-          }
-        } else if (field.type === FORM_TYPE_DATE_RANGE && value.length) {
+          value = value?.format(formatRule) || null
+        } else if (Array.isArray(value) && field.type === FORM_TYPE_DATE_RANGE) {
           // 日期区间格式化
-          if (field?.props?.showTime === true) {
-            value = [value[0].format('YYYY-MM-DD HH:mm:ss'), value[1].format('YYYY-MM-DD HH:mm:ss')]
-          } else {
-            value = [value[0].format('YYYY-MM-DD'), value[1].format('YYYY-MM-DD')]
-          }
+          value = [value[0]?.format(formatRule) || null, value[1]?.format(formatRule) || null]
         }
       }
       return value

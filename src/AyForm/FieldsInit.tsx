@@ -43,7 +43,7 @@ import { RegisterFieldProps } from './ay-form'
 import { Option } from './ay-form'
 
 const getValueByOptions = (value: any, options: Array<Option>) => {
-  let option = options.find((option) => option.value === value)
+  let option = options.find(option => option.value === value)
   return option ? option.label : value
 }
 
@@ -78,7 +78,7 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
         <Input.Search
           placeholder={`请输入${field.title || ''}`}
           disabled={readonly}
-          onPressEnter={(e) => {
+          onPressEnter={e => {
             e.preventDefault()
             formInstans.submit()
           }}
@@ -224,12 +224,17 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
   registerField(FORM_TYPE_DATE, {
     type: FORM_TYPE_DATE,
     defaultValue: FORM_DEFAULT_VALUE_DATE,
-    render: ({ field, readonly, getFieldValue }: AnyKeyProps) =>
-      readonly ? (
-        <span className="ay-form-text">{getFieldValue(field.key) || FORM_READONLY_EMPTY}</span>
+    render: ({ field, readonly, getFieldValue }: AnyKeyProps) => {
+      let text = getFieldValue(field.key, readonly)
+      if (typeof text !== 'string') {
+        text = ''
+      }
+      return readonly ? (
+        <span className="ay-form-text">{text || FORM_READONLY_EMPTY}</span>
       ) : (
         <DatePicker className="max-width" placeholder={`请选择${field.title || ''}`} {...field.props} />
       )
+    }
   })
 
   // 注册区间日期
@@ -237,8 +242,12 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
     type: FORM_TYPE_DATE_RANGE,
     defaultValue: FORM_DEFAULT_VALUE_DATE_RANGE,
     render: ({ field, readonly, getFieldValue }: AnyKeyProps) => {
-      let text = getFieldValue(field.key)
-      text = text.join('\n')
+      let text = getFieldValue(field.key, readonly)
+      if (Array.isArray(text) && text[0] === null) {
+        text = null
+      } else if (text) {
+        text = text.join('\n')
+      }
       return readonly ? (
         <span className="ay-form-text">{text || FORM_READONLY_EMPTY}</span>
       ) : (

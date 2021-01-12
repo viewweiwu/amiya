@@ -129,6 +129,7 @@ export interface Option {
   /** 是否禁用 */
   disabled?: boolean
   children?: Array<Option>
+  [key: string]: any
 }
 
 export interface AyFormField extends Field {
@@ -178,6 +179,10 @@ export interface AyFormField extends Field {
   _values?: AnyKeyProps
   /** 默认排序 */
   order?: number
+  /** 日期格式化规则 */
+  formatRule?: string
+  /** readonly 下的日期格式化规则 */
+  readonlyFormatRule?: string
   [key: string]: any
 }
 

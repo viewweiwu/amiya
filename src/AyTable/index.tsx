@@ -89,6 +89,10 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
   /** 总共多少条 */
   const [total, setTotal] = useState<number>(0)
 
+  useEffect(() => {
+    setTableData(data || [])
+  }, [data])
+
   /**
    * 获得查询前的参数
    */

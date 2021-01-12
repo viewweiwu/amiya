@@ -1,7 +1,7 @@
 # Date 添加快捷选项
 
 > 打开过此页面后，其它页面的 `date` 会有影响。<br />
-> 注册过后，AySearchTable、AyDialogForm 也会生效
+> 注册过后，AySearchTable、AyDialogForm 也会生效。
 
 ## 示例
 
@@ -17,11 +17,30 @@ import moment from 'moment'
 // 区间日期快捷选项
 const ranges: any = {
   今天: [moment().startOf('day'), moment().endOf('day')],
-  昨天: [moment().subtract(1, 'day'), moment().subtract(1, 'day').endOf('day')],
+  昨天: [
+    moment().subtract(1, 'day'),
+    moment()
+      .subtract(1, 'day')
+      .endOf('day')
+  ],
   本周: [moment().startOf('week'), moment().endOf('day')],
-  上周: [moment().startOf('week').subtract(7, 'day'), moment().endOf('week').subtract(7, 'day')],
+  上周: [
+    moment()
+      .startOf('week')
+      .subtract(7, 'day'),
+    moment()
+      .endOf('week')
+      .subtract(7, 'day')
+  ],
   本月: [moment().startOf('month'), moment().endOf('day')],
-  上月: [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+  上月: [
+    moment()
+      .subtract(1, 'month')
+      .startOf('month'),
+    moment()
+      .subtract(1, 'month')
+      .endOf('month')
+  ]
 }
 
 // 注册区间日期
@@ -30,7 +49,9 @@ registerField('date-range', {
   defaultValue: [],
   render: ({ field, readonly, getFieldValue }: AnyKeyProps) => {
     let text = getFieldValue(field.key)
-    text = text.join('\n')
+    if (text) {
+      text = text.join('\n')
+    }
     return readonly ? (
       <span className="ay-form-text">{text || '-'}</span>
     ) : (
@@ -66,11 +87,26 @@ const renderExtraFooter = ({ setFieldsValue, field }: AnyKeyProps) => {
       <a
         className="ant-picker-now-btn"
         style={{ marginRight: 4 }}
-        onClick={() => setValue(moment().subtract(1, 'day').startOf('day'))}
+        onClick={() =>
+          setValue(
+            moment()
+              .subtract(1, 'day')
+              .startOf('day')
+          )
+        }
       >
         昨天早上
       </a>
-      <a className="ant-picker-now-btn" onClick={() => setValue(moment().subtract(1, 'day').endOf('day'))}>
+      <a
+        className="ant-picker-now-btn"
+        onClick={() =>
+          setValue(
+            moment()
+              .subtract(1, 'day')
+              .endOf('day')
+          )
+        }
+      >
         昨天晚上
       </a>
     </>
