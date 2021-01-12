@@ -235,7 +235,6 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     deleteRowByKey(key: string) {
       let newTableData = [...tableData]
       let index = newTableData.findIndex(row => row[rowKey || 'id'] === key)
-      console.log(index)
       if (index >= 0) {
         newTableData.splice(index, 1)
         setTableData(newTableData)

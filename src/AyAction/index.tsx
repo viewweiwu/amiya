@@ -28,7 +28,6 @@ registerAction('add', (props, _record, searchTable) => {
     type: 'primary',
     icon: <PlusOutlined />,
     onClick: () => {
-      console.log(props)
       searchTable.formRef?.current?.add({ ...props.params }).then((res: any) => {
         success(props.children + '成功')
         searchTable.tableRef.current.refresh()

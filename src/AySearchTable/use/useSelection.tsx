@@ -177,7 +177,5 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
     }
   }, [onSelectionChange, selection])
 
-  console.log(tableRowSelection)
-
   return { header, message, tableRowSelection, selection, clearSelection }
 }
