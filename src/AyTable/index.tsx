@@ -73,8 +73,8 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
   /** 表格查询的数据 */
   const [loadParams, setLoadParams] = useState<LoadParams>({
     pagination: {
-      pageSize: TABLE_PAGESIZE,
-      current: TABLE_START_PAGE
+      pageSize: pagination?.pageSize || TABLE_PAGESIZE,
+      current: pagination?.current || TABLE_START_PAGE
     },
     filters: {},
     sorts: [],
@@ -171,7 +171,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     },
     [loadParams]
   )
-  const handleTableChange = (pagination: any, filters: any, sorter: any) => {
+  const handleTableChange = (pagination: any, filters: any, sorter: any, extra: any) => {
     let newParams: LoadParams = {
       ...loadParams
     }
@@ -200,6 +200,10 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
           order: sorter.order
         }
       ]
+    }
+    // 排序与筛选默认会回到第一页
+    if (extra.action === 'sort' || extra.action === 'filter') {
+      newParams.pagination.current = TABLE_START_PAGE
     }
     setLoadParams(newParams)
   }

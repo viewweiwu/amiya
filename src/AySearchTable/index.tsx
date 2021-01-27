@@ -204,9 +204,13 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   const { footerActions, rightActions } = getTableActionBtns(children)
   const { extraBtns, size, isEnter } = useExtraBtn(tableRef, tableFields, setTableFields, props)
 
-  useEffect(() => {
+  const doLayout = () => {
     setTableFields(getTableFields(fields))
-  }, [fields])
+  }
+
+  useEffect(() => {
+    doLayout()
+  }, [fields, isEnter])
 
   /** 查询完成，刷新列表 */
   const onConfirm = () => {
@@ -256,9 +260,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     /**
      * 刷新布局
      */
-    doLayout() {
-      setTableFields(getTableFields(fields))
-    },
+    doLayout,
     /**
      * 获取表格数据
      */
