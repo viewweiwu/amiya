@@ -286,15 +286,13 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
         dataSource={tableData}
         loading={loading}
         rowSelection={rowSelection}
-        pagination={
-          pagination !== undefined
-            ? pagination
-            : {
-                total,
-                current: loadParams.pagination.current,
-                showTotal: total => `共 ${total} 条`
-              }
-        }
+        pagination={{
+          showTotal: total => `共 ${total} 条`,
+          showQuickJumper: true,
+          ...pagination,
+          total,
+          current: loadParams.pagination.current
+        }}
         onChange={handleTableChange}
         rowKey={rowKey || 'id'}
         size={size}
