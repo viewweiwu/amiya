@@ -555,8 +555,13 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
     setMirrorFields(fields)
   }, [fields])
 
-  /** 覆盖 antd Form getFieldValue 方法 */
-  formInstans.getFieldValue = (key: string, readonly?: boolean) => {
+  /**
+   * 获取 field 的值
+   * 如果 field 还没有渲染完，那获得的是 defaultValue
+   * @param key field 的 key
+   * @param readonly 是否只读
+   */
+  const getFieldValue = (key: string, readonly?: boolean) => {
     if (inited) {
       let value = formRef.current.getFieldValue(key)
       let field: any = getField(key, fields)
@@ -583,6 +588,29 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
       return getFieldDefaultValue(key, fields)
     }
   }
+
+  /**
+   * 获取所有 field 的值
+   * @param readonly 是否只读
+   */
+  const getFieldsValue = (readonly?: boolean) => {
+    let result: AnyKeyProps = {}
+    fields.forEach((field: AyFormField | AySearchTableField) => {
+      if (!field.key) {
+        return
+      }
+      // 获取每个单个的值
+      let value = getFieldValue(field.key, readonly)
+      result[field.key] = value
+    })
+    return result
+  }
+
+  /** 覆盖 antd Form getFieldValue 方法 */
+  formInstans.getFieldValue = getFieldValue
+
+  /** 覆盖 antd Form getFieldsValue 方法 */
+  formInstans.getFieldsValue = getFieldsValue
 
   /** 暴露方法 */
   useImperativeHandle(ref, () => formInstans)
