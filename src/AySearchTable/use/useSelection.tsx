@@ -45,7 +45,11 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
       type: selectionType,
       selectedRowKeys: selectionKeys,
       onSelect: (record: Row, selected: boolean) => {
-        selected ? addSelection(record) : removeSelection(null, record)
+        if (selectionType === 'radio') {
+          changeRadioSelection(record)
+        } else {
+          selected ? addSelection(record) : removeSelection(null, record)
+        }
       },
       onSelectAll: (selected: boolean, selectedRows: Array<Row>, changeRows: Array<Row>) => {
         selected ? addSelectionArray(selectedRows) : removeSelectionArray(changeRows)
@@ -59,6 +63,17 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
   const clearSelection = () => {
     setSelectionKeys([])
     setSelection([])
+  }
+
+  const changeRadioSelection = (row: AnyKeyProps) => {
+    let newKeys = []
+    let newSelection = []
+
+    newKeys.push(row[rowKey])
+    newSelection.push(row)
+
+    setSelectionKeys(newKeys)
+    setSelection(newSelection)
   }
 
   /**

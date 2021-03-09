@@ -132,7 +132,7 @@ export default function Demo() {
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | ------ |
 | title              | 表格标题，显示在左上角的文字                                                                                                            | string \| ReactNode                             | ''     |
 | fields             | 配置项                                                                                                                                  | Array<[AySearchTableField][aysearchtablefield]> | []     |
-| selectionType      | 是否开启勾选                                                                                                                            | 'checkbox'                                      | -      |
+| selectionType      | 是否开启勾选，checkbox： 多选、radio：单选，单选表格的使用可以请看[这里][单选表格]                                                      | 'checkbox' \| 'radio'                           | -      |
 | children           | 放在右上角的按钮                                                                                                                        | ReactNode                                       | -      |
 | api                | 列表分页接口                                                                                                                            | Promise                                         | -      |
 | deleteApi          | 批量删除接口                                                                                                                            | Promise                                         | -      |
@@ -237,3 +237,4 @@ const fields: Array<AySearchTableField> = [
 [ayformfield]: ./form#ayformfield-参数
 [aytablefield]: ./table#aytablefield
 [禁用表格选项]: ./table/禁用表格选项
+[单选表格]: ./table/单选表格

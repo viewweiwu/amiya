@@ -1,10 +1,6 @@
-# Amiya 是什么？
+# 了解 Amiya
 
-它是基于 antd 一套扩展组件库，类似于 ProComponent。
-
-跟 ProComponent 不同，
-
-写法会更加简洁，一些重复的东西，只需要全局注册一次，即可全局使用。
+它是基于 antd 的二次封装，类似于 ProComponent。
 
 ## 跟直接用 antd 比有什么不同？
 
@@ -14,18 +10,19 @@
   1. readonly 模式
 </Alert>
 
-| 表现效果区别 | amiya                  | antd                                                 |
-| ------------ | ---------------------- | ---------------------------------------------------- |
-| 样式         | 淡蓝色底，文字清晰。   | 元素禁用样式，鼠标悬浮会有禁用图标。                 |
-| 空值         | 显示 '-'。             | 会显示 placeholder，跟有值的样式一样，有点容易混淆。 |
-| 整体禁用     | 可以整体，也可以局部。 | 挨个 disabled。                                      |
-| 日期         | 换行对比。             | 溢出截断。                                           |
+| 表现效果区别                     | Amiya AyForm                                                    | antd Form                                            |
+| -------------------------------- | --------------------------------------------------------------- | ---------------------------------------------------- |
+| 样式                             | 淡蓝色底，文字清晰，Select，DatePicker 等尾缀默认 icon 会消失。 | 元素禁用样式，鼠标悬浮会有禁用图标。                 |
+| 空值                             | 显示 '-'。                                                      | 会显示 placeholder，跟有值的样式一样，有点容易混淆。 |
+| 整体禁用                         | 可以整体，也可以局部。                                          | 挨个 disabled。                                      |
+| 日期                             | 换行对比。                                                      | 溢出截断。                                           |
+| 日期提交（点击提交按钮查看效果） | 遇到 daterange，提交的 key 会以 startDate, endDate 方式提交。   | 提交会是数组。                                       |
 
 用 `antd` 实现的效果。↓↓↓↓↓↓↓↓↓↓
 
 ```tsx
 import React from 'react'
-import { Form, Input, Button, Checkbox, DatePicker } from 'antd'
+import { Form, Input, Button, Checkbox, DatePicker, Select } from 'antd'
 import 'antd/dist/antd.min.css'
 import moment from 'moment'
 
@@ -46,10 +43,17 @@ export default function Demo() {
     <Form
       {...layout}
       name="basic"
-      initialValues={{ createName: 'arknights', name: 'amiya', date: [moment(), moment()] }}
+      initialValues={{ createName: 'arknights', name: 'amiya', type: '1', date: [moment(), moment()] }}
       onFinish={onFinish}
       style={{ width: 400, margin: '0 auto' }}
     >
+      <Form.Item label="用户类型" name="type">
+        <Select disabled>
+          <Option value="1">外部用户</Option>
+          <Option value="2">内部用户</Option>
+        </Select>
+      </Form.Item>
+
       <Form.Item label="创建人" name="createName">
         <Input disabled />
       </Form.Item>
@@ -74,7 +78,7 @@ export default function Demo() {
 }
 ```
 
-用 `amiya` 实现的效果。↓↓↓↓↓↓↓↓↓↓
+用 `Amiya` 实现的效果。↓↓↓↓↓↓↓↓↓↓
 
 ```tsx
 import React from 'react'
@@ -83,6 +87,16 @@ import 'antd/dist/antd.min.css'
 import moment from 'moment'
 
 const fields: Array<AyFormField> = [
+  {
+    title: '用户类型',
+    key: 'type',
+    type: 'select',
+    options: [
+      { label: '外部用户', value: '1' },
+      { label: '内部用户', value: '2' }
+    ],
+    defaultValue: '1'
+  },
   {
     title: '创建人',
     key: 'createName',
@@ -136,7 +150,13 @@ export default function Demo() {
   2. desc 模式
 </Alert>
 
-<code src="./Form/AyFormDescDemo.tsx" />
+| 表现效果区别 | Amiya AyForm           | antd Descriptions                                                                                                        |
+| ------------ | ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| 样式         | label 默认居右。       | label 默认居左。                                                                                                         |
+| 空间         | 严格按照 span 比例分。 | 第二列如果内容过多，会宽度更宽。                                                                                         |
+| 形态         | 可以表单表格自由切换。 | 要么是 Descriptions，要么是 AyForm，需要写两套。不过 Descriptions 有可以有更多的形态，如根据屏幕宽度变更列，上下布局等。 |
+
+用 `antd` 实现的效果。↓↓↓↓↓↓↓↓↓↓
 
 ```tsx
 import React from 'react'
@@ -145,7 +165,7 @@ import 'antd/dist/antd.min.css'
 
 const data = {
   cname: '阿米娅',
-  name: 'Amiya',
+  name: 'amiya',
   defaultHp: 720,
   defaultAtk: 100,
   profession: '3',
@@ -196,9 +216,9 @@ export default function Demo() {
 }
 ```
 
-2. 提供 desc 模式。让表单以 antd descriptions 样式展示。[查看效果][2]
-3. 提供提交优化。遇到 daterange ，可以让提交的 key 以 startDate, endDate 方式提交。[查看效果][3]
-4. 提供表单类型注册。[查看效果][4]
+用 `Amiya` 实现的效果。↓↓↓↓↓↓↓↓↓↓
+
+<code src="./Form/AyFormDescDemo.tsx" />
 
 ### AySearchTable
 

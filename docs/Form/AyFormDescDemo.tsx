@@ -25,7 +25,8 @@ const fields: Array<AyFormField> = [
   {
     title: '职业',
     key: 'profession',
-    type: 'select',
+    type: 'radio-group',
+    defaultValue: '1',
     options: [
       { label: '狙击干员', value: '1' },
       { label: '医疗干员', value: '2' },
@@ -57,6 +58,7 @@ export default function Demo() {
   const formRef: MutableRefObject<any> = useRef()
 
   const handleConfirm = (form: any) => {
+    console.log(111, formRef.current.getFieldsValue())
     console.log(form)
     alert(JSON.stringify(form))
   }
