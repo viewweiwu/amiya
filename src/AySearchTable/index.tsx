@@ -205,7 +205,12 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   const { extraBtns, size, isEnter } = useExtraBtn(tableRef, tableFields, setTableFields, props)
 
   const doLayout = () => {
+    // 刷新表格
     setTableFields(getTableFields(fields))
+    // 刷新右侧查询
+    moreSearchRef.current?.resetFields()
+    // 刷新顶部查询
+    searchRef.current?.resetFields()
   }
 
   useEffect(() => {
@@ -250,6 +255,12 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
      */
     getSearchRef() {
       return searchRef.current
+    },
+    /**
+     * 获取 moreSearch 对象，表格右侧查询框
+     */
+    getMoreSearchRef() {
+      return moreSearchRef.current
     },
     /**
      * 获取已经选中的对象
