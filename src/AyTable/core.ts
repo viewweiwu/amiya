@@ -48,13 +48,17 @@ export const install = (renderMap: AnyKeyProps) => {
 
     // 处理排序
     if (field.sort) {
-      if (field.sortOrder) {
-        tableField.sorter = field.sorter || { multiple: field.sortOrder }
+      let sorts = params.sorts
+      // 寻找在 params 存在的排序
+      let sortItem = sorts.find((item: AnyKeyProps) => item.key === field.key)
+      if (!sortItem) {
+        // 不存在直接清空
+        tableField.sortOrder = false
       } else {
-        tableField.sorter = true
+        // 存在排序，则值为设置后的排序
+        tableField.sortOrder = sortItem.order
       }
-      delete tableField.sort
-      delete tableField.sortOrder
+      tableField.sorter = field.sorter || { multiple: field.sortOrder }
     }
 
     // 多余显示 ...
@@ -119,6 +123,7 @@ export const install = (renderMap: AnyKeyProps) => {
         return getAyTableField(field, params, tableData, setTableData)
       })
 
+    // 保证操作列在最后
     if (ctrl && ctrl.render && tableFields.every(field => field.key !== TABLE_CTRL_KEY)) {
       ctrl.key = TABLE_CTRL_KEY
       ctrl.title = ctrl.title || '操作'

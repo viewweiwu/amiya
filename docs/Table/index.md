@@ -143,7 +143,7 @@ export default function Demo() {
 | dialogFormExtend   | dialog form 的配置。                                                                                                                    | AyDialogFormProps                               | {}     |
 | scrollX            | 滚动的 X 轴数值。                                                                                                                       | number                                          | -      |
 | height             | 表格滚动高度。                                                                                                                          | number                                          | -      |
-| filterData         | 列表数据过滤。                                                                                                                          | (data: Object) => Object                        | -      |
+| filterData         | 列表数据过滤。                                                                                                                          | (data: Object) => Array<Record\>                | -      |
 | beforeSearch       | 提交前过滤。                                                                                                                            | (data: Object) => Object                        | -      |
 | pagination         | 分页参数。                                                                                                                              | antd 分页一致                                   | -      |
 | center             | 节点插入在查询和表格之间。                                                                                                              | ReactNode                                       | -      |
@@ -222,14 +222,16 @@ const fields: Array<AySearchTableField> = [
 
 ## Method 方法
 
-| 方法名           | 说明                     | 返回值         |
-| ---------------- | ------------------------ | -------------- |
-| refresh()        | 重新发起请求             | -              |
-| reset()          | 回到第一页，重新发起请求 | -              |
-| doLayout()       | 重新布局表格             | -              |
-| clearSelection() | 清空所有选项             | -              |
-| getSelection()   | 获取所有选项             | Array<Record\> |
-| getTableData()   | 获取表格数据             | Array<Record\> |
+| 方法名                             | 说明                                                                              | 返回值         |
+| ---------------------------------- | --------------------------------------------------------------------------------- | -------------- |
+| refresh()                          | 重新发起请求                                                                      | -              |
+| reset()                            | 回到第一页，重新发起请求                                                          | -              |
+| doLayout()                         | 重新布局表格                                                                      | -              |
+| clearSelection()                   | 清空所有选项                                                                      | -              |
+| clearFilters(keys: Array<String\>) | 可以不传参数，不传则清空全部；传了则清空相同 key 的过滤值，即设置 filter 之后的值 | -              |
+| clearSorts(keys: Array<String\>)   | 可以不传参数，不传则清空全部；传了则清空相同 key 的排序值，即设置 sort 之后的值   | -              |
+| getSelection()                     | 获取所有选项                                                                      | Array<Record\> |
+| getTableData()                     | 获取表格数据                                                                      | Array<Record\> |
 
 [1]: ./table/全局扩展按钮配置
 [option]: ./table#option-参数

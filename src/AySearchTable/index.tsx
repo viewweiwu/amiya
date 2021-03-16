@@ -277,6 +277,20 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
      */
     getTableData() {
       return tableRef.current.getTableData()
+    },
+    /**
+     * 清空过滤
+     * @param keys
+     */
+    clearFilters(keys: Array<String> = []) {
+      return tableRef.current.clearFilters(keys)
+    },
+    /**
+     * 清空排序
+     * @param keys
+     */
+    clearSorts(keys: Array<String> = []) {
+      return tableRef.current.clearSorts(keys)
     }
   }))
 

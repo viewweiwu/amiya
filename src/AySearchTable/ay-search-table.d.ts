@@ -118,6 +118,8 @@ export interface TableRefProps {
   refresh(): void
   reset(search: AnyKeyProps): void
   getTableData(): Array<AnyKeyProps>
+  clearFilters(keys: Array<String>): void
+  clearSorts(keys: Array<String>): void
 }
 
 export interface FormRefProps {

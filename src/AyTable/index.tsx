@@ -253,6 +253,46 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
       let newTableData = [...tableData]
       newTableData[type === 'after' ? 'push' : 'unshift'](row)
       setTableData(newTableData)
+    },
+    /**
+     * 清空过滤
+     * @param keys 要清空的 Filed 的 key 组成的数组
+     */
+    clearFilters(keys: Array<String> = []) {
+      let newParams: LoadParams = {
+        ...loadParams
+      }
+      for (let key in newParams.filters) {
+        // 如果是空数组，则全部清除，如果是有数据的数组，则清空 key 相等的过滤值
+        if (!keys.length || keys.includes(key)) {
+          newParams.filters[key] = null
+        }
+      }
+      setLoadParams(newParams)
+    },
+    /**
+     * 清空排序
+     * @param keys 要清空的 Filed 的 key 组成的数组
+     */
+    clearSorts(keys: Array<String> = []) {
+      let newParams: LoadParams = {
+        ...loadParams
+      }
+
+      if (!keys.length) {
+        // 空数组则清空全部
+        newParams.sorts = []
+      } else {
+        for (let i = 0; i < newParams.sorts.length; i++) {
+          let sortItem: AnyKeyProps = newParams.sorts[i]
+          // 清空 key 相等的 sorts 值
+          if (keys.includes(sortItem.key)) {
+            newParams.sorts.splice(i, 1)
+            i -= 1
+          }
+        }
+      }
+      setLoadParams(newParams)
     }
   }))
 
@@ -290,13 +330,17 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
         dataSource={tableData}
         loading={loading}
         rowSelection={rowSelection}
-        pagination={{
-          showTotal: total => `共 ${total} 条`,
-          showQuickJumper: true,
-          ...pagination,
-          total,
-          current: loadParams.pagination.current
-        }}
+        pagination={
+          pagination !== false
+            ? {
+                showTotal: total => `共 ${total} 条`,
+                showQuickJumper: true,
+                ...pagination,
+                total,
+                current: loadParams.pagination.current
+              }
+            : false
+        }
         onChange={handleTableChange}
         rowKey={rowKey || 'id'}
         size={size}
