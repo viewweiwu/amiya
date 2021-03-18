@@ -21,7 +21,10 @@ export const install = (registerTableRender: (key: string, render: (props: Rende
   })
 
   registerTableRender('datetime', ({ text }: RenderProps) => {
-    return moment(text).format('YYYY-MM-DD HH:mm:SS')
+    if (!text) {
+      return ''
+    }
+    return moment(text).format('YYYY-MM-DD HH:mm:ss')
   })
 
   registerTableRender('editable-cell-input', ({ text, field }: RenderProps) => {
