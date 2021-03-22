@@ -207,10 +207,6 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   const doLayout = () => {
     // 刷新表格
     setTableFields(getTableFields(fields))
-    // 刷新右侧查询
-    moreSearchRef.current?.resetFields()
-    // 刷新顶部查询
-    searchRef.current?.resetFields()
   }
 
   useEffect(() => {

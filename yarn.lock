@@ -3170,6 +3170,18 @@ amiya@0.12.0:
     antd "^4.8.2"
     react "^17.0.1"
 
+amiya@0.19.1:
+  version "0.19.1"
+  resolved "https://registry.npm.taobao.org/amiya/download/amiya-0.19.1.tgz#8be10ebe8ffac80e5c787708f0e6b859d1ec48af"
+  integrity sha1-i+EOvo/6yA5ceHcI8Oa4WdHsSK8=
+  dependencies:
+    "@types/antd" "^1.0.0"
+    "@types/react" "^17.0.0"
+    "@types/react-dom" "^17.0.0"
+    amiya "0.12.0"
+    antd "^4.8.2"
+    react "^17.0.1"
+
 ansi-align@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/ansi-align/download/ansi-align-3.0.0.tgz#b536b371cf687caaef236c18d3e21fe3797467cb"
