@@ -237,8 +237,9 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     /**
      * 回到第一页，刷新页面
      */
-    reset(search: AnyKeyProps) {
-      tableRef.current.reset({ search })
+    reset() {
+      // 跟点击【查询】逻辑一致
+      onConfirm()
     },
     /**
      * 清空选项
