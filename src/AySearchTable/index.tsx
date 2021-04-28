@@ -20,7 +20,8 @@ import {
   TableRefProps,
   AySearchTableField,
   AySearchTableProps,
-  SearchTableInitConfig
+  SearchTableInitConfig,
+  SortItem
 } from './ay-search-table'
 import { isObj } from '../utils'
 import { getDefaultValue } from '../AyForm'
@@ -96,6 +97,58 @@ const getTableFields = (fields: Array<AySearchTableField>): Array<AyTableField> 
     }
     return tableField
   })
+}
+
+/**
+ * 获取默认过滤值
+ * @param fields 当前的表格配置项
+ * @returns AnyKeyProps
+ */
+const getFiltersDefaultValue = (fields: Array<AyTableField>) => {
+  let filtersValue: AnyKeyProps = {}
+  fields.forEach(field => {
+    if (field.key && field.defaultFilterValue && field.defaultFilterValue !== 0) {
+      filtersValue[field.key] = field.defaultFilterValue
+    }
+  })
+  return filtersValue
+}
+
+/**
+ * 获取默认排序值
+ * @param fields 当前的表格配置项
+ * @returns Array<{ key: string, order: 'ascend' | 'descend' }>
+ */
+const getSortsDefaultValue = (fields: Array<AyTableField>) => {
+  let sorts: Array<SortItem> = []
+  // 排序是否带了先后顺序
+  let hasSortOrder = false
+  fields.forEach(field => {
+    if (field.key && field.defaultSortsValue) {
+      let item: SortItem = {
+        key: field.key,
+        order: field.defaultSortsValue
+      }
+      // 如果携带了 sortOrder
+      if (field.sortOrder >= 0) {
+        hasSortOrder = true
+        item.index = field.sortOrder
+      }
+      sorts.push(item)
+    }
+  })
+  // 携带了排序值需要排序一遍
+  if (hasSortOrder) {
+    sorts.sort((a: SortItem, b: SortItem) => (a.index || 9999) - (b.index || 9999))
+    // 删除 index 排序值
+    sorts = sorts.map((item: SortItem) => {
+      return {
+        key: item.key,
+        order: item.order
+      }
+    })
+  }
+  return sorts
 }
 
 /**
@@ -283,11 +336,29 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
       return tableRef.current.clearFilters(keys)
     },
     /**
+     * 设置过滤值
+     * @param filters 需要设置的过滤值，{ key: value } 格式
+     */
+    setFiltersValue(filters: AnyKeyProps) {
+      return tableRef.current.setFiltersValue(filters)
+    },
+    /**
+     * 设置排序值
+     * @param sorts [{ key, order }] 组成格式
+     */
+    setSortsValue(sorts: Array<SortItem>) {
+      return tableRef.current.setSortsValue(sorts)
+    },
+    /**
      * 清空排序
      * @param keys
      */
     clearSorts(keys: Array<String> = []) {
       return tableRef.current.clearSorts(keys)
+    },
+    /** 获取请求前参数 */
+    getApiParams() {
+      return tableRef.current.getApiParams()
     }
   }))
 
@@ -308,6 +379,9 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     onLoad,
     tableExtend,
     pagination,
+    defaultFiltersValue: getFiltersDefaultValue(tableFields),
+    defaultSortsValue: getSortsDefaultValue(tableFields),
+    // @ts-ignore
     defaultSearchValue: getDefaultValue([...searchFields, ...moreSearchFields]),
     btnBefore,
     editMode,

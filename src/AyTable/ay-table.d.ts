@@ -39,6 +39,10 @@ export interface AyTableProps {
   tableExtend?: AnyKeyProps
   /** 默认查询数据 */
   defaultSearchValue?: AnyKeyProps
+  /** 默认过滤参数 */
+  defaultFiltersValue?: AnyKeyProps
+  /** 默认排序参数 */
+  defaultSortsValue?: Array<{ key: string; order: 'ascend' | 'descend' }>
   /** 在导入前面插入按钮 */
   btnBefore?: ReactNode
   /** 统计数据，放在导入按钮前面 */
@@ -58,7 +62,12 @@ export interface AyTableField {
   title?: string
   /** 唯一 key，dataIndex 默认会跟次值一样 */
   key?: string
+  /** 渲染可选项 */
   options?: Array<Option>
+  /** 过滤的默认值 */
+  defaultFilterValue?: any
+  /** 排序的默认值 */
+  defaultSortsValue?: 'ascend' | 'descend'
   /** render 函数 */
   render?(text: ReactNode, record: AnyKeyProps, index: number): ReactNode
   /** 控制列 */

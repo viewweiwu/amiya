@@ -222,16 +222,19 @@ const fields: Array<AySearchTableField> = [
 
 ## Method 方法
 
-| 方法名                             | 说明                                                                              | 返回值         |
-| ---------------------------------- | --------------------------------------------------------------------------------- | -------------- |
-| refresh()                          | 重新发起请求                                                                      | -              |
-| reset()                            | 回到第一页，重新发起请求                                                          | -              |
-| doLayout()                         | 重新布局表格                                                                      | -              |
-| clearSelection()                   | 清空所有选项                                                                      | -              |
-| clearFilters(keys: Array<String\>) | 可以不传参数，不传则清空全部；传了则清空相同 key 的过滤值，即设置 filter 之后的值 | -              |
-| clearSorts(keys: Array<String\>)   | 可以不传参数，不传则清空全部；传了则清空相同 key 的排序值，即设置 sort 之后的值   | -              |
-| getSelection()                     | 获取所有选项                                                                      | Array<Record\> |
-| getTableData()                     | 获取表格数据                                                                      | Array<Record\> |
+| 方法名                                                                      | 说明                                                                                                                               | 返回值                                 |
+| --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| refresh()                                                                   | 重新发起请求                                                                                                                       | -                                      |
+| reset()                                                                     | 回到第一页，重新发起请求                                                                                                           | -                                      |
+| doLayout()                                                                  | 重新布局表格                                                                                                                       | -                                      |
+| clearSelection()                                                            | 清空所有选项                                                                                                                       | -                                      |
+| clearFilters(keys: Array<String\>)                                          | 可以不传参数，不传则清空全部；传了则清空相同 key 的过滤值，即设置 filter 之后的值                                                  | -                                      |
+| clearSorts(keys: Array<String\>)                                            | 可以不传参数，不传则清空全部；传了则清空相同 key 的排序值，即设置 sort 之后的值                                                    | -                                      |
+| getSelection()                                                              | 获取所有选项                                                                                                                       | Array<Record\>                         |
+| getTableData()                                                              | 获取表格数据                                                                                                                       | Array<Record\>                         |
+| getApiParams()                                                              | 获取表格请求前数据，不会发起请求，会经过 defaultSearchFilter、beforeSearch 方法过滤，即接口将要请求时的数据                        | { pagination, filters, sorts, search } |
+| setSortsValue(<br>Array<{ key: string, order: 'ascend' \| 'descend' }><br>) | 设置排序值，<span style="color: #f06">设置后会影响，并覆盖现有的排序值</span>，可用 `getApiParams()` 中的 `sorts` 来获得现有排序值 | -                                      |
+| setFiltersValue({ key: value })                                             | 设置筛选值                                                                                                                         | -                                      |
 
 [1]: ./table/全局扩展按钮配置
 [option]: ./table#option-参数

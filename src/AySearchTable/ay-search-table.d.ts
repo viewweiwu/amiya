@@ -119,7 +119,10 @@ export interface TableRefProps {
   reset(search: AnyKeyProps): void
   getTableData(): Array<AnyKeyProps>
   clearFilters(keys: Array<String>): void
+  setFiltersValue(filters: AnyKeyProps): void
+  setSortsValue(sorts: Array<SortItem>): void
   clearSorts(keys: Array<String>): void
+  getApiParams(): any
 }
 
 export interface FormRefProps {
@@ -129,3 +132,18 @@ export interface FormRefProps {
 }
 
 export interface Row extends AnyKeyProps {}
+
+export interface SortItem {
+  /**
+   * 要排序的 key
+   */
+  key: string
+  /**
+   * 排序方式
+   */
+  order: 'ascend' | 'descend'
+  /**
+   * 排序值，设置完值后，会被删除
+   * */
+  index?: number
+}

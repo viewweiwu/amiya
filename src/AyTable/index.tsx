@@ -8,6 +8,7 @@ import core from './core'
 import RenderMapInit from './RenderMapInit'
 import { getComponents } from './EditableTable'
 import './ay-table.less'
+import { SortItem } from '@/AySearchTable/ay-search-table'
 
 /** 默认请求前列表过滤 */
 let defaultSearchFilter = (params: AnyKeyProps) => {
@@ -65,6 +66,8 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     pagination,
     tableExtend,
     defaultSearchValue,
+    defaultSortsValue,
+    defaultFiltersValue,
     extendSearchParams,
     btnBefore,
     height,
@@ -76,8 +79,8 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
       pageSize: pagination?.pageSize || TABLE_PAGESIZE,
       current: pagination?.current || TABLE_START_PAGE
     },
-    filters: {},
-    sorts: [],
+    filters: clearEmpty(defaultFiltersValue || {}),
+    sorts: defaultSortsValue || [],
     search: clearEmpty(defaultSearchValue || {})
   })
   /** 表格数据 */
@@ -96,7 +99,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
   /**
    * 获得查询前的参数
    */
-  const getParams = () => {
+  const getApiParams = () => {
     let searchParams: AnyKeyProps = {
       ...loadParams,
       search: {
@@ -125,7 +128,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
    */
   const loadData = useCallback(() => {
     if (api) {
-      let searchParams: AnyKeyProps = getParams()
+      let searchParams: AnyKeyProps = getApiParams()
       setLoading(true)
       api(searchParams)
         .then(data => {
@@ -237,6 +240,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
      * 根据 id 删除某一行数据
      */
     deleteRowByKey(key: string) {
+      // @ts-ignore
       let newTableData = [...tableData]
       let index = newTableData.findIndex(row => row[rowKey || 'id'] === key)
       if (index >= 0) {
@@ -271,6 +275,19 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
       setLoadParams(newParams)
     },
     /**
+     * 设置过滤值
+     * @param filters { key: value } 组成的对象
+     */
+    setFiltersValue(filters: AnyKeyProps) {
+      let newParams: LoadParams = {
+        ...loadParams
+      }
+      for (let key in filters) {
+        newParams.filters[key] = filters[key]
+      }
+      setLoadParams(newParams)
+    },
+    /**
      * 清空排序
      * @param keys 要清空的 Filed 的 key 组成的数组
      */
@@ -293,7 +310,20 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
         }
       }
       setLoadParams(newParams)
-    }
+    },
+    /**
+     * 设置排序值
+     * @param sorts 排序的数据
+     */
+    setSortsValue(sorts: Array<SortItem>) {
+      let newParams: LoadParams = {
+        ...loadParams
+      }
+      newParams.sorts = sorts || []
+
+      setLoadParams(newParams)
+    },
+    getApiParams
   }))
 
   useEffect(() => {
