@@ -1816,6 +1816,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/classnames@^2.3.1":
+  version "2.3.1"
+  resolved "http://npm.wpt.la/@types%2fclassnames/-/classnames-2.3.1.tgz#3c2467aa0f1a93f1f021e3b9bcf938bd5dfdc0dd"
+  integrity sha1-PCRnqg8ak/HwIeO5vPk4vV39wN0=
+  dependencies:
+    classnames "*"
+
 "@types/color-convert@*":
   version "1.9.0"
   resolved "https://registry.npm.taobao.org/@types/color-convert/download/@types/color-convert-1.9.0.tgz?cache=0&sync_timestamp=1605052858610&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fcolor-convert%2Fdownload%2F%40types%2Fcolor-convert-1.9.0.tgz#bfa8203e41e7c65471e9841d7e306a7cd8b5172d"
@@ -3182,6 +3189,18 @@ amiya@0.19.1:
     antd "^4.8.2"
     react "^17.0.1"
 
+amiya@0.20.0:
+  version "0.20.0"
+  resolved "https://registry.nlark.com/amiya/download/amiya-0.20.0.tgz#ac5d4f390aa91bf13939eefaa4806c6fb465f324"
+  integrity sha1-rF1POQqpG/E5Oe76pIBsb7Rl8yQ=
+  dependencies:
+    "@types/antd" "^1.0.0"
+    "@types/react" "^17.0.0"
+    "@types/react-dom" "^17.0.0"
+    amiya "0.19.1"
+    antd "^4.8.2"
+    react "^17.0.1"
+
 ansi-align@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/ansi-align/download/ansi-align-3.0.0.tgz#b536b371cf687caaef236c18d3e21fe3797467cb"
@@ -4427,6 +4446,11 @@ class-utils@^0.3.5:
     define-property "^0.2.5"
     isobject "^3.0.0"
     static-extend "^0.1.1"
+
+classnames@*:
+  version "2.3.1"
+  resolved "http://npm.wpt.la/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
+  integrity sha1-38+jiR4wbsHa0QXQ6I9EF7hTXo4=
 
 classnames@2.x, classnames@^2.2.1, classnames@^2.2.3, classnames@^2.2.5, classnames@^2.2.6:
   version "2.2.6"

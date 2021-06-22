@@ -1,20 +1,61 @@
 import React, { useRef } from 'react'
 import { AySearchTable, AySearchTableField, AyButton } from 'amiya'
 import { listApi, professionOptions } from '../api'
+import { AnyKeyProps } from '@/types/AnyKeyProps'
+import { Button } from 'antd'
 import 'antd/dist/antd.min.css'
 
 const fields: Array<AySearchTableField> = [
   {
-    title: '姓名',
+    title: '英文名',
+    key: 'name',
+    table: {
+      width: 300,
+      editable: true,
+      renderType: 'editable-cell-input'
+    }
+  },
+  {
+    title: '复杂的姓名编辑',
     key: 'cname',
     table: {
-      width: 200,
+      width: 300,
       editable: true,
       renderType: 'editable-cell-input',
+      // 未编辑时的样式
+      editableCellStyle: {
+        width: 100,
+        display: 'inline-block'
+      },
+      // 前置元素
+      before: ({ record, field, refreshRow }: AnyKeyProps) => {
+        return (
+          <Button
+            style={{ marginRight: 8 }}
+            onClick={() => {
+              record.color = record.color === 'red' ? 'blue' : 'red'
+              // 覆盖 record 后，调用此方法可刷新数据
+              refreshRow()
+            }}
+          >
+            换色
+          </Button>
+        )
+      },
+      // 后置元素
+      after: ({ record }: AnyKeyProps) => {
+        return <div style={{ color: record.color || '#ccc' }}>可以换色：{record.cname}</div>
+      },
       contentProps: {
         allowClear: true
       },
       formItemProps: {
+        // 编辑中的样式
+        style: {
+          display: 'inline-block',
+          width: 100,
+          marginBottom: 0
+        },
         rules: [{ required: true, message: '请输入姓名' }]
       }
     }
@@ -37,8 +78,13 @@ const fields: Array<AySearchTableField> = [
     }
   },
   {
-    title: '英文名',
-    key: 'name'
+    title: '镜像姓名',
+    key: 'cname-mirror',
+    table: {
+      render: (text, record) => {
+        return record.cname
+      }
+    }
   }
 ]
 

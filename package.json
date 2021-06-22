@@ -35,11 +35,12 @@
     "@types/antd": "^1.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "amiya": "0.19.1",
+    "amiya": "0.20.0",
     "antd": "^4.8.2",
     "react": "^17.0.1"
   },
   "devDependencies": {
+    "@types/classnames": "^2.3.1",
     "@umijs/test": "^3.0.5",
     "dumi": "1.1.0-beta.25",
     "father-build": "^1.18.6",

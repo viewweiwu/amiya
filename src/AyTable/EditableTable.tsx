@@ -1,3 +1,4 @@
+import classnames from 'classnames'
 import React, { createContext, useState, ReactNode, useContext, useEffect } from 'react'
 import { Form } from 'antd'
 import { AnyKeyProps } from '../types/AnyKeyProps'
@@ -62,7 +63,11 @@ export function EditableCell(props: AnyKeyProps) {
       )
     } else {
       tag = (
-        <div className="editable-cell" onClick={toggleEdit}>
+        <div
+          className={classnames('editable-cell', field?.editableCellClass)}
+          style={field?.editableCellStyle}
+          onClick={toggleEdit}
+        >
           {cellTag}
         </div>
       )
@@ -74,7 +79,18 @@ export function EditableCell(props: AnyKeyProps) {
     }
   }
 
-  return <td {...restProps}>{tag}</td>
+  // 前置元素
+  const before = field?.before ? field.before({ record, field, refreshRow: handleSave }) : null
+  // 后置元素
+  const after = field?.after ? field.after({ record, field, refreshRow: handleSave }) : null
+
+  return (
+    <td {...restProps}>
+      {before}
+      {tag}
+      {after}
+    </td>
+  )
 }
 
 export function EditableRowCell(props: AnyKeyProps) {
@@ -82,6 +98,21 @@ export function EditableRowCell(props: AnyKeyProps) {
   const form = useContext(EditableContext)
   const editing = record?.editing || false
   let tag: ReactNode
+
+  const handleSave = async () => {
+    // 获取表单数据
+    const values = await form.validateFields()
+    // 将表单数据与行数据合并
+    const newRow = { ...record, ...values }
+    // 重新构建数组
+    const newTableData = [...tableData]
+    // 寻找到对应行
+    const index = newTableData.findIndex(row => row.id === newRow.id)
+    // 替换行
+    newTableData.splice(index, 1, newRow)
+    // 替换表格数据
+    setTableData(newTableData)
+  }
 
   let cell = children[1]
 
@@ -108,7 +139,18 @@ export function EditableRowCell(props: AnyKeyProps) {
     }
   }
 
-  return <td {...restProps}>{tag}</td>
+  // 前置元素
+  const before = field?.before ? field.before({ record, field, refreshRow: handleSave }) : null
+  // 后置元素
+  const after = field?.after ? field.after({ record, field, refreshRow: handleSave }) : null
+
+  return (
+    <td {...restProps}>
+      {before}
+      {tag}
+      {after}
+    </td>
+  )
 }
 
 const ColEditComponents = {
