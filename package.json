@@ -1,7 +1,7 @@
 {
   "name": "amiya",
   "description": "amiya React component",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",
@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@types/classnames": "^2.3.1",
+    "classnames": "^2.3.1",
     "@umijs/test": "^3.0.5",
     "dumi": "1.1.0-beta.25",
     "father-build": "^1.18.6",
