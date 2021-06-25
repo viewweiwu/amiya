@@ -590,10 +590,12 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   }
 
   /**
-   * 获取所有 field 的值
+   * 根据 fields 获取 values
+   * @param fields 配置项
    * @param readonly 是否只读
+   * @returns object
    */
-  const getFieldsValue = (readonly?: boolean) => {
+  const getValues = (fields: AyFormField | AySearchTableField, readonly?: boolean) => {
     let result: AnyKeyProps = {}
     fields.forEach((field: AyFormField | AySearchTableField) => {
       if (!field.key) {
@@ -601,9 +603,25 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
       }
       // 获取每个单个的值
       let value = getFieldValue(field.key, readonly)
+      // 处理子层数据
+      if (field.children && field.children.length) {
+        let values = getValues(field.children, readonly)
+        result = {
+          ...result,
+          ...values
+        }
+      }
       result[field.key] = value
     })
     return result
+  }
+
+  /**
+   * 获取所有 field 的值
+   * @param readonly 是否只读
+   */
+  const getFieldsValue = (readonly?: boolean) => {
+    return getValues(fields, readonly)
   }
 
   /** 覆盖 antd Form getFieldValue 方法 */
@@ -611,6 +629,16 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
 
   /** 覆盖 antd Form getFieldsValue 方法 */
   formInstans.getFieldsValue = getFieldsValue
+
+  /**
+   * 获取过滤后所有的 field 的值
+   */
+  const getFormatFieldsValue = (readonly?: boolean) => {
+    let values = getFieldsValue(readonly)
+    return formatValues(values, fields)
+  }
+  /** 添加 getFormatFiledsValue 的值 */
+  formInstans.getFormatFieldsValue = getFormatFieldsValue
 
   /** 暴露方法 */
   useImperativeHandle(ref, () => formInstans)

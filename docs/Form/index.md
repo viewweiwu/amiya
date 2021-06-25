@@ -506,6 +506,7 @@ const fields: Array<Field> = [
 | resetFields()                  | 重置表单                                                  | -              |
 | getFieldValue(key: string)     | 根据 key 获取表单值                                       | any            |
 | getFieldsValue()               | 获取所有表单值                                            | values: Object |
+| getFormatFieldsValue()         | 获取已经过滤后的表单值，当有嵌套时使用                    | values: Object |
 | setFieldsValue(values: Object) | 设置表单值                                                | -              |
 | refreshFields()                | 重新渲染表单，如果动态改变了 fields，可以用此参数重新渲染 | -              |
 
