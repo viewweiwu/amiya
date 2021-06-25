@@ -397,11 +397,27 @@ const formatValues = (values: AnyKeyProps, fields: Array<AyFormField | AySearchT
       }
       if (Array.isArray(value) && field.type === FORM_TYPE_DATE_RANGE) {
         // 区间类型取 startKey 与 endKey
-        result[field.startKey || 'startDate'] = value[0]?.format(formatRule) || null
-        result[field.endKey || 'endDate'] = value[1]?.format(formatRule) || null
+        if (value[0]) {
+          if (typeof value[0] === 'string') {
+            result[field.startKey || 'startDate'] = value[0]
+          } else {
+            result[field.startKey || 'startDate'] = value[0]?.format(formatRule) || null
+          }
+        }
+        if (value[1]) {
+          if (typeof value[1] === 'string') {
+            result[field.endKey || 'endDate'] = value[1]
+          } else {
+            result[field.endKey || 'endDate'] = value[1]?.format(formatRule) || null
+          }
+        }
       } else if (field.type === FORM_TYPE_DATE) {
         // 单值类型直接转
-        result[key] = value?.format(formatRule) || null
+        if (typeof value === 'string') {
+          result[key] = value
+        } else {
+          result[key] = value?.format(formatRule) || null
+        }
       } else {
         result[key] = value
       }
