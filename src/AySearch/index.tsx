@@ -65,7 +65,7 @@ const funcs = [
 ]
 
 export default forwardRef(function AySearch(props: AySearchProps, ref) {
-  const { fields, onConfirm } = props
+  const { fields, onConfirm, onReset } = props
   const [mini, setMini] = useState<boolean>(true)
   const searchFields: Array<AyFormField> = getSearchFields(fields, mini)
 
@@ -89,6 +89,7 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
   const handleReset = () => {
     formRef.current.resetFields()
     formRef.current.submit()
+    onReset && onReset()
   }
 
   /**

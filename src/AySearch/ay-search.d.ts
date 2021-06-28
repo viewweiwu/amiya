@@ -5,6 +5,7 @@ import { ExtendField } from '../AySearchTable/ay-search-table'
 export interface AySearchProps {
   fields: Array<AySearchField>
   onConfirm?(values: AnyKeyProps): void
+  onReset?(): void
 }
 
 export interface AySearchField extends AyFormField {

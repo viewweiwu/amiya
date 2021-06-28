@@ -230,7 +230,8 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     after,
     editMode,
     autoload,
-    rowSelection
+    rowSelection,
+    searchExtend
   } = props
 
   /** form 控制 */
@@ -420,7 +421,9 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
       <AySearchTableContext.Provider
         value={{ formRef, tableRef, selection, deleteApi, rowKey, clearSelection, searchTableRef: ref }}
       >
-        {searchVisible !== false ? <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} /> : null}
+        {searchVisible !== false ? (
+          <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} {...searchExtend} />
+        ) : null}
         {center}
         {dialogFormExtend ? <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend} /> : null}
         <AyTable {...tableProps} fields={tableFields} header={header}>
