@@ -1,7 +1,7 @@
 {
   "name": "amiya",
   "description": "amiya React component",
-  "version": "0.23.0",
+  "version": "0.23.2",
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",

@@ -50,7 +50,7 @@ export const clearEmpty = (params: AnyKeyProps): AnyKeyProps => {
   let result: AnyKeyProps = {}
 
   for (let key in params) {
-    if (params[key] !== 0 && params[key]) {
+    if (params[key] === 0 || params[key]) {
       result[key] = params[key]
     }
   }
@@ -109,7 +109,12 @@ export const digitUppercase = (n: number) => {
  * @param labelKey 标题
  * @param valueKey 值
  */
-const fillKey = (item: AnyKeyProps, labelKey: string, valueKey: string, format?: (data: AnyKeyProps) => AnyKeyProps) => {
+const fillKey = (
+  item: AnyKeyProps,
+  labelKey: string,
+  valueKey: string,
+  format?: (data: AnyKeyProps) => AnyKeyProps
+) => {
   item.title = item[labelKey]
   item.key = item[valueKey]
   if (format) {
@@ -198,7 +203,7 @@ export const Base64 = {
     return decodeURIComponent(
       atob(str)
         .split('')
-        .map(function (c) {
+        .map(function(c) {
           return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
         })
         .join('')
