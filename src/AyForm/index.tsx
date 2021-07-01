@@ -91,7 +91,7 @@ const getPlaceholder = (field: AyFormField | AySearchTableField): string => {
     return `请选择${field.title || ''}`
   }
 
-  return field.title || ''
+  return '请输入' + field.title || ''
 }
 
 /**
