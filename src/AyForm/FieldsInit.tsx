@@ -171,12 +171,22 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
   registerField(FORM_TYPE_SELECT, {
     type: FORM_TYPE_SELECT,
     defaultValue: FORM_DEFAULT_VALUE_SELECT,
-    render: ({ field, readonly, getFieldValue }: AnyKeyProps) =>
-      readonly ? (
-        <span className="ay-form-text">
-          {getValueByOptions(getFieldValue(field.key), field.options) || FORM_READONLY_EMPTY}
-        </span>
-      ) : (
+    render: ({ field, readonly, getFieldValue }: AnyKeyProps) => {
+      if (readonly) {
+        let value = getFieldValue(field.key)
+        let text = ''
+        if (Array.isArray(value)) {
+          if (!value.length) {
+            text = FORM_READONLY_EMPTY
+          }
+          text = value.map(item => getValueByOptions(item, field.options)).join(field.splitText || '、')
+        } else {
+          text = getValueByOptions(value, field.options)
+        }
+        return <span className="ay-form-text">{text}</span>
+      }
+
+      return (
         <AySelect
           placeholder={`请选择${field.title || ''}`}
           disabled={readonly}
@@ -185,6 +195,7 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
           {...field.props}
         />
       )
+    }
   })
 
   // 注册开关
