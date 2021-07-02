@@ -157,7 +157,7 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
 
   /** Popover 弹窗的提示 */
   const popContent = (
-    <div className="am-search-poper">
+    <div className="ay-search-poper">
       {selection.map((row, i) => {
         return (
           <Tag key={row[rowKey || 'id']} closable className="mb" onClose={() => removeSelection(i)}>
@@ -184,7 +184,7 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
   )
 
   /** 头部已选中的提示 */
-  const header = selectionKeys.length ? <Alert className="am-search-table-alert" message={message} showIcon /> : ''
+  const header = selectionKeys.length ? <Alert className="ay-search-table-alert" message={message} showIcon /> : ''
 
   useEffect(() => {
     if (onSelectionChange) {
