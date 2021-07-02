@@ -65,7 +65,7 @@ const funcs = [
 ]
 
 export default forwardRef(function AySearch(props: AySearchProps, ref) {
-  const { fields, onConfirm, onReset, span = 8 } = props
+  const { fields, onConfirm, onReset, span = 8, formExtend } = props
   const [mini, setMini] = useState<boolean>(true)
   const searchFields: Array<AyFormField> = getSearchFields(fields, mini)
 
@@ -114,7 +114,7 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
 
   return (
     <Card className="ay-search">
-      <AyForm ref={formRef} fields={searchFields} span={span} onConfirm={handleConfirm}>
+      <AyForm ref={formRef} fields={searchFields} span={span} onConfirm={handleConfirm} {...formExtend}>
         <Col span={span}>
           <Form.Item wrapperCol={{ offset: 4 }}>
             <Space>
