@@ -7,7 +7,7 @@ export interface AySearchProps {
   onConfirm?(values: AnyKeyProps): void
   onReset?(): void
   span?: number
-  formExtend: AnyKeyProps
+  formExtend?: AnyKeyProps
 }
 
 export interface AySearchField extends AyFormField {
