@@ -153,6 +153,18 @@ export const updateApi = (params: AnyKeyProps): Promise<any> => {
 }
 
 /**
+ * 模拟详情
+ */
+export const detailApi = (): Promise<any> => {
+  return new Promise(resolve => {
+    resolve({
+      msg: '请求成功',
+      data: data[0]
+    })
+  })
+}
+
+/**
  * 模拟删除
  * @param params 删除的 id
  */

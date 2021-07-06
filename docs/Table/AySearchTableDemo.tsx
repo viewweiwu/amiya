@@ -26,8 +26,7 @@ export default function AySearchTableDemo() {
   const fields: Array<AySearchTableField> = [
     {
       title: '姓名',
-      key: 'cname',
-      type: 'group'
+      key: 'cname'
     },
     {
       title: '英文名',

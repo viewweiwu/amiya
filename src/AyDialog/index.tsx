@@ -1,7 +1,8 @@
 import React from 'react'
+import AyButton from '../AyButton'
 import { Modal, Drawer, Space } from 'antd'
 import { AyDialogProps, AyConfirmProps } from './ay-dialog'
-import AyButton from '../AyButton'
+import { AnyKeyProps } from '@/types/AnyKeyProps'
 const { ExclayationCircleOutlined } = require('@ant-design/icons')
 
 export function AyDialogFooter(props: AyDialogProps, handleCancel: () => void, handleConfirm: () => void) {
@@ -51,7 +52,7 @@ export default function AyDialog(props: AyDialogProps) {
     footer,
     width,
     drawer,
-    className
+    ...extraProps
   } = props
 
   const handleCancel = () => {
@@ -64,9 +65,8 @@ export default function AyDialog(props: AyDialogProps) {
     }
   }
 
-  const dialogProps = drawer
+  const dialogProps: AnyKeyProps = drawer
     ? {
-        className,
         width: width || 500,
         title: (
           <Space>
@@ -78,10 +78,10 @@ export default function AyDialog(props: AyDialogProps) {
         visible,
         closable: true,
         onClose: handleCancel,
-        footer: footer || AyDialogFooter(props, handleCancel, handleConfirm)
+        footer: footer || AyDialogFooter(props, handleCancel, handleConfirm),
+        ...extraProps
       }
     : {
-        className,
         width: width || 500,
         title: (
           <Space>
@@ -90,9 +90,10 @@ export default function AyDialog(props: AyDialogProps) {
             {titleAfter}
           </Space>
         ),
-        visible: visible,
+        visible,
         onCancel: handleCancel,
-        footer: footer || AyDialogFooter(props, handleCancel, handleConfirm)
+        footer: footer || AyDialogFooter(props, handleCancel, handleConfirm),
+        ...extraProps
       }
 
   return drawer ? (
@@ -109,8 +110,8 @@ export function AyConfirm(props: AyConfirmProps) {
     title: props.title,
     icon: <ExclayationCircleOutlined />,
     content: props.content,
-    okText: '确认',
-    cancelText: '取消',
+    okText: '确定',
+    cancelText: '关闭',
     ...props,
     onOk: () => {
       return props.onConfirm()
