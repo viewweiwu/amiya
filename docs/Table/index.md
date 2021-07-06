@@ -140,7 +140,7 @@ export default function Demo() {
 | ctrl               | 列表每一行后面数据跟着的按钮渲染。                                                                                                      | AySearchTableField                              | -      |
 | rowKey             | 列表每一行的唯一标志                                                                                                                    | string                                          | 'id'   |
 | selectShowKey      | 批量删除,勾选时，在表格顶部会有数字，点击数字可以看到选项的名称。                                                                       | string                                          | 'name' |
-| dialogFormExtend   | dialog form 的配置。                                                                                                                    | AyDialogFormProps                               | {}     |
+| dialogFormExtend   | [AyDialogForm][aydialogform] 的配置。                                                                                                   | AyDialogFormProps                               | {}     |
 | scrollX            | 滚动的 X 轴数值。                                                                                                                       | number                                          | -      |
 | height             | 表格滚动高度。                                                                                                                          | number                                          | -      |
 | filterData         | 列表数据过滤。                                                                                                                          | (data: Object) => Array<Record\>                | -      |
@@ -198,18 +198,21 @@ const fields: Array<AySearchTableField> = [
 
 ## AyTableField
 
-| 参数名         | 说明                                           | 参数类型                                                           | 默认值   |
-| -------------- | ---------------------------------------------- | ------------------------------------------------------------------ | -------- |
-| title          | 标题                                           | string                                                             | -        |
-| key            | 唯一 key，dataIndex 默认会跟次值一样           | string                                                             | -        |
-| options        | 可选项，展示会根据这个值变化                   | Array<[Option][option]>                                            | -        |
-| hidden         | 隐藏这一列                                     | boolean \| () => boolean                                           | -        |
-| render         | 自定义展示列                                   | (text: ReactNode, record: AnyKeyProps, index: number) => ReactNode | -        |
-| renderType     | 美化展示列，可以[全局注册][rendertype]         | 'datetime'                                                         | 'string' | - |
-| filter         | 筛选                                           | boolean                                                            | -        |
-| filterMultiple | 筛选是否支持多选                               | boolean                                                            | false    |
-| sort           | 排序                                           | boolean                                                            | -        |
-| sortOrder      | 排序权重，越大越重，不设置则表示不需要多列筛选 | number                                                             | -        |
+| 参数名         | 说明                                                       | 参数类型                                                              | 默认值   |
+| -------------- | ---------------------------------------------------------- | --------------------------------------------------------------------- | -------- |
+| title          | 标题                                                       | string                                                                | -        |
+| key            | 唯一 key，dataIndex 默认会跟次值一样                       | string                                                                | -        |
+| options        | 可选项，展示会根据这个值变化                               | Array<[Option][option]>                                               | -        |
+| hidden         | 隐藏这一列                                                 | boolean \| () => boolean                                              | -        |
+| render         | 自定义展示列                                               | (text: ReactNode, record: AnyKeyProps, index: number) => ReactNode    | -        |
+| renderType     | 美化展示列，可以[全局注册][rendertype]                     | 'datetime'                                                            | 'string' | - |
+| filter         | 筛选                                                       | boolean                                                               | -        |
+| filterMultiple | 筛选是否支持多选                                           | boolean                                                               | false    |
+| sort           | 排序                                                       | boolean                                                               | -        |
+| sortOrder      | 排序权重，越大越重，不设置则表示不需要多列筛选             | number                                                                | -        |
+| editable       | 表格是否可以编辑                                           | boolean                                                               | -        |
+| before         | (仅 `editable` 可用), 渲染前置元素，[使用案例][可编辑表格] | ({ record: Record, field: Field, refreshRow: Function }) => ReactNode | -        |
+| after          | (仅 `editable` 可用), 渲染后置元素，[使用案例][可编辑表格] | ({ record: Record, field: Field, refreshRow: Function }) => ReactNode | -        |
 
 ## Option 参数
 
@@ -242,5 +245,7 @@ const fields: Array<AySearchTableField> = [
 [rendertype]: ./table/自定义渲染列#更加丰富的全局注册
 [ayformfield]: ./form#ayformfield-参数
 [aytablefield]: ./table#aytablefield
+[aydialogform]: ./form/ay-dialog-form
 [禁用表格选项]: ./table/禁用表格选项
 [单选表格]: ./table/单选表格
+[可编辑表格]: ./table/可编辑表格

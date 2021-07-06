@@ -29,6 +29,7 @@ export interface AyDialogFormProps extends ModalProps {
   dialogExtend?: AnyKeyProps
   /** 表单其它属性扩展 */
   formExtend?: AnyKeyProps
+  /** 是否只使用申明了 dialog 的 Field */
   dialogOnly?: boolean
 }
 
