@@ -1,28 +1,25 @@
 import React, {
   useRef,
   MutableRefObject,
-  createContext,
   forwardRef,
   useImperativeHandle,
   Ref,
   ReactNode,
   useState,
-  useMemo,
-  useEffect
+  useMemo
 } from 'react'
 import AySearch from '../AySearch'
 import AyForm from '../AyForm'
-import AyTable from '../AyTable'
+import AyList from '../AyList'
 import AyDialogForm from '../AyDialogForm'
-import useSelection from './use/useSelection'
+import useSelection from '../AySearchTable/use/useSelection'
 import {
   FormRefProps,
   TableRefProps,
   AySearchTableField,
-  AySearchTableProps,
-  SearchTableInitConfig,
+  AySearchListProps,
   SortItem
-} from './ay-search-table'
+} from '../AySearchTable/ay-search-table'
 import { isObj } from '../utils'
 import { getDefaultValue } from '../AyForm'
 import { AyTableField } from '../AyTable/ay-table'
@@ -30,12 +27,11 @@ import { AySearchField } from '../AySearch/ay-search'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { Space } from 'antd'
 import { getActionProps } from '../AyAction'
-import useExtraBtn, { setSearchTableExtraDefaultValue } from './use/useExtraBtn'
-import { AyButton } from '..'
-import './ay-search-table.less'
+import AyButton from '../AyButton'
+import { AySearchTableContext } from '../AySearchTable'
+import useExtraBtn from '../AySearchTable/use/useExtraBtn'
 
-export const AySearchTableContext = createContext({})
-
+import './ay-search-list.less'
 /**
  * 转化并过滤成 ay-search 能用的 fields
  * @param fields 查询表格的 fields
@@ -74,81 +70,6 @@ const getSearchFields = (fields: Array<AySearchTableField>) => {
     searchFields,
     moreSearchFields
   }
-}
-
-/**
- * 过滤获得配置项
- *
- * 1、生成基础 table 需要的 fields
- * 2、添加 options (如果有的话)
- *
- * @param fields 配置项
- */
-const getTableFields = (fields: Array<AySearchTableField>): Array<AyTableField> => {
-  return fields.map((field: AySearchTableField) => {
-    const table = field.table
-    let tableField: AyTableField = {
-      title: field.title,
-      key: field.key,
-      ...table
-    }
-    if (field.options) {
-      tableField.options = field.options
-    }
-    return tableField
-  })
-}
-
-/**
- * 获取默认过滤值
- * @param fields 当前的表格配置项
- * @returns AnyKeyProps
- */
-const getFiltersDefaultValue = (fields: Array<AyTableField>) => {
-  let filtersValue: AnyKeyProps = {}
-  fields.forEach(field => {
-    if (field.key && field.defaultFilterValue && field.defaultFilterValue !== 0) {
-      filtersValue[field.key] = field.defaultFilterValue
-    }
-  })
-  return filtersValue
-}
-
-/**
- * 获取默认排序值
- * @param fields 当前的表格配置项
- * @returns Array<{ key: string, order: 'ascend' | 'descend' }>
- */
-const getSortsDefaultValue = (fields: Array<AyTableField>) => {
-  let sorts: Array<SortItem> = []
-  // 排序是否带了先后顺序
-  let hasSortOrder = false
-  fields.forEach(field => {
-    if (field.key && field.defaultSortsValue) {
-      let item: SortItem = {
-        key: field.key,
-        order: field.defaultSortsValue
-      }
-      // 如果携带了 sortOrder
-      if (field.sortOrder >= 0) {
-        hasSortOrder = true
-        item.index = field.sortOrder
-      }
-      sorts.push(item)
-    }
-  })
-  // 携带了排序值需要排序一遍
-  if (hasSortOrder) {
-    sorts.sort((a: SortItem, b: SortItem) => (a.index || 9999) - (b.index || 9999))
-    // 删除 index 排序值
-    sorts = sorts.map((item: SortItem) => {
-      return {
-        key: item.key,
-        order: item.order
-      }
-    })
-  }
-  return sorts
 }
 
 /**
@@ -195,13 +116,7 @@ const getTableActionBtns = (
   }
 }
 
-/** 初始化查询表格配置 */
-export const setSearchTableDefaultValue = (config: SearchTableInitConfig) => {
-  // 初始化扩展列
-  setSearchTableExtraDefaultValue(config)
-}
-
-export default forwardRef(function AySearchTable(props: AySearchTableProps, ref: Ref<any>) {
+export default forwardRef(function AySearchList(props: AySearchListProps, ref: Ref<any>) {
   const {
     fields,
     api,
@@ -219,11 +134,10 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     filterData,
     beforeSearch,
     selectShowKey,
-    onExpand,
     center,
     onLoad,
     searchVisible,
-    tableExtend,
+    listExtend,
     pagination,
     btnBefore,
     extendSearchParams,
@@ -231,7 +145,8 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     editMode,
     autoload,
     rowSelection,
-    searchExtend
+    searchExtend,
+    renderItem
   } = props
 
   /** form 控制 */
@@ -245,7 +160,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   /** 查询项 */
   const { searchFields, moreSearchFields } = getSearchFields(fields)
   /** 列表项 */
-  const [tableFields, setTableFields] = useState<Array<AyTableField>>(getTableFields(fields))
+  const [tableFields, setTableFields] = useState<Array<AyTableField>>([])
   /** 使用勾选 */
   const { header, message, tableRowSelection, selection, clearSelection } = useSelection({
     rowKey: rowKey || 'id',
@@ -256,16 +171,11 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   })
   /** action 展示，底部 or 右侧 */
   const { footerActions, rightActions } = getTableActionBtns(children)
-  const { extraBtns, size, isEnter } = useExtraBtn(tableRef, tableFields, setTableFields, props)
-
-  const doLayout = () => {
-    // 刷新表格
-    setTableFields(getTableFields(fields))
-  }
-
-  useEffect(() => {
-    doLayout()
-  }, [fields, isEnter])
+  const { extraBtns, size, isEnter } = useExtraBtn(tableRef, tableFields, setTableFields, {
+    ...props,
+    extraSizeVisible: false,
+    extraSettingVisible: false
+  })
 
   /** 查询完成，刷新列表 */
   const onConfirm = () => {
@@ -320,10 +230,6 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
       return selection
     },
     /**
-     * 刷新布局
-     */
-    doLayout,
-    /**
      * 获取表格数据
      */
     getTableData() {
@@ -376,12 +282,9 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     height,
     filterData,
     beforeSearch,
-    onExpand,
     onLoad,
-    tableExtend,
+    listExtend,
     pagination,
-    defaultFiltersValue: getFiltersDefaultValue(tableFields),
-    defaultSortsValue: getSortsDefaultValue(tableFields),
     // @ts-ignore
     defaultSearchValue: getDefaultValue([...searchFields, ...moreSearchFields]),
     btnBefore,
@@ -390,20 +293,20 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     autoload
   }
 
-  /** 表格子元素 */
+  /** 列表子元素 */
   const tableChildren = useMemo(() => {
     const children = []
     if (moreSearchFields && moreSearchFields.length) {
       children.push(
         <AyForm
-          className="ay-search-table-more"
-          key="ay-search-table-more"
+          className="ay-search-list-more"
+          key="ay-search-list-more"
           span={24}
           ref={moreSearchRef}
           fields={moreSearchFields}
           onConfirm={onConfirm}
         >
-          <AyButton className="ay-search-table-more-submit" htmlType="submit"></AyButton>
+          <AyButton className="ay-search-list-more-submit" htmlType="submit"></AyButton>
         </AyForm>
       )
     }
@@ -417,7 +320,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   }, [moreSearchRef, moreSearchFields, onConfirm, rightActions, extraBtns])
 
   return (
-    <div className={`ay-search-table ${isEnter ? 'full' : ''}`}>
+    <div className={`ay-search-list ${isEnter ? 'full' : ''}`}>
       <AySearchTableContext.Provider
         value={{ formRef, tableRef, selection, deleteApi, rowKey, clearSelection, searchTableRef: ref }}
       >
@@ -426,11 +329,11 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
         ) : null}
         {center}
         {dialogFormExtend ? <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend} /> : null}
-        <AyTable {...tableProps} fields={tableFields} header={header}>
+        <AyList {...tableProps} fields={tableFields} renderItem={renderItem} header={header}>
           {tableChildren}
-        </AyTable>
+        </AyList>
         {selection.length && footerActions.length ? (
-          <div className="ay-search-table-footer-actions">
+          <div className="ay-search-list-footer-actions">
             {message}
             <Space>{footerActions}</Space>
           </div>

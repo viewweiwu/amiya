@@ -10,6 +10,7 @@ import AySearch from './AySearch'
 import AySearchTable, { setSearchTableDefaultValue } from './AySearchTable'
 import AySelect from './AySelect'
 import AyTable, { setDefaultDataFilter, setDefaultSearchFilter, registerTableRender } from './AyTable'
+import AySearchList from './AySearchList'
 
 export {
   AyCard,
@@ -26,6 +27,7 @@ export {
   AySearchTable,
   AySelect,
   AyTable,
+  AySearchList,
   setDefaultDataFilter,
   setDefaultSearchFilter,
   setSearchTableDefaultValue,
@@ -51,6 +53,7 @@ export default {
   AySearchTable,
   AySelect,
   AyTable,
+  AySearchList,
   setDefaultDataFilter,
   setDefaultSearchFilter,
   setSearchTableDefaultValue,

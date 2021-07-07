@@ -20,6 +20,63 @@ export interface SearchTableInitConfig extends AnyKeyProps {
   extraFullscreenVisible?: boolean
 }
 
+export interface AySearchListProps extends SearchTableInitConfig {
+  /** 标题 */
+  title?: string | ReactNode
+  /** 配置项 */
+  fields: Array<AySearchTableField>
+  /** 子元素 */
+  children?: Array<ReactNode> | ReactNode
+  /** 请求列表接口 */
+  api?(params: AnyKeyProps): Promise<AnyKeyProps>
+  /** 删除接口 Api */
+  deleteApi?(params: Array<string>): Promise<any>
+  /** 表格数据（当不需要 api，由自己控制时使用） */
+  data?: Array<AnyKeyProps>
+  /** 表格操作列（写法跟正常的 filed 一致） */
+  ctrl?: AyTableCtrlField
+  /** 为空时表示没有选框 */
+  selectionType?: 'checkbox' | 'radio'
+  /** 选项改变事件 */
+  onSelectionChange?(selection: Array<Row>): void
+  /** 列表的 rowKey */
+  rowKey?: string
+  /** 选择时列表展示的 key */
+  selectShowKey?: string
+  /** dialog form 的配置 */
+  dialogFormExtend?: AyDialogFormProps
+  /** 弹窗表单的配置项 */
+  formField?: Array<AyDialogFormField>
+  /** 列表过滤 */
+  filterData?(data: AnyKeyProps): AnyKeyProps
+  /** 提交前过滤 */
+  beforeSearch?(data: AnyKeyProps): AnyKeyProps
+  /** 分页参数 */
+  pagination?: any
+  /** 节点插入在查询和表格之间 */
+  center?: ReactNode
+  /** 表格查询完成监听 */
+  onLoad?(records: Array<AnyKeyProps>, data: any): void
+  /** 查询区域是否展示 */
+  searchVisible?: boolean
+  /** list 其它属性 */
+  listExtend?: AnyKeyProps
+  /** 指令完成事件 */
+  onFinish?(key: string, data?: any): void
+  /** 在导入前面插入按钮 */
+  btnBefore?: ReactNode
+  /** 更多查询数据, 额外带的查询数据用 */
+  extendSearchParams?: AnyKeyProps
+  /** 列表底部插入按钮 */
+  after?: ReactNode
+  /** 列表是否自动请求 */
+  autoload?: boolean
+  /** 选择功能的配置 */
+  rowSelection?: AnyKeyProps
+  /** 查询扩展 */
+  searchExtend?: AnyKeyProps
+}
+
 export interface AySearchTableProps extends SearchTableInitConfig {
   /** 标题 */
   title?: string | ReactNode
@@ -65,7 +122,7 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   onLoad?(records: Array<AnyKeyProps>, data: any): void
   /** 查询区域是否展示 */
   searchVisible?: boolean
-  /** talbe 其它属性 */
+  /** table 其它属性 */
   tableExtend?: AnyKeyProps
   /** 指令完成事件 */
   onFinish?(key: string, data?: any): void

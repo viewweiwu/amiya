@@ -4,6 +4,48 @@ import { TableRowSelection } from 'antd/lib/table/interface'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { SizeType } from 'antd/lib/config-provider/SizeContext'
 
+export interface AyListProps {
+  title?: string | ReactNode
+  children?: ReactNode
+  header?: ReactNode
+  size?: SizeType
+  api?(params: AnyKeyProps): Promise<AnyKeyProps>
+  /** 列表项 */
+  fields: Array<AyTableField>
+  /** 列表数据 */
+  data?: Array<any>
+  /** 操作列 */
+  ctrl?: AyTableField
+  /** 列表前面的 selection */
+  rowSelection?: TableRowSelection<AnyKeyProps>
+  /** 列表查询完成监听 */
+  onLoad?(records: Array<AnyKeyProps>, data: any): void
+  /** rowKey */
+  rowKey?: string
+  /** 加载玩数据过滤 */
+  filterData?(data: AnyKeyProps): AnyKeyProps
+  /** 查询前过滤 */
+  beforeSearch?(data: AnyKeyProps): AnyKeyProps
+  /** 分页参数 */
+  pagination?: any
+  className?: string
+  /** list 其它属性 */
+  listExtend?: AnyKeyProps
+  /** 默认查询数据 */
+  defaultSearchValue?: AnyKeyProps
+  /** 默认过滤参数 */
+  defaultFiltersValue?: AnyKeyProps
+  /** 插入按钮 */
+  btnBefore?: ReactNode
+  /** 是否展示导出按钮 */
+  exportVisible?: boolean
+  /** 更多查询数据, 额外带的查询数据用 */
+  extendSearchParams?: AnyKeyProps
+  /** 表格是否自动请求 */
+  autoload?: false
+  /** 渲染元素 */
+  renderItem: (record: AnyKeyProps, index: number) => ReactNode
+}
 export interface AyTableProps {
   title?: string | ReactNode
   children?: ReactNode
@@ -35,7 +77,7 @@ export interface AyTableProps {
   /** 分页参数 */
   pagination?: any
   className?: string
-  /** talbe 其它属性 */
+  /** table 其它属性 */
   tableExtend?: AnyKeyProps
   /** 默认查询数据 */
   defaultSearchValue?: AnyKeyProps

@@ -11,12 +11,12 @@ import './ay-table.less'
 import { SortItem } from '@/AySearchTable/ay-search-table'
 
 /** 默认请求前列表过滤 */
-let defaultSearchFilter = (params: AnyKeyProps) => {
+export let defaultSearchFilter = (params: AnyKeyProps) => {
   return params
 }
 
 /** 默认请求后列表过滤 */
-let defaultDataFilter = (params: AnyKeyProps) => {
+export let defaultDataFilter = (params: AnyKeyProps) => {
   return params
 }
 
@@ -42,7 +42,7 @@ export const registerTableRender = (key: string, render: (props: RenderProps) =>
 RenderMapInit.install(registerTableRender)
 
 /** 获取表格渲染列 */
-const { getAyTableFields } = core.install(renderMap)
+export const { getAyTableFields } = core.install(renderMap)
 
 export default forwardRef(function AyTable(props: AyTableProps, ref) {
   const {
@@ -366,6 +366,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
                 showTotal: total => `共 ${total} 条`,
                 showQuickJumper: true,
                 ...pagination,
+                size: 'default',
                 total,
                 current: loadParams.pagination.current
               }

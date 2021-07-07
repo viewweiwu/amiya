@@ -254,7 +254,7 @@ export default function useExtraBtn(
                 type="text"
                 icon={<FullscreenExitOutlined />}
                 onClick={() => setIsEnter(false)}
-              ></AyButton>
+              />
             </Tooltip>
           ) : (
             <Tooltip title="全屏">
@@ -263,7 +263,7 @@ export default function useExtraBtn(
                 type="text"
                 icon={<FullscreenOutlined />}
                 onClick={() => setIsEnter(true)}
-              ></AyButton>
+              />
             </Tooltip>
           )
         ) : null}
