@@ -4,17 +4,17 @@
 
 ## Props
 
-| 方法名       | 说明                             | 可选值                                         | 默认值      |
-| ------------ | -------------------------------- | ---------------------------------------------- | ----------- |
-| width        | 弹窗宽度                         | number                                         | -           |
-| span         | 每个 Field 所占的 span 值        | number                                         | 24          |
-| fields       | 表单项，跟 AyForm 一致           | Array[AyFormField]                             | -           |
-| addApi       | 进入修改模式                     | Promise                                        | -           |
-| updateApi    | 进出详情模式                     | Promise                                        | -           |
-| beforeSubmit | 表单的提交前校验                 | (params?: AnyKeyProps, mode?: string): boolean | AnyKeyProps | - |
-| dialogOnly   | 是否只使用申明了 dialog 的 Field | boolean                                        | false       |
-| dialogExtend | AyDialog 的扩展值                | object                                         | -           |
-| formExtend   | AyForm 的扩展值                  | object                                         | -           |
+| 方法名       | 说明                             | 可选值                                                     | 默认值 |
+| ------------ | -------------------------------- | ---------------------------------------------------------- | ------ |
+| width        | 弹窗宽度                         | number                                                     | -      |
+| span         | 每个 Field 所占的 span 值        | number                                                     | 24     |
+| fields       | 表单项，跟 AyForm 一致           | Array[AyFormField]                                         | -      |
+| addApi       | 进入修改模式                     | Promise                                                    | -      |
+| updateApi    | 进出详情模式                     | Promise                                                    | -      |
+| beforeSubmit | 表单的提交前校验                 | (params?: AnyKeyProps, mode?: string) => boolean \| obejct | -      |
+| dialogOnly   | 是否只使用申明了 dialog 的 Field | boolean                                                    | false  |
+| dialogExtend | AyDialog 的扩展值                | object                                                     | -      |
+| formExtend   | AyForm 的扩展值                  | object                                                     | -      |
 
 ## Method
 

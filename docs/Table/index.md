@@ -241,6 +241,7 @@ const fields: Array<AySearchTableField> = [
 
 [1]: ./table/全局扩展按钮配置
 [option]: ./table#option-参数
+[formtype]: ./form#formtype
 [aysearchtablefield]: ./table#aysearchtablefield
 [rendertype]: ./table/自定义渲染列#更加丰富的全局注册
 [ayformfield]: ./form#ayformfield-参数

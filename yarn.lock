@@ -3201,6 +3201,18 @@ amiya@0.20.0:
     antd "^4.8.2"
     react "^17.0.1"
 
+amiya@0.26.1:
+  version "0.26.1"
+  resolved "https://registry.npmjs.org/amiya/-/amiya-0.26.1.tgz#c9ef120d4942c1d3d124c859d4d559929cb936c8"
+  integrity sha512-A/GRw0wyeFP2fpPKX522ahEq0DDNB7O2OrndEJvtStNZ2GpyZUSqRnzN+K4sBejwRtTK7axkRdx4JXc31uMGUA==
+  dependencies:
+    "@types/antd" "^1.0.0"
+    "@types/react" "^17.0.0"
+    "@types/react-dom" "^17.0.0"
+    amiya "0.20.0"
+    antd "^4.8.2"
+    react "^17.0.1"
+
 ansi-align@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/ansi-align/download/ansi-align-3.0.0.tgz#b536b371cf687caaef236c18d3e21fe3797467cb"
@@ -4447,7 +4459,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@*:
+classnames@*, classnames@^2.3.1:
   version "2.3.1"
   resolved "http://npm.wpt.la/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
   integrity sha1-38+jiR4wbsHa0QXQ6I9EF7hTXo4=
