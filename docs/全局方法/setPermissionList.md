@@ -1,6 +1,6 @@
-# setPermissionList
+# 按钮权限控制
 
-按钮权限控制。
+## setPermissionList
 
 此参数用于控制 AyButton 或者 AyAction 的权限展示。
 

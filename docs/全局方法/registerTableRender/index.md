@@ -1,6 +1,6 @@
-# registerTableRender
+# 注册自定义表格渲染列
 
-注册表格渲染。
+# registerTableRender
 
 实际情况下，可以考虑把 registerTableRender 放到全局入口。
 

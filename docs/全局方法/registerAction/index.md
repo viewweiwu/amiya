@@ -1,4 +1,6 @@
-# registerAction
+# 注册 action 事件
+
+## registerAction
 
 注册 AyAction 的 action 事件。
 

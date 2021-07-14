@@ -1,6 +1,6 @@
-# setSearchTableDefaultValue
+# 全局 AySearchTable 右侧按钮配置
 
-全局 AySearchTable 右侧按钮配置
+## setSearchTableDefaultValue
 
 如果每一个地方都需要配置太麻烦，可以在全局入口按照下面的配置进行全局配置。
 

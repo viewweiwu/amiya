@@ -1,6 +1,6 @@
-# registerField
+# 注册自定义表单类型
 
-注册表单类型。
+## registerField
 
 可以注册一个 FormType，供其它地方使用。
 
