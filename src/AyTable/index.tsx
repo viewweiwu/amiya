@@ -44,6 +44,14 @@ RenderMapInit.install(registerTableRender)
 /** 获取表格渲染列 */
 export const { getAyTableFields } = core.install(renderMap)
 
+/** 表格默认属性 */
+let tableDefaultProps = {}
+
+/** 设置表格默认属性 */
+export const setTableDefaultProps = (props: AnyKeyProps) => {
+  tableDefaultProps = props
+}
+
 export default forwardRef(function AyTable(props: AyTableProps, ref) {
   const {
     className,
@@ -376,6 +384,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
         rowKey={rowKey || 'id'}
         size={size}
         scroll={{ x: scrollX, y: height }}
+        {...tableDefaultProps}
         {...tableExtend}
       />
     </Card>

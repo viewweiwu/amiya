@@ -9,7 +9,12 @@ import { success, info, error, warning } from './AyMessage'
 import AySearch from './AySearch'
 import AySearchTable, { setSearchTableDefaultValue } from './AySearchTable'
 import AySelect from './AySelect'
-import AyTable, { setDefaultDataFilter, setDefaultSearchFilter, registerTableRender } from './AyTable'
+import AyTable, {
+  setDefaultDataFilter,
+  setDefaultSearchFilter,
+  registerTableRender,
+  setTableDefaultProps
+} from './AyTable'
 import AySearchList from './AySearchList'
 
 export {
@@ -31,6 +36,7 @@ export {
   setDefaultDataFilter,
   setDefaultSearchFilter,
   setSearchTableDefaultValue,
+  setTableDefaultProps,
   registerTableRender,
   success,
   info,
@@ -57,6 +63,7 @@ export default {
   setDefaultDataFilter,
   setDefaultSearchFilter,
   setSearchTableDefaultValue,
+  setTableDefaultProps,
   registerTableRender,
   success,
   info,

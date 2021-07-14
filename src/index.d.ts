@@ -23,7 +23,7 @@ export * from './AyTable/ay-table'
 
 export { registerAction } from './AyAction'
 export { registerField } from './AyForm'
-export { setDefaultSearchFilter, setDefaultDataFilter, registerTableRender } from './AyTable'
+export { setDefaultSearchFilter, setDefaultDataFilter, registerTableRender, setTableDefaultProps } from './AyTable'
 export { setSearchTableDefaultValue } from './AySearchTable'
 
 export { success, info, error } from './AyMessage'
