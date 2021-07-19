@@ -1,10 +1,12 @@
 import React, { useRef } from 'react'
-import { AyButton, AyDialogFormField, AyDialogForm, success } from 'amiya'
+import { AyButton, AyDialogFormField, AyDialogForm, success, error } from 'amiya'
 import { Space } from 'antd'
-import { detailApi, addApi, updateApi, professionOptions } from '../api'
+import { detailApi, addApi, updateApi, professionOptions, errorApi } from '../api'
+import { AnyKeyProps } from 'es/types/AnyKeyProps'
 
 export default function AyDialogFormDemo() {
   const formRef = useRef<any>()
+  const formErrorRef = useRef<any>()
 
   const fields: Array<AyDialogFormField> = [
     {
@@ -24,15 +26,16 @@ export default function AyDialogFormDemo() {
   ]
 
   const handleAdd = () => {
-    formRef.current.add().then(data => {
+    formRef.current.add().then((data: AnyKeyProps) => {
       console.log(data)
       success('新增成功')
     })
   }
 
   const handleUpdate = () => {
+    // 获取详情
     detailApi().then(res => {
-      formRef.current.update(res.data).then(data => {
+      formRef.current.update(res.data).then((data: AnyKeyProps) => {
         console.log(data)
         success('编辑成功')
       })
@@ -45,6 +48,28 @@ export default function AyDialogFormDemo() {
     })
   }
 
+  const handleErrorAdd = () => {
+    formErrorRef.current.add(
+      {},
+      {
+        onError: (params: AnyKeyProps) => {
+          error('请求失败，请看 log 参数')
+          console.log(params)
+        }
+      }
+    )
+  }
+  const handleErrorUpdate = () => {
+    detailApi().then(res => {
+      formErrorRef.current.update(res.data, {
+        onError: (params: AnyKeyProps) => {
+          error('请求失败，请看 log 参数')
+          console.log(params)
+        }
+      })
+    })
+  }
+
   return (
     <div className="demo">
       <Space>
@@ -52,7 +77,20 @@ export default function AyDialogFormDemo() {
         <AyButton onClick={handleUpdate}>编辑</AyButton>
         <AyButton onClick={handleView}>详情</AyButton>
       </Space>
+      <div style={{ marginTop: 16 }}>
+        <Space>
+          <AyButton onClick={handleErrorAdd}>失败新增</AyButton>
+          <AyButton onClick={handleErrorUpdate}>失败编辑</AyButton>
+        </Space>
+      </div>
       <AyDialogForm ref={formRef} fields={fields} addApi={addApi} updateApi={updateApi} />
+      <AyDialogForm
+        dialogExtend={{ confirmText: '点我就会失败' }}
+        ref={formErrorRef}
+        fields={fields}
+        addApi={errorApi}
+        updateApi={errorApi}
+      />
     </div>
   )
 }

@@ -179,3 +179,16 @@ export const deleteApi = (params: AnyKeyProps): Promise<any> => {
     })
   })
 }
+
+/**
+ * 模拟失败
+ * @param params 保存参数
+ */
+export const errorApi = (params: AnyKeyProps): Promise<any> => {
+  return new Promise((_, reject) => {
+    reject({
+      msg: '请求失败',
+      data: Date.now()
+    })
+  })
+}

@@ -31,6 +31,8 @@ export interface AyDialogFormProps extends ModalProps {
   formExtend?: AnyKeyProps
   /** 是否只使用申明了 dialog 的 Field */
   dialogOnly?: boolean
+  /** 成功后是否自动关闭 */
+  autoClose?: boolean
 }
 
 export interface AyDialogFormField extends Field {

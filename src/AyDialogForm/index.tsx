@@ -79,7 +79,9 @@ const getTitle = (mode: ModeType, title?: ReactNode): ReactNode => {
   return map[mode]
 }
 type Resolver = (value: AnyKeyProps) => void
+type Rejector = (value: AnyKeyProps) => void
 let dialogResolve: Resolver
+let dialogReject: Rejector
 
 export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: Ref<AydialogFormRef>) {
   const {
@@ -94,7 +96,8 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     dialogExtend,
     formExtend,
     drawer,
-    dialogOnly
+    dialogOnly,
+    autoClose = true
   } = props
   /** 弹窗是否可见 */
   const [visible, setVisible] = useState<boolean>(false)
@@ -173,8 +176,9 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
      * @param params 默认值
      */
     add: (params?: AnyKeyProps, config?: AnyKeyProps) => {
-      return new Promise((resolve: Resolver) => {
+      return new Promise((resolve: Resolver, reject: Rejector) => {
         dialogResolve = resolve
+        dialogReject = reject
         mode = MODE_ADD
         setMode(MODE_ADD)
         initDialog(params, config)
@@ -185,8 +189,9 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
      * @param params 默认值
      */
     update: (params?: AnyKeyProps, config?: AnyKeyProps) => {
-      return new Promise((resolve: Resolver) => {
+      return new Promise((resolve: Resolver, reject: Rejector) => {
         dialogResolve = resolve
+        dialogReject = reject
         mode = MODE_UPDATE
         setMode(MODE_UPDATE)
         initDialog(params, config)
@@ -225,7 +230,11 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
      */
     getFormRef: () => {
       return formRef
-    }
+    },
+    /**
+     * 关闭弹窗
+     */
+    closeDialog
   }))
 
   /**
@@ -236,6 +245,13 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
   }, [])
 
   /**
+   * 关闭弹窗
+   */
+  const closeDialog = () => {
+    setVisible(false)
+  }
+
+  /**
    * 表单提交
    * @step 1、根据不同模式获取不同的 API 接口
    * @step 2、开始 loading
@@ -243,42 +259,51 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
    * @step 4、关闭 loading
    * @param values 提交参数
    */
-  const handleSubmit = useCallback(
-    (values: AnyKeyProps) => {
-      const apiMap: AnyKeyProps = {
-        [MODE_ADD]: addApi,
-        [MODE_UPDATE]: updateApi,
-        [MODE_CUSTOM]: config.api
-      }
-      const api = apiMap[mode]
-      if (api) {
-        let params: AnyKeyProps = { ...initParams, ...values }
-        if (typeof beforeSubmit === 'function') {
-          let result: AnyKeyProps | boolean = beforeSubmit(params, mode)
-          if (result !== false) {
-            params = result as AnyKeyProps
-          } else {
-            return
-          }
+  const handleSubmit = (values: AnyKeyProps) => {
+    const apiMap: AnyKeyProps = {
+      [MODE_ADD]: addApi,
+      [MODE_UPDATE]: updateApi,
+      [MODE_CUSTOM]: config.api
+    }
+    const api = apiMap[mode]
+    if (api) {
+      let params: AnyKeyProps = { ...initParams, ...values }
+      if (typeof beforeSubmit === 'function') {
+        let result: AnyKeyProps | boolean = beforeSubmit(params, mode)
+        if (result !== false) {
+          params = result as AnyKeyProps
+        } else {
+          return
         }
-        setLoading(true)
-        api(params)
-          .then(
-            (data: any) => {
-              if (dialogResolve) {
-                dialogResolve({ data, values, params, record: initParams })
-              }
-              setVisible(false)
-            },
-            () => {}
-          )
-          .finally(() => {
-            setLoading(false)
-          })
       }
-    },
-    [addApi, beforeSubmit, initParams, mode, updateApi]
-  )
+      setLoading(true)
+      api(params)
+        .then(
+          (data: any) => {
+            if (dialogResolve) {
+              dialogResolve({ data, values, params, initParams, closeDialog })
+            }
+            if (config.onSuccess) {
+              config.onSuccess({ data, values, params, initParams, closeDialog })
+            }
+            if (autoClose) {
+              setVisible(false)
+            }
+          },
+          (error: any) => {
+            if (dialogReject) {
+              dialogReject({ error, values, params, initParams, closeDialog })
+            }
+            if (config.onError) {
+              config.onError({ error, values, params, initParams, closeDialog })
+            }
+          }
+        )
+        .finally(() => {
+          setLoading(false)
+        })
+    }
+  }
 
   return (
     <AyDialog
