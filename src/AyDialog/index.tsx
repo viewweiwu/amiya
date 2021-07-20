@@ -78,7 +78,7 @@ export default function AyDialog(props: AyDialogProps) {
         visible,
         closable: true,
         onClose: handleCancel,
-        footer: footer || AyDialogFooter(props, handleCancel, handleConfirm),
+        footer: footer === false ? null : AyDialogFooter(props, handleCancel, handleConfirm),
         ...extraProps
       }
     : {
@@ -92,7 +92,7 @@ export default function AyDialog(props: AyDialogProps) {
         ),
         visible,
         onCancel: handleCancel,
-        footer: footer || AyDialogFooter(props, handleCancel, handleConfirm),
+        footer: footer === false ? null : AyDialogFooter(props, handleCancel, handleConfirm),
         ...extraProps
       }
 
