@@ -5,12 +5,37 @@ import 'antd/dist/antd.min.css'
 
 const fields: Array<AyFormField> = [
   {
-    title: '姓名',
-    key: 'cname'
+    key: 'name',
+    hidden: true
   },
   {
-    title: '英文名',
-    key: 'name'
+    title: '姓名',
+    key: 'cname',
+    type: 'custom',
+    renderContent: (field, record) => {
+      return (
+        <div className="ay-form-text">
+          <div>{record.name}</div>
+          <div>{record.cname}</div>
+        </div>
+      )
+    }
+  },
+  {
+    title: '星级',
+    key: 'rarity',
+    type: 'custom',
+    renderContent: (field, record) => {
+      let starMap: any = {
+        5: '⭐️⭐️⭐️⭐️⭐️⭐️',
+        4: '⭐️⭐️⭐️⭐️⭐️',
+        3: '⭐️⭐️⭐️⭐️',
+        2: '⭐️⭐️⭐️',
+        1: '⭐️⭐️',
+        0: '⭐️'
+      }
+      return <span className="ay-form-text">{starMap[record[field.key]]}</span>
+    }
   },
   {
     title: '初始HP',
@@ -70,6 +95,7 @@ export default function Demo() {
       defaultHp: 720,
       defaultAtk: 100,
       profession: '3',
+      rarity: 4,
       createDate: '2019-4-30 10:00:00',
       desc: `
 初始开放
