@@ -185,7 +185,7 @@ const getTag = (
     switch (type) {
       case FORM_TYPE_CUSTOM:
         if (typeof field.renderContent === 'function') {
-          tag = field.renderContent(field, field._values || getDefaultValue(fields))
+          tag = field.renderContent(field, formInstans.getFieldsValue() || getDefaultValue(fields))
         }
         break
     }
@@ -340,7 +340,7 @@ const getFormItem = (
     }
 
     const content = field.render ? (
-      field.render(field, field._values || getDefaultValue(fields))
+      field.render(field, formInstans.getFieldsValue() || getDefaultValue(fields))
     ) : (
       <Form.Item {...props}>{tag}</Form.Item>
     )
