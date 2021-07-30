@@ -68,7 +68,7 @@ export default function AyButton(props: AyButtonProps) {
   delete params.onFinish
   delete params.__simple
 
-  if (props.confirm) {
+  if (props.confirm && !props.disabled) {
     if (!props.__simple) {
       return (
         <Popconfirm title={props.confirmMsg} onConfirm={() => props.onConfirm && props.onConfirm()}>
