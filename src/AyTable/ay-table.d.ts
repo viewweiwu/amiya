@@ -45,6 +45,8 @@ export interface AyListProps {
   autoload?: false
   /** 渲染元素 */
   renderItem: (record: AnyKeyProps, index: number) => ReactNode
+  /** 请求数据变化事件 */
+  onParamsChange?(params: AnyKeyProps): void
 }
 export interface AyTableProps {
   title?: string | ReactNode

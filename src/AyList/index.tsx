@@ -28,7 +28,8 @@ export default forwardRef(function AyKust(props: AyListProps, ref) {
     defaultSearchValue,
     defaultFiltersValue,
     extendSearchParams,
-    btnBefore
+    btnBefore,
+    onParamsChange
   } = props
   /** 表格查询的数据 */
   const [loadParams, setLoadParams] = useState<LoadParams>({
@@ -50,6 +51,12 @@ export default forwardRef(function AyKust(props: AyListProps, ref) {
   useEffect(() => {
     setTableData(data || [])
   }, [data])
+
+  useEffect(() => {
+    if (onParamsChange) {
+      onParamsChange(loadParams)
+    }
+  }, [loadParams])
 
   /**
    * 获得查询前的参数
