@@ -154,6 +154,7 @@ export default function Demo() {
 | autoload           | 表格渲染时自动发起请求。                                                                                                                | booelan                                         | true   |
 | onExpand           | 展开事件。                                                                                                                              | (expanded: boolean, record: Record) => void     | -      |
 | onLoad             | 表格查询完成监听。                                                                                                                      | (records: Array<Record\>, data: any) => void    | -      |
+| onParamsChange     | 查询参数变化事件，包括分页                                                                                                              | (searchPamras: Object) => void                  | -      |
 | onSelectionChange  | 选项改变事件                                                                                                                            | (selection: Array<Record\>): void               | -      |
 | rowSelection       | 表格选项设置，可以用来设置表格是否[禁用][禁用表格选项]，请不要设置 type、selectedRowKeys、onSelect、onSelectAll，这会影响到原本的设置。 | -                                               | -      |
 

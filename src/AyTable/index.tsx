@@ -79,7 +79,8 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     extendSearchParams,
     btnBefore,
     height,
-    editMode
+    editMode,
+    onParamsChange
   } = props
   /** 表格查询的数据 */
   const [loadParams, setLoadParams] = useState<LoadParams>({
@@ -103,6 +104,12 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
   useEffect(() => {
     setTableData(data || [])
   }, [data])
+
+  useEffect(() => {
+    if (onParamsChange) {
+      onParamsChange(loadParams)
+    }
+  }, [loadParams])
 
   /**
    * 获得查询前的参数

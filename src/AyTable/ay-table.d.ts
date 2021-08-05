@@ -97,6 +97,8 @@ export interface AyTableProps {
   editMode?: 'row' | 'col'
   /** 表格是否自动请求 */
   autoload?: false
+  /** 请求数据变化事件 */
+  onParamsChange?(params: AnyKeyProps): void
 }
 
 export interface AyTableField {

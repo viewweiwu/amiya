@@ -75,6 +75,8 @@ export interface AySearchListProps extends SearchTableInitConfig {
   rowSelection?: AnyKeyProps
   /** 查询扩展 */
   searchExtend?: AnyKeyProps
+  /** 请求数据变化事件 */
+  onParamsChange?(params: AnyKeyProps): void
 }
 
 export interface AySearchTableProps extends SearchTableInitConfig {
@@ -140,6 +142,8 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   rowSelection?: AnyKeyProps
   /** 查询扩展 */
   searchExtend?: AnyKeyProps
+  /** 请求数据变化事件 */
+  onParamsChange?(params: AnyKeyProps): void
 }
 export interface ExtendField extends Omit<AyFormField, 'key'> {
   key?: string

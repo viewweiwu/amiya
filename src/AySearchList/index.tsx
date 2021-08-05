@@ -146,7 +146,8 @@ export default forwardRef(function AySearchList(props: AySearchListProps, ref: R
     autoload,
     rowSelection,
     searchExtend,
-    renderItem
+    renderItem,
+    onParamsChange
   } = props
 
   /** form 控制 */
@@ -290,7 +291,8 @@ export default forwardRef(function AySearchList(props: AySearchListProps, ref: R
     btnBefore,
     editMode,
     extendSearchParams,
-    autoload
+    autoload,
+    onParamsChange
   }
 
   /** 列表子元素 */
