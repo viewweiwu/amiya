@@ -183,7 +183,7 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
         } else {
           text = getValueByOptions(value, field.options)
         }
-        return <span className="ay-form-text">{text}</span>
+        return <span className="ay-form-text">{text || FORM_READONLY_EMPTY}</span>
       }
 
       return (
