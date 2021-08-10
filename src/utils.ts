@@ -70,39 +70,6 @@ function shiftLeft(number: number, digit: any) {
   return +(value[0] + 'e' + (value[1] ? +value[1] - digit : -digit))
 }
 
-/** 数字转大写 */
-export const digitUppercase = (n: number) => {
-  let fraction = ['角', '分']
-  let digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖']
-  let unit = [
-    ['元', '万', '亿'],
-    ['', '拾', '佰', '仟']
-  ]
-  let head = n < 0 ? '欠' : ''
-  n = Math.abs(n)
-  let s = ''
-  for (let i = 0; i < fraction.length; i++) {
-    s += (digit[Math.floor(shiftRight(n, 1 + i)) % 10] + fraction[i]).replace(/零./, '')
-  }
-  s = s || '整'
-  n = Math.floor(n)
-  for (let i = 0; i < unit[0].length && n > 0; i++) {
-    let p = ''
-    for (let j = 0; j < unit[1].length && n > 0; j++) {
-      p = digit[n % 10] + unit[1][j] + p
-      n = Math.floor(shiftLeft(n, 1))
-    }
-    s = p.replace(/(零.)*零$/, '').replace(/^$/, '零') + unit[0][i] + s
-  }
-  return (
-    head +
-    s
-      .replace(/(零.)*零元/, '元')
-      .replace(/(零.)+/g, '零')
-      .replace(/^整$/, '零元整')
-  )
-}
-
 /**
  * 填充标题和值
  * @param item 当前循环项
@@ -186,29 +153,6 @@ export const listToTree = (props: ListToTreeProps) => {
     })
   }
   return roots
-}
-
-/**
- * base64 互转
- */
-export const Base64 = {
-  encode(str: string) {
-    return btoa(
-      encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(match: string, p1: number) {
-        return String.fromCharCode((`0x${p1}` as unknown) as number)
-      })
-    )
-  },
-  decode(str: string) {
-    return decodeURIComponent(
-      atob(str)
-        .split('')
-        .map(function(c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-        })
-        .join('')
-    )
-  }
 }
 
 // 根据充值类型 id 获取对应的中文描述
