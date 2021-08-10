@@ -248,7 +248,7 @@ export default function useExtraBtn(
 
         {extraFullscreenVisible ? (
           isEnter ? (
-            <Tooltip title="还原">
+            <Tooltip title="还原" key="还原">
               <AyButton
                 className="ay-search-table-fullscrenn-enter"
                 type="text"
@@ -257,7 +257,7 @@ export default function useExtraBtn(
               />
             </Tooltip>
           ) : (
-            <Tooltip title="全屏">
+            <Tooltip title="全屏" key="全屏">
               <AyButton
                 className="ay-search-table-fullscrenn-out"
                 type="text"
