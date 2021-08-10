@@ -57,19 +57,6 @@ export const clearEmpty = (params: AnyKeyProps): AnyKeyProps => {
   return result
 }
 
-// 向右移位
-function shiftRight(number: number, digit: any) {
-  digit = parseInt(digit, 10)
-  let value = number.toString().split('e')
-  return +(value[0] + 'e' + (value[1] ? +value[1] + digit : digit))
-}
-// 向左移位
-function shiftLeft(number: number, digit: any) {
-  digit = parseInt(digit, 10)
-  let value = number.toString().split('e')
-  return +(value[0] + 'e' + (value[1] ? +value[1] - digit : -digit))
-}
-
 /**
  * 填充标题和值
  * @param item 当前循环项
