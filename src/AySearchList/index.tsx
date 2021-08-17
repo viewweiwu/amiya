@@ -147,7 +147,8 @@ export default forwardRef(function AySearchList(props: AySearchListProps, ref: R
     rowSelection,
     searchExtend,
     renderItem,
-    onParamsChange
+    onParamsChange,
+    listHeader
   } = props
 
   /** form 控制 */
@@ -270,9 +271,10 @@ export default forwardRef(function AySearchList(props: AySearchListProps, ref: R
     }
   }))
 
-  const tableProps: AnyKeyProps = {
+  const listProps: AnyKeyProps = {
     ref: tableRef,
     rowSelection: tableRowSelection,
+    listHeader,
     api,
     size,
     data,
@@ -331,7 +333,7 @@ export default forwardRef(function AySearchList(props: AySearchListProps, ref: R
         ) : null}
         {center}
         {dialogFormExtend ? <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend} /> : null}
-        <AyList {...tableProps} fields={tableFields} renderItem={renderItem} header={header}>
+        <AyList {...listProps} fields={tableFields} renderItem={renderItem} header={header}>
           {tableChildren}
         </AyList>
         {selection.length && footerActions.length ? (

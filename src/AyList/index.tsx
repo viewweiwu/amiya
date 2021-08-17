@@ -12,11 +12,10 @@ export default forwardRef(function AyKust(props: AyListProps, ref) {
     className,
     header,
     api,
-    size,
     data,
     children,
     title,
-    rowSelection,
+    listHeader,
     renderItem,
     listExtend,
     onLoad,
@@ -26,7 +25,6 @@ export default forwardRef(function AyKust(props: AyListProps, ref) {
     beforeSearch,
     pagination,
     defaultSearchValue,
-    defaultFiltersValue,
     extendSearchParams,
     btnBefore,
     onParamsChange
@@ -214,6 +212,7 @@ export default forwardRef(function AyKust(props: AyListProps, ref) {
         </header>
       ) : null}
       {header}
+      {listHeader}
       <List
         itemLayout="horizontal"
         dataSource={tableData}

@@ -80,6 +80,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     btnBefore,
     height,
     editMode,
+    tableHeader,
     onParamsChange
   } = props
   /** 表格查询的数据 */
@@ -367,6 +368,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
         </header>
       ) : null}
       {header}
+      {tableHeader}
       <Table
         bordered
         onExpand={onExpand}

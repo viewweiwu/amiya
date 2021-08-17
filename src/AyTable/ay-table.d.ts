@@ -47,6 +47,8 @@ export interface AyListProps {
   renderItem: (record: AnyKeyProps, index: number) => ReactNode
   /** 请求数据变化事件 */
   onParamsChange?(params: AnyKeyProps): void
+  /** 列表头部 */
+  listHeader?: ReactNode
 }
 export interface AyTableProps {
   title?: string | ReactNode
@@ -101,6 +103,8 @@ export interface AyTableProps {
   autoload?: false
   /** 请求数据变化事件 */
   onParamsChange?(params: AnyKeyProps): void
+  /** 列表头部 */
+  tableHeader?: ReactNode
 }
 
 export interface AyTableField {

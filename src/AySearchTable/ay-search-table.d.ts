@@ -77,6 +77,8 @@ export interface AySearchListProps extends SearchTableInitConfig {
   searchExtend?: AnyKeyProps
   /** 请求数据变化事件 */
   onParamsChange?(params: AnyKeyProps): void
+  /** 列表头部 */
+  listHeader?: ReactNode
 }
 
 export interface AySearchTableProps extends SearchTableInitConfig {
@@ -144,6 +146,8 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   searchExtend?: AnyKeyProps
   /** 请求数据变化事件 */
   onParamsChange?(params: AnyKeyProps): void
+  /** 列表头部 */
+  tableHeader?: ReactNode
 }
 export interface ExtendField extends Omit<AyFormField, 'key'> {
   key?: string
