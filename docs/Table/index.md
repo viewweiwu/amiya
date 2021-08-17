@@ -147,6 +147,8 @@ export default function Demo() {
 | beforeSearch       | 提交前过滤。                                                                                                                            | (data: Object) => Object                        | -      |
 | pagination         | 分页参数。                                                                                                                              | antd 分页一致                                   | -      |
 | center             | 节点插入在查询和表格之间。                                                                                                              | ReactNode                                       | -      |
+| listHeader         | AySearchList 在列表头部插入元素。                                                                                                       | ReactNode                                       | -      |
+| tableHeader        | AySearchTable 在列表头部插入元素。                                                                                                      | ReactNode                                       | -      |
 | searchVisible      | 查询区域是否展。                                                                                                                        | boolean                                         | true   |
 | tableExtend        | table 其它属性。                                                                                                                        | Object                                          | {}     |
 | extendSearchParams | table 查询时额外查询参数。                                                                                                              | Object                                          | {}     |
