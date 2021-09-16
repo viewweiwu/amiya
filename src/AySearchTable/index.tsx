@@ -1,7 +1,6 @@
 import React, {
   useRef,
   MutableRefObject,
-  createContext,
   forwardRef,
   useImperativeHandle,
   Ref,
@@ -31,10 +30,9 @@ import { AnyKeyProps } from '../types/AnyKeyProps'
 import { Space } from 'antd'
 import { getActionProps } from '../AyAction'
 import useExtraBtn, { setSearchTableExtraDefaultValue } from './use/useExtraBtn'
-import { AyButton } from '..'
+import AyButton from '../AyButton'
+import { AySearchTableContext } from './context'
 import './ay-search-table.less'
-
-export const AySearchTableContext = createContext({})
 
 /**
  * 转化并过滤成 ay-search 能用的 fields

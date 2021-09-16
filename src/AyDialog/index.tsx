@@ -1,9 +1,8 @@
 import React from 'react'
 import AyButton from '../AyButton'
 import { Modal, Drawer, Space } from 'antd'
-import { AyDialogProps, AyConfirmProps } from './ay-dialog'
+import { AyDialogProps } from './ay-dialog'
 import { AnyKeyProps } from '@/types/AnyKeyProps'
-const { ExclayationCircleOutlined } = require('@ant-design/icons')
 
 export function AyDialogFooter(props: AyDialogProps, handleCancel: () => void, handleConfirm: () => void) {
   const {
@@ -103,18 +102,4 @@ export default function AyDialog(props: AyDialogProps) {
   ) : (
     <Modal {...dialogProps}>{children}</Modal>
   )
-}
-
-export function AyConfirm(props: AyConfirmProps) {
-  return Modal.confirm({
-    title: props.title,
-    icon: <ExclayationCircleOutlined />,
-    content: props.content,
-    okText: '确定',
-    cancelText: '关闭',
-    ...props,
-    onOk: () => {
-      return props.onConfirm()
-    }
-  })
 }

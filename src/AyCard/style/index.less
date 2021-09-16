@@ -1,0 +1,21 @@
+.ay-card {
+  &.collapsed {
+    .ay-card-collapsible-icon {
+      transform: rotate(-90deg);
+    }
+
+    .ant-card-head {
+      border-bottom: none;
+    }
+
+    .ant-card-body {
+      display: none;
+    }
+  }
+}
+
+.ay-card-collapsible-icon {
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 200ms;
+}

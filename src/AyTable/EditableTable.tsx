@@ -31,7 +31,7 @@ export function EditableCell(props: AnyKeyProps) {
     const values = await form.validateFields()
     // 将表单数据与行数据合并
     const newRow = { ...record, ...values }
-    // 重新构建数组
+    // @ts-ignore 重新构建数组
     const newTableData = [...tableData]
     // 寻找到对应行
     const index = newTableData.findIndex(row => row.id === newRow.id)

@@ -28,7 +28,7 @@ import { AnyKeyProps } from '../types/AnyKeyProps'
 import { Space } from 'antd'
 import { getActionProps } from '../AyAction'
 import AyButton from '../AyButton'
-import { AySearchTableContext } from '../AySearchTable'
+import { AySearchTableContext } from '../AySearchTable/context'
 import useExtraBtn from '../AySearchTable/use/useExtraBtn'
 
 import './ay-search-list.less'

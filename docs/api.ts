@@ -1,14 +1,14 @@
-import { AnyKeyProps } from './../es/types/AnyKeyProps.d'
+import { AnyKeyProps } from './types/AnyKeyProps'
 
 export const professionOptions = [
-  { label: '近卫干员', value: 'WARRIOR', icon: require('./images/图标_职业_近卫.png') },
-  { label: '狙击干员', value: 'SNIPER', icon: require('./images/图标_职业_狙击.png') },
-  { label: '术师重装', value: 'CASTER', icon: require('./images/图标_职业_术师.png') },
-  { label: '医疗干员', value: 'MEDIC', icon: require('./images/图标_职业_医疗.png') },
-  { label: '重装干员', value: 'TANK', icon: require('./images/图标_职业_重装.png') },
-  { label: '辅助干员', value: 'SUPPORT', icon: require('./images/图标_职业_辅助.png') },
-  { label: '特种干员', value: 'SPECIAL', icon: require('./images/图标_职业_特种.png') },
-  { label: '先锋干员', value: 'PIONEER', icon: require('./images/图标_职业_先锋.png') }
+  { label: '近卫干员', value: 'WARRIOR' },
+  { label: '狙击干员', value: 'SNIPER' },
+  { label: '术师重装', value: 'CASTER' },
+  { label: '医疗干员', value: 'MEDIC' },
+  { label: '重装干员', value: 'TANK' },
+  { label: '辅助干员', value: 'SUPPORT' },
+  { label: '特种干员', value: 'SPECIAL' },
+  { label: '先锋干员', value: 'PIONEER' }
 ]
 
 /**
@@ -24,31 +24,34 @@ const loadData = () => {
     if (local) {
       data = JSON.parse(local)
     } else {
-      // @ts-ignore
-      import('./character_table.min.json').then(json => {
-        let list = []
-        let amiya
-        for (let key in json) {
-          if (key.startsWith('char')) {
-            let row = json[key]
-            let info = row.phases[0]?.attributesKeyFrames[1]?.data || {}
-            row.id = key
-            row.cname = row.name
-            row.name = row.appellation
-            row.createDate = Date.now()
-            row.defaultAtk = info.atk
-            row.defaultHp = info.maxHp
-            if (row.appellation === 'Amiya') {
-              amiya = row
-            } else {
-              list.push(row)
+      fetch('https://cdn.weipaitang.com/static/public/2021091656e1fc16-b65b-fc16b65b-779c-796540f10bf8.json')
+        .then(res => {
+          return res.json()
+        })
+        .then(json => {
+          let list = []
+          let amiya
+          for (let key in json) {
+            if (key.startsWith('char')) {
+              let row = json[key]
+              let info = row.phases[0]?.attributesKeyFrames[1]?.data || {}
+              row.id = key
+              row.cname = row.name
+              row.name = row.appellation
+              row.createDate = Date.now()
+              row.defaultAtk = info.atk
+              row.defaultHp = info.maxHp
+              if (row.appellation === 'Amiya') {
+                amiya = row
+              } else {
+                list.push(row)
+              }
             }
           }
-        }
-        data = list.reverse()
-        data.unshift(amiya)
-        localStorage.setItem('CHARA_DATA', JSON.stringify(data))
-      })
+          data = list.reverse()
+          data.unshift(amiya)
+          localStorage.setItem('CHARA_DATA', JSON.stringify(data))
+        })
     }
   }
 }

@@ -5,7 +5,7 @@ import { AyFormField, Field } from '../AyForm/ay-form'
 import { AyDialogFormProps, AyDialogFormField, ModeType } from '../AyDialogForm/ay-dialog-form'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 
-export interface SearchTableInitConfig extends AnyKeyProps {
+export interface SearchListInitConfig extends AnyKeyProps {
   /** 扩展栏是否显示 */
   extraVisible?: boolean
   /** 扩展栏【刷新】按钮是否显示 */
@@ -20,7 +20,7 @@ export interface SearchTableInitConfig extends AnyKeyProps {
   extraFullscreenVisible?: boolean
 }
 
-export interface AySearchTableProps extends SearchTableInitConfig {
+export interface AySearchListProps extends SearchListInitConfig {
   /** 标题 */
   title?: string | ReactNode
   /** 配置项 */
