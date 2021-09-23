@@ -28,14 +28,19 @@ registerAction('add', (props, _record, searchTable) => {
     type: 'primary',
     icon: <PlusOutlined />,
     onClick: () => {
-      searchTable.formRef?.current?.add({ ...props.params }).then((res: any) => {
-        success(props.children + '成功')
-        searchTable.tableRef.current.refresh()
-        // 请求完成回调
-        if (props.onFinish) {
-          props.onFinish(res)
+      searchTable.formRef?.current?.add(
+        { ...props.params },
+        {
+          onSuccess: (res: any) => {
+            success(props.successMsg || props.children + '成功')
+            searchTable.tableRef.current.refresh()
+            // 请求完成回调
+            if (props.onFinish) {
+              props.onFinish(res)
+            }
+          }
         }
-      })
+      )
     },
     ...props
   }
@@ -47,14 +52,19 @@ registerAction('add', (props, _record, searchTable) => {
 registerAction('update', (props, record, searchTable) => {
   return {
     onClick: () => {
-      searchTable.formRef?.current?.update({ ...props.params, ...record }).then((res: any) => {
-        success(props.children + '成功')
-        searchTable.tableRef.current.refresh()
-        // 请求完成回调
-        if (props.onFinish) {
-          props.onFinish(res)
+      searchTable.formRef?.current?.update(
+        { ...props.params, ...record },
+        {
+          onSuccess: (res: any) => {
+            success(props.successMsg || props.children + '成功')
+            searchTable.tableRef.current.refresh()
+            // 请求完成回调
+            if (props.onFinish) {
+              props.onFinish(res)
+            }
+          }
         }
-      })
+      )
     },
     ...props
   }
@@ -83,7 +93,7 @@ registerAction('delete', (props, record, searchTable) => {
       if (searchTable?.deleteApi && record) {
         const params = [record[searchTable?.rowKey || 'id']]
         searchTable?.deleteApi(params).then((data: any) => {
-          success('删除成功')
+          success(props.successMsg || '删除成功')
           searchTable?.tableRef.current.refresh()
           // 请求完成回调
           if (props.onFinish) {
@@ -117,7 +127,7 @@ registerAction('batch-delete', (props, _record, searchTable) => {
           onOk: () => {
             let params: Array<string> = selection.map((row: any) => row[searchTable?.rowKey || 'id'])
             searchTable?.deleteApi(params).then((data: any) => {
-              success('批量删除成功')
+              success(props.successMsg || '批量删除成功')
               searchTable?.clearSelection()
               searchTable?.tableRef.current.refresh()
               // 请求完成回调
@@ -161,7 +171,7 @@ registerAction('editable-confirm', (props, record, searchTable, form) => {
         const newRow = { ...record, ...values }
         // 取消编辑模式
         delete newRow.editing
-        // 重新构建数组
+        // @ts-ignore 重新构建数组
         const newTableData = [...searchTable.tableRef.current.getTableData()]
         // 寻找到对应行
         const index = newTableData.findIndex(row => row.id === newRow.id)
