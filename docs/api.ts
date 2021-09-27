@@ -76,9 +76,9 @@ export const listApi = (params: AnyKeyProps): Promise<any> => {
         for (let key in searchParams) {
           // 查询值
           let value = searchParams[key]
-          if (item.hasOwnProperty(key) && item[key] !== undefined) {
+          if (item.hasOwnProperty(key) && item[key] !== undefined && value !== null) {
             if (
-              (Array.isArray(value) && !value.includes(item[key] + '')) ||
+              (Array.isArray(value) && !value.includes(item[key])) ||
               (typeof value === 'number' && Number(item[key]) === value) ||
               (typeof value === 'string' && !(value + '').includes(item[key] + ''))
             ) {
