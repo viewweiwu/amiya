@@ -81,7 +81,8 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     height,
     editMode,
     tableHeader,
-    onParamsChange
+    onParamsChange,
+    getSearchParams
   } = props
   /** 表格查询的数据 */
   const [loadParams, setLoadParams] = useState<LoadParams>({
@@ -194,6 +195,11 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     let newParams: LoadParams = {
       ...loadParams
     }
+
+    if (getSearchParams) {
+      newParams.search = clearEmpty(getSearchParams())
+    }
+
     newParams.pagination = {
       pageSize: pagination.pageSize,
       current: pagination.current

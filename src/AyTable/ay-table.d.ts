@@ -105,6 +105,8 @@ export interface AyTableProps {
   onParamsChange?(params: AnyKeyProps): void
   /** 列表头部 */
   tableHeader?: ReactNode
+  /** 获取查询参数 */
+  getSearchParams?: () => AnyKeyProps
 }
 
 export interface AyTableField {

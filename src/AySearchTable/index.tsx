@@ -267,17 +267,23 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     doLayout()
   }, [fields, isEnter])
 
-  /** 查询完成，刷新列表 */
-  const onConfirm = () => {
+  /** 获取查询参数 */
+  const getSearchParams = () => {
     // 更多查询数据
     let moreSearchValues = moreSearchRef.current?.getFieldsValue() || {}
     // 头顶查询数据
     let searchValues = searchRef.current?.getFieldsValue() || {}
-    // 合并查询
-    tableRef.current.reset({
+
+    return {
       ...moreSearchValues,
       ...searchValues
-    })
+    }
+  }
+
+  /** 查询完成，刷新列表 */
+  const onConfirm = () => {
+    // 合并查询
+    tableRef.current.reset(getSearchParams())
   }
 
   /** 暴露方法 */
@@ -389,7 +395,8 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     extendSearchParams,
     autoload,
     onParamsChange,
-    tableHeader
+    tableHeader,
+    getSearchParams
   }
 
   /** 表格子元素 */
