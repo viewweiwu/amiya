@@ -21,7 +21,7 @@ import { AyCard } from 'amiya'
 
 export default function Demo() {
   return (
-    <AyCard title="卡片标题" collapsible onCollapse={(value) => console.log(value)}>
+    <AyCard title="卡片标题" collapsible onCollapse={value => console.log(value)}>
       卡片内容
     </AyCard>
   )

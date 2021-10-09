@@ -46,7 +46,7 @@ import 'antd/dist/antd.min.css'
  * 测试接口，实际过程中请使用 axios 接口
  * */
 const listApi = () => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const data = [
       {
         id: '1',
@@ -73,7 +73,7 @@ const listApi = () => {
  * */
 const emptyApi = (params?: any) => {
   console.log(params)
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(() => {
       resolve()
     }, 300)

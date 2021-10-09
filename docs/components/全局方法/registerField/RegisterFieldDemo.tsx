@@ -29,7 +29,7 @@ export default function RegisterFieldDemo() {
     <>
       <p>
         <label style={{ marginRight: 4 }}>只读模式</label>
-        <Switch defaultChecked={readonly} onChange={(value) => setReadonly(value)} />
+        <Switch defaultChecked={readonly} onChange={value => setReadonly(value)} />
       </p>
       <AyForm
         readonly={readonly}

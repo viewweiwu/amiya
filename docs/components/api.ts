@@ -1,4 +1,4 @@
-import { AnyKeyProps } from './types/AnyKeyProps'
+import { AnyKeyProps } from '../types/AnyKeyProps'
 
 export const professionOptions = [
   { label: '近卫干员', value: 'WARRIOR' },

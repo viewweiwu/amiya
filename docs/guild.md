@@ -1,3 +1,7 @@
+---
+sidemenu: false
+---
+
 # 了解 Amiya
 
 它是基于 antd 的二次封装，类似于 ProComponent。
@@ -218,7 +222,7 @@ export default function Demo() {
 
 用 `Amiya` 实现的效果。↓↓↓↓↓↓↓↓↓↓
 
-<code src="./Form/AyFormDescDemo.tsx" />
+<code src="./components/Form/AyFormDescDemo.tsx" />
 
 ### AySearchTable
 
