@@ -97,7 +97,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
   /** 表格数据 */
   const [tableData, setTableData] = useState<Array<AnyKeyProps>>(data || [])
   /** 表格配置 */
-  const ayTableFields: Array<AyTableField> = getAyTableFields(fields, loadParams, tableData, setTableData, ctrl)
+  const ayTableFields: Array<AyTableField> = getAyTableFields(fields, loadParams, tableData, setTableData, ctrl, props)
   /** 是否正在加载 */
   const [loading, setLoading] = useState<boolean>(false)
   /** 总共多少条 */

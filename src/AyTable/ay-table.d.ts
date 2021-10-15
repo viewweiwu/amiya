@@ -111,7 +111,7 @@ export interface AyTableProps {
 
 export interface AyTableField {
   /** 标题 */
-  title?: string
+  title?: ReactNode | string
   /** 唯一 key，dataIndex 默认会跟次值一样 */
   key?: string
   /** 渲染可选项 */
@@ -140,7 +140,7 @@ export interface AyTableCtrlField extends AyTableField {
 }
 
 export interface RenderProps {
-  text: string
+  text: string | any
   record: AnyKeyProps
   index: number
   field: AnyKeyProps

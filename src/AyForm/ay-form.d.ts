@@ -105,7 +105,7 @@ export type FormType =
  */
 export interface Field {
   /** 标题 */
-  title?: string
+  title?: ReactNode | string
   /** 相应的 key */
   key?: string
   /** 对应类型 */
@@ -123,7 +123,7 @@ export interface Field {
 
 export interface Option {
   /** 页面展示的值 */
-  label: string | number
+  label: ReactNode | string | number
   /** 实际所取到的值 */
   value: any
   /** 是否禁用 */

@@ -17,7 +17,7 @@ export function EditableRow({ index, ...props }: AnyKeyProps) {
 }
 
 export function EditableCell(props: AnyKeyProps) {
-  const { field, record, children, tableData, setTableData, ...restProps } = props
+  const { field, record, children, tableData, setTableData, rowKey, tableProps, ...restProps } = props
   const [editing, setEditing] = useState<boolean>(false)
   const form = useContext(EditableContext)
   let tag: ReactNode
@@ -34,7 +34,7 @@ export function EditableCell(props: AnyKeyProps) {
     // @ts-ignore 重新构建数组
     const newTableData = [...tableData]
     // 寻找到对应行
-    const index = newTableData.findIndex(row => row.id === newRow.id)
+    const index = newTableData.findIndex(row => row[tableProps.rowKey || 'id'] === newRow[tableProps.rowKey || 'id'])
     // 替换行
     newTableData.splice(index, 1, newRow)
     // 替换表格数据
@@ -94,7 +94,7 @@ export function EditableCell(props: AnyKeyProps) {
 }
 
 export function EditableRowCell(props: AnyKeyProps) {
-  const { field, record, children, tableData, setTableData, ...restProps } = props
+  const { field, record, children, tableData, setTableData, tableProps, ...restProps } = props
   const form = useContext(EditableContext)
   const editing = record?.editing || false
   let tag: ReactNode
@@ -107,7 +107,7 @@ export function EditableRowCell(props: AnyKeyProps) {
     // 重新构建数组
     const newTableData = [...tableData]
     // 寻找到对应行
-    const index = newTableData.findIndex(row => row.id === newRow.id)
+    const index = newTableData.findIndex(row => row[tableProps.rowKey || 'id'] === newRow[tableProps.rowKey || 'id'])
     // 替换行
     newTableData.splice(index, 1, newRow)
     // 替换表格数据

@@ -1,4 +1,4 @@
-import { AnyKeyProps } from '../types/AnyKeyProps'
+import { AnyKeyProps } from './types/AnyKeyProps'
 
 /**
  * 拷贝对象

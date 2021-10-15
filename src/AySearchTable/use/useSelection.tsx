@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { ReactNode, useState, ReactText, useEffect } from 'react'
 import Alert from 'antd/lib/alert'
 import { Tag, Popover } from 'antd'
@@ -81,6 +80,7 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
    * @param row 某一条选项
    */
   const addSelection = (row: AnyKeyProps) => {
+    // @ts-ignore
     let newKeys = [...selectionKeys]
     let newSelection = [...selection]
 

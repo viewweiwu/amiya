@@ -54,6 +54,7 @@ const useFieldsEdit = (
 ) => {
   const [visible, setVisible] = useState<boolean>(false)
   let [normalFields, setNormalFields] = useState<Array<FieldEdit>>(
+    // @ts-ignore
     tableFields
       .filter(field => {
         // 已经设置过展示的，直接通过判定
@@ -74,6 +75,7 @@ const useFieldsEdit = (
   )
 
   const handleCheckedChange = (i: number, value: boolean) => {
+    // @ts-ignore
     let newFields = [...normalFields]
     let fieldEdit = newFields[i]
     fieldEdit.checked = value

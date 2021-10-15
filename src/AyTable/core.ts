@@ -11,12 +11,14 @@ export const install = (renderMap: AnyKeyProps) => {
    * @param params 查询参数
    * @param tableData 表格数据
    * @param setTableData 设置表格数据
+   * @param props 表格属性
    */
   const getAyTableField = (
     field: AnyKeyProps,
     params: AnyKeyProps,
     tableData: Array<AnyKeyProps>,
-    setTableData: Dispatch<SetStateAction<Array<AnyKeyProps>>>
+    setTableData: Dispatch<SetStateAction<Array<AnyKeyProps>>>,
+    props?: AnyKeyProps
   ) => {
     let tableField: AnyKeyProps = {
       key: field.key,
@@ -77,7 +79,8 @@ export const install = (renderMap: AnyKeyProps) => {
           record,
           field: field,
           tableData,
-          setTableData
+          setTableData,
+          tableProps: props
         }
       }
     }
@@ -101,13 +104,15 @@ export const install = (renderMap: AnyKeyProps) => {
    * @param tableData 表格数据
    * @param setTableData 设置表格数据
    * @param ctrl 操作列
+   * @param props 表格属性
    */
   const getAyTableFields = (
     fields: Array<any>,
     params: AnyKeyProps,
     tableData: Array<AnyKeyProps>,
     setTableData: Dispatch<SetStateAction<Array<AnyKeyProps>>>,
-    ctrl?: AyTableField
+    ctrl?: AyTableField,
+    props?: AnyKeyProps
   ): Array<AyTableField> => {
     let tableFields = fields
       .filter(field => {
@@ -120,7 +125,7 @@ export const install = (renderMap: AnyKeyProps) => {
         return field.hidden !== true
       })
       .map(field => {
-        return getAyTableField(field, params, tableData, setTableData)
+        return getAyTableField(field, params, tableData, setTableData, props)
       })
 
     // 保证操作列在最后
