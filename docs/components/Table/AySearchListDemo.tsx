@@ -1,6 +1,6 @@
 import React from 'react'
 import { AySearchList, AyAction, AyCtrl, AySearchTableField, AyTableCtrlField } from 'amiya'
-import { Card, List, Tag } from 'antd'
+import { Card, List, Tag, Image, Space } from 'antd'
 import { listApi, addApi, updateApi, deleteApi, professionOptions } from '../api'
 import 'antd/dist/antd.min.css'
 import { AnyKeyProps } from 'es/types/AnyKeyProps'
@@ -28,7 +28,7 @@ export default function AySearchDemo() {
   const fields: Array<AySearchTableField> = [
     {
       title: '英文名',
-      key: 'name',
+      key: 'en',
       search: {},
       dialog: {
         required: true,
@@ -37,33 +37,21 @@ export default function AySearchDemo() {
     },
     {
       title: '初始HP',
-      key: 'defaultHp',
+      key: 'ori-hp',
       dialog: {}
     },
     {
       title: '初始攻击',
-      key: 'defaultAtk',
+      key: 'ori-atk',
       dialog: {}
     },
     {
       title: '职业',
-      key: 'profession',
+      key: 'class',
       type: 'select',
       search: {},
       dialog: {},
       options: professionOptions
-    },
-    {
-      title: '上线开始时间',
-      key: 'startDate',
-      type: 'date',
-      search: {}
-    },
-    {
-      title: '上线结束时间',
-      key: 'endDate',
-      type: 'date',
-      search: {}
     }
   ]
 
@@ -74,6 +62,7 @@ export default function AySearchDemo() {
       api={listApi}
       fields={fields}
       ctrl={CtrlField}
+      rowKey="sort_id"
       deleteApi={deleteApi}
       listExtend={{
         grid: { gutter: 16, column: 3 }
@@ -97,13 +86,19 @@ export default function AySearchDemo() {
           群攻: 'blue',
           生存: 'cyan',
           费用回复: 'gold',
-          防护: 'purple'
+          防护: 'purple',
+          新手: 'geekblue'
         }
         return (
-          <List.Item key={record.id}>
+          <List.Item key={record.sort_id}>
             <Card
-              key={record.id}
-              title={record.cname}
+              key={record.sort_id}
+              title={
+                <Space style={{ display: 'flex', alignItems: 'center' }}>
+                  <Image preview={false} width={30} src={record.icon} />
+                  {record.cn}
+                </Space>
+              }
               extra={starMap[record.rarity]}
               actions={[
                 <AyAction type="text" record={record} action="view">
@@ -117,14 +112,17 @@ export default function AySearchDemo() {
                 </AyAction>
               ]}
             >
-              <div style={{ padding: 16 }}>
-                <p>{record.itemDesc}</p>
-                <p>{record.itemUsage}</p>
-                <p>
-                  {record.tagList.map((item: string) => (
-                    <Tag color={colorMap[item]}>{item}</Tag>
-                  ))}
-                </p>
+              <div style={{ padding: 16, display: 'flex' }}>
+                <img src={record.half.replace('110', '170')} width={100} height={200} />
+                <div style={{ marginLeft: 12 }}>
+                  <p>
+                    {record.tags.map((item: string) => (
+                      <Tag color={colorMap[item]}>{item}</Tag>
+                    ))}
+                  </p>
+                  <p>{record.des}</p>
+                  <p dangerouslySetInnerHTML={{ __html: record.feature }}></p>
+                </div>
               </div>
             </Card>
           </List.Item>

@@ -226,10 +226,13 @@ export default function Demo() {
 
 ### AySearchTable
 
-1. 支持分页删除。
-2. 支持表格快捷按钮。刷新、密度、列控制、全屏。
-3. 支持顶部加入查询条件。（默认 span 为 8 的 AyForm）
-4. 支持右侧加入查询条件。在表格的操作按钮前面。
+### 1. 支持跨页删除。
+
+<video style="max-width: 100%" controls src="https://cdn.weipaitang.com/static/public/202110116955def6-9761-def69761-dedf-abd05e64ebf8.webm"></video>
+
+### 2. 支持表格快捷按钮。刷新、密度、列控制、全屏。
+
+<video style="max-width: 100%" controls src="https://cdn.weipaitang.com/static/public/2021101146a26213-cae7-6213cae7-a70a-38ba0cf998ca.webm"></video>
 
 [1]: ./form#所有的默认表单类型
 [2]: ./form#desc-模式

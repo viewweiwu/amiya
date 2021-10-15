@@ -1,14 +1,14 @@
 import { AnyKeyProps } from '../types/AnyKeyProps'
 
 export const professionOptions = [
-  { label: '近卫干员', value: 'WARRIOR' },
-  { label: '狙击干员', value: 'SNIPER' },
-  { label: '术师重装', value: 'CASTER' },
-  { label: '医疗干员', value: 'MEDIC' },
-  { label: '重装干员', value: 'TANK' },
-  { label: '辅助干员', value: 'SUPPORT' },
-  { label: '特种干员', value: 'SPECIAL' },
-  { label: '先锋干员', value: 'PIONEER' }
+  { label: '近卫干员', value: '近卫' },
+  { label: '狙击干员', value: '狙击' },
+  { label: '术师重装', value: '术师' },
+  { label: '医疗干员', value: '医疗' },
+  { label: '重装干员', value: '重装' },
+  { label: '辅助干员', value: '辅助' },
+  { label: '特种干员', value: '特种' },
+  { label: '先锋干员', value: '先锋' }
 ]
 
 /**
@@ -19,38 +19,18 @@ let data: Array<AnyKeyProps> = []
 // 没有数据，加载数据
 const loadData = () => {
   if (!data.length) {
-    let local = localStorage.getItem('CHARA_DATA')
+    let local = localStorage.getItem('CHARA_DATA_1015')
     // 本地有数据用本地
     if (local) {
       data = JSON.parse(local)
     } else {
-      fetch('https://cdn.weipaitang.com/static/public/2021091656e1fc16-b65b-fc16b65b-779c-796540f10bf8.json')
+      fetch('https://cdn.weipaitang.com/static/public/2021101471bb486e-5211-486e5211-1287-875e331132b9.json')
         .then(res => {
           return res.json()
         })
         .then(json => {
-          let list = []
-          let amiya
-          for (let key in json) {
-            if (key.startsWith('char')) {
-              let row = json[key]
-              let info = row.phases[0]?.attributesKeyFrames[1]?.data || {}
-              row.id = key
-              row.cname = row.name
-              row.name = row.appellation
-              row.createDate = Date.now()
-              row.defaultAtk = info.atk
-              row.defaultHp = info.maxHp
-              if (row.appellation === 'Amiya') {
-                amiya = row
-              } else {
-                list.push(row)
-              }
-            }
-          }
-          data = list.reverse()
-          data.unshift(amiya)
-          localStorage.setItem('CHARA_DATA', JSON.stringify(data))
+          data = json.reverse()
+          localStorage.setItem('CHARA_DATA_1015', JSON.stringify(data))
         })
     }
   }

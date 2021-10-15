@@ -6,7 +6,7 @@ import 'antd/dist/antd.min.css'
 const fields: Array<AySearchTableField> = [
   {
     title: '姓名',
-    key: 'cname',
+    key: 'cn',
     table: {
       width: 200,
       editable: true,
@@ -21,7 +21,7 @@ const fields: Array<AySearchTableField> = [
   },
   {
     title: '职业',
-    key: 'profession',
+    key: 'class',
     type: 'select',
     options: professionOptions,
     table: {
@@ -38,7 +38,7 @@ const fields: Array<AySearchTableField> = [
   },
   {
     title: '英文名',
-    key: 'name',
+    key: 'en',
     table: {
       editable: true
     }
@@ -89,6 +89,7 @@ export default function Demo() {
       fields={fields}
       ctrl={CtrlField}
       editMode="row"
+      rowKey="en"
       title="可编辑行"
       after={<AyAction action="editable-add">新增</AyAction>}
     >

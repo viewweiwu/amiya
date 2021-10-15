@@ -20,12 +20,8 @@ import 'antd/dist/antd.min.css'
 const fields: Array<AySearchTableField> = [
   {
     title: '姓名',
-    key: 'cname',
+    key: 'cn',
     search: {}
-  },
-  {
-    title: '审批备注',
-    key: 'itemUsage'
   }
 ]
 

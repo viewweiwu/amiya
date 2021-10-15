@@ -8,7 +8,7 @@ import 'antd/dist/antd.min.css'
 const fields: Array<AySearchTableField> = [
   {
     title: '英文名',
-    key: 'name',
+    key: 'en',
     table: {
       width: 300,
       editable: true,
@@ -17,7 +17,7 @@ const fields: Array<AySearchTableField> = [
   },
   {
     title: '复杂的姓名编辑',
-    key: 'cname',
+    key: 'cn',
     table: {
       width: 300,
       editable: true,
@@ -44,7 +44,7 @@ const fields: Array<AySearchTableField> = [
       },
       // 后置元素
       after: ({ record }: AnyKeyProps) => {
-        return <div style={{ color: record.color || '#ccc' }}>可以换色：{record.cname}</div>
+        return <div style={{ color: record.color || '#ccc' }}>可以换色：{record.cn}</div>
       },
       contentProps: {
         allowClear: true
@@ -62,7 +62,7 @@ const fields: Array<AySearchTableField> = [
   },
   {
     title: '职业',
-    key: 'profession',
+    key: 'class',
     type: 'select',
     options: professionOptions,
     table: {
@@ -74,15 +74,6 @@ const fields: Array<AySearchTableField> = [
       },
       formItemProps: {
         rules: [{ required: true, message: '请选择职业' }]
-      }
-    }
-  },
-  {
-    title: '镜像姓名',
-    key: 'cname-mirror',
-    table: {
-      render: (text, record) => {
-        return record.cname
       }
     }
   }
@@ -103,6 +94,7 @@ export default function Demo() {
       api={listApi}
       fields={fields}
       editMode="col"
+      rowKey="en"
       title="可编辑单元格"
     >
       <AyButton type="primary" onClick={handleLog}>

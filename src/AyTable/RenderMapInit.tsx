@@ -1,7 +1,7 @@
 import React, { ReactNode, useRef, useEffect } from 'react'
 import { Option } from '../AyForm/ay-form'
 import moment from 'moment'
-import { Tooltip, Input } from 'antd'
+import { Tooltip, Input, Image, Tag } from 'antd'
 import { RenderProps } from './ay-table'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { AySelect } from 'amiya'
@@ -20,11 +20,11 @@ export const install = (registerTableRender: (key: string, render: (props: Rende
     )
   })
 
-  registerTableRender('datetime', ({ text }: RenderProps) => {
+  registerTableRender('datetime', ({ text, field }: RenderProps) => {
     if (!text) {
       return ''
     }
-    return moment(text).format('YYYY-MM-DD HH:mm:ss')
+    return moment(text).format(field.format || 'YYYY-MM-DD HH:mm:ss')
   })
 
   registerTableRender('editable-cell-input', ({ text, field }: RenderProps) => {
@@ -68,6 +68,21 @@ export const install = (registerTableRender: (key: string, render: (props: Rende
         />
       )
     }
+  })
+
+  registerTableRender('image', ({ text, field }: RenderProps) => {
+    return <Image width={100} {...field.props} src={text} />
+  })
+
+  registerTableRender('html', ({ text, field }: RenderProps) => {
+    return <div dangerouslySetInnerHTML={{ __html: text }}></div>
+  })
+
+  registerTableRender('tags', ({ text, field }: RenderProps) => {
+    if (!field.colorMap) {
+      return text
+    }
+    return text.map((item: string) => <Tag color={field.colorMap[item]}>{item}</Tag>)
   })
 }
 

@@ -7,7 +7,6 @@
 ```tsx
 import React, { useState } from 'react'
 import { AyButton } from 'amiya'
-import 'antd/dist/antd.min.css'
 
 export default function Demo() {
   return (
@@ -23,7 +22,6 @@ export default function Demo() {
 ```tsx
 import React, { useState } from 'react'
 import { AyButton, setPermissionList } from 'amiya'
-import 'antd/dist/antd.min.css'
 
 // 注释掉此行，将不会展示相关按钮
 setPermissionList(['delete'])

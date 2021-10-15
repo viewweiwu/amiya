@@ -8,6 +8,16 @@ export default defineConfig({
   publicPath: '/amiya/',
   base: '/amiya/',
   mode: 'site',
+  extraBabelPlugins: [
+    [
+      'import',
+      {
+        libraryName: 'antd',
+        libraryDirectory: 'es',
+        style: true
+      }
+    ]
+  ],
   navs: [
     {
       title: '介绍',

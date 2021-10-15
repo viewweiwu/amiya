@@ -4,6 +4,12 @@ order: 1
 
 # 更新日志
 
+## 0.33.0
+
+1. feat: 新文档。
+2. delete: 删除 addFieldListener，removeFieldListener 方法。
+3. feat: 添加新的 renderType：html、tags。
+
 ## 0.32.1
 
 1. fix: 修复输入查询参数后，直接点击排序或筛选，请求缺少输入的参数。

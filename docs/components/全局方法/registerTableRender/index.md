@@ -15,43 +15,8 @@ import 'antd/dist/antd.min.css'
 
 const fields: Array<AySearchTableField> = [
   {
-    title: '编号',
-    key: 'displayNumber',
-    table: {
-      renderType: 'number'
-    }
-  },
-  {
     title: '姓名',
-    key: 'cname',
-    table: {
-      renderType: 'name'
-    }
-  },
-  {
-    title: '英文名',
-    key: 'name',
-    search: {},
-    table: {
-      hidden: true
-    }
-  },
-  {
-    title: '职业',
-    key: 'profession',
-    type: 'select',
-    search: {},
-    table: {
-      renderType: 'profession'
-    },
-    options: professionOptions
-  },
-  {
-    title: '标签',
-    key: 'tagList',
-    table: {
-      renderType: 'tag'
-    }
+    key: 'cn'
   },
   {
     title: '星级',
@@ -59,25 +24,18 @@ const fields: Array<AySearchTableField> = [
     table: {
       renderType: 'star'
     }
-  },
-  {
-    title: '潜能提升',
-    key: 'potentialRanks',
-    table: {
-      renderType: 'potentialRanks'
-    }
   }
 ]
 
 export default function Demo() {
-  return <AySearchTable title="全局 table render 方法注册" api={listApi} fields={fields} />
+  return <AySearchTable title="全局 table render 方法注册" searchVisible={false} api={listApi} fields={fields} />
 }
 ```
 
 <hr/>
 
 ```js
-import { registerTableRender } from 'amiya'
+import { registerTableRender, RenderProps } from 'amiya'
 
 /**
  * @decs 注册 renderType
@@ -88,7 +46,7 @@ import { registerTableRender } from 'amiya'
  *
  * @returns ReactNode
  */
-registerTableRender('renderTypeName', ({ text, record, field }: object) => {
+registerTableRender('renderTypeName', ({ text, record, field }: RenderProps) => {
   return <span>{text}</span>
 })
 

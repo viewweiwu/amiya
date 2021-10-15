@@ -13,119 +13,6 @@
 
 <code src="./AySearchTableDemo.tsx" />
 
-## 弹窗改抽屉
-
-```tsx
-import React from 'react'
-import { AySearchTable, AyAction, AyCtrl, AySearchTableField } from 'amiya'
-import { AyTableCtrlField } from 'amiya/lib/AyTable/ay-table'
-import { listApi, addApi, updateApi, deleteApi, professionOptions } from '../api'
-import 'antd/dist/antd.min.css'
-
-const fields: Array<AySearchTableField> = [
-  {
-    title: '姓名',
-    key: 'cname',
-    search: {},
-    dialog: {
-      required: true
-    }
-  },
-  {
-    title: '英文名',
-    key: 'name',
-    search: {},
-    dialog: {
-      required: true
-    }
-  },
-  {
-    title: '初始HP',
-    key: 'defaultHp',
-    dialog: {}
-  },
-  {
-    title: '初始攻击',
-    key: 'defaultAtk',
-    dialog: {}
-  },
-  {
-    title: '职业',
-    key: 'profession',
-    type: 'select',
-    search: {},
-    dialog: {},
-    options: professionOptions
-  },
-  {
-    title: '上线时间',
-    key: 'createDate',
-    table: {
-      renderType: 'datetime'
-    }
-  },
-  {
-    title: '上线开始时间',
-    key: 'startDate',
-    type: 'date',
-    search: {},
-    table: {
-      hidden: true
-    }
-  },
-  {
-    title: '上线结束时间',
-    key: 'endDate',
-    type: 'date',
-    search: {},
-    table: {
-      hidden: true
-    }
-  }
-]
-
-const CtrlField: AyTableCtrlField = {
-  width: 200,
-  render: (value, record) => {
-    return (
-      <AyCtrl>
-        <AyAction record={record} action="update">
-          编辑
-        </AyAction>
-        <AyAction record={record} action="delete">
-          删除
-        </AyAction>
-        <AyAction record={record} action="view">
-          详情
-        </AyAction>
-      </AyCtrl>
-    )
-  }
-}
-
-export default function Demo() {
-  return (
-    <AySearchTable
-      title="表格标题"
-      selectionType="checkbox"
-      api={listApi}
-      fields={fields}
-      ctrl={CtrlField}
-      deleteApi={deleteApi}
-      dialogFormExtend={{
-        drawer: true,
-        fields: fields,
-        updateApi,
-        addApi
-      }}
-    >
-      <AyAction action="batch-delete">批量删除</AyAction>
-      <AyAction action="add">新增</AyAction>
-    </AySearchTable>
-  )
-}
-```
-
 ## 参数
 
 | 参数名             | 说明                                                                                                                                    | 参数类型                                        | 默认值 |
@@ -208,7 +95,7 @@ const fields: Array<AySearchTableField> = [
 | options        | 可选项，展示会根据这个值变化                               | Array<[Option][option]>                                               | -        |
 | hidden         | 隐藏这一列                                                 | boolean \| () => boolean                                              | -        |
 | render         | 自定义展示列                                               | (text: ReactNode, record: AnyKeyProps, index: number) => ReactNode    | -        |
-| renderType     | 美化展示列，可以[全局注册][rendertype]                     | 'datetime'                                                            | 'string' | - |
+| renderType     | 美化展示列，可以[全局注册][rendertype]                     | string                                                                | 'string' | - |
 | filter         | 筛选                                                       | boolean                                                               | -        |
 | filterMultiple | 筛选是否支持多选                                           | boolean                                                               | false    |
 | sort           | 排序                                                       | boolean                                                               | -        |
@@ -242,11 +129,11 @@ const fields: Array<AySearchTableField> = [
 | setSortsValue(<br>Array<{ key: string, order: 'ascend' \| 'descend' }><br>) | 设置排序值，<span style="color: #f06">设置后会影响，并覆盖现有的排序值</span>，可用 `getApiParams()` 中的 `sorts` 来获得现有排序值 | -                                      |
 | setFiltersValue({ key: value })                                             | 设置筛选值                                                                                                                         | -                                      |
 
-[1]: ./table/全局扩展按钮配置
+[1]: ./全局方法/set-search-table-default-value
 [option]: ./table#option-参数
 [formtype]: ./form#formtype
 [aysearchtablefield]: ./table#aysearchtablefield
-[rendertype]: ./table/自定义渲染列#更加丰富的全局注册
+[rendertype]: ./table/自定义渲染列#已全局注册
 [ayformfield]: ./form#ayformfield-参数
 [aytablefield]: ./table#aytablefield
 [aydialogform]: ./form/ay-dialog-form
