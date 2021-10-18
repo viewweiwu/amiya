@@ -9,6 +9,7 @@ import React, {
   useEffect
 } from 'react'
 import AyCard from '../AyCard'
+import { theme } from '../Theme'
 import { Form, Row, Col, Input } from 'antd'
 import { AyFormField, AyFormProps, FieldListener, RegisterFieldProps } from './ay-form'
 import { copy } from '../utils'
@@ -485,7 +486,7 @@ const handleChange = (
  * @param readonly 是否处于只读模式
  */
 const getAyFormClassName = (className?: string, desc?: boolean, readonly?: boolean) => {
-  const classList = ['ay-form']
+  const classList = ['ay-form', theme]
   if (className) {
     classList.push(className)
   }
