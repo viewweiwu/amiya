@@ -27,7 +27,6 @@ sidemenu: false
 ```tsx
 import React from 'react'
 import { Form, Input, Button, Checkbox, DatePicker, Select } from 'antd'
-import 'antd/dist/antd.min.css'
 import moment from 'moment'
 
 const layout = {
@@ -87,7 +86,6 @@ export default function Demo() {
 ```tsx
 import React from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
-import 'antd/dist/antd.min.css'
 import moment from 'moment'
 
 const fields: Array<AyFormField> = [
@@ -165,7 +163,6 @@ export default function Demo() {
 ```tsx
 import React from 'react'
 import { Descriptions } from 'antd'
-import 'antd/dist/antd.min.css'
 
 const data = {
   cname: '阿米娅',

@@ -8,7 +8,6 @@
 import React, { useState } from 'react'
 import { AyButton, AyCtrl, AyAction, setPermissionList } from 'amiya'
 import { Space } from 'antd'
-import 'antd/dist/antd.min.css'
 
 export default function Demo() {
   const addPermission = () => {

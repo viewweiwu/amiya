@@ -8,7 +8,6 @@
 import React from 'react'
 import { AySearchTable, setTableDefaultProps } from 'amiya'
 import { listApi } from '../api'
-import 'antd/dist/antd.min.css'
 
 setTableDefaultProps({
   bordered: false

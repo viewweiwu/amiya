@@ -15,7 +15,6 @@ import React from 'react'
 import { AySearchTable, AyAction, AyCtrl, AySearchTableField, AyTableCtrlField } from 'amiya'
 import { listApi, addApi, updateApi, deleteApi, professionOptions, emptyApi } from '../../api'
 import './amiya-init'
-import 'antd/dist/antd.min.css'
 
 const fields: Array<AySearchTableField> = [
   {

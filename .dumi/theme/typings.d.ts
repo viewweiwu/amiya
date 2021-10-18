@@ -1,4 +1,4 @@
-declare module 'fullscreen-react'
+declare module '*.module.less'
 
 interface Window {
   DarkReader: any

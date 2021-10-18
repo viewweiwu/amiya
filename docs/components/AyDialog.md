@@ -1,13 +1,12 @@
 # AyDialog
 
-![amiya AyDialog](https://misc.hzzcckj.cn/upload/image/202011/ac64d2e7e400000.png)
+<!-- ![amiya AyDialog](https://misc.hzzcckj.cn/upload/image/202011/ac64d2e7e400000.png) -->
 
 ## 基础示例
 
 ```tsx
 import React, { useState } from 'react'
 import { AyDialog, AyButton } from 'amiya'
-import 'antd/dist/antd.min.css'
 
 export default function Demo() {
   const [visible, setVisible] = useState<boolean>(false)
@@ -29,7 +28,6 @@ export default function Demo() {
 ```tsx
 import React, { useState } from 'react'
 import { AyDialog, AyButton } from 'amiya'
-import 'antd/dist/antd.min.css'
 
 export default function Demo() {
   const [visible, setVisible] = useState<boolean>(false)
@@ -52,7 +50,6 @@ export default function Demo() {
 import React, { useState } from 'react'
 import { AyDialog, AyButton } from 'amiya'
 import { Space } from 'antd'
-import 'antd/dist/antd.min.css'
 
 export default function Demo() {
   const [visible, setVisible] = useState<boolean>(false)
@@ -81,7 +78,6 @@ export default function Demo() {
 ```tsx
 import React, { useState } from 'react'
 import { AyDialog, AyButton } from 'amiya'
-import 'antd/dist/antd.min.css'
 
 export default function Demo() {
   const [visible, setVisible] = useState<boolean>(false)

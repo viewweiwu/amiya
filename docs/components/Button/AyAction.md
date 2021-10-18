@@ -7,7 +7,6 @@ AyAction 继承了 AyButton 所有属性。
 ```tsx
 import React, { useState } from 'react'
 import { AyAction } from 'amiya'
-import 'antd/dist/antd.min.css'
 
 export default function Demo() {
   return <AyAction onClick={() => alert('按钮')}>修改</AyAction>
@@ -99,7 +98,6 @@ export default function Demo() {
 import React from 'react'
 import { AySearchTable, AyAction, AyCtrl, AySearchTableField, AyTableCtrlField } from 'amiya'
 import { listApi, addApi, updateApi, deleteApi, professionOptions } from '../api'
-import 'antd/dist/antd.min.css'
 
 const fields: Array<AySearchTableField> = [
   {

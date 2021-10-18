@@ -1,13 +1,12 @@
 # AyForm
 
-![amiya AyForm](https://misc.hzzcckj.cn/upload/image/202011/ac64675b2800000.png)
+<!-- ![amiya AyForm](https://misc.hzzcckj.cn/upload/image/202011/ac64675b2800000.png) -->
 
 ## 登录示例
 
 ```tsx
 import React from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
-import 'antd/dist/antd.min.css'
 
 const fields: Array<AyFormField> = [
   {
@@ -57,7 +56,6 @@ export default function Demo() {
 import React, { useState } from 'react'
 import { AyForm, AyFormField } from 'amiya'
 import { Radio } from 'antd'
-import 'antd/dist/antd.min.css'
 
 type FormLayout = 'horizontal' | 'vertical' | 'inline'
 
@@ -97,7 +95,6 @@ export default function Demo() {
 ```tsx
 import React, { useState, MutableRefObject, useRef } from 'react'
 import { AyForm, AyFormField, AyButton } from 'amiya'
-import 'antd/dist/antd.min.css'
 
 export default function Demo() {
   const formRef: MutableRefObject<any> = useRef()
@@ -170,7 +167,6 @@ export default function Demo() {
 ```tsx
 import React from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
-import 'antd/dist/antd.min.css'
 
 const fields: Array<AyFormField> = [
   {
@@ -228,7 +224,6 @@ export default function Demo() {
 import React, { useState } from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
 import { Switch } from 'antd'
-import 'antd/dist/antd.min.css'
 
 const fields: Array<AyFormField> = [
   {
@@ -371,7 +366,6 @@ export default function Demo() {
 ```tsx
 import React from 'react'
 import { AyForm, AyFormField } from 'amiya'
-import 'antd/dist/antd.min.css'
 
 const fields: Array<AyFormField> = [
   {

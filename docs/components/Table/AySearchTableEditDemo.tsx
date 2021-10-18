@@ -3,7 +3,6 @@ import { AySearchTable, AySearchTableField, AyButton } from 'amiya'
 import { listApi, professionOptions } from '../api'
 import { AnyKeyProps } from '@/types/AnyKeyProps'
 import { Button } from 'antd'
-import 'antd/dist/antd.min.css'
 
 const fields: Array<AySearchTableField> = [
   {

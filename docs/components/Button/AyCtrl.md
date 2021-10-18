@@ -11,7 +11,6 @@
 ```tsx
 import React, { useState } from 'react'
 import { AyCtrl, AyAction } from 'amiya'
-import 'antd/dist/antd.min.css'
 
 export default function Demo() {
   return (
@@ -40,7 +39,6 @@ AySearchTable 下 AyCtrl 的样式会更加紧凑。
 import React from 'react'
 import { AySearchTable, AyAction, AyCtrl, AySearchTableField } from 'amiya'
 import { AyTableCtrlField } from 'amiya/lib/AyTable/ay-table'
-import 'antd/dist/antd.min.css'
 
 /**
  * 测试接口，实际过程中请使用 axios 接口
@@ -139,7 +137,6 @@ export default function Demo() {
 ```tsx
 import React, { useState } from 'react'
 import { AyCtrl, AyAction } from 'amiya'
-import 'antd/dist/antd.min.css'
 
 export default function Demo() {
   return (

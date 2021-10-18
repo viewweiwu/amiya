@@ -2,7 +2,7 @@ import React from 'react'
 import { AySearchList, AyAction, AyCtrl, AySearchTableField, AyTableCtrlField } from 'amiya'
 import { Card, List, Tag, Image, Space } from 'antd'
 import { listApi, addApi, updateApi, deleteApi, professionOptions } from '../api'
-import 'antd/dist/antd.min.css'
+
 import { AnyKeyProps } from 'es/types/AnyKeyProps'
 
 const CtrlField: AyTableCtrlField = {

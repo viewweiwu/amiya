@@ -18,6 +18,9 @@ export default defineConfig({
       }
     ]
   ],
+  themeConfig: {
+    darkSwitch: false
+  },
   navs: [
     {
       title: '介绍',

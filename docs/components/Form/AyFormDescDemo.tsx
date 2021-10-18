@@ -1,7 +1,6 @@
 import React, { useState, MutableRefObject, useEffect, useRef } from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
 import { Switch, Form, Row, Col } from 'antd'
-import 'antd/dist/antd.min.css'
 
 const fields: Array<AyFormField> = [
   {

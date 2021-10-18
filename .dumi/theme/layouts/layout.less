@@ -1,0 +1,38 @@
+.__dumi-default-navbar-tool {
+  display: none;
+}
+
+.__amiya {
+  &-theme {
+    right: 100px;
+    bottom: 100px;
+    z-index: 10;
+    position: fixed !important;
+  }
+
+  &-theme-color {
+    width: 1em;
+    height: 1em;
+    margin-right: 4px;
+    border-radius: 2px;
+    display: flex;
+  }
+
+  &-menu {
+    position: fixed;
+    z-index: 100;
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    width: 260px;
+    background-color: #f2f5fa;
+    box-sizing: border-box;
+    transition: left 0.3s;
+
+    .ant-menu {
+      height: 100%;
+      padding-top: 24px;
+      overflow: auto;
+    }
+  }
+}
