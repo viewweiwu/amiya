@@ -102,7 +102,7 @@ import { listApi, addApi, updateApi, deleteApi, professionOptions } from '../api
 const fields: Array<AySearchTableField> = [
   {
     title: '姓名',
-    key: 'cname',
+    key: 'cn',
     search: {},
     dialog: {
       required: true
@@ -110,7 +110,7 @@ const fields: Array<AySearchTableField> = [
   },
   {
     title: '英文名',
-    key: 'name',
+    key: 'en',
     search: {},
     dialog: {
       required: true,
@@ -119,46 +119,21 @@ const fields: Array<AySearchTableField> = [
   },
   {
     title: '初始HP',
-    key: 'defaultHp',
+    key: 'ori-hp',
     dialog: {}
   },
   {
     title: '初始攻击',
-    key: 'defaultAtk',
+    key: 'ori-atk',
     dialog: {}
   },
   {
     title: '职业',
-    key: 'profession',
+    key: 'class',
     type: 'select',
     search: {},
     dialog: {},
     options: professionOptions
-  },
-  {
-    title: '上线时间',
-    key: 'createDate',
-    table: {
-      renderType: 'datetime'
-    }
-  },
-  {
-    title: '上线开始时间',
-    key: 'startDate',
-    type: 'date',
-    search: {},
-    table: {
-      hidden: true
-    }
-  },
-  {
-    title: '上线结束时间',
-    key: 'endDate',
-    type: 'date',
-    search: {},
-    table: {
-      hidden: true
-    }
   }
 ]
 
@@ -189,6 +164,8 @@ export default function AySearchTableDemo() {
       api={listApi}
       fields={fields}
       ctrl={CtrlField}
+      rowKey="sort_id"
+      selectShowKey="cn"
       deleteApi={deleteApi}
       dialogFormExtend={{
         fields: fields,

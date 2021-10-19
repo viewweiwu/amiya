@@ -12,7 +12,8 @@ interface UseSelectionProps {
   /** ☑️表格选择框类型 */
   selectionType?: 'checkbox' | 'radio'
   /** 📢表格选择改变触发事件 */
-  onSelectionChange?(selection: Array<Row>): void
+  onSelectionChange?(selection: Array<Row>, selectionKeys: Array<ReactText>): void
+  /** 选中显示的名称 */
   selectShowKey?: string
   /** 选择功能的配置 */
   rowSelection?: AnyKeyProps
@@ -29,6 +30,10 @@ interface UseSelectionReturns {
   selection: Array<Row>
   /** 清空所有选项 */
   clearSelection(): void
+  /** 设置选中的项 */
+  setSelection(selection: Array<AnyKeyProps>): void
+  /** 添加选中的项 */
+  addSelection(selection: Array<AnyKeyProps>): void
 }
 
 export default function useSelection(_props: UseSelectionProps): UseSelectionReturns {
@@ -62,6 +67,30 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
   const clearSelection = () => {
     setSelectionKeys([])
     setSelection([])
+  }
+
+  /**
+   * 设置选中的行
+   */
+  const setDefaultSelection = (selection: AnyKeyProps[]) => {
+    setSelection(selection)
+    setSelectionKeys(selection.map(row => row[rowKey]))
+  }
+
+  /**
+   * 添加选项
+   */
+  const addDefaultSelection = (addSelection: AnyKeyProps[]) => {
+    // @ts-ignore
+    let newSelection = [...selection]
+    addSelection.forEach(row => {
+      if (!selectionKeys.includes(row[rowKey])) {
+        newSelection.push(row)
+      }
+    })
+
+    setSelection(newSelection)
+    setSelectionKeys(newSelection.map(row => row[rowKey]))
   }
 
   const changeRadioSelection = (row: AnyKeyProps) => {
@@ -188,9 +217,17 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
 
   useEffect(() => {
     if (onSelectionChange) {
-      onSelectionChange(selection)
+      onSelectionChange(selection, selectionKeys)
     }
   }, [onSelectionChange, selection])
 
-  return { header, message, tableRowSelection, selection, clearSelection }
+  return {
+    header,
+    message,
+    tableRowSelection,
+    selection,
+    clearSelection,
+    setSelection: setDefaultSelection,
+    addSelection: addDefaultSelection
+  }
 }

@@ -99,7 +99,7 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   /** 为空时表示没有选框 */
   selectionType?: 'checkbox' | 'radio'
   /** 选项改变事件 */
-  onSelectionChange?(selection: Array<Row>): void
+  onSelectionChange?(selection: Array<Row>, selectionKeys: Array<string>): void
   /** 列表的 rowKey */
   rowKey?: string
   /** 选择时列表展示的 key */

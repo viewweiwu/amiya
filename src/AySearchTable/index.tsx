@@ -247,7 +247,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   /** 列表项 */
   const [tableFields, setTableFields] = useState<Array<AyTableField>>(getTableFields(fields))
   /** 使用勾选 */
-  const { header, message, tableRowSelection, selection, clearSelection } = useSelection({
+  const { header, message, tableRowSelection, selection, clearSelection, setSelection, addSelection } = useSelection({
     rowKey: rowKey || 'id',
     selectionType,
     onSelectionChange,
@@ -325,6 +325,14 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     getSelection() {
       return selection
     },
+    /**
+     * 设置选中的行
+     */
+    setSelection,
+    /**
+     * 添加选中的行
+     */
+    addSelection,
     /**
      * 刷新布局
      */

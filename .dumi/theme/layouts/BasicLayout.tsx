@@ -49,7 +49,6 @@ const Layout: React.FC<IRouteComponentProps> = ({ children, location }) => {
     menu,
     locale
   } = useContext(context)
-  console.log(menu, 222)
   const { url: repoUrl, branch, platform } = repository
   const [menuCollapsed, setMenuCollapsed] = useState<boolean>(true)
   const [darkSwitch, setDarkSwitch] = useState<boolean>(false)
