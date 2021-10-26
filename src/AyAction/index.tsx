@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import AyButton from '../AyButton'
 import { AySearchTableContext } from '../AySearchTable/context'
 import { success, info } from '../AyMessage'
@@ -23,13 +23,13 @@ export const registerAction = function(
 /**
  * 注册【新增】事件
  */
-registerAction('add', (props, _record, searchTable) => {
+registerAction('add', (props, record, searchTable) => {
   return {
     type: 'primary',
     icon: <PlusOutlined />,
     onClick: () => {
       searchTable.formRef?.current?.add(
-        { ...props.params },
+        { ...props.params, ...record },
         {
           onSuccess: (res: any) => {
             success(props.successMsg || props.children + '成功')
@@ -50,22 +50,37 @@ registerAction('add', (props, _record, searchTable) => {
  * 注册【修改】事件
  */
 registerAction('update', (props, record, searchTable) => {
+  const [loading, setLoading] = useState(false)
   return {
     onClick: () => {
-      searchTable.formRef?.current?.update(
-        { ...props.params, ...record },
-        {
-          onSuccess: (res: any) => {
-            success(props.successMsg || props.children + '成功')
-            searchTable.tableRef.current.refresh()
-            // 请求完成回调
-            if (props.onFinish) {
-              props.onFinish(res)
-            }
+      let extraParams = {
+        onSuccess: (res: any) => {
+          success(props.successMsg || props.children + '成功')
+          searchTable.tableRef.current.refresh()
+          // 请求完成回调
+          if (props.onFinish) {
+            props.onFinish(res)
           }
         }
-      )
+      }
+      if (props.detailApi) {
+        setLoading(true)
+        props
+          .detailApi(props.detailParams)
+          .then((res: AnyKeyProps) => {
+            searchTable.formRef?.current?.update(
+              props.detailApiFilter ? props.detailApiFilter(res) : res.data,
+              extraParams
+            )
+          })
+          .finally(() => {
+            setLoading(false)
+          })
+      } else {
+        searchTable.formRef?.current?.update({ ...props.params, ...record }, extraParams)
+      }
     },
+    loading,
     ...props
   }
 })
@@ -74,10 +89,24 @@ registerAction('update', (props, record, searchTable) => {
  * 注册【详情】事件
  */
 registerAction('view', (props, record, searchTable) => {
+  const [loading, setLoading] = useState(false)
   return {
     onClick: () => {
-      searchTable.formRef?.current?.view({ ...props.params, ...record })
+      if (props.detailApi) {
+        setLoading(true)
+        props
+          .detailApi(props.detailParams)
+          .then((res: AnyKeyProps) => {
+            searchTable.formRef?.current?.view(props.detailApiFilter ? props.detailApiFilter(res) : res.data)
+          })
+          .finally(() => {
+            setLoading(false)
+          })
+      } else {
+        searchTable.formRef?.current?.view({ ...props.params, ...record })
+      }
     },
+    loading,
     ...props
   }
 })
