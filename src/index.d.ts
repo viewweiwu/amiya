@@ -20,6 +20,8 @@ export * from './AySearch/ay-search'
 export * from './AySearchTable/ay-search-table'
 export * from './AySelect/ay-select'
 export * from './AyTable/ay-table'
+export { AnyKeyProps } from './types/AnyKeyProps'
+export { Record } from './types/Record'
 
 export { registerAction } from './AyAction'
 export { registerField } from './AyForm'
