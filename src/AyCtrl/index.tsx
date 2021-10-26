@@ -1,11 +1,12 @@
 import React, { ReactNode, useEffect, useState } from 'react'
-import { Divider, Dropdown, Menu } from 'antd'
+import { Divider, Dropdown, Menu, Space } from 'antd'
 import AyButton, { addRefresh, hasPermission } from '../AyButton'
 import AyAction from '../AyAction'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { AyCtrlProps } from './ay-ctrl'
 import { CTRL_DEFAULT_MAX, CTRL_DEFAULT_MORE_TEXT } from '../constant'
 const { DownOutlined } = require('@ant-design/icons')
+import './ay-ctrl.less'
 
 /**
  * 返回一个控制项
@@ -55,8 +56,6 @@ const getCtrlList = (children: Array<ReactNode>, props: AyCtrlProps): Array<Reac
     CtrlItem = getCtrlItem(node, i)
     // 添加这个节点
     ctrlList.push(CtrlItem)
-    // 添加一个分割线
-    ctrlList.push(<Divider key={'divider' + i} type="vertical" />)
   }
 
   // 多余的按钮会变成下拉菜单
@@ -86,12 +85,7 @@ const getCtrlList = (children: Array<ReactNode>, props: AyCtrlProps): Array<Reac
         <AyButton type="link">{more}</AyButton>
       </Dropdown>
     )
-    // 添加一个分割线
-    ctrlList.push(<Divider key={'divider' + max} type="vertical" />)
   }
-
-  // 删除最后一个分割线
-  ctrlList.splice(ctrlList.length - 1, 1)
 
   return ctrlList
 }
@@ -108,5 +102,9 @@ export default function AyCtrl(props: AyCtrlProps) {
     addRefresh(setRefresh)
   }, [])
 
-  return <div className="ay-ctrl">{ctrlList}</div>
+  return (
+    <Space className="ay-ctrl" split={<Divider type="vertical" />}>
+      {ctrlList}
+    </Space>
+  )
 }
