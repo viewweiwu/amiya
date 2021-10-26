@@ -1,7 +1,7 @@
 import React from 'react'
 import { AySearchTable, AyAction, AyCtrl, AySearchTableField } from 'amiya'
 import { AyTableCtrlField } from 'amiya/lib/AyTable/ay-table'
-import { listApi, addApi, updateApi, deleteApi } from '../api'
+import { listApi, addApi, updateApi, deleteApi, professionOptions, detailApi } from '../api'
 
 const fields: Array<AySearchTableField> = [
   {
@@ -75,6 +75,18 @@ const fields: Array<AySearchTableField> = [
           </div>
         )
       }
+    },
+    search: {
+      title: '职业',
+      key: 'class',
+      type: 'select',
+      options: professionOptions
+    },
+    dialog: {
+      title: '职业',
+      key: 'class',
+      type: 'select',
+      options: professionOptions
     }
   },
   {
@@ -117,18 +129,18 @@ const fields: Array<AySearchTableField> = [
 ]
 
 const CtrlField: AyTableCtrlField = {
-  width: 200,
+  width: 220,
   render: (value, record) => {
     return (
       <AyCtrl>
+        <AyAction detailParams={record.sort_id} detailApi={detailApi} action="view">
+          详情
+        </AyAction>
         <AyAction record={record} action="update">
           编辑
         </AyAction>
         <AyAction record={record} action="delete">
           删除
-        </AyAction>
-        <AyAction record={record} action="view">
-          详情
         </AyAction>
       </AyCtrl>
     )
@@ -138,7 +150,7 @@ const CtrlField: AyTableCtrlField = {
 export default function Demo() {
   return (
     <AySearchTable
-      title="表格标题"
+      title="Amiya 增删改查"
       selectionType="checkbox"
       api={listApi}
       fields={fields}

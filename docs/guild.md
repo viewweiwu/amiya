@@ -26,14 +26,11 @@ sidemenu: false
 
 ```tsx
 import React from 'react'
-import { Form, Input, Button, Checkbox, DatePicker, Select } from 'antd'
+import { Form, Input, Button, DatePicker, Select } from 'antd'
 import moment from 'moment'
 
 const layout = {
   labelCol: { flex: '100px' }
-}
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 }
 }
 
 export default function Demo() {

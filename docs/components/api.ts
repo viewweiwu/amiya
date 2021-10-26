@@ -106,6 +106,7 @@ export const addApi = (params: AnyKeyProps): Promise<any> => {
   return new Promise(resolve => {
     data.unshift({
       id: Date.now(),
+      sort_id: Date.now(),
       ...params
     })
     resolve({
@@ -138,12 +139,14 @@ export const updateApi = (params: AnyKeyProps): Promise<any> => {
 /**
  * 模拟详情
  */
-export const detailApi = (): Promise<any> => {
+export const detailApi = (id: string): Promise<any> => {
   return new Promise(resolve => {
-    resolve({
-      msg: '请求成功',
-      data: data[0]
-    })
+    setTimeout(() => {
+      resolve({
+        msg: '请求成功',
+        data: data.find(row => row.sort_id === id)
+      })
+    }, 500)
   })
 }
 
@@ -154,7 +157,7 @@ export const detailApi = (): Promise<any> => {
 export const deleteApi = (params: AnyKeyProps): Promise<any> => {
   return new Promise(resolve => {
     data = data.filter(row => {
-      return !params.includes(row.id)
+      return !params.includes(row.sort_id)
     })
     resolve({
       msg: '删除成功',

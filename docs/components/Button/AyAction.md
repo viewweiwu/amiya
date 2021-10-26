@@ -1,32 +1,214 @@
 # AyAction
 
-## 基础示例
-
-AyAction 继承了 AyButton 所有属性。
-
-```tsx
-import React, { useState } from 'react'
-import { AyAction } from 'amiya'
-
-export default function Demo() {
-  return <AyAction onClick={() => alert('按钮')}>修改</AyAction>
-}
-```
-
-## 配合 AySearchTable
+让表格按钮的复杂流程变简单。
 
 在 AySearchTable 下，AyAction 的 action 会发挥作用，接下来的流程会托管给 action 对应的流程。
 
-<code src="../Table/AySearchTableDemo.tsx" />
+## 基础示例
+
+<Alert>点击示例的【新增】按钮，可触发完成的新增逻辑</Alert>
+
+```tsx
+import React from 'react'
+import { AySearchTable, AyAction, AySearchTableField } from 'amiya'
+import { listApi, addApi } from '../api'
+
+const fields: Array<AySearchTableField> = [
+  {
+    title: '姓名',
+    key: 'cn',
+    dialog: {
+      required: true
+    }
+  }
+]
+
+export default function AySearchTableDemo() {
+  return (
+    <AySearchTable
+      title="新增 Action"
+      api={listApi}
+      fields={fields}
+      rowKey="sort_id"
+      searchVisible={false}
+      pagination={{ pageSize: 2 }}
+      dialogFormExtend={{
+        fields: fields,
+        addApi
+      }}
+    >
+      <AyAction action="add">新增</AyAction>
+    </AySearchTable>
+  )
+}
+```
+
+```html
+<AySearchTable
+  dialogFormExtend={{
+    addApi: Promise // 表单提交时会请求此方法，一般是个接口，保证此参数是个 Promise
+  }}
+>
+  <AyAction action="add">新增</AyAction>
+</AySearchTable>
+```
+
+## 详情
+
+<Alert>点击列表的【详情】按钮，可打开弹窗查看详情</Alert>
+
+```tsx
+import React from 'react'
+import { AySearchTable, AySearchTableField, AyCtrl, AyAction } from 'amiya'
+import { listApi } from '../api'
+
+const fields: Array<AySearchTableField> = [
+  {
+    title: '姓名',
+    key: 'cn',
+    dialog: {
+      required: true
+    }
+  },
+  {
+    title: '英文名',
+    key: 'en',
+    search: {},
+    dialog: {
+      required: true
+    },
+    table: {
+      hidden: true
+    }
+  },
+  {
+    title: '日文名',
+    key: 'jp',
+    search: {},
+    dialog: {
+      required: true
+    },
+    table: {
+      hidden: true
+    }
+  },
+  {
+    title: '初始HP',
+    key: 'ori-hp',
+    dialog: {}
+  },
+  {
+    title: '初始攻击',
+    key: 'ori-atk',
+    dialog: {}
+  }
+]
+
+const ctrl = {
+  render: (_: any, record) => (
+    <AyCtrl>
+      <AyAction record={record} action="view">
+        详情
+      </AyAction>
+    </AyCtrl>
+  )
+}
+
+export default function AySearchTableDemo() {
+  return (
+    <AySearchTable
+      title="详情 Action"
+      api={listApi}
+      fields={fields}
+      rowKey="sort_id"
+      ctrl={ctrl}
+      searchVisible={false}
+      pagination={{ pageSize: 2 }}
+      dialogFormExtend={{
+        fields: fields
+      }}
+    />
+  )
+}
+```
+
+```js
+const ctrl = {
+  render: (_, record) => (
+    <AyCtrl>
+      <AyAction record={record} action="view">
+        详情
+      </AyAction>
+    </AyCtrl>
+  )
+}
+<AySearchTable ctrl={ctrl} />
+```
+
+## 批量删除
+
+<Alert>
+尝试勾选第一条数据，然后点击屏幕右下方【批量删除】按钮，可触发完成的批量删除逻辑。
+</br>
+此操作可以分页勾选，可以尝试第一页勾选第一个，第二页勾选第二个，再点击屏幕右下方【批量删除】按钮。
+</Alert>
+
+```tsx
+/**
+ * title: 'batch-delete' action
+ * desc:
+ */
+import React from 'react'
+import { AySearchTable, AyAction, AySearchTableField } from 'amiya'
+import { listApi, deleteApi } from '../api'
+
+const fields: Array<AySearchTableField> = [
+  {
+    title: '姓名',
+    key: 'cn'
+  }
+]
+
+export default function AySearchTableDemo() {
+  return (
+    <AySearchTable
+      title="删除 Action，尝试勾选第一条数据，然后点击屏幕右下方【批量删除】按钮"
+      selectionType="checkbox"
+      api={listApi}
+      fields={fields}
+      rowKey="sort_id"
+      selectShowKey="cn"
+      deleteApi={deleteApi}
+      searchVisible={false}
+      pagination={{ pageSize: 5 }}
+    >
+      <AyAction action="batch-delete">批量删除</AyAction>
+    </AySearchTable>
+  )
+}
+```
+
+```html
+<AySearchTable
+  selectionType="checkbox" // 指定为批量勾选
+  rowKey="sort_id" // 可不写，默认为 id，每一行的唯一标志
+  selectShowKey="cn" // 可不写，默认为 name，勾选后悬浮在数字上显示的 Tag
+  deleteApi={deleteApi} // Promise Api, 勾选完点击【批量删除】请求的结偶
+>
+  <AyAction action="batch-delete">批量删除</AyAction>
+</AySearchTable>
+```
 
 ## 参数
 
-| 参数名     | 说明                                                  | 参数类型   | 默认值 |
-| ---------- | ----------------------------------------------------- | ---------- | ------ |
-| action     | action 名称，具体查看下方注释。                       | string     | -      |
-| onFinish   | 接口完成事件，具体查看下方注释                        | Function() | -      |
-| params     | 打开弹窗前，添加的默认值，只有 add、view、update 有效 | object     | -      |
-| successMsg | 请求成功后的消息提示                                  | string     | -      |
+| 参数名       | 说明                                                  | 参数类型   | 默认值 |
+| ------------ | ----------------------------------------------------- | ---------- | ------ |
+| action       | action 名称，具体查看下方注释。                       | string     | -      |
+| onFinish     | 接口完成事件，具体查看下方注释                        | Function() | -      |
+| detailApi    | `action="view"` `action="update"` 打开前请求的接口    | Promise()  | -      |
+| detailParams | `detailApi` 请求的参数                                | object     | -      |
+| params       | 打开弹窗前，添加的默认值，只有 add、view、update 有效 | object     | -      |
+| successMsg   | 请求成功后的消息提示                                  | string     | -      |
 
 ### action
 
@@ -47,7 +229,7 @@ export default function Demo() {
   - `editable-confirm`: 表单会进入校验，校验通过则会保存。
   - `editable-cancel`: 取消编辑。
 
-[查看更多可编辑表格细节](/table/可编辑表格#可编辑行)
+[可编辑表格](../table/可编辑表格)
 
 ### onFinish
 
@@ -57,9 +239,6 @@ export default function Demo() {
 接口请求完成事件，不同状态下会获得不同数据。
 
 ```js
-// 无。view 没有 onFinish 事件，写了也没有效果。
-<AyAction action="view" onFinish={() => {}}>详情</AyAction>
-
 
 /**
  * @param data 接口返回数据
@@ -103,42 +282,14 @@ const fields: Array<AySearchTableField> = [
   {
     title: '姓名',
     key: 'cn',
-    search: {},
     dialog: {
       required: true
     }
-  },
-  {
-    title: '英文名',
-    key: 'en',
-    search: {},
-    dialog: {
-      required: true,
-      rules: [{ pattern: /^[a-z|A-Z|0-9]{1,}$/, message: '请输入字母或者数字' }]
-    }
-  },
-  {
-    title: '初始HP',
-    key: 'ori-hp',
-    dialog: {}
-  },
-  {
-    title: '初始攻击',
-    key: 'ori-atk',
-    dialog: {}
-  },
-  {
-    title: '职业',
-    key: 'class',
-    type: 'select',
-    search: {},
-    dialog: {},
-    options: professionOptions
   }
 ]
 
 const CtrlField: AyTableCtrlField = {
-  width: 200,
+  width: 220,
   render: (value, record) => {
     return (
       <AyCtrl>
@@ -148,9 +299,6 @@ const CtrlField: AyTableCtrlField = {
         <AyAction record={record} action="delete" onFinish={result => console.info('删除完成', result)}>
           删除
         </AyAction>
-        <AyAction record={record} action="view">
-          详情
-        </AyAction>
       </AyCtrl>
     )
   }
@@ -159,7 +307,7 @@ const CtrlField: AyTableCtrlField = {
 export default function AySearchTableDemo() {
   return (
     <AySearchTable
-      title="表格标题"
+      title="点击完 新增、编辑、删除、批量删除按钮后，看 console 打印数据。"
       selectionType="checkbox"
       api={listApi}
       fields={fields}
@@ -167,6 +315,7 @@ export default function AySearchTableDemo() {
       rowKey="sort_id"
       selectShowKey="cn"
       deleteApi={deleteApi}
+      searchVisible={false}
       dialogFormExtend={{
         fields: fields,
         updateApi,
@@ -197,15 +346,14 @@ export default function AySearchTableDemo() {
 /**
  * pamras 支持打开弹窗的默认值，如果跟 record 同 key，则会取 record 的值。
 */
-<AyAction action="update"  params={{ test: 123 }}>新增</AyAction>
+<AyAction action="update" params={{ test: 123 }}>新增</AyAction>
 
 /**
  * pamras 支持打开弹窗的默认值，如果跟 record 同 key，则会取 record 的值。
 */
 <AyAction action="view" params={{ test: 123 }}>详情</AyAction>
-
 ```
 
 `action` 是可以被注册的，请查看[注册方式][注册方式]
 
-[注册方式]: /全局方法/register-action
+[注册方式]: ../全局方法/register-action

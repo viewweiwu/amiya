@@ -31,6 +31,10 @@ export default defineConfig({
       path: '/components'
     },
     {
+      title: '对比',
+      path: '/diff'
+    },
+    {
       title: '更新日志',
       path: '/changelog'
     },
