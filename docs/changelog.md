@@ -4,6 +4,11 @@ order: 1
 
 # 更新日志
 
+## 0.35.0
+
+1. doc: 文档更新。
+2. feat: AyAction 新增 `detailApi` `detailParams` Api。
+
 ## 0.34.0
 
 1. feat: 添加表格勾选控制
@@ -14,7 +19,7 @@ order: 1
 
 ## 0.33.0
 
-1. feat: 新文档。
+1. doc: 新文档。
 2. delete: 删除 addFieldListener，removeFieldListener 方法。
 3. feat: 添加新的 renderType：html、tags。
 
