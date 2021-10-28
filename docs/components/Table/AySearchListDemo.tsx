@@ -5,7 +5,7 @@ import { listApi, addApi, updateApi, deleteApi, professionOptions } from '../api
 
 import { AnyKeyProps } from 'es/types/AnyKeyProps'
 
-const CtrlField: AyTableCtrlField = {
+const ctrl: AyTableCtrlField = {
   width: 200,
   render: (value, record) => {
     return (
@@ -61,7 +61,7 @@ export default function AySearchDemo() {
       selectionType="checkbox"
       api={listApi}
       fields={fields}
-      ctrl={CtrlField}
+      ctrl={ctrl}
       rowKey="sort_id"
       deleteApi={deleteApi}
       listExtend={{

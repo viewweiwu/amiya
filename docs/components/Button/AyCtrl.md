@@ -41,7 +41,7 @@ import { AySearchTable, AyAction, AyCtrl, AySearchTableField } from 'amiya'
 import { AyTableCtrlField } from 'amiya/lib/AyTable/ay-table'
 
 /**
- * 测试接口，实际过程中请使用 axios 接口
+ * 测试接口，实际过程中推荐使用 axios 接口
  * */
 const listApi = () => {
   return new Promise(resolve => {
@@ -66,18 +66,6 @@ const listApi = () => {
   })
 }
 
-/**
- * 测试接口，实际过程中请使用 axios 接口
- * */
-const emptyApi = (params?: any) => {
-  console.log(params)
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve()
-    }, 300)
-  })
-}
-
 const fields: Array<AySearchTableField> = [
   {
     title: '姓名',
@@ -89,7 +77,7 @@ const fields: Array<AySearchTableField> = [
   }
 ]
 
-const CtrlField: AyTableCtrlField = {
+const ctrl: AyTableCtrlField = {
   width: 240,
   render: (value, record) => {
     return (
@@ -112,7 +100,7 @@ export default function Demo() {
       title="注意操作列的按钮"
       api={listApi}
       fields={fields}
-      ctrl={CtrlField}
+      ctrl={ctrl}
     />
   )
 }

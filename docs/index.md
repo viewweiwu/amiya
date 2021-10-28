@@ -3,10 +3,8 @@ hero:
   title: Amiya
   desc: 让你的 Ant Design 使用起来更简单。
   actions:
-    - text: 了解设计
-      link: ./guild
     - text: 快速开始
-      link: ./components/快速开始
+      link: ./guild
 features:
   - icon: https://tva1.sinaimg.cn/large/005whHQwly1gvg32ttg6gj60ci0ca40k02.jpg
     title: Ant Design

@@ -1,6 +1,5 @@
 import React from 'react'
-import { AySearchTable, AyAction, AyCtrl, AySearchTableField } from 'amiya'
-import { AyTableCtrlField } from 'amiya/lib/AyTable/ay-table'
+import { AySearchTable, AyAction, AyCtrl, AyTableCtrlField, AySearchTableField, Record } from 'amiya'
 import { listApi, addApi, updateApi, deleteApi, professionOptions, detailApi } from '../api'
 
 const fields: Array<AySearchTableField> = [
@@ -66,7 +65,7 @@ const fields: Array<AySearchTableField> = [
       </div>
     ),
     table: {
-      render: (text, record) => {
+      render: (text, record: Record) => {
         return (
           <div>
             <div>{record.camp}</div>
@@ -128,9 +127,9 @@ const fields: Array<AySearchTableField> = [
   }
 ]
 
-const CtrlField: AyTableCtrlField = {
+const ctrl: AyTableCtrlField = {
   width: 220,
-  render: (value, record) => {
+  render: (value: string, record: Record) => {
     return (
       <AyCtrl>
         <AyAction detailParams={record.sort_id} detailApi={detailApi} action="view">
@@ -154,7 +153,7 @@ export default function Demo() {
       selectionType="checkbox"
       api={listApi}
       fields={fields}
-      ctrl={CtrlField}
+      ctrl={ctrl}
       rowKey="sort_id"
       selectShowKey="cn"
       deleteApi={deleteApi}

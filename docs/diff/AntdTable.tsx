@@ -314,7 +314,7 @@ export default function AntdTable() {
       </Card>
       <Card bodyStyle={{ padding: 0 }}>
         <div className="antd-table-header">
-          <h2 className="antd-table-title">Antd 原生增删改查</h2>
+          <h2 className="antd-table-title">antd 组件增删改查</h2>
           <span>
             <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
               新增

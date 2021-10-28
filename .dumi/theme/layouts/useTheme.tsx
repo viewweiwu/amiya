@@ -3,7 +3,7 @@ import { Button, Popover, Radio, Space } from 'antd'
 import { BgColorsOutlined } from '@ant-design/icons'
 import React, { useState, useEffect } from 'react'
 
-function loadCss(href) {
+function loadCss(href, cb) {
   let before = document.querySelectorAll('.amiya-theme')
   let css = document.createElement('link')
   css.rel = 'stylesheet'
@@ -15,6 +15,7 @@ function loadCss(href) {
     if (before.length) {
       before.forEach(node => node.parentElement.removeChild(node))
     }
+    cb()
   }
 }
 
@@ -136,6 +137,7 @@ let linkList = [
 export default function ThemeButton(props) {
   const [name, setName] = useState<string>(localStorage.getItem('AMIYA_COLOR') || 'default')
   const [dumiColor, setDumiColor] = usePrefersColor()
+  const [loading, setLoading] = useState(false)
 
   const handleThemeChange = (value: string) => {
     setName(value)
@@ -143,15 +145,41 @@ export default function ThemeButton(props) {
 
   useEffect(() => {
     let target = linkList.find(item => item.name === name)
-    loadCss(target.link)
-    localStorage.setItem('AMIYA_COLOR', name)
-    if (target.dark) {
-      document.body.classList.add('dark')
-      setDumiColor('dark')
-    } else {
-      document.body.classList.remove('dark')
-      setDumiColor('light')
-    }
+    setLoading(true)
+    loadCss(target.link, () => {
+      let style = document.createElement('style')
+      style.id = 'color'
+      style.innerHTML = `
+        ::selection {
+          background: ${target.color};
+          color: #fff;
+        }
+        .markdown a,
+        .__dumi-default-previewer a {
+          color: ${target.color}!important
+        }
+        ul[role='slug-list'] li > a.active,
+        [data-prefers-color=dark] .__dumi-default-layout-toc li a:hover {
+          color: ${target.color}!important;
+        }
+        .__dumi-default-layout-toc li a.active::before {
+          background: ${target.color}!important;
+        }
+        .__dumi-default-search > ul li a:hover {
+          color: ${target.color}!important;
+        }
+      `
+      document.head.appendChild(style)
+      localStorage.setItem('AMIYA_COLOR', name)
+      if (target.dark) {
+        document.body.classList.add('dark')
+        setDumiColor('dark')
+      } else {
+        document.body.classList.remove('dark')
+        setDumiColor('light')
+      }
+      setLoading(false)
+    })
   }, [name])
 
   return (
@@ -172,7 +200,13 @@ export default function ThemeButton(props) {
         </Radio.Group>
       }
     >
-      <Button className="__amiya-theme" shape="circle" type="primary" icon={<BgColorsOutlined />}></Button>
+      <Button
+        className="__amiya-theme"
+        shape="circle"
+        type="primary"
+        loading={loading}
+        icon={<BgColorsOutlined />}
+      ></Button>
     </Popover>
   )
 }

@@ -4,11 +4,28 @@ sidemenu: false
 
 # 了解 Amiya
 
-它是基于 antd 的二次封装，类似于 ProComponent。
+基于 antd 的二次封装，让你的 antd 使用起来更简单。
 
-## 跟直接用 antd 比有什么不同？
+## AySearchTable
 
-### AyForm
+![图片](https://cdn.weipaitang.com/static/public/202110289df0451b-ddda-451bddda-aeb4-3f4159f35b17.svg)
+
+只需要一个文件，用 `30%` 的代码量，实现更多功能的查询表格。
+
+| 表现效果区别 | Amiya AySearchTable                        | antd 增删改查 |
+| ------------ | ------------------------------------------ | ------------- |
+| 表格扩展按钮 | 刷新、密度、设置、全屏                     | 无            |
+| 批量选择     | 内置小购物车功能，可以分页、筛选后批量处理 | 无            |
+
+### 用 `Amiya` 实现的查询表格
+
+<code src="./components/Table/AySearchTableDemo.tsx">
+
+### 用 `antd` 实现的效果查询表格
+
+<code src="./diff/AntdTable.tsx">
+
+## AyForm
 
 <Alert type="info">
   1. readonly 模式
@@ -149,11 +166,11 @@ export default function Demo() {
   2. desc 模式
 </Alert>
 
-| 表现效果区别 | Amiya AyForm           | antd Descriptions                                                                                                        |
-| ------------ | ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| 样式         | label 默认居右。       | label 默认居左。                                                                                                         |
-| 空间         | 严格按照 span 比例分。 | 第二列如果内容过多，会宽度更宽。                                                                                         |
-| 形态         | 可以表单表格自由切换。 | 要么是 Descriptions，要么是 AyForm，需要写两套。不过 Descriptions 有可以有更多的形态，如根据屏幕宽度变更列，上下布局等。 |
+| 表现效果区别 | Amiya AyForm           | antd Descriptions                                                                                                            |
+| ------------ | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| 样式         | label 默认居右。       | label 默认居左。                                                                                                             |
+| 空间         | 严格按照 span 比例分。 | 第二列如果内容过多，会宽度更宽。                                                                                             |
+| 形态         | 可以表单表格自由切换。 | 要么是 Descriptions，要么是 AyForm，需要写两套。<br>不过 Descriptions 有可以有更多的形态，如根据屏幕宽度变更列，上下布局等。 |
 
 用 `antd` 实现的效果。↓↓↓↓↓↓↓↓↓↓
 
@@ -217,16 +234,6 @@ export default function Demo() {
 用 `Amiya` 实现的效果。↓↓↓↓↓↓↓↓↓↓
 
 <code src="./components/Form/AyFormDescDemo.tsx" />
-
-### AySearchTable
-
-### 1. 支持跨页删除。
-
-<video style="max-width: 100%" controls src="https://cdn.weipaitang.com/static/public/202110116955def6-9761-def69761-dedf-abd05e64ebf8.webm"></video>
-
-### 2. 支持表格快捷按钮。刷新、密度、列控制、全屏。
-
-<video style="max-width: 100%" controls src="https://cdn.weipaitang.com/static/public/2021101146a26213-cae7-6213cae7-a70a-38ba0cf998ca.webm"></video>
 
 [1]: ./form#所有的默认表单类型
 [2]: ./form#desc-模式

@@ -23,16 +23,16 @@ export default defineConfig({
   },
   navs: [
     {
-      title: '介绍',
+      title: '教程',
       path: '/guild'
+    },
+    {
+      title: '介绍',
+      path: '/contrast'
     },
     {
       title: '组件',
       path: '/components'
-    },
-    {
-      title: '对比',
-      path: '/diff'
     },
     {
       title: '更新日志',

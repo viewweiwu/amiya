@@ -288,7 +288,7 @@ const fields: Array<AySearchTableField> = [
   }
 ]
 
-const CtrlField: AyTableCtrlField = {
+const ctrl: AyTableCtrlField = {
   width: 220,
   render: (value, record) => {
     return (
@@ -311,7 +311,7 @@ export default function AySearchTableDemo() {
       selectionType="checkbox"
       api={listApi}
       fields={fields}
-      ctrl={CtrlField}
+      ctrl={ctrl}
       rowKey="sort_id"
       selectShowKey="cn"
       deleteApi={deleteApi}

@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from 'react'
-import { context, Link, NavLink } from 'dumi/theme'
+import { context, Link } from 'dumi/theme'
 import { Menu } from 'antd'
 
 const { SubMenu, Item: MenuItem } = Menu
@@ -12,12 +12,9 @@ const renderMenu = (menuList: any[], p: any[]) => {
   if (!menuList || !menuList.length) {
     return null
   }
+
   return menuList.map(menu => {
     let newParent = [...p, menu]
-    // 菜单若不可见，直接跳过
-    if (menu.visible === false) {
-      return null
-    }
 
     if (menu.children && menu.children.some(item => item.visible !== false)) {
       return (
@@ -36,7 +33,6 @@ const renderMenu = (menuList: any[], p: any[]) => {
 }
 
 export default function SideMenu(props) {
-  console.log(props)
   const {
     config: { mode },
     menu,

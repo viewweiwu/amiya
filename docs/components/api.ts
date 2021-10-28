@@ -1,3 +1,6 @@
+/**
+ * 此文件为模拟模拟接口的文件，仅供参考
+ */
 import { AnyKeyProps } from '../types/AnyKeyProps'
 
 export const professionOptions = [
@@ -60,7 +63,7 @@ export const listApi = (params: AnyKeyProps): Promise<any> => {
             if (
               (Array.isArray(value) && !value.includes(item[key])) ||
               (typeof value === 'number' && Number(item[key]) === value) ||
-              (typeof value === 'string' && !(value + '').includes(item[key] + ''))
+              (typeof value === 'string' && !(item[key] + '').includes(value + ''))
             ) {
               result = false
             }
@@ -88,7 +91,7 @@ export const listApi = (params: AnyKeyProps): Promise<any> => {
 }
 
 /**
- * 测试接口，实际过程中请使用 axios 接口
+ * 测试接口，实际过程推荐使用 axios 接口
  * */
 export const emptyApi = (params?: any): Promise<any> => {
   return new Promise(resolve => {

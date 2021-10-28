@@ -24,7 +24,7 @@ const fields: Array<AySearchTableField> = [
   }
 ]
 
-const CtrlField: AyTableCtrlField = {
+const ctrl: AyTableCtrlField = {
   width: 200,
   render: (value, record) => {
     return (
@@ -44,7 +44,7 @@ export default function Demo() {
       selectionType="checkbox"
       api={listApi}
       fields={fields}
-      ctrl={CtrlField}
+      ctrl={ctrl}
       deleteApi={deleteApi}
       dialogFormExtend={{
         fields: fields,

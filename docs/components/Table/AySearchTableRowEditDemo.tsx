@@ -44,7 +44,7 @@ const fields: Array<AySearchTableField> = [
   }
 ]
 
-const CtrlField: AyTableCtrlField = {
+const ctrl: AyTableCtrlField = {
   width: 200,
   render: (_, record) => {
     let actions = []
@@ -86,7 +86,7 @@ export default function Demo() {
       pagination={false}
       api={listApi}
       fields={fields}
-      ctrl={CtrlField}
+      ctrl={ctrl}
       editMode="row"
       rowKey="en"
       title="可编辑行"
