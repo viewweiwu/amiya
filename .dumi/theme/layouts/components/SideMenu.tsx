@@ -2,7 +2,7 @@ import React, { useContext, useMemo } from 'react'
 import { context, Link } from 'dumi/theme'
 import { Menu } from 'antd'
 
-const { SubMenu, Item: MenuItem } = Menu
+const { ItemGroup, Item: MenuItem } = Menu
 
 /**
  * 渲染菜单
@@ -18,9 +18,9 @@ const renderMenu = (menuList: any[], p: any[]) => {
 
     if (menu.children && menu.children.some(item => item.visible !== false)) {
       return (
-        <SubMenu icon={menu.icon} key={menu.path} title={menu.title}>
+        <ItemGroup key={menu.path} title={menu.title}>
           {menu.children && renderMenu(menu.children, newParent)}
-        </SubMenu>
+        </ItemGroup>
       )
     } else {
       return (

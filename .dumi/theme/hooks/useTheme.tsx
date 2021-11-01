@@ -19,7 +19,7 @@ function loadCss(href, cb) {
   }
 }
 
-let linkList = [
+export let linkList = [
   {
     dark: false,
     name: 'default',

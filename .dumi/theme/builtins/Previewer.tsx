@@ -5,7 +5,6 @@ import { history } from 'dumi'
 import { IPreviewerComponentProps } from 'dumi/theme'
 import {
   context,
-  useCodeSandbox,
   useRiddle,
   useMotions,
   useCopy,
@@ -19,6 +18,7 @@ import {
 import { ICodeBlockProps } from './SourceCode'
 import SourceCode from './SourceCode'
 import 'dumi-theme-default/src/builtins/Previewer.less'
+import useCodeSandbox from '../hooks/useCodeSandbox'
 
 export interface IPreviewerProps extends IPreviewerComponentProps {
   /**

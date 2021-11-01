@@ -6,7 +6,7 @@ import zhCN from 'antd/es/locale/zh_CN'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 import './layout.less'
-import ThemeButton from './useTheme'
+import ThemeButton from '../hooks/useTheme'
 moment.locale('zh-cn')
 
 export default ({ children, ...props }: IRouteComponentProps) => {
