@@ -11,15 +11,15 @@ export default function AyDialogFormDemo() {
   const fields: Array<AyDialogFormField> = [
     {
       title: '姓名',
-      key: 'cname'
+      key: 'cn'
     },
     {
       title: '初始HP',
-      key: 'defaultHp'
+      key: 'ori-hp'
     },
     {
       title: '职业',
-      key: 'profession',
+      key: 'class',
       type: 'select',
       options: professionOptions
     }
@@ -34,7 +34,7 @@ export default function AyDialogFormDemo() {
 
   const handleUpdate = () => {
     // 获取详情
-    detailApi().then(res => {
+    detailApi(55).then(res => {
       formRef.current.update(res.data).then((data: AnyKeyProps) => {
         console.log(data)
         success('编辑成功')
@@ -43,7 +43,7 @@ export default function AyDialogFormDemo() {
   }
 
   const handleView = () => {
-    detailApi().then(res => {
+    detailApi(55).then(res => {
       formRef.current.view(res.data)
     })
   }
@@ -60,7 +60,7 @@ export default function AyDialogFormDemo() {
     )
   }
   const handleErrorUpdate = () => {
-    detailApi().then(res => {
+    detailApi(55).then(res => {
       formErrorRef.current.update(res.data, {
         onError: (params: AnyKeyProps) => {
           error('请求失败，请看 log 参数')

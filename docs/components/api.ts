@@ -142,7 +142,7 @@ export const updateApi = (params: AnyKeyProps): Promise<any> => {
 /**
  * 模拟详情
  */
-export const detailApi = (id: string): Promise<any> => {
+export const detailApi = (id: string | number): Promise<any> => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve({
