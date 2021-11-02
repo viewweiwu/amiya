@@ -88,7 +88,7 @@ export default function Demo() {
       fields={fields}
       ctrl={ctrl}
       editMode="row"
-      rowKey="en"
+      rowKey="sort_id"
       title="可编辑行"
       after={<AyAction action="editable-add">新增</AyAction>}
     >

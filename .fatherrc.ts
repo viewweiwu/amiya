@@ -5,5 +5,6 @@ export default {
   umd: {
     name: 'amiya'
   },
-  extractCSS: true
+  extractCSS: true,
+  lessInBabelMode: true
 }

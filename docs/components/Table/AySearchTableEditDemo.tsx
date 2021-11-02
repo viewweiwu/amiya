@@ -93,7 +93,7 @@ export default function Demo() {
       api={listApi}
       fields={fields}
       editMode="col"
-      rowKey="en"
+      rowKey="sort_id"
       title="可编辑单元格"
     >
       <AyButton type="primary" onClick={handleLog}>
