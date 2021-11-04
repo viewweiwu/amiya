@@ -62,7 +62,6 @@ const getSearchFields = (fields: Array<AySearchTableField>) => {
         ...search
       }
       if (searchField.position === 'more') {
-        searchField.span = 24
         moreSearchFields.push(searchField)
       } else {
         searchFields.push(searchField)

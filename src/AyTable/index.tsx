@@ -375,33 +375,35 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
       ) : null}
       {header}
       {tableHeader}
-      <Table
-        bordered
-        onExpand={onExpand}
-        columns={ayTableFields}
-        components={getComponents(editMode)}
-        dataSource={tableData}
-        loading={loading}
-        rowSelection={rowSelection}
-        pagination={
-          pagination !== false
-            ? {
-                showTotal: total => `共 ${total} 条`,
-                showQuickJumper: true,
-                ...pagination,
-                size: 'default',
-                total,
-                current: loadParams.pagination.current
-              }
-            : false
-        }
-        onChange={handleTableChange}
-        rowKey={rowKey || 'id'}
-        size={size}
-        scroll={{ x: scrollX, y: height }}
-        {...tableDefaultProps}
-        {...tableExtend}
-      />
+      <div className="ay-table-content">
+        <Table
+          bordered
+          onExpand={onExpand}
+          columns={ayTableFields}
+          components={getComponents(editMode)}
+          dataSource={tableData}
+          loading={loading}
+          rowSelection={rowSelection}
+          pagination={
+            pagination !== false
+              ? {
+                  showTotal: total => `共 ${total} 条`,
+                  showQuickJumper: true,
+                  ...pagination,
+                  size: 'default',
+                  total,
+                  current: loadParams.pagination.current
+                }
+              : false
+          }
+          onChange={handleTableChange}
+          rowKey={rowKey || 'id'}
+          size={size}
+          scroll={{ x: scrollX, y: height }}
+          {...tableDefaultProps}
+          {...tableExtend}
+        />
+      </div>
     </Card>
   )
 })
