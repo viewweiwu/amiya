@@ -6,7 +6,7 @@ import { AyTableField } from '../../AyTable/ay-table'
 import { SizeType } from 'antd/lib/config-provider/SizeContext'
 import { AySearchTableProps, SearchTableInitConfig } from '../ay-search-table'
 
-const {
+import {
   ReloadOutlined,
   ColumnHeightOutlined,
   SettingOutlined,
@@ -14,7 +14,7 @@ const {
   FullscreenExitOutlined,
   ArrowUpOutlined,
   ArrowDownOutlined
-} = require('@ant-design/icons')
+} from '@ant-design/icons'
 
 /** 表格扩展按钮-是否显示 */
 let defaultConfig: SearchTableInitConfig = {

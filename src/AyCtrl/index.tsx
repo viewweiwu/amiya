@@ -5,7 +5,7 @@ import AyAction from '../AyAction'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { AyCtrlProps } from './ay-ctrl'
 import { CTRL_DEFAULT_MAX, CTRL_DEFAULT_MORE_TEXT } from '../constant'
-const { DownOutlined } = require('@ant-design/icons')
+import { DownOutlined } from '@ant-design/icons'
 import './ay-ctrl.less'
 
 /**

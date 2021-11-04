@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Card } from 'antd'
 import { AyCardProps } from './ay-card'
 import './index.less'
-const { DownOutlined } = require('@ant-design/icons')
+import { DownOutlined } from '@ant-design/icons'
 
 export default function AyCard(props: AyCardProps) {
   const { collapsible, onCollapse, defaultCollapsed, children, title, extra, collapsePosition = 'extra' } = props

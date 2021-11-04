@@ -6,7 +6,7 @@ import { Modal } from 'antd'
 import { AyActionProps } from './ay-action'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { EditableContext } from '../AyTable/EditableTable'
-const { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined } = require('@ant-design/icons')
+import { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
 
 export const actionMap: AnyKeyProps = {}
 
