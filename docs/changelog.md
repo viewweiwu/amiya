@@ -4,6 +4,15 @@ order: 1
 
 # 更新日志
 
+## 0.36.0
+
+`2021-11-03`
+
+1. doc: 文档更新。
+2. feat: 开放 AySearch 组件文档。
+3. feat: AySearch 不同的容器宽度会有不同的展示形式，[详情](./components/form/ay-search)
+4. feat: 更新 AySearchTable 的样式。
+
 ## 0.35.0
 
 1. doc: 文档更新。

@@ -1,6 +1,6 @@
 import React, { useState, MutableRefObject, useEffect, useRef } from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
-import { Switch, Form, Row, Col } from 'antd'
+import { Switch, Form, Row, Col, Card } from 'antd'
 
 const fields: Array<AyFormField> = [
   {
@@ -115,7 +115,7 @@ export default function Demo() {
   }, [])
 
   return (
-    <>
+    <Card>
       <p>
         <label style={{ marginRight: 4 }}>只读模式</label>
         <Switch defaultChecked={readonly} onChange={value => setReadonly(value)} />
@@ -129,13 +129,13 @@ export default function Demo() {
         {!readonly && (
           <Col span={24}>
             <Form.Item>
-              <AyButton block type="primary" htmlType="submit">
+              <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
                 提交
               </AyButton>
             </Form.Item>
           </Col>
         )}
       </AyForm>
-    </>
+    </Card>
   )
 }

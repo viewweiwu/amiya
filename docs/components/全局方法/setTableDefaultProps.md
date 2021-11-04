@@ -6,7 +6,7 @@
 
 ```tsx
 import React from 'react'
-import { AySearchTable, setTableDefaultProps } from 'amiya'
+import { AySearchTable, AySearchTableField, setTableDefaultProps } from 'amiya'
 import { listApi } from '../api'
 
 setTableDefaultProps({
@@ -16,12 +16,12 @@ setTableDefaultProps({
 const fields: Array<AySearchTableField> = [
   {
     title: '姓名',
-    key: 'cname',
+    key: 'cn',
     search: {}
   },
   {
     title: '英文名',
-    key: 'name',
+    key: 'en',
     search: {}
   }
 ]

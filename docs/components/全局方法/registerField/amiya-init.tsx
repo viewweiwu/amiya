@@ -16,15 +16,7 @@ registerField('chara-select', {
 registerField('job-select', {
   type: 'job-select',
   defaultValue: null,
-  render: ({ field, readonly, addFieldListener, removeFiledListener }: any) => {
-    return (
-      <JobSelect
-        readonly={readonly}
-        addFieldListener={addFieldListener}
-        removeFiledListener={removeFiledListener}
-        placeholder={`请选择${field.title || ''}`}
-        {...field.props}
-      />
-    )
+  render: ({ field, readonly }: any) => {
+    return <JobSelect readonly={readonly} placeholder={`请选择${field.title || ''}`} {...field.props} />
   }
 })

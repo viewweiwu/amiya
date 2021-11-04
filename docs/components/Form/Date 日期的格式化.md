@@ -28,7 +28,7 @@ export default function Demo() {
   }
   return (
     <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
-      <AyButton block type="primary" htmlType="submit">
+      <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
         提交
       </AyButton>
     </AyForm>
@@ -65,7 +65,7 @@ export default function Demo() {
   }
   return (
     <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
-      <AyButton block type="primary" htmlType="submit">
+      <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
         提交
       </AyButton>
     </AyForm>
@@ -103,7 +103,7 @@ export default function Demo() {
   }
   return (
     <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
-      <AyButton block type="primary" htmlType="submit">
+      <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
         提交
       </AyButton>
     </AyForm>
@@ -139,7 +139,7 @@ export default function Demo() {
   }
   return (
     <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
-      <AyButton block type="primary" htmlType="submit">
+      <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
         提交
       </AyButton>
     </AyForm>
@@ -173,7 +173,7 @@ export default function Demo() {
   }
   return (
     <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
-      <AyButton block type="primary" htmlType="submit">
+      <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
         提交
       </AyButton>
     </AyForm>
@@ -202,7 +202,8 @@ const fields: Array<AyFormField> = [
         startKey: 'a-start',
         endKey: 'a-end',
         type: 'date-range',
-        readonly: true
+        readonly: true,
+        defaultValue: [moment().subtract(1, 'day'), moment().startOf('day')]
       },
       {
         title: '日期区间带时间',
@@ -213,7 +214,8 @@ const fields: Array<AyFormField> = [
         props: {
           showTime: true
         },
-        readonly: true
+        readonly: true,
+        defaultValue: [moment().subtract(1, 'day'), moment().startOf('day')]
       },
       {
         title: '日期区间',
@@ -263,7 +265,8 @@ const fields: Array<AyFormField> = [
         title: '日期格式化',
         key: 'g',
         type: 'date',
-        readonly: true
+        readonly: true,
+        defaultValue: moment().startOf('day')
       },
       {
         title: '日期格式化带时间',
@@ -272,7 +275,8 @@ const fields: Array<AyFormField> = [
         props: {
           showTime: true
         },
-        readonly: true
+        readonly: true,
+        defaultValue: moment().startOf('day')
       }
     ]
   },
@@ -328,7 +332,7 @@ export default function Demo() {
   }
   return (
     <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
-      <AyButton block type="primary" htmlType="submit">
+      <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
         提交
       </AyButton>
     </AyForm>

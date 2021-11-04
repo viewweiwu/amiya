@@ -40,7 +40,7 @@ export default function Demo() {
 
   return (
     <AyForm span={24} fields={fields} onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
-      <AyButton block type="primary" htmlType="submit">
+      <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
         提交
       </AyButton>
     </AyForm>
@@ -167,6 +167,7 @@ export default function Demo() {
 ```tsx
 import React from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
+import { Card } from 'antd'
 
 const fields: Array<AyFormField> = [
   {
@@ -183,16 +184,6 @@ const fields: Array<AyFormField> = [
     title: '密码',
     type: 'password',
     key: 'password'
-  },
-  {
-    type: 'checkbox',
-    key: 'remember',
-    props: {
-      style: {
-        float: 'right'
-      },
-      children: '记住密码'
-    }
   }
 ]
 
@@ -203,17 +194,13 @@ export default function Demo() {
   }
 
   return (
-    <AyForm
-      span={24}
-      fields={fields}
-      onConfirm={handleConfirm}
-      style={{ width: 400, margin: '0 auto' }}
-      layout={{ labelCol: { flex: '100px' } }}
-    >
-      <AyButton block type="primary" htmlType="submit">
-        提交
-      </AyButton>
-    </AyForm>
+    <Card>
+      <AyForm span={24} fields={fields} onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
+        <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
+          提交
+        </AyButton>
+      </AyForm>
+    </Card>
   )
 }
 ```
@@ -223,7 +210,7 @@ export default function Demo() {
 ```tsx
 import React, { useState } from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
-import { Switch } from 'antd'
+import { Switch, Card } from 'antd'
 
 const fields: Array<AyFormField> = [
   {
@@ -336,7 +323,7 @@ export default function Demo() {
   }
 
   return (
-    <>
+    <Card>
       <p>
         <label style={{ marginRight: 4 }}>只读模式</label>
         <Switch defaultChecked={readonly} onChange={value => setReadonly(value)} />
@@ -348,11 +335,11 @@ export default function Demo() {
         onConfirm={handleConfirm}
         style={{ width: 600, margin: '0 auto' }}
       >
-        <AyButton block type="primary" htmlType="submit">
+        <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
           提交
         </AyButton>
       </AyForm>
-    </>
+    </Card>
   )
 }
 ```

@@ -155,7 +155,8 @@ export default function ThemeButton(props) {
           color: #fff;
         }
         .markdown a,
-        .__dumi-default-previewer a {
+        .__dumi-default-previewer .ant-alert-content a,
+        .ay-search-table-footer-actions a {
           color: ${target.color}!important
         }
         ul[role='slug-list'] li > a.active,
@@ -168,6 +169,7 @@ export default function ThemeButton(props) {
         .__dumi-default-search > ul li a:hover {
           color: ${target.color}!important;
         }
+
       `
       document.head.appendChild(style)
       localStorage.setItem('AMIYA_COLOR', name)

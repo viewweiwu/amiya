@@ -7,10 +7,6 @@ interface JobSelectProps {
   onChange?: (value: string | null) => void
   placeholder?: string
   readonly?: boolean
-  /** 添加 field 监听 */
-  addFieldListener?: (key: string, fieldListener: FieldListener) => void
-  /** 删除 field 监听 */
-  removeFiledListener?: (key: string, fieldListener: FieldListener) => void
 }
 
 const getValueByOptions = (value: any, options: Array<Option>) => {
@@ -43,7 +39,7 @@ const getOptions = (value: string): Promise<any> => {
 
 // 职业选择
 export default function JobSelect(props: JobSelectProps) {
-  const { value, onChange, placeholder, readonly, addFieldListener, removeFiledListener } = props
+  const { value, onChange, placeholder, readonly } = props
   // 选项
   const [options, setOptions] = useState<Array<Option>>([])
   // 是否正在请求中
@@ -62,16 +58,6 @@ export default function JobSelect(props: JobSelectProps) {
         })
       if (onChange) {
         onChange(null)
-      }
-    }
-    // 添加监听事件
-    if (addFieldListener) {
-      addFieldListener('chara', handleCharaChange)
-    }
-    // 记得销毁
-    return () => {
-      if (removeFiledListener) {
-        removeFiledListener('chara', handleCharaChange)
       }
     }
   }, [])

@@ -74,7 +74,7 @@ function getCSBData(opts: IPreviewerComponentProps) {
   const ext = isTSX ? '.tsx' : '.jsx'
   const files: Record<string, { content: string }> = {}
   const deps: Record<string, string> = {}
-  const CSSDeps = Object.values(opts.dependencies).filter(dep => dep.css)
+  const CSSDeps = Object.values(opts.dependencies).filter((dep: any) => dep.css)
   const appFileName = `App${ext}`
   const entryFileName = `index${ext}`
 
@@ -127,8 +127,6 @@ function getCSBData(opts: IPreviewerComponentProps) {
 
   let link = color.link
 
-  console.log(color, 121323)
-
   // append index.html
   files['index.html'] = {
     content: `<link rel="stylesheet" href="${link}" class="amiya-theme"><div style="margin: 16px;" id="root"></div>`
@@ -144,7 +142,7 @@ function getCSBData(opts: IPreviewerComponentProps) {
 **/
 import React from 'react';
 import ReactDOM from 'react-dom';
-${CSSDeps.map(({ css }) => `import '${css}';`).join('\n')}
+${CSSDeps.map(({ css }: any) => `import '${css}';`).join('\n')}
 import App from './App';
 ReactDOM.render(
   <App />,

@@ -39,3 +39,24 @@
     }
   }
 }
+
+.__dumi-default-previewer {
+  background-color: #f9fafb;
+}
+
+.__dumi-default-previewer-actions {
+  background-color: #fff;
+  justify-content: center;
+
+  > span {
+    display: none;
+  }
+}
+
+[data-prefers-color='dark'] .__dumi-default-previewer-actions {
+  background-color: unset;
+}
+
+.__dumi-default-layout[data-site-mode='true'] {
+  padding-top: 80px;
+}

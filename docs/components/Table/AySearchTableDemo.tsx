@@ -91,11 +91,13 @@ const fields: Array<AySearchTableField> = [
   {
     title: '初始HP',
     key: 'ori-hp',
+    search: {},
     dialog: {}
   },
   {
     title: '初始攻击',
     key: 'ori-atk',
+    search: {},
     dialog: {}
   },
   {

@@ -3300,7 +3300,7 @@
     "@types/prop-types" "*"
     csstype "^3.0.2"
 
-"@types/react@^16", "@types/react@^16.9.43", "@types/react@^16.9.46":
+"@types/react@^16", "@types/react@^16.9.43":
   version "16.14.1"
   resolved "https://registry.npm.taobao.org/@types/react/download/@types/react-16.14.1.tgz#da2ecb638385614a5573e16e4aa7daf936dbead5"
   integrity sha1-2i7LY4OFYUpVc+FuSqfa+Tbb6tU=
@@ -4179,94 +4179,11 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.npm.taobao.org/alphanum-sort/download/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
-amiya@*, amiya@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.npm.taobao.org/amiya/download/amiya-0.9.1.tgz#889b20ffb399fa02c60f3722e93e3497fbcd4056"
-  integrity sha1-iJsg/7OZ+gLGDzci6T40l/vNQFY=
+amiya@^0.36.0:
+  version "0.36.0"
+  resolved "https://registry.npmjs.org/amiya/-/amiya-0.36.0.tgz#fe9c7db8ac08b70665d5a7c1b794dbb55caec21f"
+  integrity sha512-F5vwqQK1dBZywiVaTWTIayIOrK4HMRNYfb59O5U48BmxGoSAaUeTbAklIWKMpr02lmx5Oi/RzTqPsQ6ipVvWcw==
   dependencies:
-    "@types/antd" "^1.0.0"
-    "@types/react" "^16.9.46"
-    "@types/react-dom" "^16.9.8"
-    amiya "*"
-    antd "^4.8.2"
-    moment "^2.27.0"
-
-amiya@0.11.0:
-  version "0.11.0"
-  resolved "https://registry.npm.taobao.org/amiya/download/amiya-0.11.0.tgz#8a152097d5385b0d0d5b84af402136dba84e1270"
-  integrity sha1-ihUgl9U4Ww0NW4SvQCE226hOEnA=
-  dependencies:
-    "@types/antd" "^1.0.0"
-    "@types/react" "^17.0.0"
-    "@types/react-dom" "^17.0.0"
-    amiya "^0.9.1"
-    antd "^4.8.2"
-    react "^17.0.1"
-
-amiya@0.12.0:
-  version "0.12.0"
-  resolved "https://registry.npm.taobao.org/amiya/download/amiya-0.12.0.tgz#543df7f71426de24bff3570731b9c33e2ff53adb"
-  integrity sha1-VD339xQm3iS/81cHMbnDPi/1Ots=
-  dependencies:
-    "@types/antd" "^1.0.0"
-    "@types/react" "^17.0.0"
-    "@types/react-dom" "^17.0.0"
-    amiya "0.11.0"
-    antd "^4.8.2"
-    react "^17.0.1"
-
-amiya@0.19.1:
-  version "0.19.1"
-  resolved "https://registry.npm.taobao.org/amiya/download/amiya-0.19.1.tgz#8be10ebe8ffac80e5c787708f0e6b859d1ec48af"
-  integrity sha1-i+EOvo/6yA5ceHcI8Oa4WdHsSK8=
-  dependencies:
-    "@types/antd" "^1.0.0"
-    "@types/react" "^17.0.0"
-    "@types/react-dom" "^17.0.0"
-    amiya "0.12.0"
-    antd "^4.8.2"
-    react "^17.0.1"
-
-amiya@0.20.0:
-  version "0.20.0"
-  resolved "https://registry.nlark.com/amiya/download/amiya-0.20.0.tgz#ac5d4f390aa91bf13939eefaa4806c6fb465f324"
-  integrity sha1-rF1POQqpG/E5Oe76pIBsb7Rl8yQ=
-  dependencies:
-    "@types/antd" "^1.0.0"
-    "@types/react" "^17.0.0"
-    "@types/react-dom" "^17.0.0"
-    amiya "0.19.1"
-    antd "^4.8.2"
-    react "^17.0.1"
-
-amiya@0.26.1:
-  version "0.26.1"
-  resolved "https://registry.npmjs.org/amiya/-/amiya-0.26.1.tgz#c9ef120d4942c1d3d124c859d4d559929cb936c8"
-  integrity sha512-A/GRw0wyeFP2fpPKX522ahEq0DDNB7O2OrndEJvtStNZ2GpyZUSqRnzN+K4sBejwRtTK7axkRdx4JXc31uMGUA==
-  dependencies:
-    "@types/antd" "^1.0.0"
-    "@types/react" "^17.0.0"
-    "@types/react-dom" "^17.0.0"
-    amiya "0.20.0"
-    antd "^4.8.2"
-    react "^17.0.1"
-
-amiya@^0.35.0:
-  version "0.35.0"
-  resolved "https://registry.npmjs.org/amiya/-/amiya-0.35.0.tgz#6942367c6f43938d9bfecacb7fe0ec46e5b1bcdb"
-  integrity sha512-OLDbpwL5Ldzs4yX3qvRinYx0pGngTMOD1HggKRU1mZDLWektNzSmP3zbRAnP77kvP7iuBENdYGlkxmrUyNtkWA==
-  dependencies:
-    amiya "0.26.1"
-    antd "^4.16.13"
-    react "^17.0.2"
-    react-dom "^17.0.2"
-
-amiya@^0.35.1:
-  version "0.35.1"
-  resolved "https://registry.npmjs.org/amiya/-/amiya-0.35.1.tgz#b47f830791ac312612dbbac6f41e75c0191dbc84"
-  integrity sha512-sz1NPb5MZNp4dsYAOeNy/VdL0AQKo6M/EqBST4Byl5x4LNd0VhzU/9E6j7WqnFYzuOSbxSf9tyv8ph43ZyGJ5g==
-  dependencies:
-    amiya "^0.35.0"
     antd "^4.16.13"
     react "^17.0.2"
     react-dom "^17.0.2"
@@ -4372,7 +4289,7 @@ ansicolors@~0.3.2:
   resolved "https://registry.npm.taobao.org/ansicolors/download/ansicolors-0.3.2.tgz#665597de86a9ffe3aa9bfbe6cae5c6ea426b4979"
   integrity sha1-ZlWX3oap/+Oqm/vmyuXG6kJrSXk=
 
-antd@*, antd@^4.8.2:
+antd@*:
   version "4.8.5"
   resolved "https://registry.npm.taobao.org/antd/download/antd-4.8.5.tgz?cache=0&sync_timestamp=1606041868431&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fantd%2Fdownload%2Fantd-4.8.5.tgz#eb0af8154a6dffb070c016b344d4b49b6910ce4f"
   integrity sha1-6wr4FUpt/7BwwBazRNS0m2kQzk8=
@@ -11113,7 +11030,7 @@ mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@^0.5.3, mkdirp@^0.5.5, mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-moment@^2.24.0, moment@^2.25.3, moment@^2.27.0:
+moment@^2.24.0, moment@^2.25.3:
   version "2.29.1"
   resolved "https://registry.npm.taobao.org/moment/download/moment-2.29.1.tgz?cache=0&sync_timestamp=1601983320283&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmoment%2Fdownload%2Fmoment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha1-sr52n6MZQL6e7qZGnAdeNQBvo9M=
@@ -13748,14 +13665,6 @@ react@^16.13.1:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
 
-react@^17.0.1:
-  version "17.0.1"
-  resolved "https://registry.npm.taobao.org/react/download/react-17.0.1.tgz?cache=0&sync_timestamp=1603367524183&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact%2Fdownload%2Freact-17.0.1.tgz#6e0600416bd57574e3f86d92edba3d9008726127"
-  integrity sha1-bgYAQWvVdXTj+G2S7bo9kAhyYSc=
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-
 react@^17.0.2:
   version "17.0.2"
   resolved "https://registry.npmjs.org/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
@@ -15736,6 +15645,11 @@ tslib@^1.10.0, tslib@^1.9.0:
   version "1.14.1"
   resolved "https://registry.npm.taobao.org/tslib/download/tslib-1.14.1.tgz?cache=0&sync_timestamp=1602286603545&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftslib%2Fdownload%2Ftslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha1-zy04vcNKE0vK8QkcQfZhni9nLQA=
+
+tslib@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.npmjs.org/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
+  integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
 
 tty-browserify@0.0.0:
   version "0.0.0"
