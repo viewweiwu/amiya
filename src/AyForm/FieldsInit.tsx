@@ -254,10 +254,16 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
     defaultValue: FORM_DEFAULT_VALUE_DATE_RANGE,
     render: ({ field, readonly, getFieldValue }: AnyKeyProps) => {
       let text = getFieldValue(field.key, readonly)
-      if (Array.isArray(text) && text[0] === null) {
-        text = null
-      } else if (text) {
-        text = text.join('\n')
+      if (Array.isArray(text)) {
+        if (text[0] === null) {
+          text = null
+        } else if (text) {
+          text = [
+            <span style={{ display: 'inline-block' }}>{(text[0] || '').toString()}</span>,
+            <span style={{ margin: '0 0.5em' }}>至</span>,
+            <span style={{ display: 'inline-block' }}>{(text[1] || '').toString()}</span>
+          ]
+        }
       }
       return readonly ? (
         <span className="ay-form-text">{text || FORM_READONLY_EMPTY}</span>
