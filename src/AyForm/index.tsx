@@ -164,8 +164,6 @@ const getTag = (
   field: AyFormField | AySearchTableField,
   fields: Array<AyFormField | AySearchTableField>,
   formInstans: AnyKeyProps,
-  addFieldListener: (key: string, fieldListener: FieldListener) => void,
-  removeFiledListener: (key: string, fieldListener: FieldListener) => void,
   readonly?: boolean
 ) => {
   let { type } = field
@@ -178,8 +176,6 @@ const getTag = (
       setFieldsValue: formInstans.setFieldsValue,
       formInstans,
       readonly: readonly || field.readonly || false,
-      addFieldListener,
-      removeFiledListener,
       getFieldValue: formInstans.getFieldValue
     })
   } else {
@@ -199,16 +195,12 @@ const getTag = (
  * 通过配置列表转 Form.Item
  * @param fields 配置列表
  * @param formInstans form 实例
- * @param addFieldListener 添加 form 监听事件
- * @param removeFiledListener 移除 form 监听事件
  * @param props form 的 props
  * @param childrenType 子类型
  */
 const getFormItem = (
   fields: Array<AyFormField | AySearchTableField>,
   formInstans: AnyKeyProps,
-  addFieldListener: (key: string, fieldListener: FieldListener) => void,
-  removeFiledListener: (key: string, fieldListener: FieldListener) => void,
   props: AyFormProps,
   childrenType?: 'group' | 'card' | 'input-group'
 ) => {
@@ -225,8 +217,6 @@ const getFormItem = (
               {getFormItem(
                 field.children as Array<AyFormField | AySearchTableField>,
                 formInstans,
-                addFieldListener,
-                removeFiledListener,
                 ayFormProps,
                 FORM_TYPE_CARD
               )}
@@ -256,7 +246,7 @@ const getFormItem = (
     }
 
     // 设置 Form.Item 的属性
-    let props: AnyKeyProps = {
+    let formItemProps: AnyKeyProps = {
       ...field.formItemProps,
       label: field.title,
       name: field.key,
@@ -265,12 +255,12 @@ const getFormItem = (
 
     // 组合元素的 formItem 不需要样式
     if (childrenType === FORM_TYPE_GROUP || childrenType === FORM_TYPE_INPUT_GROUP) {
-      props.noStyle = true
+      formItemProps.noStyle = true
     }
 
     // 设定 开关、多选框 等的值类型 （这是 ant design form 的限制）
     if (field.type && fieldMap[field.type]) {
-      props.valuePropName = fieldMap[field.type].valuePropName || 'value'
+      formItemProps.valuePropName = fieldMap[field.type].valuePropName || 'value'
     }
 
     // 设置每个【表单项】的占位
@@ -291,16 +281,16 @@ const getFormItem = (
 
     // 填充 rules 属性
     if (field.rules) {
-      props.rules = [...field.rules]
+      formItemProps.rules = [...field.rules]
     }
 
     // 填充快捷 required 属性
     if (field.required) {
       let rule = { required: true, message: getPlaceholder(field) }
-      if (props.rules) {
-        props.rules.push(rule)
+      if (formItemProps.rules) {
+        formItemProps.rules.push(rule)
       } else {
-        props.rules = [rule]
+        formItemProps.rules = [rule]
       }
     }
 
@@ -313,8 +303,6 @@ const getFormItem = (
             {getFormItem(
               field.children as Array<AyFormField | AySearchTableField>,
               formInstans,
-              addFieldListener,
-              removeFiledListener,
               ayFormProps,
               FORM_TYPE_GROUP
             )}
@@ -327,8 +315,6 @@ const getFormItem = (
             {getFormItem(
               field.children as Array<AyFormField | AySearchTableField>,
               formInstans,
-              addFieldListener,
-              removeFiledListener,
               ayFormProps,
               FORM_TYPE_INPUT_GROUP
             )}
@@ -336,14 +322,14 @@ const getFormItem = (
         )
         break
       default:
-        tag = getTag(field, fields, formInstans, addFieldListener, removeFiledListener, readonly)
+        tag = getTag(field, fields, formInstans, readonly)
         break
     }
 
     const content = field.render ? (
       field.render(field, formInstans.getFieldsValue() || getDefaultValue(fields))
     ) : (
-      <Form.Item {...props}>{tag}</Form.Item>
+      <Form.Item {...formItemProps}>{tag}</Form.Item>
     )
 
     if (formLayout === 'inline' || childrenType === FORM_TYPE_INPUT_GROUP) {
@@ -459,8 +445,7 @@ const handleChange = (
   changedValues: AnyKeyProps,
   allValues: AnyKeyProps,
   fields: Array<AyFormField | AySearchTableField>,
-  setFieldsValue: (params: AnyKeyProps) => void,
-  listnerList: Array<{ key: string; fieldListener: FieldListener }>
+  setFieldsValue: (params: AnyKeyProps) => void
 ) => {
   for (let key in changedValues) {
     let field: any = getField(key, fields)
@@ -469,12 +454,6 @@ const handleChange = (
       if (field.onChange) {
         field.onChange(value, allValues, setFieldsValue)
       }
-      // 如果监听器里命中目标，则触发目标事件
-      listnerList.forEach((item: { key: string; fieldListener: FieldListener }) => {
-        if (item.key === key && field) {
-          item.fieldListener(value, field)
-        }
-      })
     }
   }
 }
@@ -536,7 +515,6 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
 
   /** 控制 any form 的实例 */
   const formRef: MutableRefObject<any> = useRef()
-  let [listnerList, setListnerList] = useState<Array<any>>([])
   /** 暴露出去的 form 的实例，允许父组件通过 ref 调用方法 */
   const formInstans: AnyKeyProps = {}
   const [inited, setInited] = useState<boolean>(false)
@@ -660,20 +638,6 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   /** 暴露方法 */
   useImperativeHandle(ref, () => formInstans)
 
-  const addFieldListener = (key: string, fieldListener: FieldListener) => {
-    listnerList.push({
-      key,
-      fieldListener
-    })
-    setListnerList(listnerList)
-  }
-
-  const removeFiledListener = (key: string, fieldListener: FieldListener) => {
-    let index = listnerList.findIndex(item => item.fieldListener === fieldListener)
-    listnerList.splice(index, 1)
-    setListnerList(listnerList)
-  }
-
   const formItemLayout =
     formLayout === 'horizontal'
       ? {
@@ -692,17 +656,18 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
         ref={formRef}
         {...formItemLayout}
         labelAlign={labelAlign}
+        colon={desc ? false : true}
         layout={formLayout}
         name={props.name || 'ay-form'}
         initialValues={getDefaultValue(mirrorFields)}
         onFinish={values => handleConfirm(values, mirrorFields, onConfirm)}
         onValuesChange={(changedValues, allValues) =>
-          handleChange(changedValues, allValues, mirrorFields, formInstans.setFieldsValue, listnerList)
+          handleChange(changedValues, allValues, mirrorFields, formInstans.setFieldsValue)
         }
         {...defaultProps}
       >
         <Row gutter={gutter}>
-          {getFormItem(mirrorFields, formInstans, addFieldListener, removeFiledListener, props)}
+          {getFormItem(mirrorFields, formInstans, props)}
           {children}
         </Row>
       </Form>
