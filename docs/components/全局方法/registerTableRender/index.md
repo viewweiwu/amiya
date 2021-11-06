@@ -1,6 +1,6 @@
 # 注册自定义表格渲染列
 
-# registerTableRender
+这个页面的代码是写在 `/src/amiya/config.tsx` 文件里的，如果你还没有，请点击 [这里](../) 查看如何创建。
 
 实际情况下，可以考虑把 registerTableRender 放到全局入口。
 
@@ -8,8 +8,8 @@
 
 ```tsx
 import React from 'react'
-import { AySearchTable, AyButton, AySearchTableField } from 'amiya'
-import { listApi, professionOptions } from '../../api'
+import { AySearchTable, AySearchTableField } from 'amiya'
+import { listApi } from '../../api'
 import './amiya-init'
 
 const fields: Array<AySearchTableField> = [

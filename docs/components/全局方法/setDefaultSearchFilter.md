@@ -4,7 +4,7 @@ order: 1
 
 # 请求前处理
 
-## setDefaultSearchFilter
+这个页面的代码是写在 `/src/amiya/config.tsx` 文件里的，如果你还没有，请点击 [这里](../) 查看如何创建。
 
 ![amiya AySearchTable](https://misc.hzzcckj.cn/upload/image/202011/acf47931f000000.png)
 

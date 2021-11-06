@@ -1,5 +1,7 @@
 # 注册 action 事件
 
+这个页面的代码是写在 `/src/amiya/config.tsx` 文件里的，如果你还没有，请点击 [这里](../) 查看如何创建。
+
 ## registerAction
 
 注册 AyAction 的 action 事件。
@@ -19,8 +21,7 @@ import './amiya-init'
 const fields: Array<AySearchTableField> = [
   {
     title: '姓名',
-    key: 'cn',
-    search: {}
+    key: 'cn'
   }
 ]
 
@@ -45,6 +46,7 @@ export default function Demo() {
       api={listApi}
       fields={fields}
       ctrl={ctrl}
+      searchVisible={false}
       deleteApi={deleteApi}
       dialogFormExtend={{
         fields: fields,
