@@ -44,7 +44,7 @@ const getSearchFields = (
   mini: boolean,
   size: SearchSize,
   calcSpan: number
-): Array<AyFormField> => {
+): { searchFields: Array<AyFormField>; span: number } => {
   // 累计的 span
   let spanSum: number = 0
   // 每一行占用的 span，超过 24 清 0
@@ -63,24 +63,24 @@ const getSearchFields = (
       // 当前条默认的 span 值
       let newSpan = field.grid ? field.grid[size] : calcSpan
 
+      // 如果这一行超过 24 格子，意味着会这行
+      if (newSpan + rowSpanSum > 24) {
+        // 填补折行的空白空间
+        spanSum += 24 - rowSpanSum
+        // 重新调整 rowSpanSum 的值，保证值 < 24
+        rowSpanSum = 24 - newSpan
+      } else {
+        // 累计 这一行的 span 值
+        rowSpanSum += newSpan
+      }
+      // 如果刚好 = 24，意味则换行，清 0
+      if (rowSpanSum === 24) {
+        rowSpanSum = 0
+      }
+
+      spanSum += newSpan
+
       if (mini) {
-        // 如果这一行超过 24 格子，意味着会这行
-        if (newSpan + rowSpanSum > 24) {
-          // 填补折行的空白空间
-          spanSum += 24 - rowSpanSum
-          // 重新调整 rowSpanSum 的值，保证值 < 24
-          rowSpanSum = 24 - newSpan
-        } else {
-          // 累计 这一行的 span 值
-          rowSpanSum += newSpan
-        }
-        // 如果刚好 = 24，意味则换行，清 0
-        if (rowSpanSum === 24) {
-          rowSpanSum = 0
-        }
-
-        spanSum += newSpan
-
         // 如果超过两行，直接隐藏
         if (spanSum > 48 - calcSpan) {
           newField.hidden = true
@@ -95,7 +95,10 @@ const getSearchFields = (
   newFields.sort((a: any, b: any) => {
     return b.order - a.order
   })
-  return newFields
+  return {
+    searchFields: newFields,
+    span: spanSum
+  }
 }
 
 const getMiniLabel = (mini: boolean) => {
@@ -134,12 +137,7 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
     return SizeMap[size]
   }, [size])
   // 显示的 fields
-  const searchFields: Array<AyFormField> = getSearchFields(fields, mini, size, calcSpan)
-  // 显示的 span 总数
-  const visibleSpan = searchFields.reduce((sum, field) => {
-    sum += field.span || calcSpan
-    return sum
-  }, 0)
+  const { searchFields, span: visibleSpan } = getSearchFields(fields, mini, size, calcSpan)
 
   // 查询按钮所占的 span 值
   const actionSpan = useMemo(() => {
@@ -292,6 +290,7 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
   return (
     <Card className="ay-search">
       <div className="ay-search-content" ref={wrapRef}>
+        {visibleSpan}
         <AyForm
           layout={{ labelCol: { flex: '100px' } }}
           ref={formRef}
@@ -310,7 +309,7 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
                 <AyButton icon={<ReloadOutlined />} onClick={handleReset}>
                   重置
                 </AyButton>
-                {toggleVisible !== false ? visibleSpan > 48 - calcSpan && <ToogleBtn /> : null}
+                {toggleVisible !== false ? visibleSpan > 48 - actionSpan && <ToogleBtn /> : null}
               </Space>
             </Form.Item>
           </Col>
