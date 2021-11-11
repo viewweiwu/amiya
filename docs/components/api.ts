@@ -27,7 +27,7 @@ const loadData = () => {
     if (local) {
       data = JSON.parse(local)
     } else {
-      fetch('https://cdn.weipaitang.com/static/public/2021101471bb486e-5211-486e5211-1287-875e331132b9.json')
+      fetch('https://sunflower-assets.oss-cn-hangzhou.aliyuncs.com/data/data.json')
         .then(res => {
           return res.json()
         })

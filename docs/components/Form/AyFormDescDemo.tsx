@@ -4,51 +4,26 @@ import { Switch, Form, Row, Col, Card } from 'antd'
 
 const fields: Array<AyFormField> = [
   {
-    key: 'name',
-    hidden: true
-  },
-  {
     title: '姓名',
-    key: 'cname',
-    type: 'custom',
-    renderContent: (field, record) => {
-      return (
-        <div className="ay-form-text">
-          <div>{record.name}</div>
-          <div>{record.cname}</div>
-        </div>
-      )
-    }
+    key: 'cn'
   },
   {
-    title: '星级',
-    key: 'rarity',
-    type: 'custom',
-    renderContent: (field, record) => {
-      let starMap: any = {
-        5: '⭐️⭐️⭐️⭐️⭐️⭐️',
-        4: '⭐️⭐️⭐️⭐️⭐️',
-        3: '⭐️⭐️⭐️⭐️',
-        2: '⭐️⭐️⭐️',
-        1: '⭐️⭐️',
-        0: '⭐️'
-      }
-      return <span className="ay-form-text">{starMap[record[field.key]]}</span>
-    }
+    title: '英文名',
+    key: 'en'
   },
   {
     title: '初始HP',
-    key: 'defaultHp',
+    key: 'oriHp',
     type: 'number'
   },
   {
     title: '初始攻击',
-    key: 'defaultAtk',
+    key: 'oriAtk',
     type: 'number'
   },
   {
     title: '职业',
-    key: 'profession',
+    key: 'class',
     type: 'radio-group',
     defaultValue: '1',
     options: [
@@ -89,11 +64,11 @@ export default function Demo() {
 
   useEffect(() => {
     formRef.current.setFieldsValue({
-      cname: '阿米娅',
-      name: 'Amiya',
-      defaultHp: 720,
-      defaultAtk: 100,
-      profession: '3',
+      cn: '阿米娅',
+      en: 'Amiya',
+      oriHp: 720,
+      oriAtk: 100,
+      class: '3',
       rarity: 4,
       createDate: '2019-4-30 10:00:00',
       desc: `

@@ -220,7 +220,7 @@ export default function useExtraBtn(
     } else {
       document.body.style.overflow = ''
     }
-    searchRef.current.resize()
+    searchRef.current && searchRef.current.resize()
   }, [isEnter])
 
   const extraBtns = extraVisible ? (

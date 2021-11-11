@@ -8,7 +8,7 @@ sidemenu: false
 
 ## AySearchTable
 
-![图片](https://cdn.weipaitang.com/static/public/202110289df0451b-ddda-451bddda-aeb4-3f4159f35b17.svg)
+![图片](https://sunflower-assets.oss-cn-hangzhou.aliyuncs.com/svg/22.svg)
 
 只需要一个文件，用 `30%` 的代码量，实现更多功能的查询表格。
 
@@ -44,6 +44,7 @@ sidemenu: false
 ```tsx
 import React from 'react'
 import { Form, Input, Button, DatePicker, Select } from 'antd'
+import { Card } from 'antd'
 import moment from 'moment'
 
 const layout = {
@@ -57,40 +58,42 @@ export default function Demo() {
   }
 
   return (
-    <Form
-      {...layout}
-      name="basic"
-      initialValues={{ createName: 'arknights', name: 'amiya', type: '1', date: [moment(), moment()] }}
-      onFinish={onFinish}
-      style={{ width: 400, margin: '0 auto' }}
-    >
-      <Form.Item label="用户类型" name="type">
-        <Select disabled>
-          <Option value="1">外部用户</Option>
-          <Option value="2">内部用户</Option>
-        </Select>
-      </Form.Item>
+    <Card>
+      <Form
+        {...layout}
+        name="basic"
+        initialValues={{ createName: 'arknights', name: 'amiya', type: '1', date: [moment(), moment()] }}
+        onFinish={onFinish}
+        style={{ width: 400, margin: '0 auto' }}
+      >
+        <Form.Item label="用户类型" name="type">
+          <Select disabled>
+            <Option value="1">外部用户</Option>
+            <Option value="2">内部用户</Option>
+          </Select>
+        </Form.Item>
 
-      <Form.Item label="创建人" name="createName">
-        <Input disabled />
-      </Form.Item>
+        <Form.Item label="创建人" name="createName">
+          <Input disabled />
+        </Form.Item>
 
-      <Form.Item label="用户名" name="name">
-        <Input disabled />
-      </Form.Item>
+        <Form.Item label="用户名" name="name">
+          <Input disabled />
+        </Form.Item>
 
-      <Form.Item label="无值" name="empty">
-        <Input disabled placeholder="没有值的时候会把 placeholder 显示出来" />
-      </Form.Item>
+        <Form.Item label="无值" name="empty">
+          <Input disabled placeholder="没有值的时候会把 placeholder 显示出来" />
+        </Form.Item>
 
-      <Form.Item label="日期" name="date">
-        <DatePicker.RangePicker showTime disabled />
-      </Form.Item>
+        <Form.Item label="日期" name="date">
+          <DatePicker.RangePicker showTime disabled />
+        </Form.Item>
 
-      <Button block type="primary" htmlType="submit">
-        提交
-      </Button>
-    </Form>
+        <Button style={{ marginLeft: 100 }} type="primary" htmlType="submit">
+          提交
+        </Button>
+      </Form>
+    </Card>
   )
 }
 ```
@@ -100,6 +103,7 @@ export default function Demo() {
 ```tsx
 import React from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
+import { Card } from 'antd'
 import moment from 'moment'
 
 const fields: Array<AyFormField> = [
@@ -145,18 +149,20 @@ export default function Demo() {
   }
 
   return (
-    <AyForm
-      span={24}
-      fields={fields}
-      onConfirm={handleConfirm}
-      style={{ width: 400, margin: '0 auto' }}
-      layout={{ labelCol: { flex: '100px' } }}
-      readonly
-    >
-      <AyButton block type="primary" htmlType="submit">
-        提交
-      </AyButton>
-    </AyForm>
+    <Card>
+      <AyForm
+        span={24}
+        fields={fields}
+        onConfirm={handleConfirm}
+        style={{ width: 400, margin: '0 auto' }}
+        layout={{ labelCol: { flex: '100px' } }}
+        readonly
+      >
+        <AyButton style={{ marginLeft: 100 }} type="primary" htmlType="submit">
+          提交
+        </AyButton>
+      </AyForm>
+    </Card>
   )
 }
 ```
@@ -176,7 +182,7 @@ export default function Demo() {
 
 ```tsx
 import React from 'react'
-import { Descriptions } from 'antd'
+import { Descriptions, Card } from 'antd'
 
 const data = {
   cname: '阿米娅',
@@ -204,29 +210,31 @@ const data = {
 
 export default function Demo() {
   return (
-    <Descriptions colon column={2} bordered labelStyle={{ textAlign: 'right' }}>
-      <Descriptions.Item span={1} label="姓名">
-        {data.cname}
-      </Descriptions.Item>
-      <Descriptions.Item span={1} label="英文名">
-        {data.name}
-      </Descriptions.Item>
-      <Descriptions.Item span={1} label="初始HP">
-        {data.defaultHp}
-      </Descriptions.Item>
-      <Descriptions.Item span={1} label="初始攻击">
-        {data.defaultAtk}
-      </Descriptions.Item>
-      <Descriptions.Item span={1} label="职业">
-        {data.profession}
-      </Descriptions.Item>
-      <Descriptions.Item span={1} label="上线时间">
-        {data.createDate}
-      </Descriptions.Item>
-      <Descriptions.Item span={2} label="简介">
-        <pre>{data.desc}</pre>
-      </Descriptions.Item>
-    </Descriptions>
+    <Card>
+      <Descriptions colon column={2} bordered labelStyle={{ textAlign: 'right' }}>
+        <Descriptions.Item span={1} label="姓名">
+          {data.cname}
+        </Descriptions.Item>
+        <Descriptions.Item span={1} label="英文名">
+          {data.name}
+        </Descriptions.Item>
+        <Descriptions.Item span={1} label="初始HP">
+          {data.defaultHp}
+        </Descriptions.Item>
+        <Descriptions.Item span={1} label="初始攻击">
+          {data.defaultAtk}
+        </Descriptions.Item>
+        <Descriptions.Item span={1} label="职业">
+          {data.profession}
+        </Descriptions.Item>
+        <Descriptions.Item span={1} label="上线时间">
+          {data.createDate}
+        </Descriptions.Item>
+        <Descriptions.Item span={2} label="简介">
+          <pre>{data.desc}</pre>
+        </Descriptions.Item>
+      </Descriptions>
+    </Card>
   )
 }
 ```

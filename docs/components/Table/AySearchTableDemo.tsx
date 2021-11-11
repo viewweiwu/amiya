@@ -57,36 +57,12 @@ const fields: Array<AySearchTableField> = [
     }
   },
   {
-    title: (
-      <div>
-        <div>势力</div>
-        <div>出身地</div>
-        <div>种族</div>
-      </div>
-    ),
-    table: {
-      render: (text, record: Record) => {
-        return (
-          <div>
-            <div>{record.camp}</div>
-            <div>{record.birthplace}</div>
-            <div>{record.race}</div>
-          </div>
-        )
-      }
-    },
-    search: {
-      title: '职业',
-      key: 'class',
-      type: 'select',
-      options: professionOptions
-    },
-    dialog: {
-      title: '职业',
-      key: 'class',
-      type: 'select',
-      options: professionOptions
-    }
+    title: '职业',
+    key: 'class',
+    type: 'select',
+    options: professionOptions,
+    dialog: {},
+    search: {}
   },
   {
     title: '初始HP',
