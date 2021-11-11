@@ -255,11 +255,16 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   })
   /** action 展示，底部 or 右侧 */
   const { footerActions, rightActions } = getTableActionBtns(children)
-  const { extraBtns, size, isEnter } = useExtraBtn(tableRef, tableFields, setTableFields, props)
+  const { extraBtns, size, isEnter } = useExtraBtn(tableRef, searchRef, tableFields, setTableFields, props)
 
   const doLayout = () => {
     // 刷新表格
     setTableFields(getTableFields(fields))
+
+    // 设置顶部刷新
+    if (searchRef.current && typeof searchRef.current.rezise === 'function') {
+      searchRef.current.rezise()
+    }
   }
 
   useEffect(() => {

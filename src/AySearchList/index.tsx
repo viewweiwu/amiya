@@ -172,7 +172,7 @@ export default forwardRef(function AySearchList(props: AySearchListProps, ref: R
   })
   /** action 展示，底部 or 右侧 */
   const { footerActions, rightActions } = getTableActionBtns(children)
-  const { extraBtns, size, isEnter } = useExtraBtn(tableRef, tableFields, setTableFields, {
+  const { extraBtns, size, isEnter } = useExtraBtn(tableRef, searchRef, tableFields, setTableFields, {
     ...props,
     extraSizeVisible: false,
     extraSettingVisible: false

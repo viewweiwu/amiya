@@ -82,23 +82,11 @@ export default function AntdTable() {
       }
     },
     {
-      title: (
-        <div>
-          <div>势力</div>
-          <div>出身地</div>
-          <div>种族</div>
-        </div>
-      ),
-      key: 'camp',
-      dataIndex: 'camp',
-      render: (text: string, record: Record) => {
-        return (
-          <div>
-            <div>{record.camp}</div>
-            <div>{record.birthplace}</div>
-            <div>{record.race}</div>
-          </div>
-        )
+      title: '职业',
+      key: 'class',
+      render: (value: string) => {
+        let option = professionOptions.find(option => option.value === value)
+        return option ? option.label : value
       }
     },
     {

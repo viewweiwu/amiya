@@ -183,6 +183,7 @@ const useFieldsEdit = (
 
 export default function useExtraBtn(
   tableRef: any,
+  searchRef: any,
   tableFields: Array<AyTableField>,
   setTableFields: Dispatch<React.SetStateAction<AyTableField[]>>,
   props: AySearchTableProps
@@ -219,6 +220,7 @@ export default function useExtraBtn(
     } else {
       document.body.style.overflow = ''
     }
+    searchRef.current.resize()
   }, [isEnter])
 
   const extraBtns = extraVisible ? (

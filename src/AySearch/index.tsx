@@ -197,7 +197,9 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
   const formRef: MutableRefObject<any> = useRef()
 
   /** 暴露出去的 form 的实例，允许父组件通过 ref 调用方法 */
-  const formInstans: AnyKeyProps = {}
+  const formInstans: AnyKeyProps = {
+    resize: () => handleResize()
+  }
 
   /** 填充方法 */
   funcs.forEach(func => {
@@ -243,7 +245,7 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
     timerRef.current && clearTimeout(timerRef.current)
     timerRef.current = setTimeout(() => {
       getSpanByWrap()
-    }, 500)
+    }, 100)
   }
 
   useLayoutEffect(() => {
