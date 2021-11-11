@@ -135,6 +135,13 @@ export default function Demo() {
       rowKey="sort_id"
       selectShowKey="cn"
       deleteApi={deleteApi}
+      searchExtend={{
+        formExtend: {
+          layout: {
+            labelCol: { flex: '200px' }
+          }
+        }
+      }}
       dialogFormExtend={{
         fields: fields,
         updateApi,

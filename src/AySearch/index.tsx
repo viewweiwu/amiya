@@ -290,7 +290,6 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
   return (
     <Card className="ay-search">
       <div className="ay-search-content" ref={wrapRef}>
-        {visibleSpan}
         <AyForm
           layout={{ labelCol: { flex: '100px' } }}
           ref={formRef}
