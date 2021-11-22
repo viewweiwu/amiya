@@ -62,7 +62,10 @@ const fields: Array<AySearchTableField> = [
     type: 'select',
     options: professionOptions,
     dialog: {},
-    search: {}
+    search: {},
+    table: {
+      filter: true
+    }
   },
   {
     title: '初始HP',
@@ -135,13 +138,6 @@ export default function Demo() {
       rowKey="sort_id"
       selectShowKey="cn"
       deleteApi={deleteApi}
-      searchExtend={{
-        formExtend: {
-          layout: {
-            labelCol: { flex: '200px' }
-          }
-        }
-      }}
       dialogFormExtend={{
         fields: fields,
         updateApi,

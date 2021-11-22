@@ -103,7 +103,9 @@ export default function CharaSelect(props: CharaSelectProps) {
   return (
     <div className="chara-select">
       {content}
-      {readonly ? null : (
+      {readonly ? (
+        <div className="ay-form-text">-</div>
+      ) : (
         <AyDialog title="角色选择" visible={visible} setVisible={setVisible} onConfirm={handleConfirm}>
           {data.map(chara => {
             return <CharaCard value={checked} key={chara.id} chara={chara} onClick={() => setChecked(chara.id)} />

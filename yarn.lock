@@ -4179,10 +4179,10 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.npm.taobao.org/alphanum-sort/download/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
-amiya@^0.36.0:
-  version "0.36.0"
-  resolved "https://registry.npmjs.org/amiya/-/amiya-0.36.0.tgz#fe9c7db8ac08b70665d5a7c1b794dbb55caec21f"
-  integrity sha512-F5vwqQK1dBZywiVaTWTIayIOrK4HMRNYfb59O5U48BmxGoSAaUeTbAklIWKMpr02lmx5Oi/RzTqPsQ6ipVvWcw==
+amiya@^0.37.2:
+  version "0.37.2"
+  resolved "https://registry.npmjs.org/amiya/-/amiya-0.37.2.tgz#2813b465790b80a37633e17c1809183580bfd270"
+  integrity sha512-27cE1h18CeNacqBcxvKrZxCpCDnl+idpcXXC8zrr8Q9Bf2MA2v9eMX25PWUPHJgw2vrvoBpInKBDi1yuIWqsNw==
   dependencies:
     antd "^4.16.13"
     react "^17.0.2"

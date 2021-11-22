@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 # AySearchTable
 
 <!-- ![amiya AySearchTable](https://misc.hzzcckj.cn/upload/image/202011/ac6556223800000.png) -->

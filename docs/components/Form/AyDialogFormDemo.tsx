@@ -1,8 +1,7 @@
 import React, { useRef } from 'react'
-import { AyButton, AyDialogFormField, AyDialogForm, success, error } from 'amiya'
+import { AyButton, AyDialogFormField, AyDialogForm, success, error, AnyKeyProps } from 'amiya'
 import { Space } from 'antd'
 import { detailApi, addApi, updateApi, professionOptions, errorApi } from '../api'
-import { AnyKeyProps } from 'es/types/AnyKeyProps'
 
 export default function AyDialogFormDemo() {
   const formRef = useRef<any>()

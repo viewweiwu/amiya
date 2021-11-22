@@ -9,7 +9,7 @@ const fields: Array<AySearchTableField> = [
     title: '英文名',
     key: 'en',
     table: {
-      width: 300,
+      width: 100,
       editable: true,
       renderType: 'editable-cell-input'
     }
@@ -23,7 +23,7 @@ const fields: Array<AySearchTableField> = [
       renderType: 'editable-cell-input',
       // 未编辑时的样式
       editableCellStyle: {
-        width: 100,
+        width: 200,
         display: 'inline-block'
       },
       // 前置元素

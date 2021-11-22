@@ -1,9 +1,7 @@
 import React from 'react'
-import { AySearchList, AyAction, AyCtrl, AySearchTableField, AyTableCtrlField } from 'amiya'
+import { AySearchList, AyAction, AyCtrl, AySearchTableField, AyTableCtrlField, AnyKeyProps } from 'amiya'
 import { Card, List, Tag, Image, Space } from 'antd'
 import { listApi, addApi, updateApi, deleteApi, professionOptions } from '../api'
-
-import { AnyKeyProps } from 'es/types/AnyKeyProps'
 
 const ctrl: AyTableCtrlField = {
   width: 200,

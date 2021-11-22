@@ -25,6 +25,7 @@ registerAction('batch-approve', (props, _record, searchTable) => {
         props.api(selection).then(() => {
           success(props.children + '成功')
           searchTable.tableRef.current.refresh()
+          searchTable.clearSelection()
         })
       }
     },

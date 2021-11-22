@@ -11,7 +11,7 @@
 ## 注册自定义类型表单项
 
 1. 编写可控组件（CharaSelect.tsx）。
-2. 注册成为 FormType（amiya-init.tsx）。
+2. 注册成为 FormType（config.tsx）。
 
 <code src="./RegisterFieldDemo.tsx" />
 
@@ -22,8 +22,6 @@
  * @param FormType 表单项 type
  * @param DefaultValue 表单项默认值
  * @param render 渲染表单项，看下方 render 函数参数
- */
-/**
  * @desc render 函数参数
  * @desc render 出来组件需要支持组件受控
  * @param field 当前表单项

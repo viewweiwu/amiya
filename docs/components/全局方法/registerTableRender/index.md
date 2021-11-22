@@ -4,13 +4,13 @@
 
 实际情况下，可以考虑把 registerTableRender 放到全局入口。
 
-代码请看 `amiya-init.tsx`
+代码请看 `config.tsx`
 
 ```tsx
 import React from 'react'
 import { AySearchTable, AySearchTableField } from 'amiya'
 import { listApi } from '../../api'
-import './amiya-init'
+import './config'
 
 const fields: Array<AySearchTableField> = [
   {

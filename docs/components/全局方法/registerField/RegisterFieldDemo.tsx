@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
 import { Switch } from 'antd'
-import './amiya-init'
+import './config'
 
 const fields: Array<AyFormField> = [
   {
@@ -10,7 +10,7 @@ const fields: Array<AyFormField> = [
   },
   {
     title: '选择人物',
-    // 自定义 FormType，具体实现，请切换到 amiya-init.tsx 查看
+    // 自定义 FormType，具体实现，请切换到 config.tsx 查看
     type: 'chara-select',
     key: 'chara',
     required: true

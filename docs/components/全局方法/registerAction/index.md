@@ -11,12 +11,12 @@
 ```tsx
 /**
  * title: 备注
- * desc: 你可以写一个 amiya-init.tsx 文件，可以把它注册在全局，这样只需要引入一次。
+ * desc: 你可以写一个 config.tsx 文件，可以把它注册在全局，这样只需要引入一次。
  */
 import React from 'react'
 import { AySearchTable, AyAction, AyCtrl, AySearchTableField, AyTableCtrlField } from 'amiya'
-import { listApi, addApi, updateApi, deleteApi, professionOptions, emptyApi } from '../../api'
-import './amiya-init'
+import { listApi, addApi, updateApi, deleteApi, emptyApi } from '../../api'
+import './config'
 
 const fields: Array<AySearchTableField> = [
   {
@@ -46,6 +46,8 @@ export default function Demo() {
       api={listApi}
       fields={fields}
       ctrl={ctrl}
+      rowKey="sort_id"
+      selectShowKey="cn"
       searchVisible={false}
       deleteApi={deleteApi}
       dialogFormExtend={{
