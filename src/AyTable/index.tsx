@@ -199,7 +199,6 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     if (getSearchParams) {
       newParams.search = clearEmpty(getSearchParams())
     }
-
     newParams.pagination = {
       pageSize: pagination.pageSize,
       current: pagination.current
@@ -392,7 +391,8 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
                   ...pagination,
                   size: 'default',
                   total,
-                  current: loadParams.pagination.current
+                  current: loadParams.pagination.current,
+                  pageSize: loadParams.pagination.pageSize
                 }
               : false
           }

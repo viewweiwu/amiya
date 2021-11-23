@@ -225,7 +225,8 @@ export default forwardRef(function AyKust(props: AyListProps, ref) {
                 ...pagination,
                 total,
                 onChange: handleTableChange,
-                current: loadParams.pagination.current
+                current: loadParams.pagination.current,
+                pageSize: loadParams.pagination.pageSize
               }
             : false
         }
