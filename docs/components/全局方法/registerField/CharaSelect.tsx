@@ -80,7 +80,7 @@ export default function CharaSelect(props: CharaSelectProps) {
     onChange && onChange('')
   }
 
-  let content: ReactNode = readonly ? null : <AyButton onClick={handleSelect}>角色选择</AyButton>
+  let content: ReactNode = readonly ? <div></div> : <AyButton onClick={handleSelect}>角色选择</AyButton>
 
   // 如果已经有选中的
   if (activeChara) {

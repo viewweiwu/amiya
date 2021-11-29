@@ -9,6 +9,7 @@
 .umi
 .docz
 npm-debug.log*
+.DS_Store
 
 dist*
 docs-dist*

@@ -1,7 +1,16 @@
 import React, { useState } from 'react'
-import { AyForm, AyButton, AyFormField } from 'amiya'
+import { AyForm, AyButton, AyFormField, registerField } from 'amiya'
 import { Switch } from 'antd'
-import './config'
+import CharaSelect from './CharaSelect'
+
+// 注册自定义类型表单项
+// 注册一个角色选择
+// 这段代码放在 /src/amiya/config 下面
+registerField('chara-select', {
+  type: 'chara-select',
+  defaultValue: '',
+  render: ({ field, readonly }: any) => <CharaSelect readonly={readonly} {...field.props} />
+})
 
 const fields: Array<AyFormField> = [
   {
