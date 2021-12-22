@@ -46,7 +46,7 @@ export interface AyDialogFormField extends Field {
   search?: any
 }
 
-export interface AydialogFormRef extends AnyKeyProps {
+export interface AyDialogFormRef extends AnyKeyProps {
   /**
    * 弹窗新增模式
    * @param params 初始表单数据

@@ -4,6 +4,14 @@ order: 1
 
 # 更新日志
 
+## 0.38.0
+
+`2021-12-22`
+
+1. feat: AySearch 支持全局设置默认展示行数
+2. feat: AyDialogForm 可直接调用 Form 的方法
+3. fix: AyDialogForm 修复某些情况会携带 "\_\_" 开头的 key
+
 ## 0.37.3
 
 `2021-11-23`

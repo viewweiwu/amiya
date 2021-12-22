@@ -32,6 +32,7 @@ import { getActionProps } from '../AyAction'
 import useExtraBtn, { setSearchTableExtraDefaultValue } from './use/useExtraBtn'
 import AyButton from '../AyButton'
 import { AySearchTableContext } from './context'
+import { AyDialogFormRef } from '../AyDialogForm/ay-dialog-form'
 import './ay-search-table.less'
 
 /**
@@ -234,7 +235,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   } = props
 
   /** form 控制 */
-  const formRef: MutableRefObject<FormRefProps> = useRef() as MutableRefObject<FormRefProps>
+  const formRef: MutableRefObject<AyDialogFormRef> = useRef() as MutableRefObject<AyDialogFormRef>
   /** table 控制 */
   const tableRef: MutableRefObject<TableRefProps> = useRef() as MutableRefObject<TableRefProps>
   /** search 控制 */

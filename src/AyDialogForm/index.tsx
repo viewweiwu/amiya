@@ -11,7 +11,7 @@ import React, {
 } from 'react'
 import AyDialog from '../AyDialog'
 import AyForm from '../AyForm'
-import { AyDialogFormField, ModeType, AydialogFormRef, AyDialogFormProps } from './ay-dialog-form'
+import { AyDialogFormField, ModeType, AyDialogFormRef, AyDialogFormProps } from './ay-dialog-form'
 import { AyFormField } from '../AyForm/ay-form'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 
@@ -102,7 +102,7 @@ const funcs = [
   'validateFields'
 ]
 
-export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: Ref<AydialogFormRef>) {
+export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: Ref<AyDialogFormRef>) {
   const {
     fields,
     title,

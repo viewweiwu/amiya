@@ -13,13 +13,7 @@ import AyForm from '../AyForm'
 import AyList from '../AyList'
 import AyDialogForm from '../AyDialogForm'
 import useSelection from '../AySearchTable/use/useSelection'
-import {
-  FormRefProps,
-  TableRefProps,
-  AySearchTableField,
-  AySearchListProps,
-  SortItem
-} from '../AySearchTable/ay-search-table'
+import { TableRefProps, AySearchTableField, AySearchListProps, SortItem } from '../AySearchTable/ay-search-table'
 import { isObj } from '../utils'
 import { getDefaultValue } from '../AyForm'
 import { AyTableField } from '../AyTable/ay-table'
@@ -29,6 +23,7 @@ import { Space } from 'antd'
 import { getActionProps } from '../AyAction'
 import AyButton from '../AyButton'
 import { AySearchTableContext } from '../AySearchTable/context'
+import { AyDialogFormRef } from '../AyDialogForm/ay-dialog-form'
 import useExtraBtn from '../AySearchTable/use/useExtraBtn'
 
 import './ay-search-list.less'
@@ -151,7 +146,7 @@ export default forwardRef(function AySearchList(props: AySearchListProps, ref: R
   } = props
 
   /** form 控制 */
-  const formRef: MutableRefObject<FormRefProps> = useRef() as MutableRefObject<FormRefProps>
+  const formRef: MutableRefObject<AyDialogFormRef> = useRef() as MutableRefObject<AyDialogFormRef>
   /** table 控制 */
   const tableRef: MutableRefObject<TableRefProps> = useRef() as MutableRefObject<TableRefProps>
   /** search 控制 */

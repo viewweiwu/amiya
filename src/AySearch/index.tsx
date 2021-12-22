@@ -275,7 +275,7 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
   }
 
   useLayoutEffect(() => {
-    // 监听元素宽度变化
+    // @ts-ignore 监听元素宽度变化
     let observe = new window.ResizeObserver(() => {
       handleResize()
     })
