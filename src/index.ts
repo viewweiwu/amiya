@@ -6,7 +6,7 @@ import AyDialog from './AyDialog'
 import AyDialogForm from './AyDialogForm'
 import AyForm, { registerField } from './AyForm'
 import { success, info, error, warning } from './AyMessage'
-import AySearch from './AySearch'
+import AySearch, { setSearchDefaultVisibleRow } from './AySearch'
 import AySearchTable, { setSearchTableDefaultValue } from './AySearchTable'
 import AySelect from './AySelect'
 import AyTable, {
@@ -29,6 +29,7 @@ export {
   AyForm,
   registerField,
   AySearch,
+  setSearchDefaultVisibleRow,
   AySearchTable,
   AySelect,
   AyTable,
@@ -56,6 +57,7 @@ export default {
   AyForm,
   registerField,
   AySearch,
+  setSearchDefaultVisibleRow,
   AySearchTable,
   AySelect,
   AyTable,

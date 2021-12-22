@@ -13,6 +13,8 @@ export interface AySearchProps {
   toggleVisible?: boolean
   /** 查询占用的格数 */
   actionSpan?: number
+  /** mini 状态展示 n 行 */
+  visibleRow?: number
 }
 
 export interface AySearchField extends AyFormField {

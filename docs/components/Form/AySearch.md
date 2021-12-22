@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 ## AySearch
 
 AySearch 会随着容器宽度改变而改变个数，可以尝试 `浏览器放大缩小`，或 `改变浏览器宽度` 来观察示例的变化。
@@ -7,7 +11,124 @@ AySearch 会随着容器宽度改变而改变个数，可以尝试 `浏览器放
 3. 容器宽度 > 700，一行 2 个。
 4. 容器宽度 < 700，一行 1 个。
 
-<Alert>容器超过两行，会自动折叠，</Alert>
+<Alert>默认容器超过两行，会自动折叠。</Alert>
+
+```tsx
+import React, { useState } from 'react'
+import { AySearch, AySearchField } from 'amiya'
+import { Slider } from 'antd'
+
+let fields: AySearchField[] = [
+  {
+    title: '第一个',
+    key: '1'
+  },
+  {
+    title: '第二个',
+    key: '2'
+  },
+  {
+    title: '第三个',
+    key: '3'
+  },
+  {
+    title: '第四个',
+    key: '4'
+  },
+  {
+    title: '第五个',
+    key: '5'
+  },
+  {
+    title: '第六个',
+    key: '6'
+  },
+  {
+    title: '第七个',
+    key: '7'
+  }
+]
+
+export default function Demo() {
+  const [width, setWidth] = useState(100)
+
+  return (
+    <div>
+      <div>
+        <label>拖拽我，观察不同宽度下的个数的变化：</label>
+        <Slider defaultValue={width} min={30} onChange={e => setWidth(e)} />
+      </div>
+      <div style={{ width: width + '%' }}>
+        <AySearch fields={fields} />
+      </div>
+    </div>
+  )
+}
+```
+
+## 超过一行就折叠
+
+```tsx
+import React, { useState } from 'react'
+import { AySearch, AySearchField } from 'amiya'
+import { Slider } from 'antd'
+
+let fields: AySearchField[] = [
+  {
+    title: '第一个',
+    key: '1'
+  },
+  {
+    title: '第二个',
+    key: '2'
+  },
+  {
+    title: '第三个',
+    key: '3'
+  },
+  {
+    title: '第四个',
+    key: '4'
+  },
+  {
+    title: '第五个',
+    key: '5'
+  },
+  {
+    title: '第六个',
+    key: '6'
+  },
+  {
+    title: '第七个',
+    key: '7'
+  }
+]
+
+export default function Demo() {
+  const [width, setWidth] = useState(100)
+
+  return (
+    <div>
+      <div>
+        <label>拖拽我，观察不同宽度下的个数的变化：</label>
+        <Slider defaultValue={width} min={30} onChange={e => setWidth(e)} />
+      </div>
+      <div style={{ width: width + '%' }}>
+        <AySearch visibleRow={1} fields={fields} />
+      </div>
+    </div>
+  )
+}
+```
+
+可以全局设置成一行，请参考![这里](../)
+
+```js
+// visibleRow 可以设置折叠行数
+<AySearch visibleRow={1} />
+```
+
+## 不同的个数
 
 ```tsx
 import React from 'react'
@@ -608,7 +729,17 @@ import { AySearch, AySearchField } from 'amiya'
 let fields: AySearchField[] = [
   {
     title: '第一个',
-    key: '1'
+    key: '1',
+    type: 'date-range',
+    props: {
+      showTime: true
+    },
+    grid: {
+      large: 12,
+      middle: 16,
+      small: 24,
+      mini: 24
+    }
   },
   {
     title: '第二个',
@@ -620,17 +751,7 @@ let fields: AySearchField[] = [
   },
   {
     title: '第四个',
-    key: '4',
-    type: 'date-range',
-    props: {
-      showTime: true
-    },
-    grid: {
-      large: 12,
-      middle: 12,
-      small: 12,
-      mini: 24
-    }
+    key: '4'
   },
   {
     title: '第五个',
@@ -655,8 +776,8 @@ export default function Demo() {
 let fields: AySearchField[] = [
   // ...
   {
-    title: '第四个',
-    key: '4',
+    title: '第五个',
+    key: '5',
     type: 'date-range',
     props: {
       showTime: true
@@ -666,8 +787,8 @@ let fields: AySearchField[] = [
     // 指定 4 种尺寸的 grid 占格
 +   grid: {
 +     large: 12,
-+     middle: 12,
-+     small: 12,
++     middle: 16,
++     small: 24,
 +     mini: 24
 +   }
   }

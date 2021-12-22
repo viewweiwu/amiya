@@ -4,21 +4,21 @@ import React, {
   useRef,
   forwardRef,
   useImperativeHandle,
-  useEffect,
   useMemo,
   useLayoutEffect
 } from 'react'
 import AyForm from '../AyForm'
 import AyButton from '../AyButton'
 import { Form, Col, Space, Card } from 'antd'
-import './ay-search.less'
 import { AyFormField } from '../AyForm/ay-form'
 import { AySearchField, AySearchProps } from './ay-search'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { SearchOutlined, ReloadOutlined, DownOutlined, UpOutlined } from '@ant-design/icons'
+import './ay-search.less'
 
 type SearchSize = 'mini' | 'small' | 'middle' | 'large'
 
+/** 不同尺寸下，每个配置项所占用的 span */
 const SizeMap = {
   large: 6,
   middle: 8,
@@ -26,12 +26,25 @@ const SizeMap = {
   mini: 24
 }
 
+/** 默认展示 n 行 */
+let defaultVisibleRow = 2
+
+/**
+ * 设置 mini 状态下默认展示的行数
+ * @param row 展示行数
+ */
+export const setSearchDefaultVisibleRow = (row: number) => {
+  if (row > 0) {
+    defaultVisibleRow = row
+  }
+}
+
 /**
  * 获取 field 当前的位置，默认位置是 1，越往前越靠前
  * @param field form 配置项
  */
 const getOrder = (field: any, i: number): number => {
-  return field.order === undefined ? 1 : field.order
+  return field.order === undefined ? i : field.order
 }
 
 /**
@@ -40,63 +53,77 @@ const getOrder = (field: any, i: number): number => {
  * @param mini 是否缩小
  */
 const getSearchFields = (
+  /** 配置项 */
   fields: Array<AySearchField>,
+  /** 是否收起 */
   mini: boolean,
+  /** 当前尺寸 */
   size: SearchSize,
-  calcSpan: number
+  /** 每个项所占用的 span */
+  calcSpan: number,
+  /** 默认展开 n 行 */
+  visibleRow: number
 ): { searchFields: Array<AyFormField>; span: number } => {
   // 累计的 span
   let spanSum: number = 0
   // 每一行占用的 span，超过 24 清 0
   let rowSpanSum: number = 0
-  let newFields: Array<AyFormField> = fields
+  let newFields: Array<AySearchField | AyFormField> = fields
     // 过滤掉隐藏的
     .filter(field => field.hidden !== true)
-    // 生成 AyForm 的 field
+    // 获取到排序值
     .map((field, i) => {
-      // @ts-ignore
-      let newField: AyFormField = {
+      return {
         ...field,
-        // 生成 order
         order: getOrder(field, i)
       }
-      // 当前条默认的 span 值
-      let newSpan = field.grid ? field.grid[size] : calcSpan
-
-      // 如果这一行超过 24 格子，意味着会这行
-      if (newSpan + rowSpanSum > 24) {
-        // 填补折行的空白空间
-        spanSum += 24 - rowSpanSum
-        // 重新调整 rowSpanSum 的值，保证值 < 24
-        rowSpanSum = 24 - newSpan
-      } else {
-        // 累计 这一行的 span 值
-        rowSpanSum += newSpan
-      }
-      // 如果刚好 = 24，意味则换行，清 0
-      if (rowSpanSum === 24) {
-        rowSpanSum = 0
-      }
-
-      spanSum += newSpan
-
-      if (mini) {
-        // 如果超过两行，直接隐藏
-        if (spanSum > 48 - calcSpan) {
-          newField.hidden = true
-        }
-      }
-
-      // AyForm 的 span 值是具体数值
-      newField.span = newSpan
-      return newField
     })
+
   // 排序
   newFields.sort((a: any, b: any) => {
-    return b.order - a.order
+    return a.order - b.order
   })
+
+  // 生成 AyForm 的 field
+  newFields = newFields.map((field, index) => {
+    // @ts-ignore
+    let newField: AyFormField = {
+      ...field
+    }
+    // 当前条默认的 span 值
+    let newSpan = field.grid ? field.grid[size] : calcSpan
+
+    // 如果这一行超过 24 格子，意味着要换行
+    if (newSpan + rowSpanSum > 24) {
+      // 填补折行的空白空间
+      spanSum += 24 - rowSpanSum
+      // 重新调整 rowSpanSum 的值，保证值 < 24
+      rowSpanSum = 24 - newSpan
+    } else {
+      // 累计 这一行的 span 值
+      rowSpanSum += newSpan
+    }
+    // 如果刚好 = 24，意味则换行，清 0
+    if (rowSpanSum === 24) {
+      rowSpanSum = 0
+    }
+
+    spanSum += newSpan
+
+    if (mini) {
+      // 如果超过多行，直接隐藏
+      if (spanSum > visibleRow * 24 - calcSpan && index !== 0) {
+        newField.hidden = true
+      }
+    }
+
+    // AyForm 的 span 值是具体数值
+    newField.span = newSpan
+    return newField
+  })
+
   return {
-    searchFields: newFields,
+    searchFields: newFields as Array<AyFormField>,
     span: spanSum
   }
 }
@@ -125,9 +152,9 @@ const funcs = [
 ]
 
 export default forwardRef(function AySearch(props: AySearchProps, ref) {
-  const { fields, onConfirm, onReset, formExtend, defaultOpen, toggleVisible } = props
+  const { fields, onConfirm, onReset, formExtend, defaultOpen, toggleVisible, visibleRow = defaultVisibleRow } = props
   const wrapRef = useRef<any>()
-  const timerRef = useRef<NodeJS.Timer>()
+  const timerRef = useRef<number>(0)
   // 是否是 mini 状态
   const [mini, setMini] = useState<boolean>(!defaultOpen)
   // 当前尺寸
@@ -137,7 +164,7 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
     return SizeMap[size]
   }, [size])
   // 显示的 fields
-  const { searchFields, span: visibleSpan } = getSearchFields(fields, mini, size, calcSpan)
+  const { searchFields, span: visibleSpan } = getSearchFields(fields, mini, size, calcSpan, visibleRow)
 
   // 查询按钮所占的 span 值
   const actionSpan = useMemo(() => {
@@ -151,7 +178,7 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
     // mini 状态下的 span 值
     let miniSpanSum: number = 0
 
-    searchFields.forEach(field => {
+    searchFields.forEach((field, index: number) => {
       let newSpan = field.span || calcSpan
 
       // 如果这一行超过 24 格子，意味着会这行
@@ -169,8 +196,8 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
         rowSpanSum = 0
       }
 
-      // 如果超过两行，直接隐藏
-      if (spanSum + newSpan + calcSpan > 48 && !miniSpanSum) {
+      // 如果超过指定行数，直接隐藏
+      if (spanSum + newSpan + calcSpan > visibleRow * 24 && !miniSpanSum && index !== 0) {
         miniSpanSum = spanSum
       }
 
@@ -239,22 +266,22 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
    * 监听大小变化事件
    */
   const handleResize = () => {
-    // 防抖
-    timerRef.current && clearTimeout(timerRef.current)
-    timerRef.current = setTimeout(() => {
+    // 节流，每 100 毫秒执行一次
+    let now = Date.now()
+    if (now - timerRef.current > 100) {
       getSpanByWrap()
-    }, 100)
+      timerRef.current = now
+    }
   }
 
   useLayoutEffect(() => {
-    getSpanByWrap()
-  }, [])
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize)
+    // 监听元素宽度变化
+    let observe = new window.ResizeObserver(() => {
+      handleResize()
+    })
+    observe.observe(wrapRef.current)
     return () => {
-      timerRef.current && clearTimeout(timerRef.current)
-      window.removeEventListener('resize', handleResize)
+      observe.disconnect()
     }
   }, [])
 
@@ -308,7 +335,9 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
                 <AyButton icon={<ReloadOutlined />} onClick={handleReset}>
                   重置
                 </AyButton>
-                {toggleVisible !== false ? visibleSpan > 48 - actionSpan && <ToogleBtn /> : null}
+                {toggleVisible !== false
+                  ? visibleSpan > visibleRow * 24 - actionSpan && searchFields.length > 1 && <ToogleBtn />
+                  : null}
               </Space>
             </Form.Item>
           </Col>
