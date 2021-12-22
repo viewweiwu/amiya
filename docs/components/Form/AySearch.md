@@ -121,12 +121,12 @@ export default function Demo() {
 }
 ```
 
-可以全局设置成一行，请参考![这里](../)
-
 ```js
 // visibleRow 可以设置折叠行数
 <AySearch visibleRow={1} />
 ```
+
+全局默认折叠行数设置，看 [这里](../全局方法/set-search-default-visible-row)
 
 ## 不同的个数
 

@@ -41,7 +41,7 @@ export default function Demo() {
   return (
     <AyForm span={24} fields={fields} onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
       <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
-        提交
+        登录
       </AyButton>
     </AyForm>
   )
@@ -154,7 +154,7 @@ export default function Demo() {
       onConfirm={handleConfirm}
       style={{ width: 400, margin: '0 auto' }}
     >
-      <AyButton block type="primary" htmlType="submit">
+      <AyButton type="primary" htmlType="submit">
         提交
       </AyButton>
     </AyForm>

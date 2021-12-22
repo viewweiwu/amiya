@@ -19,14 +19,21 @@
 
 ## Method
 
-| 方法名        | 说明                                                     | 使用案例                                       |
-| ------------- | -------------------------------------------------------- | ---------------------------------------------- |
-| add           | 进入新增模式                                             | formRef.current.add(record: Record, config)    |
-| update        | 进入修改模式                                             | formRef.current.update(record: Record, config) |
-| view          | 进入详情模式                                             | formRef.current.view(record: Record, config)   |
-| closeDialog   | 关闭弹窗                                                 | formRef.current.view(record: Record)           |
-| getFormRef    | 获取里面嵌套的 AyForm 的对象，可以调用 AyForm 的一些方法 | formRef.current.getFormRef()                   |
-| refreshFields | 刷新 form 的列                                           | formRef.current.refreshFields()                |
+| 方法名                         | 说明                                                      | 使用案例                                       |
+| ------------------------------ | --------------------------------------------------------- | ---------------------------------------------- |
+| add                            | 进入新增模式                                              | formRef.current.add(record: Record, config)    |
+| update                         | 进入修改模式                                              | formRef.current.update(record: Record, config) |
+| view                           | 进入详情模式                                              | formRef.current.view(record: Record, config)   |
+| closeDialog                    | 关闭弹窗                                                  | formRef.current.view(record: Record)           |
+| getFormRef                     | 获取里面嵌套的 AyForm 的对象，可以调用 AyForm 的一些方法  | formRef.current.getFormRef()                   |
+| refreshFields                  | 刷新 form 的列                                            | formRef.current.refreshFields()                |
+| submit()                       | 主动提交表单                                              | -                                              |
+| resetFields()                  | 重置表单                                                  | -                                              |
+| getFieldValue(key: string)     | 根据 key 获取表单值                                       | any                                            |
+| getFieldsValue()               | 获取所有表单值                                            | values: Object                                 |
+| getFormatFieldsValue()         | 获取已经过滤后的表单值，当有嵌套时使用                    | values: Object                                 |
+| setFieldsValue(values: Object) | 设置表单值                                                | -                                              |
+| refreshFields()                | 重新渲染表单，如果动态改变了 fields，可以用此参数重新渲染 | -                                              |
 
 ## config
 

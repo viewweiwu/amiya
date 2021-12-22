@@ -1,6 +1,6 @@
 # 注册 action 事件
 
-这个页面的代码是写在 `/src/amiya/config.tsx` 文件里的，如果你还没有，请点击 [这里](../) 查看如何创建。
+这个页面的代码是写在 `/src/amiya/config.tsx` 文件里的，如果你还没有，可点击 [这里](../) 查看如何创建。
 
 ## registerAction
 

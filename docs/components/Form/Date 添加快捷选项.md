@@ -8,10 +8,12 @@
 1. 覆盖默认的日期 `date` 与 `date-range` 类型
 2. 注册放在全局入口出，达到全局通用
 
+点击任意一个日期选择框，观察弹出层的最下方的快捷按钮，【今日】、【今天】、【昨天】等等。
+
 ```tsx
 import React from 'react'
-import { AyForm, AyFormField, registerField, AyButton } from 'amiya'
-import { DatePicker, Row, Col } from 'antd'
+import { AyForm, AyFormField, registerField, AyButton, AnyKeyProps } from 'amiya'
+import { DatePicker } from 'antd'
 import moment from 'moment'
 
 // 区间日期快捷选项

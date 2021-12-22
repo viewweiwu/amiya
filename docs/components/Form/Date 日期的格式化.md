@@ -28,7 +28,7 @@ export default function Demo() {
   }
   return (
     <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
-      <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
+      <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
         提交
       </AyButton>
     </AyForm>
@@ -65,7 +65,7 @@ export default function Demo() {
   }
   return (
     <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
-      <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
+      <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
         提交
       </AyButton>
     </AyForm>
@@ -103,7 +103,7 @@ export default function Demo() {
   }
   return (
     <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
-      <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
+      <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
         提交
       </AyButton>
     </AyForm>
@@ -139,7 +139,7 @@ export default function Demo() {
   }
   return (
     <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
-      <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
+      <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
         提交
       </AyButton>
     </AyForm>
@@ -173,7 +173,7 @@ export default function Demo() {
   }
   return (
     <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
-      <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
+      <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
         提交
       </AyButton>
     </AyForm>
@@ -332,7 +332,7 @@ export default function Demo() {
   }
   return (
     <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
-      <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
+      <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
         提交
       </AyButton>
     </AyForm>
