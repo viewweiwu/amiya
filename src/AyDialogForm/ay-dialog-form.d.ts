@@ -1,6 +1,6 @@
 import { ModalProps } from 'antd/lib/modal'
 import { AySearchTableField, ExtendField } from '../AySearchTable/ay-search-table'
-import { Field } from '@/AyForm/ay-form'
+import { Field } from '../AyForm/ay-form'
 import { ReactNode } from 'react'
 import { AnyKeyProps } from '@/types/AnyKeyProps'
 
@@ -46,7 +46,7 @@ export interface AyDialogFormField extends Field {
   search?: any
 }
 
-export interface AydialogFormRef {
+export interface AydialogFormRef extends AnyKeyProps {
   /**
    * 弹窗新增模式
    * @param params 初始表单数据
@@ -65,4 +65,8 @@ export interface AydialogFormRef {
    * @param title 弹窗标题，默认“详情”
    */
   view(params?: AnyKeyProps, title?: ReactNode): void
+  /**
+   * 关闭弹窗
+   */
+  closeDialog(): void
 }

@@ -481,7 +481,7 @@ const getAyFormClassName = (className?: string, desc?: boolean, readonly?: boole
 /**
  * antd form 原生支持的方法尽数暴露出去
  */
-const funcs = [
+export const funcs = [
   'getFieldValue',
   'getFieldsValue',
   'getFieldError',

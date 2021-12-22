@@ -83,6 +83,25 @@ type Rejector = (value: AnyKeyProps) => void
 let dialogResolve: Resolver
 let dialogReject: Rejector
 
+/**
+ * antd form 原生支持的方法尽数暴露出去
+ */
+const funcs = [
+  'getFieldValue',
+  'getFieldsValue',
+  'getFieldError',
+  'getFieldsError',
+  'isFieldTouched',
+  'isFieldsTouched',
+  'isFieldValidating',
+  'resetFields',
+  'scrollToField',
+  'setFields',
+  'setFieldsValue',
+  'submit',
+  'validateFields'
+]
+
 export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: Ref<AydialogFormRef>) {
   const {
     fields,
@@ -169,8 +188,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     }
   }
 
-  // 控制暴露出去的方法
-  useImperativeHandle(ref, () => ({
+  const formInstans: AnyKeyProps = {
     /**
      * 新增表单
      * @param params 默认值
@@ -234,8 +252,18 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     /**
      * 关闭弹窗
      */
-    closeDialog
-  }))
+    closeDialog: () => {
+      closeDialog()
+    }
+  }
+
+  // 支持所有表单的方法
+  funcs.forEach(func => {
+    formInstans[func] = (...args: any) => formRef.current[func](...args)
+  })
+
+  // @ts-ignore 控制暴露出去的方法
+  useImperativeHandle(ref, () => formInstans)
 
   /**
    * 弹窗确定触发表单提交
@@ -268,6 +296,14 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     const api = apiMap[mode]
     if (api) {
       let params: AnyKeyProps = { ...initParams, ...values }
+
+      // 删除初始化的值携带
+      for (let key in initParams) {
+        if (key.startsWith('__')) {
+          delete params[key]
+        }
+      }
+
       if (typeof beforeSubmit === 'function') {
         let result: AnyKeyProps | boolean = beforeSubmit(params, mode)
         if (result !== false) {
