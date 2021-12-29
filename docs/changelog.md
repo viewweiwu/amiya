@@ -4,6 +4,10 @@ order: 1
 
 # 更新日志
 
+## 0.39.0
+
+1. fix: 修复 AySearchTable、AySearchList，'date-range' 设置 startKey、endKey 无效的情况
+
 ## 0.38.1
 
 `2021-12-23`

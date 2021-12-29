@@ -616,7 +616,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
    * @param readonly 是否只读
    */
   const getFieldsValue = (readonly?: boolean) => {
-    return getValues(fields, readonly)
+    return formatValues(getValues(fields, readonly), fields)
   }
 
   /** 覆盖 antd Form getFieldValue 方法 */
