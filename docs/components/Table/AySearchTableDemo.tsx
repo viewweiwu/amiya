@@ -16,6 +16,11 @@ const fields: Array<AySearchTableField> = [
     }
   },
   {
+    title: '区间',
+    key: 'area',
+    type: 'date-range'
+  },
+  {
     title: '姓名',
     key: 'cn',
     search: {},

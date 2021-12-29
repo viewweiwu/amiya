@@ -143,4 +143,4 @@ export default function Demo() {
 }
 ```
 
-[aysearchtable]: ./table
+[aysearchtable]: ../table

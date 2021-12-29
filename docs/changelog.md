@@ -4,6 +4,12 @@ order: 1
 
 # 更新日志
 
+## 0.38.1
+
+`2021-12-23`
+
+1. fix: 修复 AySearchList 缺少 addSelection， setSelection 方法。
+
 ## 0.38.0
 
 `2021-12-22`
