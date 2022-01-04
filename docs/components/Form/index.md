@@ -23,9 +23,19 @@ const fields: Array<AyFormField> = [
   {
     type: 'checkbox',
     key: 'remember',
+    rules: [
+      {
+        message: '请同意',
+        validator: (rule: any, value: boolean) => {
+          return new Promise((resolve, reject) => {
+            value ? resolve(value) : reject()
+          })
+        }
+      }
+    ],
     props: {
       style: {
-        float: 'right'
+        marginLeft: 120
       },
       children: '记住密码'
     }
@@ -384,7 +394,7 @@ export default function Demo() {
 | layout        | 布局参数, 查看下方 layout 参数               | Object                                 | -            |
 | formLayout    | 布局方式                                     | 'horizontal' \| 'vertical' \| 'inline' | 'horizontal' |
 | props         | antd Form 其它参数                           | [查看参数][1]                          | -            |
-| formItemProps | antd Form.Item 其它参数                      | Object                                 | -            |
+| formItemProps | antd Form.Item 其它参数                      | [查看参数][3]                          | -            |
 | onConfirm     | 提交事件监听                                 | (form: Object) => void                 | -            |
 | gutter        | 表单项横向之间的间距，Row 上面的 gutter 属性 | number                                 | -            |
 
@@ -491,8 +501,9 @@ const fields: Array<Field> = [
 | setFieldsValue(values: Object) | 设置表单值                                                | -              |
 | refreshFields()                | 重新渲染表单，如果动态改变了 fields，可以用此参数重新渲染 | -              |
 
-[1]: ./form#layout-参数
+[1]: https://ant-design.gitee.io/components/form-cn/#API
 [2]: ./form#ayformfield-参数
+[3]: https://ant-design.gitee.io/components/form-cn/#Form.Item
 [formtype]: ./form#formtype
 [option]: ./form#option-参数
 [ayformfield]: ./form#ayformfield-参数

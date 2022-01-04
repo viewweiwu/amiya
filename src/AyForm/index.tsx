@@ -28,7 +28,10 @@ import {
   FORM_TYPE_PERCENT,
   FORM_TYPE_CARD,
   FORM_TYPE_GROUP,
-  FORM_TYPE_INPUT_GROUP
+  FORM_TYPE_INPUT_GROUP,
+  FORM_TYPE_CHECKBOX,
+  FORM_TYPE_CHECKBOX_GROUP,
+  FORM_TYPE_RADIO_GROUP
 } from '../constant'
 import './ay-form.less'
 import moment from 'moment'
@@ -88,7 +91,11 @@ const getPlaceholder = (field: AyFormField | AySearchTableField): string => {
     [FORM_TYPE_INPUT, FORM_TYPE_NUMBER, FORM_TYPE_PERCENT, FORM_TYPE_PASSWORD, FORM_TYPE_TEXTAREA].includes(field.type)
   ) {
     return `请输入${field.title || ''}`
-  } else if ([FORM_TYPE_SELECT, FORM_TYPE_DATE].includes(field.type)) {
+  } else if (
+    [FORM_TYPE_SELECT, FORM_TYPE_DATE, FORM_TYPE_CHECKBOX, FORM_TYPE_CHECKBOX_GROUP, FORM_TYPE_RADIO_GROUP].includes(
+      field.type
+    )
+  ) {
     return `请选择${field.title || ''}`
   }
 

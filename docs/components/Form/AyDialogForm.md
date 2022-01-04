@@ -4,18 +4,21 @@
 
 ## Props
 
-| 方法名       | 说明                             | 可选值                                                     | 默认值 |
-| ------------ | -------------------------------- | ---------------------------------------------------------- | ------ |
-| width        | 弹窗宽度                         | number                                                     | -      |
-| span         | 每个 Field 所占的 span 值        | number                                                     | 24     |
-| fields       | 表单项，跟 AyForm 一致           | Array[AyFormField]                                         | -      |
-| addApi       | 进入修改模式                     | Promise                                                    | -      |
-| updateApi    | 进出详情模式                     | Promise                                                    | -      |
-| beforeSubmit | 表单的提交前校验                 | (params?: AnyKeyProps, mode?: string) => boolean \| obejct | -      |
-| dialogOnly   | 是否只使用申明了 dialog 的 Field | boolean                                                    | false  |
-| dialogExtend | AyDialog 的扩展值                | object                                                     | -      |
-| formExtend   | AyForm 的扩展值                  | object                                                     | -      |
-| autoClose    | 成功后是否自动关闭弹窗           | boolean                                                    | true   |
+| 方法名       | 说明                                                    | 可选值                                                     | 默认值 |
+| ------------ | ------------------------------------------------------- | ---------------------------------------------------------- | ------ |
+| title        | 标题, add 模式下默认是“新增”, update 模式下默认是“编辑” | string                                                     | -      |
+| name         | 弹窗名字，一般不需要设置                                | string                                                     | -      |
+| width        | 弹窗宽度                                                | number                                                     | -      |
+| span         | 每个 Field 所占的 span 值                               | number                                                     | 24     |
+| fields       | 表单项，跟 AyForm 一致                                  | Array[AyFormField]                                         | -      |
+| addApi       | 进入修改模式                                            | Promise                                                    | -      |
+| updateApi    | 进出详情模式                                            | Promise                                                    | -      |
+| beforeSubmit | 表单的提交前校验                                        | (params?: AnyKeyProps, mode?: string) => boolean \| obejct | -      |
+| dialogOnly   | 是否只使用申明了 dialog 的 Field                        | boolean                                                    | false  |
+| dialogExtend | [AyDialog](../ay-dialog#参数) 的扩展值                  | object                                                     | -      |
+| formExtend   | [AyForm](../form#props-参数) 的扩展值                   | object                                                     | -      |
+| autoClose    | 成功后是否自动关闭弹窗                                  | boolean                                                    | true   |
+| drawer       | 是否用 Drawer 替换 Modal                                | boolean                                                    | false  |
 
 ## Method
 
