@@ -23,16 +23,6 @@ const fields: Array<AyFormField> = [
   {
     type: 'checkbox',
     key: 'remember',
-    rules: [
-      {
-        message: '请同意',
-        validator: (rule: any, value: boolean) => {
-          return new Promise((resolve, reject) => {
-            value ? resolve(value) : reject()
-          })
-        }
-      }
-    ],
     props: {
       style: {
         marginLeft: 120

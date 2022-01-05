@@ -4,6 +4,12 @@ order: 1
 
 # 更新日志
 
+## 0.40.0
+
+`2022-01-05`
+
+1. fix: AyFrom hidden: false || visible: false 状态下 rules 属性无效，避免隐藏了还要必填
+
 ## 0.39.0
 
 1. fix: 修复 AySearchTable、AySearchList，'date-range' 设置 startKey、endKey 无效的情况

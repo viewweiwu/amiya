@@ -276,16 +276,6 @@ const getFormItem = (
       offset: field.offset
     }
 
-    // 不保留占位
-    if (hidden) {
-      colProps.span = 0
-      colProps.xs = 0
-      colProps.sm = 0
-      colProps.md = 0
-      colProps.lg = 0
-      colProps.xl = 0
-    }
-
     // 填充 rules 属性
     if (field.rules) {
       formItemProps.rules = [...field.rules]
@@ -299,6 +289,21 @@ const getFormItem = (
       } else {
         formItemProps.rules = [rule]
       }
+    }
+
+    // 不保留占位
+    if (hidden) {
+      colProps.span = 0
+      colProps.xs = 0
+      colProps.sm = 0
+      colProps.md = 0
+      colProps.lg = 0
+      colProps.xl = 0
+    }
+
+    // 不显示状态下 rule 无效
+    if (hidden || !visible) {
+      formItemProps.rules = []
     }
 
     let tag: ReactNode
