@@ -4,6 +4,12 @@ order: 1
 
 # 更新日志
 
+## 0.40.1
+
+`2022-01-10`
+
+1. fix: 修复 AySearchTable & AySearchList 的 autoload 设置为 false 时，reset 方法无效。
+
 ## 0.40.0
 
 `2022-01-05`
