@@ -5,7 +5,6 @@ import React, {
   Ref,
   useRef,
   MutableRefObject,
-  useCallback,
   ReactNode,
   useEffect
 } from 'react'
@@ -268,9 +267,9 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
   /**
    * 弹窗确定触发表单提交
    */
-  const onConfirm = useCallback(() => {
+  const onConfirm = () => {
     formRef.current.submit()
-  }, [])
+  }
 
   /**
    * 关闭弹窗

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle, ReactNode } from 'react'
+import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle, ReactNode, useRef } from 'react'
 import { Table, Space, Card } from 'antd'
 import core from './core'
 import RenderMapInit from './RenderMapInit'
@@ -84,6 +84,8 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     onParamsChange,
     getSearchParams
   } = props
+  /** 是否已经初始化 */
+  const initRef = useRef<boolean>(false)
   /** 表格查询的数据 */
   const [loadParams, setLoadParams] = useState<LoadParams>({
     pagination: {
@@ -111,7 +113,18 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     if (onParamsChange) {
       onParamsChange(loadParams)
     }
+    if (initRef.current) {
+      // 如果已经初始化，变动触发加载数据
+      loadData()
+    } else if (autoload !== false && !initRef.current) {
+      // 尚未初始化 且 默认加载，触发加载数据
+      loadData()
+    }
   }, [loadParams])
+
+  useEffect(() => {
+    initRef.current = true
+  }, [])
 
   /**
    * 获得查询前的参数
@@ -143,7 +156,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
    * @step 4、设置表格数据
    * @step 5、关闭 loading
    */
-  const loadData = useCallback(() => {
+  const loadData = () => {
     if (api) {
       let searchParams: AnyKeyProps = getApiParams()
       setLoading(true)
@@ -165,7 +178,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
         })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [api, loadParams])
+  }
 
   /**
    * 改变表格查询数据
@@ -173,24 +186,30 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
    * @param current 当前第几页
    * @param search 查询数据
    */
-  const updateLoadParams = useCallback(
-    ({ pageSize, current, search }: { pageSize?: number; current?: number; search?: AnyKeyProps }) => {
-      let newLoadParams: LoadParams = {
-        ...loadParams
-      }
-      if (pageSize !== undefined) {
-        newLoadParams.pagination.pageSize = pageSize
-      }
-      if (current !== undefined) {
-        newLoadParams.pagination.current = current
-      }
-      if (search !== undefined) {
-        newLoadParams.search = clearEmpty(search)
-      }
-      setLoadParams(newLoadParams)
-    },
-    [loadParams]
-  )
+  const updateLoadParams = ({
+    pageSize,
+    current,
+    search
+  }: {
+    pageSize?: number
+    current?: number
+    search?: AnyKeyProps
+  }) => {
+    let newLoadParams: LoadParams = {
+      ...loadParams
+    }
+    if (pageSize !== undefined) {
+      newLoadParams.pagination.pageSize = pageSize
+    }
+    if (current !== undefined) {
+      newLoadParams.pagination.current = current
+    }
+    if (search !== undefined) {
+      newLoadParams.search = clearEmpty(search)
+    }
+    setLoadParams(newLoadParams)
+  }
+
   const handleTableChange = (pagination: any, filters: any, sorter: any, extra: any) => {
     let newParams: LoadParams = {
       ...loadParams
@@ -346,12 +365,6 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     },
     getApiParams
   }))
-
-  useEffect(() => {
-    if (autoload !== false) {
-      loadData()
-    }
-  }, [loadData])
 
   useEffect(() => {
     setTableData(data || [])

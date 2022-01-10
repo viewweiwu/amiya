@@ -175,7 +175,7 @@ export default function ThemeButton(props) {
         <Radio.Group value={name} onChange={e => handleThemeChange(e.target.value)}>
           <Space direction="vertical">
             {linkList.map(link => (
-              <Radio value={link.name}>
+              <Radio value={link.name} key={link.name}>
                 <Space>
                   <span className="__amiya-theme-color" style={{ background: link.color }}></span>
                   {link.dark ? '暗-' + link.cn : link.cn}
