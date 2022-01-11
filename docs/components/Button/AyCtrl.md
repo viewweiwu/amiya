@@ -9,7 +9,7 @@
 ## 基础示例
 
 ```tsx
-import React, { useState } from 'react'
+import React from 'react'
 import { AyCtrl, AyAction } from 'amiya'
 
 export default function Demo() {

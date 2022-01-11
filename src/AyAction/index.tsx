@@ -283,3 +283,5 @@ export default function AyAction(props: AyActionProps) {
   const actionProps = getActionProps(props, searchTable)
   return <AyButton {...actionProps} />
 }
+
+AyAction.componentName = 'AyAction'

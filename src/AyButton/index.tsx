@@ -99,3 +99,5 @@ export default function AyButton(props: AyButtonProps) {
     </Button>
   )
 }
+
+AyButton.componentName = 'AyButton'
