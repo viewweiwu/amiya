@@ -15,7 +15,11 @@ import './ay-ctrl.less'
  */
 const getCtrlItem = (node: any, key?: any, defaultProps?: AnyKeyProps) => {
   let props = { ...node.props }
-  return <AyAction key={key} type="link" {...defaultProps} {...props} />
+
+  if (node?.type?.name === 'AyAction' || node?.type?.name === 'AyButton') {
+    return <AyAction key={key} type="link" {...defaultProps} {...props} />
+  }
+  return node
 }
 
 /**
