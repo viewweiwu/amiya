@@ -13,6 +13,7 @@ import AyForm from '../AyForm'
 import { AyDialogFormField, ModeType, AyDialogFormRef, AyDialogFormProps } from './ay-dialog-form'
 import { AyFormField } from '../AyForm/ay-form'
 import { AnyKeyProps } from '../types/AnyKeyProps'
+import { convertChildrenToAyFormField } from '@/AyFields/convertFields'
 
 /** 新增模式 */
 export const MODE_ADD = 'add'
@@ -103,7 +104,7 @@ const funcs = [
 
 export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: Ref<AyDialogFormRef>) {
   const {
-    fields,
+    fields: originFields,
     title,
     addApi,
     updateApi,
@@ -115,8 +116,13 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     formExtend,
     drawer,
     dialogOnly,
-    autoClose = true
+    autoClose = true,
+    children
   } = props
+
+  const childrenFields = convertChildrenToAyFormField(children)
+  const fields = [...(originFields || []), ...childrenFields]
+
   /** 弹窗是否可见 */
   const [visible, setVisible] = useState<boolean>(false)
   /** 当前所处于的模式 */
@@ -163,7 +169,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
         setFormFields(getAyFormFields(config.fields, mode, initParams, dialogOnly))
       }, [config.fields])
     } else {
-      formFields = getAyFormFields(props.fields, mode, initParams, dialogOnly)
+      formFields = getAyFormFields(fields, mode, initParams, dialogOnly)
       setFormFields(formFields)
     }
     // 设置标题

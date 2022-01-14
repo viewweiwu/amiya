@@ -33,6 +33,7 @@ export interface AyDialogFormProps extends ModalProps {
   dialogOnly?: boolean
   /** 成功后是否自动关闭 */
   autoClose?: boolean
+  children?: ReactNode
 }
 
 export interface AyDialogFormField extends Field {

@@ -15,6 +15,8 @@ import AyTable, {
   registerTableRender,
   setTableDefaultProps
 } from './AyTable'
+import AyFields from './AyFields'
+import AyField from './AyField'
 import AySearchList from './AySearchList'
 
 export {
@@ -33,6 +35,8 @@ export {
   AySearchTable,
   AySelect,
   AyTable,
+  AyFields,
+  AyField,
   AySearchList,
   setDefaultDataFilter,
   setDefaultSearchFilter,
@@ -61,6 +65,8 @@ export default {
   AySearchTable,
   AySelect,
   AyTable,
+  AyFields,
+  AyField,
   AySearchList,
   setDefaultDataFilter,
   setDefaultSearchFilter,

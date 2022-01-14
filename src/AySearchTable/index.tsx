@@ -15,7 +15,6 @@ import AyTable from '../AyTable'
 import AyDialogForm from '../AyDialogForm'
 import useSelection from './use/useSelection'
 import {
-  FormRefProps,
   TableRefProps,
   AySearchTableField,
   AySearchTableProps,
@@ -33,6 +32,7 @@ import useExtraBtn, { setSearchTableExtraDefaultValue } from './use/useExtraBtn'
 import AyButton from '../AyButton'
 import { AySearchTableContext } from './context'
 import { AyDialogFormRef } from '../AyDialogForm/ay-dialog-form'
+import { convertChildrenToAyFormField } from '@/AyFields/convertFields'
 import './ay-search-table.less'
 
 /**
@@ -44,10 +44,10 @@ const getSearchFields = (fields: Array<AySearchTableField>) => {
   let moreSearchFields: Array<AySearchField> = []
   fields
     .filter((field: AySearchTableField) => {
-      return isObj(field.search)
+      return isObj(field.search) || field.search === true
     })
     .forEach((field: AySearchTableField) => {
-      const search = field.search
+      let search = typeof field.search === 'boolean' ? {} : field.search
       if (!search) {
         return {
           title: '配置有误',
@@ -55,6 +55,7 @@ const getSearchFields = (fields: Array<AySearchTableField>) => {
           type: 'input'
         }
       }
+
       let searchField: AySearchField = {
         title: field.title,
         key: search.key || field.key || '',
@@ -62,6 +63,7 @@ const getSearchFields = (fields: Array<AySearchTableField>) => {
         options: field.options || [],
         ...search
       }
+
       if (searchField.position === 'more') {
         moreSearchFields.push(searchField)
       } else {
@@ -84,7 +86,15 @@ const getSearchFields = (fields: Array<AySearchTableField>) => {
  */
 const getTableFields = (fields: Array<AySearchTableField>): Array<AyTableField> => {
   return fields.map((field: AySearchTableField) => {
-    const table = field.table
+    let table = typeof field.table === 'boolean' ? {} : field.table
+
+    // false 表示表格隐藏
+    if (field.table === false) {
+      table = {
+        hidden: true
+      }
+    }
+
     let tableField: AyTableField = {
       title: field.title,
       key: field.key,
@@ -201,7 +211,7 @@ export const setSearchTableDefaultValue = (config: SearchTableInitConfig) => {
 
 export default forwardRef(function AySearchTable(props: AySearchTableProps, ref: Ref<any>) {
   const {
-    fields,
+    fields: originFields,
     api,
     deleteApi,
     children,
@@ -233,6 +243,11 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     onParamsChange,
     tableHeader
   } = props
+
+  const fields = useMemo(() => {
+    const childrenFields = convertChildrenToAyFormField(children)
+    return [...(originFields || []), ...childrenFields]
+  }, [originFields, children])
 
   /** form 控制 */
   const formRef: MutableRefObject<AyDialogFormRef> = useRef() as MutableRefObject<AyDialogFormRef>
@@ -379,6 +394,20 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     /** 获取请求前参数 */
     getApiParams() {
       return tableRef.current.getApiParams()
+    },
+    /**
+     * 根据 id 删除某一行数据
+     */
+    deleteRowByKey(key: string) {
+      tableRef.current.deleteRowByKey(key)
+    },
+    /**
+     * 新增一行数据
+     * @param row 新增的数据
+     * @param type 新增在前面还是后面
+     */
+    addRow(row: AnyKeyProps, type: 'before' | 'after' = 'after') {
+      tableRef.current.addRow(row, type)
     }
   }))
 
@@ -447,7 +476,11 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
           <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} {...searchExtend} />
         ) : null}
         {center}
-        {dialogFormExtend ? <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend} /> : null}
+        {dialogFormExtend ? (
+          <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend}>
+            {children}
+          </AyDialogForm>
+        ) : null}
         <AyTable {...tableProps} fields={tableFields} header={header}>
           {tableChildren}
         </AyTable>

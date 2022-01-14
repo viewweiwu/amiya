@@ -13,7 +13,7 @@ export interface ColSize {
 
 export interface AyFormProps {
   /** 配置项 */
-  fields: Array<AyFormField | AySearchTableField>
+  fields?: Array<AyFormField | AySearchTableField>
   /** form 名称 */
   name?: string
   /** 子元素 */

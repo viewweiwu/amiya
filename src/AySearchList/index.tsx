@@ -13,7 +13,8 @@ import AyForm from '../AyForm'
 import AyList from '../AyList'
 import AyDialogForm from '../AyDialogForm'
 import useSelection from '../AySearchTable/use/useSelection'
-import { TableRefProps, AySearchTableField, AySearchListProps, SortItem } from '../AySearchTable/ay-search-table'
+import { TableRefProps, AySearchTableField, SortItem } from '../AySearchTable/ay-search-table'
+import { AySearchListProps } from './ay-search-list'
 import { isObj } from '../utils'
 import { getDefaultValue } from '../AyForm'
 import { AyTableField } from '../AyTable/ay-table'
@@ -39,7 +40,7 @@ const getSearchFields = (fields: Array<AySearchTableField>) => {
       return isObj(field.search)
     })
     .forEach((field: AySearchTableField) => {
-      const search = field.search
+      let search = typeof field.search === 'boolean' ? {} : field.search
       if (!search) {
         return {
           title: '配置有误',

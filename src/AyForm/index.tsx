@@ -6,12 +6,13 @@ import React, {
   useRef,
   MutableRefObject,
   useState,
-  useEffect
+  useEffect,
+  useMemo
 } from 'react'
 import AyCard from '../AyCard'
 import { theme } from '../Theme'
 import { Form, Row, Col, Input } from 'antd'
-import { AyFormField, AyFormProps, FieldListener, RegisterFieldProps } from './ay-form'
+import { AyFormField, AyFormProps, RegisterFieldProps } from './ay-form'
 import { copy } from '../utils'
 import { AySearchField } from '../AySearch/ay-search'
 import { AnyKeyProps } from '../types/AnyKeyProps'
@@ -33,11 +34,12 @@ import {
   FORM_TYPE_CHECKBOX_GROUP,
   FORM_TYPE_RADIO_GROUP
 } from '../constant'
-import './ay-form.less'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 import { AySearchTableField } from '../AySearchTable/ay-search-table'
 import { ColProps } from 'antd/lib/col'
+import { convertChildrenToAyFormField } from '@/AyFields/convertFields'
+import './ay-form.less'
 
 moment.locale('zh-cn')
 
@@ -511,7 +513,7 @@ export const funcs = [
 
 export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   const {
-    fields,
+    fields: originFields,
     formLayout = 'horizontal',
     onConfirm,
     children,
@@ -524,6 +526,11 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
     labelAlign,
     gutter
   } = props
+
+  const fields = useMemo(() => {
+    const childrenFields = convertChildrenToAyFormField(children)
+    return [...(originFields || []), ...childrenFields]
+  }, [originFields, children])
 
   /** 控制 any form 的实例 */
   const formRef: MutableRefObject<any> = useRef()
@@ -559,7 +566,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   }
 
   useEffect(() => {
-    setMirrorFields(fields)
+    setMirrorFields([...fields])
   }, [fields])
 
   /**
