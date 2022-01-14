@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { AySearchTable, AySearchTableField, AyButton } from 'amiya'
-import { listApi, professionOptions } from '../api'
+import { professionOptions } from '../api'
 import { AnyKeyProps } from '@/types/AnyKeyProps'
 import { Button } from 'antd'
 
@@ -78,6 +78,21 @@ const fields: Array<AySearchTableField> = [
   }
 ]
 
+const data = [
+  {
+    cn: '阿米娅',
+    en: 'Amiya',
+    class: '术师',
+    sort_id: 55
+  },
+  {
+    cn: '能天使',
+    en: 'Exusiai',
+    class: '狙击',
+    sort_id: 73
+  }
+]
+
 export default function Demo() {
   const tableRef = useRef<any>(null)
 
@@ -90,8 +105,8 @@ export default function Demo() {
     <AySearchTable
       ref={tableRef}
       searchVisible={false}
-      api={listApi}
       fields={fields}
+      data={data}
       editMode="col"
       rowKey="sort_id"
       title="可编辑单元格"

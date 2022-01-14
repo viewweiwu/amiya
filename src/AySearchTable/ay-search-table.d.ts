@@ -24,7 +24,7 @@ export interface AySearchListProps extends SearchTableInitConfig {
   /** 标题 */
   title?: string | ReactNode
   /** 配置项 */
-  fields: Array<AySearchTableField>
+  fields?: Array<AySearchTableField>
   /** 子元素 */
   children?: Array<ReactNode> | ReactNode
   /** 请求列表接口 */
@@ -85,7 +85,7 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   /** 标题 */
   title?: string | ReactNode
   /** 配置项 */
-  fields: Array<AySearchTableField>
+  fields?: Array<AySearchTableField>
   /** 子元素 */
   children?: Array<ReactNode> | ReactNode
   /** 请求列表接口 */
@@ -173,11 +173,11 @@ export interface ExtendField extends Omit<AyFormField, 'key'> {
 
 export interface AySearchTableField extends Field {
   /** AySearch 需要的扩展参数，里面的属性比外面的属性优先级更高 */
-  search?: ExtendField
+  search?: ExtendField | boolean
   /** AyDialogForm 需要的扩展参数，里面的属性比外面的属性优先级更高 */
-  dialog?: ExtendField
+  dialog?: ExtendField | boolean
   /** AyTable 需要的扩展参数，里面的属性比外面的属性优先级更高 */
-  table?: AyTableField
+  table?: AyTableField | boolean
   [key: string]: any
 }
 
@@ -190,6 +190,8 @@ export interface TableRefProps {
   setSortsValue(sorts: Array<SortItem>): void
   clearSorts(keys: Array<String>): void
   getApiParams(): any
+  deleteRowByKey(key: string): void
+  addRow(row: AnyKeyProps, type: 'before' | 'after' = 'after'): void
 }
 
 export interface FormRefProps {

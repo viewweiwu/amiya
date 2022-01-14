@@ -48,6 +48,41 @@ export default function Demo() {
 }
 ```
 
+## JSX / TSX 语法糖
+
+```tsx
+import React from 'react'
+import { AyForm, AyButton, AyFields, AyField } from 'amiya'
+
+export default function Demo() {
+  const handleConfirm = (form: any) => {
+    console.log(form)
+    alert(JSON.stringify(form))
+  }
+
+  const options = [
+    { label: '苹果', value: 1 },
+    { label: '香蕉', value: 2 }
+  ]
+
+  return (
+    <AyForm span={24} onConfirm={handleConfirm} style={{ width: 800, margin: '0 auto' }}>
+      <AyFields>
+        <AyField key="name" title="姓名" />
+        <AyField key="fruit" title="水果" type="select" options={options} />
+        <AyField key="__group" type="input-group" title="送达时间">
+          <AyField key="start" type="date" props={{ style: { width: '50%' } }} />
+          <AyField key="end" type="date" props={{ style: { width: '50%' } }} />
+        </AyField>
+      </AyFields>
+      <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
+        登录
+      </AyButton>
+    </AyForm>
+  )
+}
+```
+
 ## 表单布局
 
 默认会是右侧，label 跟 content 在一起展示。此示例演示如何将 label 展示在顶部。

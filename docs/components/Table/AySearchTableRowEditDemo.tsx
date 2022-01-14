@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { AySearchTable, AySearchTableField, AyButton, AyTableCtrlField, AyAction, AyCtrl } from 'amiya'
-import { listApi, professionOptions } from '../api'
+import { professionOptions } from '../api'
 
 const fields: Array<AySearchTableField> = [
   {
@@ -44,6 +44,21 @@ const fields: Array<AySearchTableField> = [
   }
 ]
 
+const data = [
+  {
+    cn: '阿米娅',
+    en: 'Amiya',
+    class: '术师',
+    sort_id: 55
+  },
+  {
+    cn: '能天使',
+    en: 'Exusiai',
+    class: '狙击',
+    sort_id: 73
+  }
+]
+
 const ctrl: AyTableCtrlField = {
   width: 200,
   render: (_, record) => {
@@ -84,7 +99,7 @@ export default function Demo() {
       ref={tableRef}
       searchVisible={false}
       pagination={false}
-      api={listApi}
+      data={data}
       fields={fields}
       ctrl={ctrl}
       editMode="row"

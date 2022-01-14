@@ -12,6 +12,10 @@ toc: false
 
 <code src="./AySearchTableDemo.tsx" />
 
+## JSX / TSX 语法糖
+
+<code src="./AySearchTableDemoTsx.tsx" />
+
 ## 参数
 
 | 参数名             | 说明                                                                                                                                         | 参数类型                                        | 默认值 |

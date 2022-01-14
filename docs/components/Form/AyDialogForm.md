@@ -2,6 +2,10 @@
 
 <code src="./AyDialogFormDemo.tsx" />
 
+## JSX / TSX 语法糖
+
+<code src="./AyDialogFormDemoTsx.tsx" />
+
 ## Props
 
 | 方法名       | 说明                                                    | 可选值                                                     | 默认值 |
