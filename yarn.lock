@@ -4179,11 +4179,21 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.npm.taobao.org/alphanum-sort/download/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
-amiya@^0.37.2:
-  version "0.37.2"
-  resolved "https://registry.npmjs.org/amiya/-/amiya-0.37.2.tgz#2813b465790b80a37633e17c1809183580bfd270"
-  integrity sha512-27cE1h18CeNacqBcxvKrZxCpCDnl+idpcXXC8zrr8Q9Bf2MA2v9eMX25PWUPHJgw2vrvoBpInKBDi1yuIWqsNw==
+amiya@^0.41.0-beta.0:
+  version "0.41.0-beta.0"
+  resolved "https://registry.npmjs.org/amiya/-/amiya-0.41.0-beta.0.tgz#2a6d14039c7953bd5cb325f009f2580d188587ea"
+  integrity sha512-nDjkV0NZiChBoTNE/YPP6pVku/lXXX9chq4MAUzhNxMylJKEFYpEZWg9MBvNr+YQOjH+8OXUb4w1tR8H9mHr8Q==
   dependencies:
+    antd "^4.16.13"
+    react "^17.0.2"
+    react-dom "^17.0.2"
+
+amiya@^0.41.0-beta.1:
+  version "0.41.0-beta.1"
+  resolved "https://registry.npmjs.org/amiya/-/amiya-0.41.0-beta.1.tgz#235c7b92b187d324248ff9653d636e1c2a54b305"
+  integrity sha512-YUSSLSSASIpbOaVc0E2iMYGhPWVOZdxBvqguSCOnlb2CllQiYwV0Y8psuQ3alYsCqjM8/PbzyFZWoG394knhsg==
+  dependencies:
+    amiya "^0.41.0-beta.0"
     antd "^4.16.13"
     react "^17.0.2"
     react-dom "^17.0.2"

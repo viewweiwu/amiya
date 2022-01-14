@@ -1,7 +1,7 @@
 {
   "name": "amiya",
   "description": "amiya React component",
-  "version": "0.40.4",
+  "version": "0.41.0-beta.1",
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",
@@ -44,6 +44,7 @@
     ]
   },
   "dependencies": {
+    "amiya": "^0.41.0-beta.1",
     "antd": "^4.16.13",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
