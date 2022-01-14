@@ -9,6 +9,8 @@ export { default as AySearchTable } from './AySearchTable'
 export { default as AySelect } from './AySelect'
 export { default as AyTable } from './AyTable'
 export { default as AySearchList } from './AySearchList'
+export { default as AyFields } from './AyFields'
+export { default as AyField } from './AyField'
 
 export * from './AyAction/ay-action'
 export * from './AyButton/ay-button'

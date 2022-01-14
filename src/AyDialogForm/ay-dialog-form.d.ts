@@ -12,7 +12,7 @@ export interface AyDialogFormProps extends ModalProps {
   /** 用抽屉来展示 */
   drawer?: boolean
   /** 表单项 */
-  fields: Array<AyDialogFormField | AySearchTableField>
+  fields?: Array<AyDialogFormField | AySearchTableField>
   /** form 的 span */
   span?: number
   /** 新增 api */
