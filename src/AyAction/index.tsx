@@ -237,7 +237,7 @@ registerAction('editable-delete', (props, record, searchTable) => {
     confirm: true,
     confirmMsg: '你确定要删除此行吗？',
     onConfirm: () => {
-      searchTable.tableRef.current.deleteRowByKey(record.id)
+      searchTable.tableRef.current.deleteRowByKey(record[searchTable.rowKey || 'id'])
     },
     ...props
   }

@@ -1,4 +1,5 @@
 import { AnyKeyProps } from './types/AnyKeyProps'
+import { Option } from './AyForm/ay-form'
 
 /**
  * 拷贝对象
@@ -156,6 +157,16 @@ export const getCurrencyValue = (value: any) => {
     return '0'
   }
   return value.toLocaleString()
+}
+
+/**
+ * 通过选项列表把 value 变成 label
+ * @param value 当前值
+ * @param options 选项列表
+ */
+export const getValueByOptions = (value: any, options: Array<Option>) => {
+  let option = options.find(option => option.value === value)
+  return option ? option.label : value
 }
 
 /**

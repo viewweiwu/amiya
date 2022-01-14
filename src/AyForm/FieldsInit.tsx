@@ -40,12 +40,6 @@ import {
 } from '../constant'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { RegisterFieldProps } from './ay-form'
-import { Option } from './ay-form'
-
-const getValueByOptions = (value: any, options: Array<Option>) => {
-  let option = options.find(option => option.value === value)
-  return option ? option.label : value
-}
 
 export const install = (registerField: (fieldType: string, field: RegisterFieldProps) => void) => {
   // 注册输入框
@@ -279,4 +273,7 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
     defaultValue: FORM_DEFAULT_VALUE_EMPTY,
     render: () => <input hidden type="text" />
   })
+}
+function getValueByOptions(item: any, options: any): any {
+  throw new Error('Function not implemented.')
 }

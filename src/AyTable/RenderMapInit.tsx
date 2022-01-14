@@ -5,6 +5,8 @@ import { Tooltip, Input, Image, Tag } from 'antd'
 import { RenderProps } from './ay-table'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { AySelect } from 'amiya'
+import { FORM_READONLY_EMPTY } from '@/constant'
+import { getValueByOptions } from '../utils'
 
 export const install = (registerTableRender: (key: string, render: (props: RenderProps) => ReactNode) => void) => {
   registerTableRender('__options', ({ field, text }: RenderProps) => {
@@ -47,7 +49,15 @@ export const install = (registerTableRender: (key: string, render: (props: Rende
   registerTableRender('editable-cell-select', ({ text, field }: RenderProps) => {
     const selectRef = useRef<any>(null)
     const options = field.options || []
-    const label = options.find((option: Option) => option.value === text)?.label || ''
+    let label = ''
+    if (Array.isArray(text)) {
+      if (!text.length) {
+        text = FORM_READONLY_EMPTY
+      }
+      label = text.map((item: any) => getValueByOptions(item, field.options)).join(field.splitText || '、')
+    } else {
+      label = getValueByOptions(text, field.options)
+    }
 
     return ({ editing, save, mode }: AnyKeyProps) => {
       useEffect(() => {
