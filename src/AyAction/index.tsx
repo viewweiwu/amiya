@@ -203,7 +203,9 @@ registerAction('editable-confirm', (props, record, searchTable, form) => {
         // @ts-ignore 重新构建数组
         const newTableData = [...searchTable.tableRef.current.getTableData()]
         // 寻找到对应行
-        const index = newTableData.findIndex(row => row.id === newRow.id)
+        const index = newTableData.findIndex(
+          row => row[searchTable.rowKey || 'id'] === newRow[searchTable.rowKey || 'id']
+        )
         // 替换行
         newTableData.splice(index, 1, newRow)
         // 替换表格数据
