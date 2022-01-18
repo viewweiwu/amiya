@@ -67,6 +67,8 @@ export default function AyButton(props: AyButtonProps) {
   delete params.api
   delete params.onFinish
   delete params.__simple
+  delete params.deleteApi
+  delete params.detailApi
 
   if (props.confirm && !props.disabled) {
     if (!props.__simple) {
