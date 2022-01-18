@@ -6,14 +6,15 @@ import React, {
   useRef,
   MutableRefObject,
   ReactNode,
-  useEffect
+  useEffect,
+  useMemo
 } from 'react'
 import AyDialog from '../AyDialog'
 import AyForm from '../AyForm'
 import { AyDialogFormField, ModeType, AyDialogFormRef, AyDialogFormProps } from './ay-dialog-form'
 import { AyFormField } from '../AyForm/ay-form'
 import { AnyKeyProps } from '../types/AnyKeyProps'
-import { convertChildrenToAyFormField } from '@/AyFields/convertFields'
+import { convertChildrenToAyFormField } from '../AyFields/convertFields'
 
 /** 新增模式 */
 export const MODE_ADD = 'add'
@@ -120,8 +121,10 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     children
   } = props
 
-  const childrenFields = convertChildrenToAyFormField(children)
-  const fields = [...(originFields || []), ...childrenFields]
+  const fields = useMemo(() => {
+    const childrenFields = convertChildrenToAyFormField(children)
+    return [...(originFields || []), ...childrenFields]
+  }, [originFields, children])
 
   /** 弹窗是否可见 */
   const [visible, setVisible] = useState<boolean>(false)

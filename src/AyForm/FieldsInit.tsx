@@ -1,3 +1,4 @@
+import { getValueByOptions } from '@/utils'
 import { Input, Switch, Checkbox, Radio, DatePicker, InputNumber } from 'antd'
 import React from 'react'
 import AySelect from '../AySelect'
@@ -273,7 +274,4 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
     defaultValue: FORM_DEFAULT_VALUE_EMPTY,
     render: () => <input hidden type="text" />
   })
-}
-function getValueByOptions(item: any, options: any): any {
-  throw new Error('Function not implemented.')
 }

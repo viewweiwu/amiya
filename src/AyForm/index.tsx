@@ -38,7 +38,7 @@ import moment from 'moment'
 import 'moment/locale/zh-cn'
 import { AySearchTableField } from '../AySearchTable/ay-search-table'
 import { ColProps } from 'antd/lib/col'
-import { convertChildrenToAyFormField } from '@/AyFields/convertFields'
+import { convertChildrenToAyFormField } from '../AyFields/convertFields'
 import './ay-form.less'
 
 moment.locale('zh-cn')

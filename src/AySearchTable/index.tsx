@@ -32,7 +32,7 @@ import useExtraBtn, { setSearchTableExtraDefaultValue } from './use/useExtraBtn'
 import AyButton from '../AyButton'
 import { AySearchTableContext } from './context'
 import { AyDialogFormRef } from '../AyDialogForm/ay-dialog-form'
-import { convertChildrenToAyFormField } from '@/AyFields/convertFields'
+import { convertChildrenToAyFormField } from '../AyFields/convertFields'
 import './ay-search-table.less'
 
 /**

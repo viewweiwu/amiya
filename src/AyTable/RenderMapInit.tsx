@@ -5,7 +5,7 @@ import { Tooltip, Input, Image, Tag } from 'antd'
 import { RenderProps } from './ay-table'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { AySelect } from 'amiya'
-import { FORM_READONLY_EMPTY } from '@/constant'
+import { FORM_READONLY_EMPTY } from '../constant'
 import { getValueByOptions } from '../utils'
 
 export const install = (registerTableRender: (key: string, render: (props: RenderProps) => ReactNode) => void) => {
