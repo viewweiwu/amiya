@@ -1,5 +1,5 @@
 import React from 'react'
-import { AySearchList, AyAction, AyCtrl, AySearchTableField, AyTableCtrlField, AnyKeyProps } from 'amiya'
+import { AySearchList, AyAction, AyCtrl, AyTableCtrlField, AnyKeyProps, AyFields, AyField } from 'amiya'
 import { List, Space, Avatar } from 'antd'
 import { listApi, addApi, updateApi, deleteApi, professionOptions } from '../api'
 
@@ -23,46 +23,11 @@ const ctrl: AyTableCtrlField = {
 }
 
 export default function AySearchDemo() {
-  const fields: Array<AySearchTableField> = [
-    {
-      title: '英文名',
-      key: 'en',
-      search: true,
-      dialog: {
-        required: true,
-        rules: [{ pattern: /^[a-z|A-Z|0-9]{1,}$/, message: '请输入字母或者数字' }]
-      }
-    },
-    {
-      title: '中文名',
-      key: 'cn',
-      search: true,
-      dialog: {
-        required: true
-      }
-    },
-    {
-      title: '职业',
-      key: 'class',
-      type: 'select',
-      search: true,
-      dialog: true,
-      options: professionOptions
-    },
-    {
-      title: '描述',
-      type: 'textarea',
-      key: 'des',
-      dialog: true
-    }
-  ]
-
   return (
     <AySearchList
       title="列表标题"
       selectionType="checkbox"
       api={listApi}
-      fields={fields}
       ctrl={ctrl}
       rowKey="sort_id"
       deleteApi={deleteApi}
@@ -109,13 +74,21 @@ export default function AySearchDemo() {
         )
       }}
       dialogFormExtend={{
-        fields: fields,
         updateApi,
         addApi
       }}
     >
-      <AyAction action="batch-delete">批量删除</AyAction>
-      <AyAction action="add">新增</AyAction>
+      <AyFields>
+        <AyField
+          title="英文名"
+          key="en"
+          search
+          dialog={{ required: true, rules: [{ pattern: /^[a-z|A-Z|0-9]{1,}$/, message: '请输入字母或者数字' }] }}
+        />
+        <AyField title="中文名" key="cn" search dialog={{ required: true }} />
+        <AyField title="职业" key="class" type="select" search dialog options={professionOptions} />
+        <AyField title="职描述业" key="des" type="textarea" dialog />
+      </AyFields>
     </AySearchList>
   )
 }

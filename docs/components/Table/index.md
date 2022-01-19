@@ -12,7 +12,7 @@ toc: false
 
 <code src="./AySearchTableDemo.tsx" />
 
-## JSX / TSX 语法糖
+## JSX / TSX 语法糖 <Badge>0.41.0</Badge>
 
 <code src="./AySearchTableDemoTsx.tsx" />
 
@@ -21,7 +21,7 @@ toc: false
 | 参数名             | 说明                                                                                                                                         | 参数类型                                        | 默认值 |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | ------ |
 | title              | 表格标题，显示在表格左上角的标题文字。                                                                                                       | string \| ReactNode                             | ''     |
-| fields             | 配置项，可决定表格、查询项、弹唱表单的配置。                                                                                                 | Array<[AySearchTableField][aysearchtablefield]> | []     |
+| fields             | 配置项，可决定表格、查询项、弹窗表单的配置。                                                                                                 | Array<[AySearchTableField][aysearchtablefield]> | []     |
 | selectionType      | 是否开启勾选，checkbox：多选、radio：单选，单选表格的使用可以请看[这里][单选表格]，开启后需要指定 rowKey。                                   | 'checkbox' \| 'radio'                           | -      |
 | children           | 子元素会被放在表格右上角。                                                                                                                   | ReactNode                                       | -      |
 | api                | 列表分页接口，会传递分页和参数参数，发现跟接口风格不一致，点[这里][自定义请求]查看自定义方式。                                               | Promise                                         | -      |

@@ -48,7 +48,7 @@ export default function Demo() {
 }
 ```
 
-## JSX / TSX 语法糖
+## JSX / TSX 语法糖 <Badge>0.41.0</Badge>
 
 ```tsx
 import React from 'react'

@@ -16,14 +16,9 @@ const fields: Array<AySearchTableField> = [
     }
   },
   {
-    title: '区间',
-    key: 'area',
-    type: 'date-range'
-  },
-  {
     title: '姓名',
     key: 'cn',
-    search: {},
+    search: true,
     dialog: {
       required: true
     },
@@ -42,7 +37,7 @@ const fields: Array<AySearchTableField> = [
   {
     title: '英文名',
     key: 'en',
-    search: {},
+    search: true,
     dialog: {
       required: true
     },
@@ -53,21 +48,19 @@ const fields: Array<AySearchTableField> = [
   {
     title: '日文名',
     key: 'jp',
-    search: {},
+    search: true,
     dialog: {
       required: true
     },
-    table: {
-      hidden: true
-    }
+    table: false
   },
   {
     title: '职业',
     key: 'class',
     type: 'select',
     options: professionOptions,
-    dialog: {},
-    search: {},
+    dialog: true,
+    search: true,
     table: {
       filter: true
     }
@@ -75,14 +68,14 @@ const fields: Array<AySearchTableField> = [
   {
     title: '初始HP',
     key: 'ori-hp',
-    search: {},
-    dialog: {}
+    search: true,
+    dialog: true
   },
   {
     title: '初始攻击',
     key: 'ori-atk',
-    search: {},
-    dialog: {}
+    search: true,
+    dialog: true
   },
   {
     title: '标签',

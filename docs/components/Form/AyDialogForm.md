@@ -2,7 +2,7 @@
 
 <code src="./AyDialogFormDemo.tsx" />
 
-## JSX / TSX 语法糖
+## JSX / TSX 语法糖 <Badge>0.41.0</Badge>
 
 <code src="./AyDialogFormDemoTsx.tsx" />
 

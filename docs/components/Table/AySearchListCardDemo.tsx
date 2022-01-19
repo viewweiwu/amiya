@@ -1,6 +1,6 @@
 import React from 'react'
 import { AySearchList, AyAction, AyCtrl, AySearchTableField, AyTableCtrlField, AnyKeyProps } from 'amiya'
-import { List, Space, Avatar } from 'antd'
+import { Card, List, Tag, Image, Space } from 'antd'
 import { listApi, addApi, updateApi, deleteApi, professionOptions } from '../api'
 
 const ctrl: AyTableCtrlField = {
@@ -27,33 +27,29 @@ export default function AySearchDemo() {
     {
       title: '英文名',
       key: 'en',
-      search: true,
+      search: {},
       dialog: {
         required: true,
         rules: [{ pattern: /^[a-z|A-Z|0-9]{1,}$/, message: '请输入字母或者数字' }]
       }
     },
     {
-      title: '中文名',
-      key: 'cn',
-      search: true,
-      dialog: {
-        required: true
-      }
+      title: '初始HP',
+      key: 'ori-hp',
+      dialog: {}
+    },
+    {
+      title: '初始攻击',
+      key: 'ori-atk',
+      dialog: {}
     },
     {
       title: '职业',
       key: 'class',
       type: 'select',
-      search: true,
-      dialog: true,
+      search: {},
+      dialog: {},
       options: professionOptions
-    },
-    {
-      title: '描述',
-      type: 'textarea',
-      key: 'des',
-      dialog: true
     }
   ]
 
@@ -66,6 +62,9 @@ export default function AySearchDemo() {
       ctrl={ctrl}
       rowKey="sort_id"
       deleteApi={deleteApi}
+      listExtend={{
+        grid: { gutter: 16, column: 3 }
+      }}
       pagination={{
         pageSize: 20
       }}
@@ -78,33 +77,54 @@ export default function AySearchDemo() {
           1: '⭐️⭐️',
           0: '⭐️'
         }
+        const colorMap: AnyKeyProps = {
+          治疗: 'green',
+          输出: 'red',
+          爆发: 'orange',
+          群攻: 'blue',
+          生存: 'cyan',
+          费用回复: 'gold',
+          防护: 'purple',
+          新手: 'geekblue'
+        }
         return (
-          <List.Item
-            key={record.sort_id}
-            actions={[
-              <AyCtrl>
-                <AyAction record={record} action="view">
-                  详情
-                </AyAction>
-                <AyAction record={record} action="update">
-                  编辑
-                </AyAction>
-                <AyAction record={record} action="delete">
-                  删除
-                </AyAction>
-              </AyCtrl>
-            ]}
-          >
-            <List.Item.Meta
-              avatar={<Avatar src={record.icon} size="large" />}
+          <List.Item key={record.sort_id}>
+            <Card
+              key={record.sort_id}
               title={
-                <Space>
-                  {record.cn} {starMap[record.rarity]}
+                <Space style={{ display: 'flex', alignItems: 'center' }}>
+                  <Image preview={false} width={30} src={record.icon} />
+                  {record.cn}
                 </Space>
               }
-              description={record.des || '暂时没有描述。'}
-            />
-            <div>{record.moredes || '暂时没有干员信息。'}</div>
+              extra={starMap[record.rarity]}
+              actions={[
+                <AyAction type="text" record={record} action="view">
+                  详情
+                </AyAction>,
+                <AyAction type="text" record={record} action="update">
+                  编辑
+                </AyAction>,
+                <AyAction type="text" record={record} action="delete">
+                  删除
+                </AyAction>
+              ]}
+            >
+              <div style={{ padding: 16, display: 'flex' }}>
+                <img src={record.half.replace('110', '170')} width={100} height={200} />
+                <div style={{ marginLeft: 12 }}>
+                  <p>
+                    {record.tags.map((item: string) => (
+                      <Tag key={item} color={colorMap[item]}>
+                        {item}
+                      </Tag>
+                    ))}
+                  </p>
+                  <p>{record.des}</p>
+                  <p dangerouslySetInnerHTML={{ __html: record.feature }}></p>
+                </div>
+              </div>
+            </Card>
           </List.Item>
         )
       }}
