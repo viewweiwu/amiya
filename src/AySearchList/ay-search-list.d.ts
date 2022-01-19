@@ -24,7 +24,7 @@ export interface AySearchListProps extends SearchListInitConfig {
   /** 标题 */
   title?: string | ReactNode
   /** 配置项 */
-  fields: Array<AySearchTableField>
+  fields?: Array<AySearchTableField>
   /** 子元素 */
   children?: Array<ReactNode> | ReactNode
   /** 请求列表接口 */
