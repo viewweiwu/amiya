@@ -370,9 +370,27 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     setTableData(data || [])
   }, [data])
 
+  /**
+   * 是否拥有头部
+   */
+  const hasHeader = (): boolean => {
+    if (title || btnBefore) {
+      return true
+    }
+    // 检查是否拥有除了 AyFields 以外的子元素
+    if (children) {
+      let checkChildren = Array.isArray(children) ? [...children] : [children]
+      // @ts-ignore
+      if (checkChildren.filter(node => node?.type?.componentName !== 'AyFields').length > 0) {
+        return true
+      }
+    }
+    return false
+  }
+
   return (
     <Card className={`ay-table ${className || ''}`}>
-      {title || btnBefore || children ? (
+      {hasHeader() ? (
         <header className="ay-table-header">
           <div className="ay-table-header-left">
             <Space>{typeof title === 'string' ? <h2 className="ay-table-title">{title}</h2> : title}</Space>

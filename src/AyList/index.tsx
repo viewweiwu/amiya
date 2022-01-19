@@ -7,7 +7,7 @@ import { AnyKeyProps } from '../types/AnyKeyProps'
 import { defaultDataFilter, defaultSearchFilter } from '../AyTable'
 import './ay-list.less'
 
-export default forwardRef(function AyKust(props: AyListProps, ref) {
+export default forwardRef(function AyList(props: AyListProps, ref) {
   const {
     className,
     header,
@@ -207,9 +207,27 @@ export default forwardRef(function AyKust(props: AyListProps, ref) {
     setTableData(data || [])
   }, [data])
 
+  /**
+   * 是否拥有头部
+   */
+  const hasHeader = (): boolean => {
+    if (title || btnBefore) {
+      return true
+    }
+    // 检查是否拥有除了 AyFields 以外的子元素
+    if (children) {
+      let checkChildren = Array.isArray(children) ? [...children] : [children]
+      // @ts-ignore
+      if (checkChildren.filter(node => node?.type?.componentName !== 'AyFields').length > 0) {
+        return true
+      }
+    }
+    return false
+  }
+
   return (
     <Card className={`ay-list ${className || ''}`}>
-      {title || btnBefore || children ? (
+      {hasHeader() ? (
         <header className="ay-list-header">
           <div className="ay-list-header-left">
             <Space>{typeof title === 'string' ? <h2 className="ay-list-title">{title}</h2> : title}</Space>
