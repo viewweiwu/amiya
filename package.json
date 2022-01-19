@@ -1,7 +1,7 @@
 {
   "name": "amiya",
   "description": "amiya React component",
-  "version": "0.41.0-beta.5",
+  "version": "0.41.0",
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",
@@ -14,7 +14,7 @@
     "test:coverage": "umi-test --coverage"
   },
   "main": "lib/index.js",
-  "module": "es/index.esm.js",
+  "module": "es/index.esm.·js",
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
