@@ -341,7 +341,7 @@ export default forwardRef(function AySearchList(props: AySearchListProps, ref: R
       <AySearchTableContext.Provider
         value={{ formRef, tableRef, selection, deleteApi, rowKey, clearSelection, searchTableRef: ref }}
       >
-        {searchVisible !== false ? (
+        {searchVisible !== false && searchFields.length > 0 ? (
           <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} {...searchExtend} />
         ) : null}
         {center}
