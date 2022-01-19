@@ -16,6 +16,8 @@ toc: false
 
 <code src="./AySearchTableDemoTsx.tsx" />
 
+只是换了另一种风格写 `fields` 而已，请不要用其它元素包裹住 `AyFields` 和 `AyField`。
+
 ## 参数
 
 | 参数名             | 说明                                                                                                                                         | 参数类型                                        | 默认值 |
@@ -56,15 +58,15 @@ extra 右侧扩展按钮配置参考[这里][1]。
 
 最为常见的 Field，是每个列表页面都会用到的参数。
 
-| 参数名  | 说明                                                            | 参数类型                     | 默认值  |
-| ------- | --------------------------------------------------------------- | ---------------------------- | ------- |
-| title   | 名称                                                            | string                       | -       |
-| key     | 唯一 key                                                        | string                       | -       |
-| type    | 表单类型                                                        | [FormType][formtype]         | 'input' |
-| options | 可选项                                                          | Array<[Option][option]>      | -       |
-| search  | AySearch 需要的扩展参数，里面的属性比外面的属性优先级更高。     | [AyFormField][ayformfield]   | -       |
-| dialog  | AyDialogForm 需要的扩展参数，里面的属性比外面的属性优先级更高。 | [AyFormField][ayformfield]   | -       |
-| table   | AyTable 需要的扩展参数，里面的属性比外面的属性优先级更高。      | [AyTableField][aytablefield] | -       |
+| 参数名  | 说明                                                            | 参数类型                                | 默认值  |
+| ------- | --------------------------------------------------------------- | --------------------------------------- | ------- |
+| title   | 名称                                                            | string                                  | -       |
+| key     | 唯一 key                                                        | string                                  | -       |
+| type    | 表单类型                                                        | [FormType][formtype]                    | 'input' |
+| options | 可选项                                                          | Array<[Option][option]>                 | -       |
+| search  | AySearch 需要的扩展参数，里面的属性比外面的属性优先级更高。     | [AyFormField][ayformfield] \| boolean   | -       |
+| dialog  | AyDialogForm 需要的扩展参数，里面的属性比外面的属性优先级更高。 | [AyFormField][ayformfield] \| boolean   | -       |
+| table   | AyTable 需要的扩展参数，里面的属性比外面的属性优先级更高。      | [AyTableField][aytablefield] \| boolean | -       |
 
 ```typescript
 // 示例
@@ -74,12 +76,10 @@ const fields: Array<AySearchTableField> = [
     key: '', // 表格、查询、编辑 的 key
     type: '', // 查询、编辑 的 FormType
     options: [], // 表格、查询、编辑 的  选项
-    // 定义在此处的优先级更高，如果没有，则使用外层的参数
-    search: {
-      position: 'more' // 如果写了此参数，该查询项会出现在表格右侧
-    },
-    // 定义在此处的优先级更高，如果没有，则使用外层的参数
-    dialog: {},
+    // 表示查询区域内出现该元素，默认是输入框
+    search: true,
+    // 表示弹窗内出现该元素，默认是输入框
+    dialog: true,
     // 定义在此处的优先级更高，如果没有，则使用外层的参数
     table: {
       renderType: 'datetime' | string // 决定表格渲染方式
@@ -90,21 +90,21 @@ const fields: Array<AySearchTableField> = [
 
 ## AyTableField
 
-| 参数名         | 说明                                                       | 参数类型                                                              | 默认值   |
-| -------------- | ---------------------------------------------------------- | --------------------------------------------------------------------- | -------- |
-| title          | 标题。                                                     | string                                                                | -        |
-| key            | 唯一 key，dataIndex 默认会跟这个值一样。                   | string                                                                | -        |
-| options        | 可选项，展示会根据这个值变化。                             | Array<[Option][option]>                                               | -        |
-| hidden         | 是否隐藏这一列。                                           | boolean \| () => boolean                                              | -        |
-| render         | 自定义展示列。                                             | (text: ReactNode, record: AnyKeyProps, index: number) => ReactNode    | -        |
-| renderType     | 美化展示列，扩展方法看[这里][rendertype]。                 | string                                                                | 'string' | - |
-| filter         | 设置 true 会以 options 作为选项。                          | boolean                                                               | -        |
-| filterMultiple | 筛选是否支持多选。                                         | boolean                                                               | false    |
-| sort           | 排序。                                                     | boolean                                                               | -        |
-| sortOrder      | 排序权重，越大越重，不设置则表示不需要多列筛选。           | number                                                                | -        |
-| editable       | 表格是否可以编辑，具体示例看[这里][可编辑表格]。           | boolean                                                               | -        |
-| before         | (仅 `editable` 可用), 渲染前置元素，[使用案例][可编辑表格] | ({ record: Record, field: Field, refreshRow: Function }) => ReactNode | -        |
-| after          | (仅 `editable` 可用), 渲染后置元素，[使用案例][可编辑表格] | ({ record: Record, field: Field, refreshRow: Function }) => ReactNode | -        |
+| 参数名         | 说明                                                                      | 参数类型                                                              | 默认值   |
+| -------------- | ------------------------------------------------------------------------- | --------------------------------------------------------------------- | -------- |
+| title          | 标题。                                                                    | string                                                                | -        |
+| key            | 唯一 key，dataIndex 默认会跟这个值一样。                                  | string                                                                | -        |
+| options        | 可选项，展示会根据这个值变化。                                            | Array<[Option][option]>                                               | -        |
+| hidden         | 是否隐藏这一列。                                                          | boolean \| () => boolean                                              | -        |
+| render         | 自定义展示列。                                                            | (text: ReactNode, record: AnyKeyProps, index: number) => ReactNode    | -        |
+| renderType     | 美化展示列，扩展方法看[这里][rendertype]。                                | string                                                                | 'string' | - |
+| filter         | 设置 true 会以 options 作为筛选项出现在表头。                             | boolean                                                               | -        |
+| filterMultiple | 筛选是否支持多选，需要先设置 `filter: true`。                             | boolean                                                               | false    |
+| sort           | 排序。                                                                    | boolean                                                               | -        |
+| sortOrder      | 排序权重，越大越重，不设置则表示不需要多列筛选，需要先设置 `sort: true`。 | number                                                                | -        |
+| editable       | 表格是否可以编辑，具体示例看[这里][可编辑表格]。                          | boolean                                                               | -        |
+| before         | (仅 `editable` 可用), 渲染前置元素，[使用案例][可编辑表格]                | ({ record: Record, field: Field, refreshRow: Function }) => ReactNode | -        |
+| after          | (仅 `editable` 可用), 渲染后置元素，[使用案例][可编辑表格]                | ({ record: Record, field: Field, refreshRow: Function }) => ReactNode | -        |
 
 ## Option 参数
 

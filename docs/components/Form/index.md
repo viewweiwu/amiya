@@ -83,6 +83,8 @@ export default function Demo() {
 }
 ```
 
+只是换了另一种风格写 `fields` 而已，请不要用其它元素包裹住 `AyFields` 和 `AyField`。
+
 ## 表单布局
 
 默认会是右侧，label 跟 content 在一起展示。此示例演示如何将 label 展示在顶部。

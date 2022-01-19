@@ -4,6 +4,16 @@ order: 1
 
 # 更新日志
 
+## 0.41.0
+
+`2022-01-19`
+
+1. fix: 修复 editable-confirm 没有支持 rowKey 属性。
+2. fix: 修复 AySearchTable type 为 group 时的错误提示。
+3. feat: 现在可以直接设置 search: true, dialog: true, table: false 这种写法了。
+4. feat: 可以使用 AyFields、AyField 写法来写 `AySearchTable`、`AySearchList`、 `AyForm`、`AyDialogForm`，支持 JSX / TSX 语法糖。
+5. feat: `AySearchTable`、`AySearchList` 如果没有查询选项，会自动关闭查询区域了。
+
 ## 0.40.3
 
 `2022-01-11`

@@ -24,7 +24,7 @@ const ctrl: AyTableCtrlField = {
 export default function Demo() {
   return (
     <AySearchTable
-      title="JSX 增删改查"
+      title="表格标题"
       selectionType="checkbox"
       api={listApi}
       ctrl={ctrl}
