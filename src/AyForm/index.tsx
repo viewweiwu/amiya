@@ -220,7 +220,7 @@ const getFormItem = (
 
     if (field.type === FORM_TYPE_CARD) {
       return (
-        <Col key={field.key ?? Math.random()} span={24}>
+        <Col key={field.key} span={24}>
           <AyCard title={field.title} {...field.props}>
             <Row gutter={gutter}>
               {getFormItem(
@@ -343,7 +343,9 @@ const getFormItem = (
     const content = field.render ? (
       field.render(field, formInstans.getFieldsValue() || getDefaultValue(fields))
     ) : (
-      <Form.Item {...formItemProps}>{tag}</Form.Item>
+      <Form.Item key={field.key} {...formItemProps}>
+        {tag}
+      </Form.Item>
     )
 
     if (formLayout === 'inline' || childrenType === FORM_TYPE_INPUT_GROUP) {
