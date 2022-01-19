@@ -26,6 +26,7 @@ import AyButton from '../AyButton'
 import { AySearchTableContext } from '../AySearchTable/context'
 import { AyDialogFormRef } from '../AyDialogForm/ay-dialog-form'
 import useExtraBtn from '../AySearchTable/use/useExtraBtn'
+import { convertChildrenToAyFormField } from '../AyFields/convertFields'
 
 import './ay-search-list.less'
 /**
@@ -37,7 +38,7 @@ const getSearchFields = (fields: Array<AySearchTableField>) => {
   let moreSearchFields: Array<AySearchField> = []
   fields
     .filter((field: AySearchTableField) => {
-      return isObj(field.search)
+      return isObj(field.search) || field.search === true
     })
     .forEach((field: AySearchTableField) => {
       let search = typeof field.search === 'boolean' ? {} : field.search
@@ -113,7 +114,7 @@ const getTableActionBtns = (
 
 export default forwardRef(function AySearchList(props: AySearchListProps, ref: Ref<any>) {
   const {
-    fields,
+    fields: originFields,
     api,
     deleteApi,
     children,
@@ -145,6 +146,11 @@ export default forwardRef(function AySearchList(props: AySearchListProps, ref: R
     onParamsChange,
     listHeader
   } = props
+
+  const fields = useMemo(() => {
+    const childrenFields = convertChildrenToAyFormField(children)
+    return [...(originFields || []), ...childrenFields]
+  }, [originFields, children])
 
   /** form 控制 */
   const formRef: MutableRefObject<AyDialogFormRef> = useRef() as MutableRefObject<AyDialogFormRef>
@@ -323,6 +329,10 @@ export default forwardRef(function AySearchList(props: AySearchListProps, ref: R
     if (extraBtns) {
       children.push(extraBtns)
     }
+    if (children.length === 1) {
+      return children[0]
+    }
+
     return children.length ? children : null
   }, [moreSearchRef, moreSearchFields, onConfirm, rightActions, extraBtns])
 
@@ -335,7 +345,11 @@ export default forwardRef(function AySearchList(props: AySearchListProps, ref: R
           <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} {...searchExtend} />
         ) : null}
         {center}
-        {dialogFormExtend ? <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend} /> : null}
+        {dialogFormExtend ? (
+          <AyDialogForm ref={formRef} dialogOnly {...dialogFormExtend}>
+            {children}
+          </AyDialogForm>
+        ) : null}
         <AyList {...listProps} fields={tableFields} renderItem={renderItem} header={header}>
           {tableChildren}
         </AyList>

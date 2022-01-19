@@ -464,6 +464,9 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     if (extraBtns) {
       children.push(extraBtns)
     }
+    if (children.length === 1) {
+      return children[0]
+    }
     return children.length ? children : null
   }, [moreSearchRef, moreSearchFields, onConfirm, rightActions, extraBtns])
 
