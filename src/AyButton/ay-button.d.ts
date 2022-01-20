@@ -14,6 +14,10 @@ export interface AyButtonProps extends ButtonProps {
   confirmMsg?: React.ReactNode
   /** 权限 */
   permission?: string
+  /** 悬浮提示 */
+  tooltip?: React.ReactNode
+  /** 是否用次级字体  */
+  sub?: boolean
   __simple?: boolean
   [key: string]: any
 }

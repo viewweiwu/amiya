@@ -1,4 +1,4 @@
-import { getValueByOptions } from '@/utils'
+import { getValueByOptions } from '../utils'
 import { Input, Switch, Checkbox, Radio, DatePicker, InputNumber } from 'antd'
 import React from 'react'
 import AySelect from '../AySelect'

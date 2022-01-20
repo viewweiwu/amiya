@@ -6,6 +6,7 @@ import { AnyKeyProps } from '../types/AnyKeyProps'
 import { AyCtrlProps } from './ay-ctrl'
 import { CTRL_DEFAULT_MAX, CTRL_DEFAULT_MORE_TEXT } from '../constant'
 import { DownOutlined } from '@ant-design/icons'
+import classNames from 'classnames'
 import './ay-ctrl.less'
 
 /**
@@ -29,6 +30,7 @@ const getCtrlItem = (node: any, key?: any, defaultProps?: AnyKeyProps) => {
 const getCtrlList = (children: Array<ReactNode>, props: AyCtrlProps): Array<ReactNode> => {
   const {
     max = CTRL_DEFAULT_MAX,
+    sub,
     more = (
       <>
         {CTRL_DEFAULT_MORE_TEXT} <DownOutlined />
@@ -43,7 +45,7 @@ const getCtrlList = (children: Array<ReactNode>, props: AyCtrlProps): Array<Reac
 
   // 如果节点只有一个元素
   if (children.length === 1) {
-    return [getCtrlItem(children[0], 'key')]
+    return [getCtrlItem(children[0], 'key', { sub })]
   }
 
   // 过滤掉无权限按钮和 null
@@ -57,7 +59,7 @@ const getCtrlList = (children: Array<ReactNode>, props: AyCtrlProps): Array<Reac
     }
     let CtrlItem: ReactNode
     // 正常节点
-    CtrlItem = getCtrlItem(node, i)
+    CtrlItem = getCtrlItem(node, i, { sub })
     // 添加这个节点
     ctrlList.push(CtrlItem)
   }
@@ -86,7 +88,9 @@ const getCtrlList = (children: Array<ReactNode>, props: AyCtrlProps): Array<Reac
 
     ctrlList.push(
       <Dropdown key={max} overlay={menu} placement="bottomRight">
-        <AyButton type="link">{more}</AyButton>
+        <AyButton type="link" className={classNames('ay-button', sub && 'sub')}>
+          {more}
+        </AyButton>
       </Dropdown>
     )
   }
@@ -96,7 +100,7 @@ const getCtrlList = (children: Array<ReactNode>, props: AyCtrlProps): Array<Reac
 
 export default function AyCtrl(props: AyCtrlProps) {
   const [, setRefresh] = useState<number>(0)
-  let { children } = props
+  let { children, split, size, sub, className, style } = props
   if (!Array.isArray(children)) {
     children = [children]
   }
@@ -107,7 +111,12 @@ export default function AyCtrl(props: AyCtrlProps) {
   }, [])
 
   return (
-    <Space className="ay-ctrl" split={<Divider type="vertical" />}>
+    <Space
+      size={size}
+      className={classNames('ay-ctrl', className)}
+      style={style}
+      split={split ?? <Divider type="vertical" />}
+    >
       {ctrlList}
     </Space>
   )
