@@ -99,13 +99,13 @@ export default function AySearchDemo() {
               }
               extra={starMap[record.rarity]}
               actions={[
-                <AyAction type="text" record={record} action="view">
+                <AyAction type="text" sub record={record} action="view">
                   详情
                 </AyAction>,
-                <AyAction type="text" record={record} action="update">
+                <AyAction type="text" sub record={record} action="update">
                   编辑
                 </AyAction>,
-                <AyAction type="text" record={record} action="delete">
+                <AyAction type="text" sub record={record} action="delete">
                   删除
                 </AyAction>
               ]}

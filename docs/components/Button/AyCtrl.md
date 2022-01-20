@@ -115,6 +115,27 @@ export default function Demo() {
 
 超过这个数值，会被折叠成下拉菜单。
 
+### size <Badge>0.42.0</Badge>
+
+- Type: 'small' | 'middle' | 'large' | number
+- Default: 0
+
+按钮间的大小。
+
+### split <Badge>0.42.0</Badge>
+
+- Type: ReactNode
+- Default: `<Divider type="vertical" />`
+
+默认按钮之间有个分割线，可以设置 false 来取消分割线。
+
+### sub <Badge>0.42.0</Badge>
+
+- Type: boolean
+- Default: false
+
+可以让 AyCtrl 下所有的按钮变成[次级按钮](./ay-button#次级字体)。
+
 ### more
 
 - Type: string
@@ -123,7 +144,7 @@ export default function Demo() {
 下拉菜单的文字，默认会带一个 Icon，需要先配置 max 参数。
 
 ```tsx
-import React, { useState } from 'react'
+import React from 'react'
 import { AyCtrl, AyAction } from 'amiya'
 
 export default function Demo() {

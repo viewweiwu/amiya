@@ -4,6 +4,19 @@ order: 1
 
 # 更新日志
 
+## 0.42.0
+
+1. feat: AyButton 支持 Tooltip。
+2. feat: AyButton、AyCtrl 支持次级按钮模式。
+3. feat: 支持 AyCtrl 按钮之间的间距控制。
+4. feat: 优化 AyCtrl 的默认按钮间距。
+
+## 0.41.1
+
+`2022-01-20`
+
+1. fix: 修复 AyForm 引用错误。
+
 ## 0.41.0
 
 `2022-01-19`
