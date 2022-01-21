@@ -1,7 +1,5 @@
 # 按钮权限控制
 
-这个页面的代码是写在 `/src/amiya/config.tsx` 文件里的，如果你还没有，可点击 [这里](../) 查看如何创建。
-
 此参数用于控制 AyButton 或者 AyAction 的展示权限。
 
 ```tsx
@@ -46,3 +44,5 @@ const clearPermission = () => {
   setPermissionList([])
 }
 ```
+
+<embed src="./index.md"></embed>

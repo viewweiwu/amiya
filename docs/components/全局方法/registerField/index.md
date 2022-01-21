@@ -1,7 +1,5 @@
 # 注册自定义表单类型
 
-这个页面的代码是写在 `/src/amiya/config.tsx` 文件里的，如果你还没有，可点击 [这里](../) 查看如何创建。
-
 ## registerField
 
 可以注册一个 FormType，供其它地方使用。
@@ -60,3 +58,5 @@ registerField(FormType, {
   }
 })
 ```
+
+<embed src="../index.md"></embed>

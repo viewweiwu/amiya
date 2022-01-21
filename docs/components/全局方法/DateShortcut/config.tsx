@@ -1,18 +1,5 @@
-# Date 添加快捷选项
-
-> 打开过此页面后，其它页面的 `date` 会有影响。<br />
-> 注册过后，AySearchTable、AyDialogForm 也会生效。
-
-## 示例
-
-1. 覆盖默认的日期 `date` 与 `date-range` 类型
-2. 注册放在全局入口出，达到全局通用
-
-点击任意一个日期选择框，观察弹出层的最下方的快捷按钮，【今日】、【今天】、【昨天】等等。
-
-```tsx
 import React from 'react'
-import { AyForm, AyFormField, registerField, AyButton, AnyKeyProps } from 'amiya'
+import { registerField, AnyKeyProps } from 'amiya'
 import { DatePicker } from 'antd'
 import moment from 'moment'
 
@@ -119,9 +106,13 @@ const renderExtraFooter = ({ setFieldsValue, field }: AnyKeyProps) => {
 registerField('date', {
   type: 'date',
   defaultValue: null,
-  render: ({ field, readonly, getFieldValue, setFieldsValue }: AnyKeyProps) =>
-    readonly ? (
-      <span className="ay-form-text">{getFieldValue(field.key) || '-'}</span>
+  render: ({ field, readonly, getFieldValue, setFieldsValue }: AnyKeyProps) => {
+    let text = getFieldValue(field.key, readonly)
+    if (typeof text !== 'string') {
+      text = ''
+    }
+    return readonly ? (
+      <span className="ay-form-text">{text || '-'}</span>
     ) : (
       <DatePicker
         renderExtraFooter={() => renderExtraFooter({ setFieldsValue, field })}
@@ -130,48 +121,5 @@ registerField('date', {
         {...field.props}
       />
     )
+  }
 })
-
-const fields: Array<AyFormField> = [
-  {
-    title: '日期区间',
-    key: 'date-range',
-    type: 'date-range'
-  },
-  {
-    title: '日期区间时间',
-    key: 'datetime-range',
-    type: 'date-range',
-    props: {
-      showTime: true
-    }
-  },
-  {
-    title: '日期',
-    key: 'date',
-    type: 'date'
-  },
-  {
-    title: '日期时间',
-    key: 'datetime',
-    type: 'date',
-    props: {
-      showTime: true
-    }
-  }
-]
-
-export default function Demo() {
-  const handleConfirm = (form: any) => {
-    console.log(form)
-    alert(JSON.stringify(form))
-  }
-  return (
-    <AyForm fields={fields} onConfirm={handleConfirm}>
-      <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
-        提交
-      </AyButton>
-    </AyForm>
-  )
-}
-```

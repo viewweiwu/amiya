@@ -1,6 +1,6 @@
 # 注册自定义表格渲染列
 
-这个页面的代码是写在 `/src/amiya/config.tsx` 文件里的，如果你还没有，可点击 [这里](../) 查看如何创建。
+这个页面的代码是写在 `/src/amiya/index.tsx` 文件里的，如果你还没有，可点击 [这里](../) 查看如何创建。
 
 实际情况下，可以考虑把 registerTableRender 放到全局入口。
 
@@ -58,3 +58,5 @@ const fields = [
   }
 ]
 ```
+
+<embed src="../index.md"></embed>

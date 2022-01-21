@@ -1,6 +1,6 @@
-# Date 日期的格式化
+# Date 表单日期的格式化
 
-## 默认实例
+### 默认实例
 
 1. 如果日期是区间形式，也就是 `type: 'date-range'`，那么提交时默认会把值拆开成 `startDate`, `endDate`。
 2. 格式化格式为 'YYYY-MM-DD'。
@@ -36,7 +36,7 @@ export default function Demo() {
 }
 ```
 
-## 自定义 key
+### 日期提交自定义 key
 
 当然这两个 key 可以自己定义。
 
@@ -73,7 +73,7 @@ export default function Demo() {
 }
 ```
 
-## 展示时间
+## 日期展示时间
 
 如果展示了时分秒，即设置 `props.showTime = true`，那么格式化格式会变成 `'YYYY-MM-DD HH:mm:ss'`。
 
@@ -111,7 +111,7 @@ export default function Demo() {
 }
 ```
 
-## 自定义格式化格式
+## 日期自定义格式化格式
 
 设置 `formatRule`，可以将提交的格式进行转换。
 
@@ -147,7 +147,7 @@ export default function Demo() {
 }
 ```
 
-## 不设置默认值
+## 日期不设置默认值
 
 如果没有设置默认值，将会获得两个 `null`。
 
@@ -156,7 +156,6 @@ export default function Demo() {
 ```tsx
 import React from 'react'
 import { AyForm, AyFormField, AyButton } from 'amiya'
-import moment from 'moment'
 
 const fields: Array<AyFormField> = [
   {
@@ -181,7 +180,7 @@ export default function Demo() {
 }
 ```
 
-## readonly 模式下的展示
+## 日期在 readonly 模式下的展示
 
 readonly 模式下，其展示的格式化会使用 `readonlyFormatRule`，提交的格式还是会使用 `formatRule`。
 

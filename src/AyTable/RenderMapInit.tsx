@@ -92,7 +92,11 @@ export const install = (registerTableRender: (key: string, render: (props: Rende
     if (!Array.isArray(text) || !field.colorMap) {
       return text
     }
-    return text.map((item: string) => <Tag color={field.colorMap[item]}>{item}</Tag>)
+    return text.map((item: string) => (
+      <Tag key={item} color={field.colorMap[item]}>
+        {item}
+      </Tag>
+    ))
   })
 }
 

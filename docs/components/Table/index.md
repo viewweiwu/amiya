@@ -2,7 +2,7 @@
 toc: false
 ---
 
-# AySearchTable
+# AySearchTable 查询表格
 
 <!-- ![amiya AySearchTable](https://misc.hzzcckj.cn/upload/image/202011/ac6556223800000.png) -->
 
@@ -11,6 +11,8 @@ toc: false
 ## 示例：增删改查
 
 <code src="./AySearchTableDemo.tsx" />
+
+对示例代码里的 listApi 有疑问或者想要自定义？ 🤔️ 可以点[这里](./全局方法/set-default-search-filter)查看请求提交处理，点[这里](./全局方法/set-default-data-filter)查看请求返回处理。
 
 ## JSX / TSX 语法糖 <Badge>0.41.0</Badge>
 

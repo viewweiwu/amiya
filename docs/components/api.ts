@@ -1,5 +1,5 @@
 /**
- * 此文件为模拟模拟接口的文件，仅供参考
+ * 此文件为模拟模拟接口的文件，不要复制，仅供参考
  */
 import { AnyKeyProps } from '../types/AnyKeyProps'
 

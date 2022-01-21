@@ -5,7 +5,7 @@ import CharaSelect from './CharaSelect'
 
 // 注册自定义类型表单项
 // 注册一个角色选择
-// 这段代码放在 /src/amiya/config 下面
+// 这段代码放在 /src/amiya/index 下面
 registerField('chara-select', {
   type: 'chara-select',
   defaultValue: '',

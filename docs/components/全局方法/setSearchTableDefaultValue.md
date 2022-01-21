@@ -1,6 +1,8 @@
-# 全局 AySearchTable 右侧按钮配置
+---
+order: 3
+---
 
-这个页面的代码是写在 `/src/amiya/config.tsx` 文件里的，如果你还没有，可点击 [这里](../) 查看如何创建。
+# AySearchTable 全局右侧按钮配置
 
 如果每一个地方都需要配置太麻烦，可以在全局入口按照下面的配置进行全局配置。
 
@@ -27,3 +29,5 @@ setSearchTableDefaultValue({
   extraFullscreenVisible: true
 })
 ```
+
+<embed src="./index.md"></embed>

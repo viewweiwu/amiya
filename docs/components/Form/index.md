@@ -1,6 +1,4 @@
-# AyForm
-
-<!-- ![amiya AyForm](https://misc.hzzcckj.cn/upload/image/202011/ac64675b2800000.png) -->
+# AyForm 表单
 
 ## 登录示例
 
@@ -66,7 +64,7 @@ export default function Demo() {
   ]
 
   return (
-    <AyForm span={24} onConfirm={handleConfirm} style={{ width: 800, margin: '0 auto' }}>
+    <AyForm span={24} onConfirm={handleConfirm} style={{ width: 600, margin: '0 auto' }}>
       <AyFields>
         <AyField key="name" title="姓名" />
         <AyField key="fruit" title="水果" type="select" options={options} />
@@ -75,7 +73,7 @@ export default function Demo() {
           <AyField key="end" type="date" props={{ style: { width: '50%' } }} />
         </AyField>
       </AyFields>
-      <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
+      <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
         登录
       </AyButton>
     </AyForm>
@@ -135,23 +133,18 @@ import { AyForm, AyFormField, AyButton } from 'amiya'
 
 export default function Demo() {
   const formRef: MutableRefObject<any> = useRef()
+  const [readonly, setReadonly] = useState(false)
 
-  // 如果中途会变动 fields，请把 fields 写在函数内部
   const fields: Array<AyFormField> = [
     {
       title: 'Field B',
       type: 'checkbox',
       key: 'a',
       required: true,
-      onChange: (value, allValues, setFieldsValue) => {
-        // 控制其它 field 的 readonly
-        fields[1].readonly = value
-        // 控制其它 field 的 校验
-        fields[1].rules = value ? [] : [{ required: true, message: '请输入 Field B' }]
+      onChange: (value: boolean) => {
+        setReadonly(value)
         // 清空 b 的表单值
         formRef.current.resetFields(['b'])
-        // 重新渲染 form
-        formRef.current.refreshFields()
       },
       props: {
         children: '之后填写',
@@ -168,7 +161,7 @@ export default function Demo() {
     },
     {
       key: 'b',
-      readonly: false,
+      readonly,
       props: {
         placeholder: '请输入 Field B'
       },
