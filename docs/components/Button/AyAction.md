@@ -43,13 +43,13 @@ export default function AySearchTableDemo() {
 }
 ```
 
-```html
+```diff
 <AySearchTable
   dialogFormExtend={{
-    addApi: Promise // 表单提交时会请求此方法，一般是个接口，保证此参数是个 Promise
++   addApi: Promise // 表单提交时会请求此方法，一般是个接口，保证此参数是个 Promise
   }}
 >
-  <AyAction action="add">新增</AyAction>
++ <AyAction action="add">新增</AyAction>
 </AySearchTable>
 ```
 
@@ -132,13 +132,13 @@ export default function AySearchTableDemo() {
 }
 ```
 
-```js
+```diff
 const ctrl = {
   render: (_, record) => (
     <AyCtrl>
-      <AyAction record={record} action="view">
-        详情
-      </AyAction>
++     <AyAction record={record} action="view">
++       详情
++     </AyAction>
     </AyCtrl>
   )
 }
@@ -188,14 +188,14 @@ export default function AySearchTableDemo() {
 }
 ```
 
-```html
+```diff
 <AySearchTable
-  selectionType="checkbox" // 指定为批量勾选
++ selectionType="checkbox" // 指定为批量勾选
   rowKey="sort_id" // 可不写，默认为 id，每一行的唯一标志
   selectShowKey="cn" // 可不写，默认为 name，勾选后悬浮在数字上显示的 Tag
-  deleteApi={deleteApi} // Promise Api, 勾选完点击【批量删除】请求的结偶
++ deleteApi={deleteApi} // Promise Api, 勾选完点击【批量删除】请求的结偶
 >
-  <AyAction action="batch-delete">批量删除</AyAction>
++ <AyAction action="batch-delete">批量删除</AyAction>
 </AySearchTable>
 ```
 

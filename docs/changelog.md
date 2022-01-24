@@ -4,6 +4,15 @@ order: 1
 
 # 更新日志
 
+## 0.43.0
+
+1. feat: `AyForm` FormType 为 `number` 和 `percent` 取消默认的 `placeholder`。
+2. feat: `AyForm`、`AyDialogForm` 的表单类型取消默认 100% 宽度，`AySearch` 还是会的。
+3. feat: `AyForm` FormType 新增 `slider`、`Rate` 两种类型。
+4. feat: `AyForm` 默认 span 改为 24。
+5. feat: `AyForm` 取消默认右边距。
+6. feat: `AySearchTable` renderType 新增 `unit`、`status` 两种类型。
+
 ## 0.42.0
 
 1. feat: AyButton 支持 Tooltip。

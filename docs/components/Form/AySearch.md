@@ -17,7 +17,8 @@ import { Slider } from 'antd'
 let fields: AySearchField[] = [
   {
     title: '第一个',
-    key: '1'
+    key: '1',
+    type: 'date'
   },
   {
     title: '第二个',

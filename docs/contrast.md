@@ -151,7 +151,6 @@ export default function Demo() {
   return (
     <Card>
       <AyForm
-        span={24}
         fields={fields}
         onConfirm={handleConfirm}
         style={{ width: 400, margin: '0 auto' }}

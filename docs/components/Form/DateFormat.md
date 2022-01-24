@@ -27,7 +27,7 @@ export default function Demo() {
     alert(JSON.stringify(form))
   }
   return (
-    <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
+    <AyForm fields={fields} onConfirm={handleConfirm} style={{ width: 600, margin: '0 auto' }}>
       <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
         提交
       </AyButton>
@@ -64,7 +64,7 @@ export default function Demo() {
     alert(JSON.stringify(form))
   }
   return (
-    <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
+    <AyForm fields={fields} onConfirm={handleConfirm} style={{ width: 600, margin: '0 auto' }}>
       <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
         提交
       </AyButton>
@@ -102,7 +102,7 @@ export default function Demo() {
     alert(JSON.stringify(form))
   }
   return (
-    <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
+    <AyForm fields={fields} onConfirm={handleConfirm} style={{ width: 600, margin: '0 auto' }}>
       <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
         提交
       </AyButton>
@@ -138,7 +138,7 @@ export default function Demo() {
     alert(JSON.stringify(form))
   }
   return (
-    <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
+    <AyForm fields={fields} onConfirm={handleConfirm} style={{ width: 600, margin: '0 auto' }}>
       <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
         提交
       </AyButton>
@@ -171,7 +171,7 @@ export default function Demo() {
     alert(JSON.stringify(form))
   }
   return (
-    <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
+    <AyForm fields={fields} onConfirm={handleConfirm} style={{ width: 600, margin: '0 auto' }}>
       <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
         提交
       </AyButton>
@@ -330,7 +330,7 @@ export default function Demo() {
     alert(JSON.stringify(form))
   }
   return (
-    <AyForm fields={fields} onConfirm={handleConfirm} span={24} style={{ width: 600, margin: '0 auto' }}>
+    <AyForm fields={fields} onConfirm={handleConfirm} style={{ width: 600, margin: '0 auto' }}>
       <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
         提交
       </AyButton>

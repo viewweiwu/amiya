@@ -37,7 +37,7 @@ export default function Demo() {
   }
 
   return (
-    <AyForm span={24} fields={fields} onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
+    <AyForm fields={fields} onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
       <AyButton style={{ marginLeft: 120 }} block type="primary" htmlType="submit">
         登录
       </AyButton>
@@ -64,7 +64,7 @@ export default function Demo() {
   ]
 
   return (
-    <AyForm span={24} onConfirm={handleConfirm} style={{ width: 600, margin: '0 auto' }}>
+    <AyForm onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
       <AyFields>
         <AyField key="name" required title="用户名" />
         <AyField key="password" type="password" required title="密码" />
@@ -103,7 +103,7 @@ export default function Demo() {
 -]
 
 <AyForm
-  span={24}
+
   onConfirm={handleConfirm}
 - fields={fields}
 >
@@ -158,7 +158,7 @@ export default function Demo() {
   return (
     <>
       <Radio.Group options={options} onChange={e => setFormLayout(e.target.value)} value={formLayout} />
-      <AyForm span={24} fields={fields} style={{ width: 600, margin: '10px auto 0' }} formLayout={formLayout} />
+      <AyForm fields={fields} style={{ width: 600, margin: '10px auto 0' }} formLayout={formLayout} />
     </>
   )
 }
@@ -220,7 +220,6 @@ export default function Demo() {
       ref={formRef}
       layout={{ labelCol: { flex: '100%' } }}
       labelAlign="left"
-      span={24}
       fields={fields}
       onConfirm={handleConfirm}
       style={{ width: 400, margin: '0 auto' }}
@@ -266,7 +265,7 @@ export default function Demo() {
 
   return (
     <Card>
-      <AyForm span={24} fields={fields} onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
+      <AyForm fields={fields} onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
         <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
           提交
         </AyButton>
@@ -296,12 +295,18 @@ const fields: Array<AyFormField> = [
   {
     title: 'Number',
     type: 'number',
-    key: 'number'
+    key: 'number',
+    props: {
+      placeholder: '数字'
+    }
   },
   {
     title: 'Percent',
     type: 'percent',
-    key: 'percent'
+    key: 'percent',
+    props: {
+      placeholder: '百分比'
+    }
   },
   {
     title: 'Password',
@@ -354,6 +359,16 @@ const fields: Array<AyFormField> = [
     ]
   },
   {
+    title: 'Rate',
+    type: 'rate',
+    key: 'rate'
+  },
+  {
+    title: 'Slider',
+    type: 'slider',
+    key: 'slider'
+  },
+  {
     title: 'Date',
     type: 'date',
     key: 'date'
@@ -399,13 +414,7 @@ export default function Demo() {
         <label style={{ marginRight: 4 }}>只读模式</label>
         <Switch defaultChecked={readonly} onChange={value => setReadonly(value)} />
       </p>
-      <AyForm
-        readonly={readonly}
-        span={24}
-        fields={fields}
-        onConfirm={handleConfirm}
-        style={{ width: 600, margin: '0 auto' }}
-      >
+      <AyForm readonly={readonly} fields={fields} onConfirm={handleConfirm} style={{ width: 600, margin: '0 auto' }}>
         <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
           提交
         </AyButton>
@@ -439,7 +448,7 @@ const fields: Array<AyFormField> = [
 ]
 
 export default function Demo() {
-  return <AyForm span={24} fields={fields} style={{ width: 400, margin: '0 auto' }} />
+  return <AyForm fields={fields} style={{ width: 400, margin: '0 auto' }} />
 }
 ```
 
@@ -521,25 +530,27 @@ const fields: Array<Field> = [
 
 <hr />
 
-| 值类型         | 说明                                                                 | 默认值    |
-| -------------- | -------------------------------------------------------------------- | --------- |
-| input          | 输入框，默认字符长度 30                                              | ''        |
-| number         | 数字输入框，0 ～ 99999999                                            | null      |
-| percent        | 百分比输入框，0 ～ 100                                               | null      |
-| password       | 密码输入框                                                           | ''        |
-| textarea       | 多行输入框，默认字符长度 200                                         | ''        |
-| select         | 选择框                                                               | undefined |
-| switch         | 开关                                                                 | false     |
-| checkbox       | 多选框（单个）                                                       | false     |
-| checkbox-group | 多选框（多个）                                                       | []        |
-| radio-group    | 单选框（多个）                                                       | null      |
-| date           | 日期                                                                 | undefined |
-| date-range     | 日期区间                                                             | []        |
-| empty          | 空白框                                                               | -         |
-| custom         | 自定义 renderContent 使用，需要在同一层定义 defaultValue             | -         |
-| card           | 会用 AyCard 包裹住底下的 form，具体使用可以看 [卡片表单][cardform]。 | -         |
-| group          | 组合表单，具体使用可以看 [组合表单][groupform]。                     | -         |
-| input-group    | 带输入框的组合表单，具体使用可以看 [组合表单][groupform]。           | -         |
+| 值类型         | 说明                                                                 | 默认值    | 版本   |
+| -------------- | -------------------------------------------------------------------- | --------- | ------ |
+| input          | 输入框，默认字符长度 30                                              | ''        | -      |
+| number         | 数字输入框，0 ～ 99999999                                            | null      | -      |
+| percent        | 百分比输入框，0 ～ 100                                               | null      | -      |
+| password       | 密码输入框                                                           | ''        | -      |
+| textarea       | 多行输入框，默认字符长度 200                                         | ''        | -      |
+| select         | 选择框                                                               | undefined | -      |
+| switch         | 开关                                                                 | false     | -      |
+| slider         | 滑块                                                                 | null      | 0.43.0 |
+| rate           | 评分                                                                 | null      | 0.43.0 |
+| checkbox       | 多选框（单个）                                                       | false     | -      |
+| checkbox-group | 多选框（多个）                                                       | []        | -      |
+| radio-group    | 单选框（多个）                                                       | null      | -      |
+| date           | 日期                                                                 | undefined | -      |
+| date-range     | 日期区间                                                             | []        | -      |
+| empty          | 空白框                                                               | -         | -      |
+| custom         | 自定义 renderContent 使用，需要在同一层定义 defaultValue             | -         | -      |
+| card           | 会用 AyCard 包裹住底下的 form，具体使用可以看 [卡片表单][cardform]。 | -         | -      |
+| group          | 组合表单，具体使用可以看 [组合表单][groupform]。                     | -         | -      |
+| input-group    | 带输入框的组合表单，具体使用可以看 [组合表单][groupform]。           | -         | -      |
 
 ## Option 参数
 

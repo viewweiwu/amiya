@@ -46,13 +46,7 @@ export default function RegisterCascaderFieldDemo() {
         <label style={{ marginRight: 4 }}>只读模式</label>
         <Switch defaultChecked={readonly} onChange={value => setReadonly(value)} />
       </p>
-      <AyForm
-        readonly={readonly}
-        span={24}
-        fields={fields}
-        style={{ width: 400, margin: '0 auto' }}
-        onConfirm={handleConfirm}
-      >
+      <AyForm readonly={readonly} fields={fields} style={{ width: 400, margin: '0 auto' }} onConfirm={handleConfirm}>
         <AyButton type="primary" htmlType="submit" style={{ marginLeft: 120 }}>
           提交
         </AyButton>

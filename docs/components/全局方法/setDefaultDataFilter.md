@@ -13,10 +13,16 @@ order: 2
 ```jsx | pure
 import React from 'react'
 
-// 列表接口返回示例
+// 列表接口返回示例，需要接口是个 promise，这里用 axios 举例
 const listApi = () => axios.get('/some/list')
 
-// AySearchTable 约定返回的数据格式
+export default function Demo() {
+  return <AySearchTable api={listApi} />
+}
+```
+
+```js
+// AySearchTable 默认接口返回数据
 {
   // 列表数据
   content: [
@@ -30,9 +36,6 @@ const listApi = () => axios.get('/some/list')
   totalCount: 100
 }
 
-export default function Demo() {
-  return <AySearchTable api={listApi} />
-}
 ```
 
 如果提供的查询接口返回的格式不同，可用下面的方法，为其加一个中间件。
@@ -45,7 +48,7 @@ export default function Demo() {
 // 列表接口返回示例
 const listApi = () => axios.get('/some/list')
 
-// 请求成功后返回的数据示例
+// 这是一个和默认不一致的返回格式
 {
   success: true,
   msg: '',
@@ -63,7 +66,7 @@ const listApi = () => axios.get('/some/list')
 
 ```
 
-如果接口放回的格式是上方这种形式，请把下面的配置文件复制到 `/src/amiya/index.tsx` 下。
+如果接口放回的格式是上面的格式，请把下面的配置文件复制到 `/src/amiya/index.tsx` 下。
 
 ```js
 import { setDefaultDataFilter } from 'amiya'
@@ -78,7 +81,8 @@ setDefaultDataFilter((res: AnyKeyProps) => {
     // 表格列表的数据
     content: res.data.rows,
     // 数据总共 n 条
-    totalCount: res.data.total
+    totalCount: res.data.total,
+    ...res
   }
 })
 ```

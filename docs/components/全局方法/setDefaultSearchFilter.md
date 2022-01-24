@@ -4,8 +4,6 @@ order: 1
 
 # AySearchTable 全局请求前处理
 
-在使用 `<AySearchTable api={listApi} />` 的时候，`listApi` 请求到底发送了什么，可能会有疑问。
-
 默认的请求会带上 4 个参数，如下面这个例子：
 
 ## 约定提交查询的数据
@@ -13,10 +11,16 @@ order: 1
 ```jsx | pure
 import React from 'react'
 
-// 列表接口查询示例
-const listApi = (params) => axios.get('/some/list', params)
+// 列表接口查询示例，需要接口是个 promise，这里用 axios 举例
+const listApi = params => axios.get('/some/list', params)
 
-// AySearchTable 约定查询请求的数据格式
+export default function Demo() {
+  return <AySearchTable api={listApi} />
+}
+```
+
+```js
+// listApi 的 params 请求值详解
 {
   // 表格的筛选
   filters: {}
@@ -31,10 +35,6 @@ const listApi = (params) => axios.get('/some/list', params)
   search: {}
   // 排序数据
   sorts: []
-}
-
-export default function Demo() {
-  return <AySearchTable api={listApi} />
 }
 ```
 
