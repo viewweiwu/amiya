@@ -216,11 +216,11 @@ const getFormItem = (
   const { span, readonly, formLayout, gutter } = props
   const ayFormProps: AyFormProps = props
   return fields.map((field: AyFormField | AySearchTableField) => {
-    const fieldSpan = field.span !== 0 ? field.span || span || 12 : span || 12
+    const fieldSpan = field.span !== 0 ? field.span || span || 24 : span || 24
 
     if (field.type === FORM_TYPE_CARD) {
       return (
-        <Col key={field.key} span={24}>
+        <Col key={field.key}>
           <AyCard title={field.title} {...field.props}>
             <Row gutter={gutter}>
               {getFormItem(
