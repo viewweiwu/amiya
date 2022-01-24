@@ -1,5 +1,5 @@
 import { getValueByOptions } from '../utils'
-import { Input, Switch, Checkbox, Radio, DatePicker, InputNumber } from 'antd'
+import { Input, Switch, Checkbox, Radio, DatePicker, InputNumber, Rate, Slider } from 'antd'
 import React from 'react'
 import AySelect from '../AySelect'
 import {
@@ -37,7 +37,11 @@ import {
   NUMBER_DEFAULT_MIN,
   NUMBER_DEFAULT_MAX,
   PERCENT_DEFAULT_MAX,
-  FORM_READONLY_EMPTY
+  FORM_READONLY_EMPTY,
+  FORM_TYPE_RATE,
+  FORM_DEFAULT_VALUE_RATE,
+  FORM_TYPE_SLIDER,
+  FORM_DEFAULT_VALUE_SLIDER
 } from '../constant'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { RegisterFieldProps } from './ay-form'
@@ -96,7 +100,6 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
         <span className="ay-form-text">{getFieldValue(field.key) || FORM_READONLY_EMPTY}</span>
       ) : (
         <InputNumber
-          placeholder={`请输入${field.title || ''}`}
           className="max-width"
           disabled={readonly}
           min={NUMBER_DEFAULT_MIN}
@@ -115,7 +118,6 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
         <span className="ay-form-text">{getFieldValue(field.key) || FORM_READONLY_EMPTY}%</span>
       ) : (
         <InputNumber
-          placeholder={`请输入${field.title || ''}`}
           className="max-width"
           disabled={readonly}
           min={NUMBER_DEFAULT_MIN}
@@ -226,6 +228,7 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
       <Radio.Group disabled={readonly} options={field.options} {...field.props} />
     )
   })
+
   // 注册日期
   registerField(FORM_TYPE_DATE, {
     type: FORM_TYPE_DATE,
@@ -273,5 +276,19 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
     type: FORM_TYPE_EMPTY,
     defaultValue: FORM_DEFAULT_VALUE_EMPTY,
     render: () => <input hidden type="text" />
+  })
+
+  // 注册评分
+  registerField(FORM_TYPE_RATE, {
+    type: FORM_TYPE_RATE,
+    defaultValue: FORM_DEFAULT_VALUE_RATE,
+    render: ({ field, readonly }: AnyKeyProps) => <Rate disabled={readonly} {...field.props} />
+  })
+
+  // 滑动输入条
+  registerField(FORM_TYPE_SLIDER, {
+    type: FORM_TYPE_SLIDER,
+    defaultValue: FORM_DEFAULT_VALUE_SLIDER,
+    render: ({ field, readonly }: AnyKeyProps) => <Slider disabled={readonly} {...field.props} />
   })
 }
