@@ -12,6 +12,110 @@ toc: false
 
 <code src="./AySearchListDemoTsx">
 
+```diff
+-const fields: Array<AySearchTableField> = [
+-  {
+-    title: '英文名',
+-    key: 'en',
+-    search: true,
+-    dialog: {
+-      required: true,
+-      rules: [{ pattern: /^[a-z|A-Z|0-9]{1,}$/, message: '请输入字母或者数字' }]
+-    }
+-  },
+-  {
+-    title: '中文名',
+-    key: 'cn',
+-    search: true,
+-    dialog: {
+-      required: true
+-    }
+-  },
+-  {
+-    title: '职业',
+-    key: 'class',
+-    type: 'select',
+-    search: true,
+-    dialog: true,
+-    options: professionOptions
+-  },
+-  {
+-    title: '描述',
+-    type: 'textarea',
+-    key: 'des',
+-    dialog: true
+-  }
+-]
+
+return (
+  <AySearchList
+    title="列表标题"
+    selectionType="checkbox"
+    api={listApi}
+-   fields={fields}
+    ctrl={ctrl}
+    renderItem={(record: AnyKeyProps, index: number) => {
+      let starMap: AnyKeyProps = {
+        5: '⭐️⭐️⭐️⭐️⭐️⭐️',
+        4: '⭐️⭐️⭐️⭐️⭐️',
+        3: '⭐️⭐️⭐️⭐️',
+        2: '⭐️⭐️⭐️',
+        1: '⭐️⭐️',
+        0: '⭐️'
+      }
+      return (
+        <List.Item
+          key={record.sort_id}
+          actions={[
+            <AyCtrl>
+              <AyAction record={record} action="view">
+                详情
+              </AyAction>
+              <AyAction record={record} action="update">
+                编辑
+              </AyAction>
+              <AyAction record={record} action="delete">
+                删除
+              </AyAction>
+            </AyCtrl>
+          ]}
+        >
+          <List.Item.Meta
+            avatar={<Avatar src={record.icon} size="large" />}
+            title={
+              <Space>
+                {record.cn} {starMap[record.rarity]}
+              </Space>
+            }
+            description={record.des || '暂时没有描述。'}
+          />
+          <div>{record.moredes || '暂时没有干员信息。'}</div>
+        </List.Item>
+      )
+    }}
+    dialogFormExtend={{
+-     fields: fields,
+      updateApi,
+      addApi
+    }}
+  >
++    <AyFields>
++      <AyField
++        title="英文名"
++        key="en"
++        search
++        dialog={{ required: true, rules: [{ pattern: /^[a-z|A-Z|0-9]{1,}$/, message: '请输入字母或者数字' }] }}
++      />
++      <AyField title="中文名" key="cn" search dialog={{ required: true }} />
++      <AyField title="职业" key="class" type="select" search dialog options={professionOptions} />
++      <AyField title="职描述业" key="des" type="textarea" dialog />
+    </AyFields>
+    <AyAction action="batch-delete">批量删除</AyAction>
+    <AyAction action="add">新增</AyAction>
+  </AySearchList>
+)
+```
+
 只是换了另一种风格写 `fields` 而已，请不要用其它元素包裹住 `AyFields` 和 `AyField`。
 
 ## 卡片布局

@@ -18,6 +18,113 @@ toc: false
 
 <code src="./AySearchTableDemoTsx.tsx" />
 
+```diff
+-const fields = [
+- {
+-   title: '头像',
+-   key: 'icon',
+-   table: {
+-     width: 80,
+-     align: 'center',
+-     renderType: 'image',
+-     props: {
+-       width: 70
+-     }
+-   }
+- },
+- {
+-   title: '姓名',
+-   key: 'cn',
+-   search: true,
+-   dialog: {
+-     required: true
+-   },
+-   table: {
+-     render: (text, record) => {
+-       return (
+-         <div>
+-           <div>{record.cn}</div>
+-           <div>{record.en}</div>
+-           <div>{record.jp}</div>
+-         </div>
+-       )
+-     }
+-   }
+- },
+- {
+-   title: '英文名',
+-   key: 'en',
+-   search: true,
+-   dialog: {
+-     required: true
+-   },
+-   table: false
+- },
+- {
+-   title: '日文名',
+-   key: 'jp',
+-   search: true,
+-   dialog: {
+-     required: true
+-   },
+-   table: false
+- },
+- // ...
+-]
+
+<AySearchTable
+  title="表格标题"
+  selectionType="checkbox"
+  api={listApi}
+  ctrl={ctrl}
+  rowKey="sort_id"
+- field={fields}
+  selectShowKey="cn"
+  deleteApi={deleteApi}
+  dialogFormExtend={{
+    updateApi,
+    addApi
+-   fields: fields
+  }}
+  >
++ <AyFields>
++   <AyField
++     title="头像"
++     key="icon"
++     table={{
++       width: 80,
++       align: 'center',
++       renderType: 'image',
++       props: {
++         width: 70
++       }
++     }}
++   />
++   <AyField
++     title="姓名"
++     key="cn"
++     search
++     table={{
++       render: (text, record) => {
++         return (
++           <div>
++             <div>{record.cn}</div>
++             <div>{record.en}</div>
++             <div>{record.jp}</div>
++           </div>
++         )
++       }
++     }}
++   />
++   <AyField title="英文名" key="en" search dialog table={false} />
++   <AyField title="日文名" key="jp" search dialog table={false} />
++   //...
++ </AyFields>
+  <AyAction action="batch-delete">批量删除</AyAction>
+  <AyAction action="add">新增</AyAction>
+</AySearchTable>
+```
+
 只是换了另一种风格写 `fields` 而已，请不要用其它元素包裹住 `AyFields` 和 `AyField`。
 
 ## 参数

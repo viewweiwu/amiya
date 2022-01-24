@@ -4,7 +4,7 @@ order: 1
 
 # AySearchTable 全局请求前处理
 
-在使用 `<AySearchTable api={someListApi} />` 的时候，`someListApi` 请求到底发送了什么，可能会有疑问。
+在使用 `<AySearchTable api={listApi} />` 的时候，`listApi` 请求到底发送了什么，可能会有疑问。
 
 默认的请求会带上 4 个参数，如下面这个例子：
 
@@ -14,7 +14,7 @@ order: 1
 import React from 'react'
 
 // 列表接口查询示例
-const someListApi = (params) => axios.get('/some/list', params)
+const listApi = (params) => axios.get('/some/list', params)
 
 // AySearchTable 约定查询请求的数据格式
 {
@@ -34,7 +34,7 @@ const someListApi = (params) => axios.get('/some/list', params)
 }
 
 export default function Demo() {
-  return <AySearchTable api={someListApi} />
+  return <AySearchTable api={listApi} />
 }
 ```
 
@@ -69,7 +69,7 @@ setDefaultSearchFilter((params: object) => {
 
 请把上面的配置文件复制到 `/src/amiya/index.tsx` 下。
 
-此方法 `<AySearchList api={someListApi} />` 也是一起生效的。
+此方法 `<AySearchList api={listApi} />` 也是一起生效的。
 
 也许你还需要请求后的处理，请看[这里](./set-default-data-filter)
 

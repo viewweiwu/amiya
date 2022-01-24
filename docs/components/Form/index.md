@@ -66,12 +66,9 @@ export default function Demo() {
   return (
     <AyForm span={24} onConfirm={handleConfirm} style={{ width: 600, margin: '0 auto' }}>
       <AyFields>
-        <AyField key="name" title="姓名" />
-        <AyField key="fruit" title="水果" type="select" options={options} />
-        <AyField key="__group" type="input-group" title="送达时间">
-          <AyField key="start" type="date" props={{ style: { width: '50%' } }} />
-          <AyField key="end" type="date" props={{ style: { width: '50%' } }} />
-        </AyField>
+        <AyField key="name" required title="用户名" />
+        <AyField key="password" type="password" required title="密码" />
+        <AyField key="checkbox" type="checkbox" props={{ style: { marginLeft: 120 }, children: '记住密码' }} />
       </AyFields>
       <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
         登录
@@ -79,6 +76,50 @@ export default function Demo() {
     </AyForm>
   )
 }
+```
+
+```diff
+-const fields: Array<AyFormField> = [
+- {
+-   title: '用户名',
+-   key: 'name',
+-   required: true
+- },
+- {
+-   title: '密码',
+-   type: 'password',
+-   key: 'password',
+-   required: true
+- },
+- {
+-   type: 'checkbox',
+-   key: 'remember',
+-   props: {
+-     style: {
+-       marginLeft: 120
+-     },
+-     children: '记住密码'
+-   }
+-]
+
+<AyForm
+  span={24}
+  onConfirm={handleConfirm}
+- fields={fields}
+>
++ <AyFields>
++   <AyField key="name" required title="用户名" />
++   <AyField key="password" type="password" required title="密码" />
++   <AyField
++     key="checkbox"
++     type="checkbox"
++     props={{ style: { marginLeft: 120 }, children: '记住密码' }}
++   />
++ </AyFields>
+  <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
+    登录
+  </AyButton>
+</AyForm>
 ```
 
 只是换了另一种风格写 `fields` 而已，请不要用其它元素包裹住 `AyFields` 和 `AyField`。

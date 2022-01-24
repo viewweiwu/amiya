@@ -6,7 +6,7 @@ order: 2
 
 ## 约定返回的格式
 
-在使用 `<AySearchTable api={someListApi} />` 的时候，`someListApi` 到底是什么，可能会有疑问。
+在使用 `<AySearchTable api={listApi} />` 的时候，`listApi` 到底是什么，可能会有疑问。
 
 实际上只需要返回时 `Promise` 格式的列表就可以了，如下面这个例子：
 
@@ -14,7 +14,7 @@ order: 2
 import React from 'react'
 
 // 列表接口返回示例
-const someListApi = () => axios.get('/some/list')
+const listApi = () => axios.get('/some/list')
 
 // AySearchTable 约定返回的数据格式
 {
@@ -31,7 +31,7 @@ const someListApi = () => axios.get('/some/list')
 }
 
 export default function Demo() {
-  return <AySearchTable api={someListApi} />
+  return <AySearchTable api={listApi} />
 }
 ```
 
@@ -43,7 +43,7 @@ export default function Demo() {
 
 ```js
 // 列表接口返回示例
-const someListApi = () => axios.get('/some/list')
+const listApi = () => axios.get('/some/list')
 
 // 请求成功后返回的数据示例
 {
@@ -83,7 +83,7 @@ setDefaultDataFilter((res: AnyKeyProps) => {
 })
 ```
 
-此方法 `<AySearchList api={someListApi} />` 也是一起生效的。
+此方法 `<AySearchList api={listApi} />` 也是一起生效的。
 
 也许你还需要请求前的处理，请看[这里](./set-default-search-filter)
 

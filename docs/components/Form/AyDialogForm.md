@@ -6,6 +6,39 @@
 
 <code src="./AyDialogFormDemoTsx.tsx" />
 
+```diff
+-const fields: Array<AyDialogFormField> = [
+- {
+-   title: '姓名',
+-   key: 'cn'
+- },
+- {
+-   title: '初始HP',
+-   key: 'ori-hp'
+- },
+- {
+-   title: '职业',
+-   key: 'class',
+-   type: 'select',
+-   options: professionOptions
+- }
+-]
+
+<AyDialogForm
+  dialogExtend={{ confirmText: '点我就会失败' }}
+  ref={formErrorRef}
+  addApi={errorApi}
+  updateApi={errorApi}
+- fields={fields}
+>
++ <AyFields>
++   <AyField title="姓名" key="cn" />
++   <AyField title="初始HP" key="ori-hp" />
++   <AyField title="职业" key="class" type="select" options={professionOptions} />
++ </AyFields>
+</AyDialogForm>
+```
+
 只是换了另一种风格写 `fields` 而已，请不要用其它元素包裹住 `AyFields` 和 `AyField`。
 
 ## Props

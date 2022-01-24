@@ -12,12 +12,7 @@ moment.locale('zh-cn')
 export default ({ children, ...props }: IRouteComponentProps) => {
   return (
     <ConfigProvider locale={zhCN}>
-      <Layout {...props}>
-        <>
-          <ThemeButton>切换颜色</ThemeButton>
-          {children}
-        </>
-      </Layout>
+      <Layout {...props}>{children}</Layout>
     </ConfigProvider>
   )
 }
