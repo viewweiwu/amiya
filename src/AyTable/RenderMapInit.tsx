@@ -6,7 +6,7 @@ import { RenderProps } from './ay-table'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { AySelect } from 'amiya'
 import { FORM_READONLY_EMPTY } from '../constant'
-import { getValueByOptions } from '../utils'
+import { getValueByOptions, renderStatus } from '../utils'
 
 export const install = (registerTableRender: (key: string, render: (props: RenderProps) => ReactNode) => void) => {
   registerTableRender('__options', ({ field, text }: RenderProps) => {
@@ -97,6 +97,27 @@ export const install = (registerTableRender: (key: string, render: (props: Rende
         {item}
       </Tag>
     ))
+  })
+
+  registerTableRender('unit', ({ text, field }: RenderProps) => {
+    return (
+      <div>
+        {field.prefix}
+        {text}
+        {field.suffix}
+      </div>
+    )
+  })
+
+  /**
+   * 5
+   * @decs 状态加文字
+   *
+   * @returns ReactNode
+   */
+  registerTableRender('status', ({ text, field }: AnyKeyProps) => {
+    const { options = [] } = field
+    return renderStatus(text, options, field.type)
   })
 }
 

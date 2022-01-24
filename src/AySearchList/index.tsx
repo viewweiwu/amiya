@@ -314,7 +314,6 @@ export default forwardRef(function AySearchList(props: AySearchListProps, ref: R
         <AyForm
           className="ay-search-list-more"
           key="ay-search-list-more"
-          span={24}
           ref={moreSearchRef}
           fields={moreSearchFields}
           onConfirm={onConfirm}

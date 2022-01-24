@@ -121,6 +121,12 @@ export const FORM_TYPE_GROUP = 'group'
 /** 表单类型: 组合输入框 */
 export const FORM_TYPE_INPUT_GROUP = 'input-group'
 
+/** 表单类型: 评分 */
+export const FORM_TYPE_RATE = 'rate'
+
+/** 表单类型: 滑动输入条 */
+export const FORM_TYPE_SLIDER = 'slider'
+
 // --------------------------------------------------------------
 // ------------------------ form 表单默认值 -----------------------
 // --------------------------------------------------------------
@@ -165,6 +171,12 @@ export const FORM_DEFAULT_VALUE_DATE_RANGE = []
 
 /** 表单默认值: 空白框 */
 export const FORM_DEFAULT_VALUE_EMPTY = ''
+
+/** 表单默认值: 评分 */
+export const FORM_DEFAULT_VALUE_RATE = null
+
+/** 表单默认值: 滑动输入条 */
+export const FORM_DEFAULT_VALUE_SLIDER = null
 
 /** 表单 readonly 值 */
 export const FORM_READONLY_EMPTY = '-'

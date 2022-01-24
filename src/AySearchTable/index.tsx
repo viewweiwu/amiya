@@ -449,7 +449,6 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
         <AyForm
           className="ay-search-table-more"
           key="ay-search-table-more"
-          span={24}
           ref={moreSearchRef}
           fields={moreSearchFields}
           onConfirm={onConfirm}
