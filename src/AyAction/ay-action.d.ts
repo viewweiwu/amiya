@@ -2,7 +2,7 @@ import { AnyKeyProps } from '../types/AnyKeyProps'
 
 export interface AyActionProps {
   /** 子元素 */
-  children: string
+  children: ReactNode
   /** 是否只在表格扩展显示 */
   tableFooterExtraOnly?: boolean
   action?: 'add' | 'update' | 'delete' | 'batch-delete' | 'view' | string
