@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react'
-import { Button, Col, Row, Tabs } from 'antd'
+import React, { useState } from 'react'
+import { Button, Col, Row } from 'antd'
 import { AnyKeyProps, AyField, AyFields, AyForm } from 'amiya'
 import { SettingFilled, RobotFilled, SoundFilled, BellFilled } from '@ant-design/icons'
 import '../less/index.less'
@@ -69,7 +69,7 @@ const sliderProps = {
 
 export default function Demo() {
   // 当前激活的 tab
-  const [activeTab, setActiveTab] = useState<string>('voice')
+  const [activeTab, setActiveTab] = useState<string>('account')
 
   return (
     <div className="arknights-setting">
