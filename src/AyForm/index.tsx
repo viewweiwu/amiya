@@ -94,9 +94,14 @@ const getPlaceholder = (field: AyFormField | AySearchTableField): string => {
   ) {
     return `请输入${field.title || ''}`
   } else if (
-    [FORM_TYPE_SELECT, FORM_TYPE_DATE, FORM_TYPE_CHECKBOX, FORM_TYPE_CHECKBOX_GROUP, FORM_TYPE_RADIO_GROUP].includes(
-      field.type
-    )
+    [
+      FORM_TYPE_SELECT,
+      FORM_TYPE_DATE,
+      FORM_TYPE_DATE_RANGE,
+      FORM_TYPE_CHECKBOX,
+      FORM_TYPE_CHECKBOX_GROUP,
+      FORM_TYPE_RADIO_GROUP
+    ].includes(field.type)
   ) {
     return `请选择${field.title || ''}`
   }
