@@ -13,6 +13,13 @@ order: 1
 5. feat: `AyForm` 取消默认右边距。
 6. feat: `AySearchTable` renderType 新增 `unit`、`status` 两种类型。
 
+```less
+// 如果还是需要填充宽度的，请在全局样式添加下面这段
+.ay-form {
+  .max-width: 100%;
+}
+```
+
 ## 0.42.0
 
 1. feat: AyButton 支持 Tooltip。

@@ -35,6 +35,10 @@ export default defineConfig({
       path: '/components'
     },
     {
+      title: '示例',
+      path: '/template'
+    },
+    {
       title: '更新日志',
       path: '/changelog'
     },

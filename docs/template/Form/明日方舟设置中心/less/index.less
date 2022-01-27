@@ -1,0 +1,213 @@
+.arknights-setting {
+  color: #fff;
+  padding: 24px;
+  background-image: url(../images/bg.png);
+  background-color: #1b1b1b;
+  background-size: cover;
+  background-position: center;
+
+  .page {
+    min-height: 500px;
+  }
+
+  .tabs {
+    .ant-btn {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 16px;
+      border-radius: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+
+      &:active,
+      &:focus,
+      &:hover {
+        border-color: unset;
+        color: unset;
+      }
+
+      &.active {
+        color: #333;
+        background-color: #fff;
+        border-color: #fff;
+      }
+    }
+  }
+
+  .ant-form-item {
+    margin-bottom: 24px;
+  }
+
+  .ant-form-item-label > label {
+    padding-left: 12px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .ant-form-item-extra {
+    top: 34px;
+    left: -100%;
+    padding-left: 12px;
+    padding-top: 4px;
+    position: absolute;
+
+    &::before {
+      content: '*';
+    }
+    &::after {
+      content: '';
+      top: 0;
+      left: 12px;
+      width: 180px;
+      height: 1px;
+      background-color: #929292;
+      position: absolute;
+    }
+  }
+
+  .content {
+    margin-left: 24px;
+    padding: 24px;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  .ant-switch,
+  .ant-switch-handle::before {
+    border-radius: 0;
+  }
+
+  .ant-switch {
+    width: 100px;
+    height: 32px;
+    margin-bottom: 8px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.8) !important;
+    background-color: #5e5e5e;
+  }
+
+  .ant-switch-checked {
+    background-color: #2972a8;
+  }
+
+  .ant-switch-handle {
+    width: 50px;
+    height: 28px;
+  }
+
+  .ant-switch-inner {
+    text-align: right;
+  }
+
+  .ant-switch-inner {
+    margin-right: 12px;
+    margin-left: 12px;
+    font-size: 14px;
+  }
+
+  .ant-switch-checked .ant-switch-handle {
+    left: calc(100% - 52px);
+  }
+
+  .ant-switch-checked .ant-switch-inner {
+    text-align: left;
+  }
+
+  .ant-tabs-ink-bar {
+    display: none;
+  }
+
+  .form-title {
+    padding: 4px 12px;
+    font-size: 16px;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    color: #fff;
+    background-color: #333;
+
+    &.first {
+      margin-top: 0;
+    }
+  }
+
+  .form-btn {
+    min-width: 100px;
+    color: #fff;
+    border-radius: 0;
+    border-color: #fff;
+    background-color: #333;
+
+    &.disabled {
+      background-color: #626262;
+      cursor: no-drop;
+    }
+  }
+
+  .ant-radio-group {
+    position: relative;
+
+    &::after {
+      content: '';
+      top: 50%;
+      left: 2px;
+      width: calc(100% - 4px);
+      height: 1px;
+      background-color: #333;
+      position: absolute;
+    }
+
+    .ant-radio-button-wrapper {
+      min-width: 70px;
+      border-radius: 0 !important;
+      box-shadow: 0 8px 10px rgba(0, 0, 0, 0.5);
+      border: none;
+      color: #fff;
+      background-color: #333;
+      z-index: 1;
+      text-align: center;
+      position: relative;
+
+      &::before {
+        display: none;
+      }
+
+      & + .ant-radio-button-wrapper {
+        margin-left: 12px;
+      }
+    }
+
+    .ant-radio-button-checked {
+      background-color: #2972a8;
+      border-color: #124872;
+    }
+  }
+
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before {
+    display: none;
+  }
+
+  .ant-slider-track,
+  .ant-slider-rail {
+    background-color: #333 !important;
+  }
+
+  .ant-slider-handle.ant-tooltip-open {
+    width: 34px;
+    height: 20px;
+    margin-top: -8px;
+    border-radius: 0;
+    border-color: #fff;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.ant-tooltip-inner {
+  min-height: unset;
+  padding: 0;
+  color: #333;
+  box-shadow: unset;
+  background-color: unset;
+  transform: translateY(32px);
+  pointer-events: none;
+}
+
+.ant-tooltip-arrow {
+  display: none;
+}
