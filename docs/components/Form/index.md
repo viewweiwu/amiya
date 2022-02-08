@@ -489,29 +489,30 @@ const layout = {
 
 ## AyFormField 参数
 
-| 参数名             | 说明                                                                                | 参数类型                                                               | 默认值                                    |
-| ------------------ | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ----------------------------------------- |
-| title              | 相应的 key，会跟最后表单取到的项目相关; form 的 key 值必填                          | string                                                                 | -                                         |
-| key                | 唯一 key，<span style="color: #f06;">当 key 以双下划线开头时，提交会被忽略。</span> | string                                                                 | -                                         |
-| type               | 表单项类型                                                                          | [FormType][formtype]                                                   | 'input'                                   |
-| options            | 可选项                                                                              | Array<[Option][option]>                                                | -                                         |
-| span               | Grid Col 占位 [0 - 24]                                                              | number                                                                 | -                                         |
-| defaultValue       | 默认值                                                                              | any                                                                    | -                                         |
-| required           | 是否必填                                                                            | boolean                                                                | -                                         |
-| rules              | 自定义权限                                                                          | Array<[Rules](https://ant-design.gitee.io/components/form-cn/#Rule)>   | -                                         |
-| visible            | 是否展示，保留占位; 保留默认值                                                      | boolean                                                                | -                                         |
-| hidden             | 是否展示，不会占位; 保留默认值                                                      | boolean \| Function                                                    | -                                         |
-| props              | 原生的属性                                                                          | Object                                                                 | -                                         |
-| formItemProps      | FormItem 层原生的属性                                                               | Object                                                                 | -                                         |
-| renderContent      | 自定义 content 内容，需要指定 type: 'custom'                                        | (field: AyFormField, record: Record) => ReactNode                      | -                                         |
-| onChange           | 数据变化监听                                                                        | (field: AyFormField, record: Record, setFieldsValue: Function) => void | -                                         |
-| help               | 在表单下会有一段提示文字                                                            | string \| ReactNode                                                    | -                                         |
-| startKey           | 时间格式化的开始时间，提交时，会自动将日期区间拆分                                  | string                                                                 | 'startDate'                               |
-| endKey             | 时间格式化的结束时间，提交时，会自动将日期区间拆分                                  | string                                                                 | 'endDate'                                 |
-| formatRule         | 自定义格式化规则如果设置了 props.showTime = true，则格式化会默认带上时间            | string                                                                 | 'YYYY-MM-DD' or <br>'YYYY-MM-DD HH:mm:ss' |
-| readonlyFormatRule | readonly 下的自定义格式化规则                                                       | string                                                                 | 'YYYY-MM-DD' or <br>'YYYY-MM-DD HH:mm:ss' |
-| reSetting          | 重新渲染                                                                            | (params: AyFormField, mode: string) => AyFormField                     | -                                         |
-| order              | 展示顺序                                                                            | number                                                                 | -                                         |
+| 参数名             | 说明                                                                                | 参数类型                                                               | 默认值                                    | 版本   |
+| ------------------ | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ----------------------------------------- | ------ |
+| title              | 相应的 key，会跟最后表单取到的项目相关; form 的 key 值必填                          | string                                                                 | -                                         | -      |
+| key                | 唯一 key，<span style="color: #f06;">当 key 以双下划线开头时，提交会被忽略。</span> | string                                                                 | -                                         | -      |
+| type               | 表单项类型                                                                          | [FormType][formtype]                                                   | 'input'                                   | -      |
+| options            | 可选项                                                                              | Array<[Option][option]>                                                | -                                         | -      |
+| span               | Grid Col 占位 [0 - 24]                                                              | number                                                                 | -                                         | -      |
+| defaultValue       | 默认值                                                                              | any                                                                    | -                                         | -      |
+| required           | 是否必填                                                                            | boolean                                                                | -                                         | -      |
+| rules              | 自定义权限                                                                          | Array<[Rules](https://ant-design.gitee.io/components/form-cn/#Rule)>   | -                                         | -      |
+| visible            | 是否展示，保留占位; 保留默认值                                                      | boolean                                                                | -                                         | -      |
+| hidden             | 是否展示，不会占位; 保留默认值                                                      | boolean \| Function                                                    | -                                         | -      |
+| props              | 原生的属性                                                                          | Object                                                                 | -                                         | -      |
+| formItemProps      | FormItem 层原生的属性                                                               | Object                                                                 | -                                         | -      |
+| renderContent      | 自定义 content 内容，需要指定 type: 'custom'                                        | (field: AyFormField, record: Record) => ReactNode                      | -                                         | -      |
+| onChange           | 数据变化监听                                                                        | (field: AyFormField, record: Record, setFieldsValue: Function) => void | -                                         | -      |
+| help               | 在表单下会有一段提示文字                                                            | string \| ReactNode                                                    | -                                         | -      |
+| startKey           | 时间格式化的开始时间，提交时，会自动将日期区间拆分                                  | string                                                                 | 'startDate'                               | -      |
+| endKey             | 时间格式化的结束时间，提交时，会自动将日期区间拆分                                  | string                                                                 | 'endDate'                                 | -      |
+| formatRule         | 自定义格式化规则如果设置了 props.showTime = true，则格式化会默认带上时间            | string                                                                 | 'YYYY-MM-DD' or <br>'YYYY-MM-DD HH:mm:ss' | -      |
+| readonlyFormatRule | readonly 下的自定义格式化规则                                                       | string                                                                 | 'YYYY-MM-DD' or <br>'YYYY-MM-DD HH:mm:ss' | -      |
+| reSetting          | 重新渲染                                                                            | (params: AyFormField, mode: string) => AyFormField                     | -                                         | -      |
+| order              | 展示顺序                                                                            | number                                                                 | -                                         | -      |
+| tooltip            | 提示文本，此属性会在标题后面补上一个问号图标                                        | String                                                                 | -                                         | 0.44.0 |
 
 <span style="color: #f06;">日期格式化</span>相关的，可以点击[这里][日期格式化]查看更具体的细节。
 

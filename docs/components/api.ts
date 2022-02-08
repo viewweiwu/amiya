@@ -1,7 +1,7 @@
 /**
  * 此文件为模拟模拟接口的文件，不要复制，仅供参考
  */
-import { AnyKeyProps } from '../types/AnyKeyProps'
+import { Record, AnyKeyProps } from 'amiya'
 
 export const professionOptions = [
   { label: '近卫干员', value: '近卫' },
@@ -17,7 +17,7 @@ export const professionOptions = [
 /**
  * 模拟数据
  */
-let data: Array<AnyKeyProps> = []
+let data: Array<Record> = []
 
 // 没有数据，加载数据
 const loadData = () => {
