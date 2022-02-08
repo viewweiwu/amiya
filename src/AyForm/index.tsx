@@ -11,7 +11,7 @@ import React, {
 } from 'react'
 import AyCard from '../AyCard'
 import { theme } from '../Theme'
-import { Form, Row, Col, Input } from 'antd'
+import { Form, Row, Col, Input, Tooltip } from 'antd'
 import { AyFormField, AyFormProps, RegisterFieldProps } from './ay-form'
 import { copy } from '../utils'
 import { AySearchField } from '../AySearch/ay-search'
@@ -39,6 +39,7 @@ import 'moment/locale/zh-cn'
 import { AySearchTableField } from '../AySearchTable/ay-search-table'
 import { ColProps } from 'antd/lib/col'
 import { convertChildrenToAyFormField } from '../AyFields/convertFields'
+import { QuestionCircleOutlined } from '@ant-design/icons'
 import './ay-form.less'
 
 moment.locale('zh-cn')
@@ -311,6 +312,18 @@ const getFormItem = (
     // 不显示状态下 rule 无效
     if (hidden || !visible) {
       formItemProps.rules = []
+    }
+
+    // 支持 tooltip 属性
+    if (field.tooltip) {
+      formItemProps.label = (
+        <span>
+          {field.title}
+          <Tooltip placement="top" title={field.tooltip}>
+            <QuestionCircleOutlined style={{ marginLeft: 4 }} />
+          </Tooltip>
+        </span>
+      )
     }
 
     let tag: ReactNode

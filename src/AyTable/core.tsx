@@ -1,7 +1,10 @@
+import React from 'react'
 import { ReactNode, Dispatch, SetStateAction } from 'react'
 import { TABLE_CTRL_KEY } from '../constant'
 import { AyTableField } from './ay-table'
 import { AnyKeyProps } from '../types/AnyKeyProps'
+import { Tooltip } from 'antd'
+import { QuestionCircleOutlined } from '@ant-design/icons'
 import './ay-table.less'
 
 export const install = (renderMap: AnyKeyProps) => {
@@ -20,11 +23,24 @@ export const install = (renderMap: AnyKeyProps) => {
     setTableData: Dispatch<SetStateAction<Array<AnyKeyProps>>>,
     props?: AnyKeyProps
   ) => {
+    // 支持 tooltip 属性
+    let title = field.__alias || field.title
+    if (field.tooltip) {
+      title = (
+        <span>
+          {title}
+          <Tooltip placement="top" title={field.tooltip}>
+            <QuestionCircleOutlined style={{ marginLeft: 4 }} />
+          </Tooltip>
+        </span>
+      )
+    }
+
     let tableField: AnyKeyProps = {
       key: field.key,
       dataIndex: field.key,
       ...field,
-      title: field.__alias || field.title
+      title
     }
     if (field.render) {
       tableField.render = field.render

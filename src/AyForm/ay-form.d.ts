@@ -183,6 +183,8 @@ export interface AyFormField extends Field {
   formatRule?: string
   /** readonly 下的日期格式化规则 */
   readonlyFormatRule?: string
+  /** 提示文本 */
+  tooltip?: string
   [key: string]: any
 }
 

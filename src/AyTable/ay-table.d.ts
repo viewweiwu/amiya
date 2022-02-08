@@ -49,6 +49,8 @@ export interface AyListProps {
   onParamsChange?(params: AnyKeyProps): void
   /** 列表头部 */
   listHeader?: ReactNode
+  /** 提示文本 */
+  tooltip?: string
 }
 export interface AyTableProps {
   title?: string | ReactNode
@@ -128,6 +130,8 @@ export interface AyTableField {
   renderType?: string
   /** 是否隐藏这一列 */
   hidden?: boolean | (() => boolean)
+  /** 提示文本 */
+  tooltip?: string
   __extraTouched?: boolean
   __hidden?: boolean
   __order?: number
