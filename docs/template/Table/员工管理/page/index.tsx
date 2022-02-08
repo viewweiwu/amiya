@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
-import { AyAction, AyCtrl, AyField, AyFields, AySearchTable, AyTableCtrlField, Record } from 'amiya'
+import React from 'react'
+import { AyAction, AyCtrl, AyField, AyFields, AySearchTable, AyTableCtrlField, AyButton, Record } from 'amiya'
 import { addApi, deleteApi, listApi, updateApi } from '../api'
 import { WeiboCircleOutlined, QqOutlined, WechatOutlined, TwitterOutlined } from '@ant-design/icons'
 import { message, Space, Typography } from 'antd'
-import { EditOutlined, PlusSquareFilled } from '@ant-design/icons'
-import '../amiya/index.tsx'
-import AyButton from '@/AyButton'
+import { EditOutlined } from '@ant-design/icons'
+import '../amiya/'
 
 const { Text } = Typography
 
