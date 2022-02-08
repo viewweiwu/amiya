@@ -226,7 +226,7 @@ const getFormItem = (
 
     if (field.type === FORM_TYPE_CARD) {
       return (
-        <Col key={field.key}>
+        <Col key={field.key} span={field.span || 24}>
           <AyCard title={field.title} {...field.props}>
             <Row gutter={gutter}>
               {getFormItem(

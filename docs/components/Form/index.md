@@ -280,7 +280,7 @@ export default function Demo() {
 ```tsx
 import React, { useState } from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
-import { Switch, Card } from 'antd'
+import { Switch, Card, Col } from 'antd'
 
 const fields: Array<AyFormField> = [
   {
@@ -293,30 +293,9 @@ const fields: Array<AyFormField> = [
     type: 'search'
   },
   {
-    title: 'Number',
-    type: 'number',
-    key: 'number',
-    props: {
-      placeholder: '数字'
-    }
-  },
-  {
-    title: 'Percent',
-    type: 'percent',
-    key: 'percent',
-    props: {
-      placeholder: '百分比'
-    }
-  },
-  {
     title: 'Password',
     type: 'password',
     key: 'password'
-  },
-  {
-    title: 'Textarea',
-    type: 'textarea',
-    key: 'textarea'
   },
   {
     title: 'Select',
@@ -328,75 +307,118 @@ const fields: Array<AyFormField> = [
     ]
   },
   {
-    title: 'Switch',
-    type: 'switch',
-    key: 'switch'
+    title: 'Textarea',
+    type: 'textarea',
+    key: 'textarea',
+    span: 24
   },
   {
-    title: 'Checkbox',
-    type: 'checkbox',
-    key: 'checkbox',
-    props: {
-      children: '同意？'
-    }
-  },
-  {
-    title: 'CheckboxGroup',
-    type: 'checkbox-group',
-    key: 'checkbox-group',
-    options: [
-      { label: '选项1', value: 1 },
-      { label: '选项2', value: 2 }
+    title: '数值输入',
+    type: 'card',
+    key: '__number',
+    children: [
+      {
+        title: 'Number',
+        type: 'number',
+        key: 'number',
+        props: {
+          placeholder: '数字'
+        }
+      },
+      {
+        title: 'Percent',
+        type: 'percent',
+        key: 'percent',
+        props: {
+          placeholder: '百分比'
+        }
+      },
+      {
+        title: 'Slider',
+        type: 'slider',
+        key: 'slider'
+      }
     ]
   },
   {
-    title: 'RadioGroup',
-    type: 'radio-group',
-    key: 'radio-group',
-    options: [
-      { label: '选项1', value: 1 },
-      { label: '选项2', value: 2 }
+    title: '勾选',
+    type: 'card',
+    key: '__check',
+    children: [
+      {
+        title: 'Checkbox',
+        type: 'checkbox',
+        key: 'checkbox',
+        props: {
+          children: '同意？'
+        }
+      },
+      {
+        title: 'CheckboxGroup',
+        type: 'checkbox-group',
+        key: 'checkbox-group',
+        options: [
+          { label: '选项1', value: 1 },
+          { label: '选项2', value: 2 }
+        ]
+      },
+      {
+        title: 'RadioGroup',
+        type: 'radio-group',
+        key: 'radio-group',
+        options: [
+          { label: '选项1', value: 1 },
+          { label: '选项2', value: 2 }
+        ]
+      },
+      {
+        title: 'Switch',
+        type: 'switch',
+        key: 'switch'
+      },
+      {
+        title: 'Rate',
+        type: 'rate',
+        key: 'rate'
+      }
     ]
   },
   {
-    title: 'Rate',
-    type: 'rate',
-    key: 'rate'
-  },
-  {
-    title: 'Slider',
-    type: 'slider',
-    key: 'slider'
-  },
-  {
-    title: 'Date',
-    type: 'date',
-    key: 'date'
-  },
-  {
-    title: 'Datetime',
-    type: 'date',
-    key: 'datetime',
-    props: {
-      showTime: true
-    }
-  },
-  {
-    title: 'DateRange',
-    type: 'date-range',
-    key: 'date-range',
-    startKey: 'date-range-start',
-    endKey: 'date-range-end'
-  },
-  {
-    title: 'DatetimeRange',
-    type: 'date-range',
-    key: 'datetime-range',
-    startKey: 'date-range-time-start',
-    endKey: 'date-range-time-end',
-    props: {
-      showTime: true
-    }
+    title: '日期',
+    type: 'card',
+    key: '__date',
+    children: [
+      {
+        title: 'Date',
+        type: 'date',
+        key: 'date'
+      },
+      {
+        title: 'Datetime',
+        type: 'date',
+        key: 'datetime',
+        props: {
+          showTime: true
+        }
+      },
+      {
+        title: 'DateRange',
+        type: 'date-range',
+        key: 'date-range',
+        startKey: 'date-range-start',
+        endKey: 'date-range-end'
+      },
+      {
+        title: 'DatetimeRange',
+        type: 'date-range',
+        key: 'datetime-range',
+        startKey: 'date-range-time-start',
+        endKey: 'date-range-time-end',
+        props: {
+          showTime: true
+        }
+      }
+    ]
   }
 ]
 
@@ -409,17 +431,19 @@ export default function Demo() {
   }
 
   return (
-    <Card>
+    <div>
       <p>
         <label style={{ marginRight: 4 }}>只读模式</label>
         <Switch defaultChecked={readonly} onChange={value => setReadonly(value)} />
       </p>
-      <AyForm readonly={readonly} fields={fields} onConfirm={handleConfirm} style={{ width: 600, margin: '0 auto' }}>
-        <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
-          提交
-        </AyButton>
+      <AyForm readonly={readonly} fields={fields} span={8} onConfirm={handleConfirm}>
+        <Col span={24}>
+          <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
+            提交
+          </AyButton>
+        </Col>
       </AyForm>
-    </Card>
+    </div>
   )
 }
 ```

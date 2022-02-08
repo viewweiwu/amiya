@@ -1,0 +1,181 @@
+.home-root {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to top, #209cff 0%, #68e0cf 100%);
+
+  .hero {
+    text-align: center;
+    z-index: 1;
+    position: relative;
+  }
+
+  h1 {
+    line-height: 1;
+    letter-spacing: 4px;
+    color: #fff;
+    position: relative;
+    text-align: center;
+
+    .title {
+      font-size: 120px;
+      text-shadow: 5px 5px 10px #209cff;
+      position: relative;
+      user-select: none;
+      font-family: Heiti SC;
+      font-weight: bolder;
+    }
+
+    .text {
+      z-index: 1;
+      position: relative;
+    }
+
+    .line {
+      right: 0;
+      bottom: 12px;
+      height: 20px;
+      width: 230px;
+      background-color: #68e0cf;
+      position: absolute;
+    }
+  }
+
+  mark {
+    color: yellow;
+    background-color: unset;
+  }
+
+  .desc {
+    color: #fff;
+  }
+
+  .btn {
+    height: 32px;
+    line-height: 1.5715;
+    padding: 4px 15px;
+    border-radius: 2px;
+    border: 1px solid #fff;
+    display: inline-block;
+    transition: 100ms;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  .bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    pointer-events: none;
+    perspective-origin: center;
+    perspective: 500px;
+    backface-visibility: visible;
+    transform-style: preserve-3d;
+  }
+
+  .layer {
+    width: 100%;
+    height: 100%;
+    // background-color: #ddd;
+    transform: rotateY(10deg);
+  }
+
+  .square,
+  .circle {
+    width: 200px;
+    height: 200px;
+    box-shadow: 0px 24px 5px 5px rgba(138, 138, 138, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
+    position: absolute;
+  }
+
+  .square {
+    animation: square-move 5s infinite alternate;
+  }
+
+  .circle {
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    animation: circle-move 5s infinite alternate;
+  }
+
+  .square-top {
+    left: 230px;
+    top: 130px;
+  }
+
+  .square-left {
+    left: 100px;
+    bottom: 100px;
+  }
+
+  .square-center {
+    left: 900px;
+    bottom: 100px;
+    animation-delay: -2s;
+  }
+
+  .circle-top {
+    left: 580px;
+    top: 30px;
+    animation-delay: -3s;
+  }
+
+  .circle-center {
+    top: 400px;
+    left: 430px;
+  }
+}
+
+@keyframes square-move {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(20%, 0);
+  }
+}
+
+@keyframes circle-move {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, 20%);
+  }
+}
+
+.__dumi-default-layout[data-route='/'] {
+  padding-top: 0 !important;
+
+  .__dumi-default-navbar {
+    left: 50%;
+    width: 1000px;
+    position: absolute;
+    background-color: transparent;
+    box-shadow: none;
+    transform: translateX(-50%);
+    transition: 300ms;
+  }
+
+  .__amiya-nav,
+  a {
+    color: #fff;
+    background-color: transparent;
+  }
+
+  .__dumi-default-search {
+    a {
+      color: #333;
+    }
+  }
+
+  .__dumi-default-search-input {
+    border: 1px solid #eee;
+    background-color: transparent;
+  }
+}
