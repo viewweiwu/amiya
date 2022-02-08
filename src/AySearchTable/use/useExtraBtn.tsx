@@ -175,7 +175,7 @@ const useFieldsEdit = (
         })}
       </AyDialog>
       <Tooltip title="展示列">
-        <AyButton type="text" icon={<SettingOutlined />} onClick={() => setVisible(true)}></AyButton>
+        <SettingOutlined onClick={() => setVisible(true)} />
       </Tooltip>
     </>
   )
@@ -224,11 +224,11 @@ export default function useExtraBtn(
   }, [isEnter])
 
   const extraBtns = extraVisible ? (
-    <div className="yt-search-table-extra-btns" key="yt-search-table-extra-btns">
-      <Space>
+    <div className="ay-search-table-extra-btns" key="ay-search-table-extra-btns">
+      <Space size="middle">
         {extraRefreshVisible ? (
           <Tooltip title="刷新">
-            <AyButton type="text" icon={<ReloadOutlined />} onClick={handleRefresh}></AyButton>
+            <ReloadOutlined onClick={handleRefresh} />
           </Tooltip>
         ) : null}
 
@@ -243,7 +243,7 @@ export default function useExtraBtn(
                 </Menu>
               }
             >
-              <AyButton type="text" icon={<ColumnHeightOutlined />}></AyButton>
+              <ColumnHeightOutlined />
             </Dropdown>
           </Tooltip>
         ) : null}
@@ -253,21 +253,11 @@ export default function useExtraBtn(
         {extraFullscreenVisible ? (
           isEnter ? (
             <Tooltip title="还原" key="还原">
-              <AyButton
-                className="ay-search-table-fullscrenn-enter"
-                type="text"
-                icon={<FullscreenExitOutlined />}
-                onClick={() => setIsEnter(false)}
-              />
+              <FullscreenExitOutlined className="ay-search-table-fullscrenn-enter" onClick={() => setIsEnter(false)} />
             </Tooltip>
           ) : (
             <Tooltip title="全屏" key="全屏">
-              <AyButton
-                className="ay-search-table-fullscrenn-out"
-                type="text"
-                icon={<FullscreenOutlined />}
-                onClick={() => setIsEnter(true)}
-              />
+              <FullscreenOutlined className="ay-search-table-fullscrenn-out" onClick={() => setIsEnter(true)} />
             </Tooltip>
           )
         ) : null}
