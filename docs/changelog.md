@@ -4,6 +4,13 @@ order: 1
 
 # 更新日志
 
+## 0.44.0
+
+1. feat: `AySearchTable`、`AyForm` 的 Field 支持 `tooltip` 属性。
+2. feat: `AySearchTable`、`AySearchList` 的 extra 按钮样式优化。
+3. feat: 重写 `AySearchTable` 扩展 icon。
+4. fix: 样式名称修复。
+
 ## 0.43.0
 
 1. feat: `AyForm` FormType 为 `number` 和 `percent` 取消默认的 `placeholder`。
