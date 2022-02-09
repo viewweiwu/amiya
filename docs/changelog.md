@@ -4,6 +4,15 @@ order: 1
 
 # 更新日志
 
+## 0.45.0
+
+1. feat: 可以在 `AySearchTable` 外面直接使用 table 属性了。
+2. feat: 在外层元素 className="full-width" 的情况下，AyForm 的 max-width 会填充 100% 宽度。
+3. feat: `AyForm` type 添加 `tag-group` 类型
+4. feat: `AySearch` 支持平铺模式。
+5. fix: 修复 `AyForm` type 为 'card' 时样式错乱，且默认现在 span 值是 24。
+6. fix: `AyForm` type 为 'slider' 的默认值由 null 调整为 0。
+
 ## 0.44.0
 
 1. feat: `AySearchTable`、`AyForm` 的 Field 支持 `tooltip` 属性。
