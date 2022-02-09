@@ -46,6 +46,7 @@ export interface AyFormProps {
     wrapperCol?: AnyKeyProps
   }
   formLayout?: 'horizontal' | 'vertical' | 'inline'
+  [key: string]: any
 }
 
 export interface RegisterFieldProps {

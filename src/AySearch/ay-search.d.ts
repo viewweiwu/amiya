@@ -15,6 +15,9 @@ export interface AySearchProps {
   actionSpan?: number
   /** mini 状态展示 n 行 */
   visibleRow?: number
+  /** 查询、展示、展开按钮是否可见 */
+  actionVisible?: boolean
+  [key: string]: any
 }
 
 export interface AySearchField extends AyFormField {

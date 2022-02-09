@@ -152,7 +152,17 @@ const funcs = [
 ]
 
 export default forwardRef(function AySearch(props: AySearchProps, ref) {
-  const { fields, onConfirm, onReset, formExtend, defaultOpen, toggleVisible, visibleRow = defaultVisibleRow } = props
+  const {
+    fields,
+    onConfirm,
+    onReset,
+    formExtend,
+    defaultOpen,
+    toggleVisible,
+    visibleRow = defaultVisibleRow,
+    actionVisible,
+    ...otherProps
+  } = props
   const wrapRef = useRef<any>()
   const timerRef = useRef<number>(0)
   // 是否是 mini 状态
@@ -324,23 +334,26 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
           span={calcSpan}
           gutter={16}
           onConfirm={handleConfirm}
+          {...otherProps}
           {...formExtend}
         >
-          <Col span={actionSpan} style={actionRight ? { textAlign: 'right' } : { paddingLeft: 50 }}>
-            <Form.Item>
-              <Space>
-                <AyButton htmlType="submit" type="primary" icon={<SearchOutlined />}>
-                  查询
-                </AyButton>
-                <AyButton icon={<ReloadOutlined />} onClick={handleReset}>
-                  重置
-                </AyButton>
-                {toggleVisible !== false
-                  ? visibleSpan > visibleRow * 24 - actionSpan && searchFields.length > 1 && <ToogleBtn />
-                  : null}
-              </Space>
-            </Form.Item>
-          </Col>
+          {actionVisible !== false && (
+            <Col span={actionSpan} style={actionRight ? { textAlign: 'right' } : { paddingLeft: 50 }}>
+              <Form.Item>
+                <Space>
+                  <AyButton htmlType="submit" type="primary" icon={<SearchOutlined />}>
+                    查询
+                  </AyButton>
+                  <AyButton icon={<ReloadOutlined />} onClick={handleReset}>
+                    重置
+                  </AyButton>
+                  {toggleVisible !== false
+                    ? visibleSpan > visibleRow * 24 - actionSpan && searchFields.length > 1 && <ToogleBtn />
+                    : null}
+                </Space>
+              </Form.Item>
+            </Col>
+          )}
         </AyForm>
       </div>
     </Card>

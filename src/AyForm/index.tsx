@@ -544,7 +544,8 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
     className,
     style,
     labelAlign,
-    gutter
+    gutter,
+    ...otherProps
   } = props
 
   const fields = useMemo(() => {
@@ -703,6 +704,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
         onValuesChange={(changedValues, allValues) =>
           handleChange(changedValues, allValues, mirrorFields, formInstans.setFieldsValue)
         }
+        {...otherProps}
         {...defaultProps}
       >
         <Row gutter={gutter}>
