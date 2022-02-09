@@ -284,28 +284,35 @@ import { Switch, Card, Col } from 'antd'
 
 const fields: Array<AyFormField> = [
   {
-    title: '输入框',
-    key: 'input'
-  },
-  {
-    title: '密码框',
-    type: 'password',
-    key: 'password'
-  },
-  {
-    title: '选择框',
-    type: 'select',
-    key: 'select',
-    options: [
-      { label: '选项1', value: 1 },
-      { label: '选项2', value: 2 }
+    title: '基础类型',
+    type: 'card',
+    key: '__base',
+    children: [
+      {
+        title: '输入框',
+        key: 'input'
+      },
+      {
+        title: '密码框',
+        type: 'password',
+        key: 'password'
+      },
+      {
+        title: '选择框',
+        type: 'select',
+        key: 'select',
+        options: [
+          { label: '选项1', value: 1 },
+          { label: '选项2', value: 2 }
+        ]
+      },
+      {
+        title: '多行文本框',
+        type: 'textarea',
+        key: 'textarea',
+        span: 24
+      }
     ]
-  },
-  {
-    title: '多行文本框',
-    type: 'textarea',
-    key: 'textarea',
-    span: 24
   },
   {
     title: '查询',
@@ -492,7 +499,7 @@ export default function Demo() {
 
 <code src="./AyFormDescDemo.tsx" />
 
-## help 提示
+## 提示
 
 ```tsx
 import React from 'react'
@@ -502,7 +509,7 @@ const fields: Array<AyFormField> = [
   {
     title: 'Field A',
     key: 'a',
-    help: '这是 A 提示'
+    tooltip: '这是 A 提示'
   },
   {
     title: 'Field B',
@@ -514,6 +521,22 @@ const fields: Array<AyFormField> = [
 export default function Demo() {
   return <AyForm fields={fields} style={{ width: 400, margin: '0 auto' }} />
 }
+```
+
+```diff
+const fields: Array<AyFormField> = [
+  {
+    title: 'Field A',
+    key: 'a',
++   tooltip: '这是 A 提示'
+  },
+  {
+    title: 'Field B',
+    key: 'b',
++   help: '这是 B 提示'
+  }
+]
+
 ```
 
 ## Props 参数

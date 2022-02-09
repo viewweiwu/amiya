@@ -300,7 +300,7 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
     type: FORM_TYPE_TAG_GROUP,
     defaultValue: FORM_DEFAULT_VALUE_TAG_GROUP,
     render: ({ field, readonly }: AnyKeyProps) => (
-      <TagGroup disabled={readonly} options={field.options} {...field.props} />
+      <TagGroup readonly={readonly} options={field.options} {...field.props} />
     )
   })
 }

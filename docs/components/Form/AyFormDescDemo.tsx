@@ -100,7 +100,7 @@ export default function Demo() {
           填充上线时间
         </AyButton>
       </p>
-      <AyForm ref={formRef} readonly={readonly} desc={desc} fields={fields} onConfirm={handleConfirm}>
+      <AyForm ref={formRef} readonly={readonly} desc={desc} fields={fields} span={12} onConfirm={handleConfirm}>
         {!readonly && (
           <Col span={24}>
             <Form.Item>
