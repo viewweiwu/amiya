@@ -4,6 +4,10 @@ order: 1
 
 # 更新日志
 
+## 0.45.2
+
+1. fix: 修复 AySearchTable 的 field 添加 dialog 属性时，受原本表格属性污染。
+
 ## 0.45.1
 
 1. fix: `AySearch` 在小屏幕时，不会隐藏溢出项了。
