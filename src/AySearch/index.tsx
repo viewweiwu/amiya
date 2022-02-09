@@ -15,6 +15,7 @@ import { AySearchField, AySearchProps } from './ay-search'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { SearchOutlined, ReloadOutlined, DownOutlined, UpOutlined } from '@ant-design/icons'
 import './ay-search.less'
+import classNames from 'classnames'
 
 type SearchSize = 'mini' | 'small' | 'middle' | 'large'
 
@@ -62,7 +63,9 @@ const getSearchFields = (
   /** 每个项所占用的 span */
   calcSpan: number,
   /** 默认展开 n 行 */
-  visibleRow: number
+  visibleRow: number,
+  /** 是否平铺展示 */
+  inline: boolean
 ): { searchFields: Array<AyFormField>; span: number } => {
   // 累计的 span
   let spanSum: number = 0
@@ -90,6 +93,15 @@ const getSearchFields = (
     let newField: AyFormField = {
       ...field
     }
+    if (inline) {
+      newField.title = ''
+      newField.props = {
+        // @ts-ignore
+        placeholder: field.title || '',
+        ...field.props
+      }
+    }
+
     // 当前条默认的 span 值
     let newSpan = field.grid ? field.grid[size] : calcSpan
 
@@ -161,6 +173,7 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
     toggleVisible,
     visibleRow = defaultVisibleRow,
     actionVisible,
+    inline,
     ...otherProps
   } = props
   const wrapRef = useRef<any>()
@@ -174,10 +187,13 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
     return SizeMap[size]
   }, [size])
   // 显示的 fields
-  const { searchFields, span: visibleSpan } = getSearchFields(fields, mini, size, calcSpan, visibleRow)
+  const { searchFields, span: visibleSpan } = getSearchFields(fields, mini, size, calcSpan, visibleRow, inline || false)
 
   // 查询按钮所占的 span 值
   const actionSpan = useMemo(() => {
+    if (inline) {
+      return undefined
+    }
     if (visibleSpan <= 18) {
       return 6
     }
@@ -221,12 +237,26 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
     let span: number = 24 - ((mini ? miniSpanSum : spanSum) % 24)
 
     return span
-  }, [searchFields, calcSpan, mini, visibleSpan])
+  }, [searchFields, calcSpan, mini, visibleSpan, inline])
 
   // 是否应该右侧
   const actionRight: boolean = useMemo(() => {
     return visibleSpan >= 24 - calcSpan
   }, [visibleSpan])
+
+  // 查询区域样式
+  const actionStyle = useMemo(() => {
+    let style: AnyKeyProps = {}
+    if (actionRight) {
+      style.textAlign = 'right'
+    } else {
+      style.paddingLeft = 50
+    }
+    if (inline) {
+      style = {}
+    }
+    return style
+  }, [actionRight, inline])
 
   /** 控制 any form 的实例 */
   const formRef: MutableRefObject<any> = useRef()
@@ -325,20 +355,21 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
   )
 
   return (
-    <Card className="ay-search">
+    <Card className={classNames('ay-search', inline ? '' : 'full-width', inline ? 'inline' : '')}>
       <div className="ay-search-content" ref={wrapRef}>
         <AyForm
           layout={{ labelCol: { flex: '100px' } }}
           ref={formRef}
           fields={searchFields}
           span={calcSpan}
-          gutter={16}
+          gutter={inline ? 0 : 16}
+          formLayout={inline ? 'inline' : 'horizontal'}
           onConfirm={handleConfirm}
           {...otherProps}
           {...formExtend}
         >
           {actionVisible !== false && (
-            <Col span={actionSpan} style={actionRight ? { textAlign: 'right' } : { paddingLeft: 50 }}>
+            <Col span={actionSpan} style={actionStyle}>
               <Form.Item>
                 <Space>
                   <AyButton htmlType="submit" type="primary" icon={<SearchOutlined />}>

@@ -17,6 +17,8 @@ export interface AySearchProps {
   visibleRow?: number
   /** 查询、展示、展开按钮是否可见 */
   actionVisible?: boolean
+  /** 是否平铺展示 */
+  inline?: boolean
   [key: string]: any
 }
 

@@ -649,6 +649,75 @@ export default function Demo() {
 />
 ```
 
+## 平铺展示
+
+`inline` 状态下，所有的查询项的 `title` 不再有效，且会变成 `placeholder`，不断地平铺下去。
+
+```tsx
+import React from 'react'
+import { AySearch, AySearchField } from 'amiya'
+
+let fields: AySearchField[] = [
+  {
+    title: ['开始日期', '结束日期'],
+    key: '1',
+    type: 'date-range'
+  },
+  {
+    title: '审核状态',
+    key: '2',
+    type: 'select',
+    options: [
+      { label: '选项1', value: 1 },
+      { label: '选项2', value: 2 }
+    ]
+  },
+  {
+    title: '商品类型',
+    key: '2',
+    type: 'select',
+    options: [
+      { label: '选项1', value: 1 },
+      { label: '选项2', value: 2 }
+    ]
+  },
+  {
+    title: '名称或者ID',
+    key: '4'
+  },
+  {
+    title: '最低价',
+    key: '5',
+    type: 'number'
+  },
+  {
+    title: '最高价',
+    key: '6',
+    type: 'number'
+  },
+  {
+    title: '第七个',
+    key: '7'
+  },
+  {
+    title: '第八个',
+    key: '8'
+  },
+  {
+    title: '第九个',
+    key: '9'
+  },
+  {
+    title: '第十个',
+    key: '10'
+  }
+]
+
+export default function Demo() {
+  return <AySearch inline fields={fields} defaultOpen toggleVisible={false} />
+}
+```
+
 ## 隐藏 展开/收起 按钮
 
 ```tsx
@@ -802,6 +871,7 @@ let fields: AySearchField[] = [
 | toggleVisible | 展开/收起 按钮的显示     | boolean                | true   |
 | actionVisible | 查询栏是否可见           | boolean                | true   |
 | defaultOpen   | 超过两行时，是否默认展开 | boolean                | false  |
+| inline        | 是否平铺展示             | boolean                | false  |
 | fields        | 表单项                   | Array\<AySearchField\> | -      |
 | ...           | 其它属性跟 form 一致     | -                      | -      |
 
