@@ -2,8 +2,8 @@ import { defineConfig } from 'dumi'
 
 export default defineConfig({
   title: 'Amiya',
-  favicon: '/amiya/images/logo.jpg',
-  logo: '/amiya/images/logo.jpg',
+  favicon: '/amiya/images/logo.png',
+  logo: '/amiya/images/logo.png',
   outputPath: 'docs-dist',
   publicPath: '/amiya/',
   base: '/amiya/',
