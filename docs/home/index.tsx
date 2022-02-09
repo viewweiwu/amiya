@@ -33,7 +33,6 @@ export default function Index() {
           </div>
         </div>
       </div>
-      <h2>你好呀</h2>
     </div>
   )
 }
