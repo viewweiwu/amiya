@@ -9,26 +9,20 @@ type ValueType = Array<string | number> | string | number | undefined
 interface TagGroupProps {
   value?: any
   onChange?: (values: ValueType) => void
-  /**
-   * 是否支持选择多个
-   */
+  /** 是否支持选择多个 */
   multiple?: boolean
-  /**
-   * 选项
-   */
+  /** 选项 */
   options?: Array<Option>
-  /**
-   * 是否展示全部
-   */
+  /** 是否展示全部 */
   showAllChecked?: boolean
-  /**
-   * 全部文字类型
-   */
+  /** 全部文字类型 */
   allCheckedText?: string
+  /** 是否只读 */
+  readonly?: boolean
 }
 
 export default function TagGroup(props: TagGroupProps) {
-  let { value, multiple, onChange, options, showAllChecked, allCheckedText } = props
+  let { value, multiple, onChange, options, showAllChecked, allCheckedText, readonly } = props
   // 如果是多选，且没有默认值，则默认值视为空数组
   if (multiple && value === undefined) {
     value = []
@@ -40,6 +34,9 @@ export default function TagGroup(props: TagGroupProps) {
 
   /** 全选 */
   const handleAllSelect = () => {
+    if (readonly) {
+      return
+    }
     let newValue: any
 
     if (isMultiple) {
@@ -60,6 +57,9 @@ export default function TagGroup(props: TagGroupProps) {
    * @param i 当前选项 id
    */
   const handleTagSelect = (checked: boolean, option: Option, i: number) => {
+    if (readonly) {
+      return
+    }
     let newValue: ValueType
     if (checked) {
       if (isMultiple) {
