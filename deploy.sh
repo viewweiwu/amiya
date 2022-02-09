@@ -15,6 +15,7 @@ cd docs-dist
 git init
 git add -A
 git commit -m 'deploy'
+git config --local https.proxy socks5://127.0.0.1:1086
 
 # 部署到 https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
