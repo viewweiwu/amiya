@@ -378,8 +378,8 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
                   <AyButton icon={<ReloadOutlined />} onClick={handleReset}>
                     重置
                   </AyButton>
-                  {toggleVisible !== false
-                    ? visibleSpan > visibleRow * 24 - actionSpan && searchFields.length > 1 && <ToogleBtn />
+                  {toggleVisible !== false && !inline
+                    ? visibleSpan > visibleRow * 24 - (actionSpan || 0) && searchFields.length > 1 && <ToogleBtn />
                     : null}
                 </Space>
               </Form.Item>
