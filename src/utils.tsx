@@ -210,6 +210,22 @@ export const renderStatus = (status: string | number, options: Option[], type: '
 }
 
 /**
+ * 复制一个对象，只选择其中某些 key
+ * @param obj 复制对象
+ * @param key 要保留的 key，可以是数组
+ * @returns 保留了 key 的对象
+ */
+export const optionObj = (obj: AnyKeyProps, key: string | Array<string>) => {
+  let result: AnyKeyProps = {}
+  if (typeof key === 'string') {
+    result[key] = obj[key]
+  } else if (Array.isArray(key)) {
+    key.forEach(k => (result[k] = obj[k]))
+  }
+  return result
+}
+
+/**
  * 复制一个对象，并删除某些 key
  * @param obj 复制对象
  * @param key 要删除的 key，可以是数组
