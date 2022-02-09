@@ -19,57 +19,44 @@ toc: false
 <code src="./AySearchTableDemoTsx.tsx" />
 
 ```diff
--const fields = [
-- {
--   title: '头像',
--   key: 'icon',
--   table: {
--     width: 80,
--     align: 'center',
--     renderType: 'image',
--     props: {
--       width: 70
--     }
--   }
-- },
-- {
--   title: '姓名',
--   key: 'cn',
--   search: true,
--   dialog: {
--     required: true
--   },
--   table: {
--     render: (text, record) => {
--       return (
--         <div>
--           <div>{record.cn}</div>
--           <div>{record.en}</div>
--           <div>{record.jp}</div>
--         </div>
--       )
--     }
--   }
-- },
-- {
--   title: '英文名',
--   key: 'en',
--   search: true,
--   dialog: {
--     required: true
--   },
--   table: false
-- },
-- {
--   title: '日文名',
--   key: 'jp',
--   search: true,
--   dialog: {
--     required: true
--   },
--   table: false
-- },
-- // ...
+-const fields: Array<AySearchTableField> = [
+-  {
+-    title: '头像',
+-    key: 'icon',
+-    width: 80,
+-    align: 'center',
+-    renderType: 'image',
+-    props: {
+-      width: 70
+-    }
+-  },
+-  {
+-    title: '姓名',
+-    key: 'cn',
+-    render: (text: string, record: Record) => {
+-      return (
+-        <div>
+-          <div>{record.cn}</div>
+-          <div>{record.en}</div>
+-          <div>{record.jp}</div>
+-        </div>
+-      )
+-    },
+-    search: true,
+-    dialog: {
+-      required: true
+-    }
+-  },
+-  {
+-    title: '英文名',
+-    key: 'en',
+-    hidden: true,
+-    search: true,
+-    dialog: {
+-      required: true
+-    }
+-  },
+-  // ...
 -]
 
 <AySearchTable
@@ -78,7 +65,7 @@ toc: false
   api={listApi}
   ctrl={ctrl}
   rowKey="sort_id"
-- field={fields}
+- fields={fields}
   selectShowKey="cn"
   deleteApi={deleteApi}
   dialogFormExtend={{
@@ -91,34 +78,29 @@ toc: false
 +   <AyField
 +     title="头像"
 +     key="icon"
-+     table={{
-+       width: 80,
-+       align: 'center',
-+       renderType: 'image',
-+       props: {
-+         width: 70
-+       }
++     width={80}
++     align="center"
++     renderType="image"
++     props={{
++       width: 70
 +     }}
 +   />
 +   <AyField
 +     title="姓名"
 +     key="cn"
 +     search
-+     table={{
-+       render: (text, record) => {
-+         return (
-+           <div>
-+             <div>{record.cn}</div>
-+             <div>{record.en}</div>
-+             <div>{record.jp}</div>
-+           </div>
-+         )
-+       }
++     render={(text: string, record: Record) => {
++       return (
++         <div>
++           <div>{record.cn}</div>
++           <div>{record.en}</div>
++           <div>{record.jp}</div>
++         </div>
++       )
 +     }}
 +   />
-+   <AyField title="英文名" key="en" search dialog table={false} />
-+   <AyField title="日文名" key="jp" search dialog table={false} />
-+   //...
++   <AyField title="英文名" key="en" search dialog hidden />
++   {// ...}
 + </AyFields>
   <AyAction action="batch-delete">批量删除</AyAction>
   <AyAction action="add">新增</AyAction>
@@ -167,15 +149,25 @@ extra 右侧扩展按钮配置参考[这里][1]。
 
 最为常见的 Field，是每个列表页面都会用到的参数。
 
-| 参数名  | 说明                                                            | 参数类型                                | 默认值  |
-| ------- | --------------------------------------------------------------- | --------------------------------------- | ------- |
-| title   | 名称                                                            | string                                  | -       |
-| key     | 唯一 key                                                        | string                                  | -       |
-| type    | 表单类型                                                        | [FormType][formtype]                    | 'input' |
-| options | 可选项                                                          | Array<[Option][option]>                 | -       |
-| search  | AySearch 需要的扩展参数，里面的属性比外面的属性优先级更高。     | [AyFormField][ayformfield] \| boolean   | -       |
-| dialog  | AyDialogForm 需要的扩展参数，里面的属性比外面的属性优先级更高。 | [AyFormField][ayformfield] \| boolean   | -       |
-| table   | AyTable 需要的扩展参数，里面的属性比外面的属性优先级更高。      | [AyTableField][aytablefield] \| boolean | -       |
+| 参数名         | 说明                                                                                        | 参数类型                                                              | 默认值 | 版本   |
+| -------------- | ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------ | ------ |
+| title          | 标题。                                                                                      | string                                                                | -      | -      |
+| key            | 唯一 key，dataIndex 默认会跟这个值一样。                                                    | string                                                                | -      | -      |
+| options        | 可选项，展示会根据这个值变化。                                                              | Array<[Option][option]>                                               | -      | -      |
+| hidden         | 是否隐藏这一列。                                                                            | boolean \| () => boolean                                              | -      | 0.45.0 |
+| render         | 自定义展示列。                                                                              | (text: ReactNode, record: AnyKeyProps, index: number) => ReactNode    | -      | 0.45.0 |
+| renderType     | 美化展示列，扩展方法看[这里][rendertype]。                                                  | string                                                                | -      | 0.45.0 |
+| filter         | 设置 true 会以 options 作为筛选项出现在表头。                                               | boolean                                                               | -      | 0.45.0 |
+| filterMultiple | 筛选是否支持多选，需要先设置 `filter: true`。                                               | boolean                                                               | false  | 0.45.0 |
+| sort           | 排序。                                                                                      | boolean                                                               | -      | 0.45.0 |
+| sortOrder      | 排序权重，越大越重，不设置则表示不需要多列筛选，需要先设置 `sort: true`。                   | number                                                                | -      | 0.45.0 |
+| editable       | 表格是否可以编辑，具体示例看[这里][可编辑表格]。                                            | boolean                                                               | -      | 0.45.0 |
+| before         | (仅 `editable` 可用), 渲染前置元素，[使用案例][可编辑表格]                                  | ({ record: Record, field: Field, refreshRow: Function }) => ReactNode | -      | 0.45.0 |
+| after          | (仅 `editable` 可用), 渲染后置元素，[使用案例][可编辑表格]                                  | ({ record: Record, field: Field, refreshRow: Function }) => ReactNode | -      | 0.45.0 |
+| children       | 嵌套表格时使用。                                                                            | Array<[AyTableField][aytablefield]>                                   | -      | 0.45.0 |
+| search         | AySearch 需要的扩展参数，里面的属性比外面的属性优先级更高，为 true 则在查询区域展示输入框。 | [AyFormField][ayformfield] \| boolean                                 | -      | -      |
+| dialog         | AyDialogForm 需要的扩展参数，里面的属性比外面的属性优先级更高，为 true 则在弹窗展示输入框。 | [AyFormField][ayformfield] \| boolean                                 | -      | -      |
+| table          | AyTable 需要的扩展参数，里面的属性比外面的属性优先级更高，为 false 则不在表格展示。         | [AyTableField][aytablefield] \| boolean                               | -      | -      |
 
 ```typescript
 // 示例
@@ -188,11 +180,7 @@ const fields: Array<AySearchTableField> = [
     // 表示查询区域内出现该元素，默认是输入框
     search: true,
     // 表示弹窗内出现该元素，默认是输入框
-    dialog: true,
-    // 定义在此处的优先级更高，如果没有，则使用外层的参数
-    table: {
-      renderType: 'datetime' | string // 决定表格渲染方式
-    }
+    dialog: true
   }
 ]
 ```
@@ -214,6 +202,7 @@ const fields: Array<AySearchTableField> = [
 | editable       | 表格是否可以编辑，具体示例看[这里][可编辑表格]。                          | boolean                                                               | -        |
 | before         | (仅 `editable` 可用), 渲染前置元素，[使用案例][可编辑表格]                | ({ record: Record, field: Field, refreshRow: Function }) => ReactNode | -        |
 | after          | (仅 `editable` 可用), 渲染后置元素，[使用案例][可编辑表格]                | ({ record: Record, field: Field, refreshRow: Function }) => ReactNode | -        |
+| children       | 嵌套表格时使用。                                                          | Array<[AyTableField][aytablefield]>                                   | -        |
 
 ## Option 参数
 

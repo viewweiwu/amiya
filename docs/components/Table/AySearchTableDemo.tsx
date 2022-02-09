@@ -6,64 +6,56 @@ const fields: Array<AySearchTableField> = [
   {
     title: '头像',
     key: 'icon',
-    table: {
-      width: 80,
-      align: 'center',
-      renderType: 'image',
-      props: {
-        width: 70
-      }
+    width: 80,
+    align: 'center',
+    renderType: 'image',
+    props: {
+      width: 70
     }
   },
   {
     title: '姓名',
     key: 'cn',
+    render: (text: string, record: Record) => {
+      return (
+        <div>
+          <div>{record.cn}</div>
+          <div>{record.en}</div>
+          <div>{record.jp}</div>
+        </div>
+      )
+    },
     search: true,
     dialog: {
       required: true
-    },
-    table: {
-      render: (text, record) => {
-        return (
-          <div>
-            <div>{record.cn}</div>
-            <div>{record.en}</div>
-            <div>{record.jp}</div>
-          </div>
-        )
-      }
     }
   },
   {
     title: '英文名',
     key: 'en',
+    hidden: true,
     search: true,
     dialog: {
       required: true
-    },
-    table: {
-      hidden: true
     }
   },
   {
     title: '日文名',
     key: 'jp',
+    hidden: true,
     search: true,
     dialog: {
       required: true
-    },
-    table: false
+    }
   },
   {
     title: '职业',
     key: 'class',
     type: 'select',
     options: professionOptions,
+    filter: true,
     dialog: true,
-    search: true,
-    table: {
-      filter: true
-    }
+    search: true
   },
   {
     title: '初始HP',
@@ -72,42 +64,31 @@ const fields: Array<AySearchTableField> = [
     dialog: true
   },
   {
-    title: '初始攻击',
-    key: 'ori-atk',
-    search: true,
-    dialog: true
-  },
-  {
     title: '标签',
     key: 'tags',
-    table: {
-      renderType: 'tags',
-      colorMap: {
-        治疗: 'green',
-        输出: 'red',
-        爆发: 'orange',
-        群攻: 'blue',
-        生存: 'cyan',
-        费用回复: 'gold',
-        防护: 'purple',
-        新手: 'geekblue',
-        减速: 'lime',
-        控场: 'red'
-      }
+    renderType: 'tags',
+    colorMap: {
+      治疗: 'green',
+      输出: 'red',
+      爆发: 'orange',
+      群攻: 'blue',
+      生存: 'cyan',
+      费用回复: 'gold',
+      防护: 'purple',
+      新手: 'geekblue',
+      减速: 'lime',
+      控场: 'red'
     }
   },
   {
     title: '描述',
     key: 'feature',
-    table: {
-      width: 200,
-      renderType: 'html'
-    }
+    width: 200,
+    renderType: 'html'
   }
 ]
 
 const ctrl: AyTableCtrlField = {
-  width: 220,
   render: (value: string, record: Record) => {
     return (
       <AyCtrl>
