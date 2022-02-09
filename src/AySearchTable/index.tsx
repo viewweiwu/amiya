@@ -21,7 +21,7 @@ import {
   SearchTableInitConfig,
   SortItem
 } from './ay-search-table'
-import { isObj } from '../utils'
+import { isObj, omitObj } from '../utils'
 import { getDefaultValue } from '../AyForm'
 import { AyTableField } from '../AyTable/ay-table'
 import { AySearchField } from '../AySearch/ay-search'
@@ -96,13 +96,12 @@ const getTableFields = (fields: Array<AySearchTableField>): Array<AyTableField> 
     }
 
     let tableField: AyTableField = {
+      ...omitObj(field, 'table'),
       title: field.title,
       key: field.key,
       ...table
     }
-    if (field.options) {
-      tableField.options = field.options
-    }
+
     return tableField
   })
 }

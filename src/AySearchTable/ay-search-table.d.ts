@@ -110,7 +110,7 @@ export interface ExtendField extends Omit<AyFormField, 'key'> {
   hiddenMode?: Array<ModeType>
 }
 
-export interface AySearchTableField extends Field {
+export interface AySearchTableField extends Field, AyTableField {
   /** AySearch 需要的扩展参数，里面的属性比外面的属性优先级更高 */
   search?: ExtendField | boolean
   /** AyDialogForm 需要的扩展参数，里面的属性比外面的属性优先级更高 */
