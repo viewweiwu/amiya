@@ -4,9 +4,9 @@ import moment from 'moment'
 import { Tooltip, Input, Image, Tag } from 'antd'
 import { RenderProps } from './ay-table'
 import { AnyKeyProps } from '../types/AnyKeyProps'
-import { AySelect } from 'amiya'
 import { FORM_READONLY_EMPTY } from '../constant'
 import { getValueByOptions, renderStatus } from '../utils'
+import AySelect from '../AySelect'
 
 export const install = (registerTableRender: (key: string, render: (props: RenderProps) => ReactNode) => void) => {
   registerTableRender('__options', ({ field, text }: RenderProps) => {
