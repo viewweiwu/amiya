@@ -176,7 +176,7 @@ export const FORM_DEFAULT_VALUE_EMPTY = ''
 export const FORM_DEFAULT_VALUE_RATE = null
 
 /** 表单默认值: 滑动输入条 */
-export const FORM_DEFAULT_VALUE_SLIDER = null
+export const FORM_DEFAULT_VALUE_SLIDER = 0
 
 /** 表单 readonly 值 */
 export const FORM_READONLY_EMPTY = '-'

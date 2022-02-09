@@ -152,7 +152,7 @@ export const getFieldDefaultValue = (key: string, fields: Array<AyFormField | Ay
   if (!key) {
     return ''
   }
-  let field: any = getField(key, fields)
+  let field: any = getField(key, fields as Array<AyFormField>)
   if (field) {
     let type = field.type || 'input'
     // 如果配置项里存在默认值，直接返回默认值，否则从默认值表里获取
@@ -221,7 +221,7 @@ const getFormItem = (
 ) => {
   const { span, readonly, formLayout, gutter } = props
   const ayFormProps: AyFormProps = props
-  return fields.map((field: AyFormField | AySearchTableField) => {
+  return fields.map((field: AyFormField | AySearchTableField, index: number) => {
     const fieldSpan = field.span !== 0 ? field.span || span || 24 : span || 24
 
     if (field.type === FORM_TYPE_CARD) {
@@ -359,7 +359,7 @@ const getFormItem = (
     }
 
     const content = field.render ? (
-      field.render(field, formInstans.getFieldsValue() || getDefaultValue(fields))
+      field.render(field as AyFormField, formInstans.getFieldsValue() || getDefaultValue(fields), index)
     ) : (
       <Form.Item key={field.key} {...formItemProps}>
         {tag}
