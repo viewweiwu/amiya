@@ -6,7 +6,8 @@ order: 1
 
 ## 0.45.1
 
-1. fix: AySearch 在小屏幕时，不会隐藏溢出项了。
+1. fix: `AySearch` 在小屏幕时，不会隐藏溢出项了。
+2. fix: `AySearch` 对 `date`、`date-range` 的 `title` 设置不在生效。
 
 ## 0.45.0
 
