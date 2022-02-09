@@ -800,8 +800,10 @@ let fields: AySearchField[] = [
 | 参数名        | 说明                     | 参数类型               | 默认值 |
 | ------------- | ------------------------ | ---------------------- | ------ |
 | toggleVisible | 展开/收起 按钮的显示     | boolean                | true   |
+| actionVisible | 查询栏是否可见           | boolean                | true   |
 | defaultOpen   | 超过两行时，是否默认展开 | boolean                | false  |
 | fields        | 表单项                   | Array\<AySearchField\> | -      |
+| ...           | 其它属性跟 form 一致     | -                      | -      |
 
 ## AySearchField 参数
 

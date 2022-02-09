@@ -284,21 +284,16 @@ import { Switch, Card, Col } from 'antd'
 
 const fields: Array<AyFormField> = [
   {
-    title: 'Input',
+    title: '输入框',
     key: 'input'
   },
   {
-    title: 'Search',
-    key: 'search',
-    type: 'search'
-  },
-  {
-    title: 'Password',
+    title: '密码框',
     type: 'password',
     key: 'password'
   },
   {
-    title: 'Select',
+    title: '选择框',
     type: 'select',
     key: 'select',
     options: [
@@ -307,10 +302,51 @@ const fields: Array<AyFormField> = [
     ]
   },
   {
-    title: 'Textarea',
+    title: '多行文本框',
     type: 'textarea',
     key: 'textarea',
     span: 24
+  },
+  {
+    title: '查询',
+    type: 'card',
+    key: '__search',
+    children: [
+      {
+        title: '查询输入框',
+        key: 'search',
+        type: 'search'
+      },
+      {
+        title: '标签',
+        key: 'tag-group',
+        type: 'tag-group',
+        span: 24,
+        options: [
+          { label: '选项1', value: 1 },
+          { label: '选项2', value: 2 },
+          { label: '选项3', value: 3 },
+          { label: '选项4', value: 4 },
+          { label: '选项5', value: 5 }
+        ]
+      },
+      {
+        title: '可以多选标签',
+        key: 'tag-group-multiple',
+        type: 'tag-group',
+        span: 24,
+        props: {
+          multiple: true
+        },
+        options: [
+          { label: '选项1', value: 1 },
+          { label: '选项2', value: 2 },
+          { label: '选项3', value: 3 },
+          { label: '选项4', value: 4 },
+          { label: '选项5', value: 5 }
+        ]
+      }
+    ]
   },
   {
     title: '数值输入',
@@ -318,7 +354,7 @@ const fields: Array<AyFormField> = [
     key: '__number',
     children: [
       {
-        title: 'Number',
+        title: '数字',
         type: 'number',
         key: 'number',
         props: {
@@ -326,7 +362,7 @@ const fields: Array<AyFormField> = [
         }
       },
       {
-        title: 'Percent',
+        title: '百分比输入',
         type: 'percent',
         key: 'percent',
         props: {
@@ -334,7 +370,7 @@ const fields: Array<AyFormField> = [
         }
       },
       {
-        title: 'Slider',
+        title: '滑块',
         type: 'slider',
         key: 'slider'
       }
@@ -346,7 +382,7 @@ const fields: Array<AyFormField> = [
     key: '__check',
     children: [
       {
-        title: 'Checkbox',
+        title: '单个勾选',
         type: 'checkbox',
         key: 'checkbox',
         props: {
@@ -354,7 +390,7 @@ const fields: Array<AyFormField> = [
         }
       },
       {
-        title: 'CheckboxGroup',
+        title: '多选组',
         type: 'checkbox-group',
         key: 'checkbox-group',
         options: [
@@ -363,7 +399,7 @@ const fields: Array<AyFormField> = [
         ]
       },
       {
-        title: 'RadioGroup',
+        title: '单选组',
         type: 'radio-group',
         key: 'radio-group',
         options: [
@@ -372,12 +408,12 @@ const fields: Array<AyFormField> = [
         ]
       },
       {
-        title: 'Switch',
+        title: '开关',
         type: 'switch',
         key: 'switch'
       },
       {
-        title: 'Rate',
+        title: '评分',
         type: 'rate',
         key: 'rate'
       }
@@ -389,29 +425,33 @@ const fields: Array<AyFormField> = [
     key: '__date',
     children: [
       {
-        title: 'Date',
+        title: '日期',
         type: 'date',
-        key: 'date'
+        key: 'date',
+        span: 12
       },
       {
-        title: 'Datetime',
+        title: '日期区间',
+        type: 'date-range',
+        key: 'date-range',
+        span: 12,
+        startKey: 'date-range-start',
+        endKey: 'date-range-end'
+      },
+      {
+        title: '日期带时间',
         type: 'date',
         key: 'datetime',
+        span: 12,
         props: {
           showTime: true
         }
       },
       {
-        title: 'DateRange',
-        type: 'date-range',
-        key: 'date-range',
-        startKey: 'date-range-start',
-        endKey: 'date-range-end'
-      },
-      {
-        title: 'DatetimeRange',
+        title: '日期带时间区间',
         type: 'date-range',
         key: 'datetime-range',
+        span: 12,
         startKey: 'date-range-time-start',
         endKey: 'date-range-time-end',
         props: {
@@ -606,4 +646,4 @@ const fields: Array<Field> = [
 [ayformfield]: ./form#ayformfield-参数
 [cardform]: ./form/卡片表单
 [groupform]: ./form/组合表单
-[日期格式化]: ./form/date%20日期的格式化
+[日期格式化]: ./form/date-format

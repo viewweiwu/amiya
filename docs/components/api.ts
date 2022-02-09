@@ -125,7 +125,7 @@ export const addApi = (params: AnyKeyProps): Promise<any> => {
  */
 export const updateApi = (params: AnyKeyProps): Promise<any> => {
   return new Promise(resolve => {
-    let index: number = data.findIndex(row => row.id === params.id)
+    let index: number = data.findIndex(row => row.sort_id === params.sort_id)
     if (index >= 0 && data[index]) {
       data[index] = {
         ...data[index],
