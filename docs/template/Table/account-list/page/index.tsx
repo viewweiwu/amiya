@@ -4,7 +4,7 @@ import { addApi, deleteApi, listApi, updateApi } from '../api'
 import { WeiboCircleOutlined, QqOutlined, WechatOutlined, TwitterOutlined } from '@ant-design/icons'
 import { message, Space, Typography } from 'antd'
 import { EditOutlined } from '@ant-design/icons'
-import '../amiya/'
+import '../amiya'
 
 const { Text } = Typography
 

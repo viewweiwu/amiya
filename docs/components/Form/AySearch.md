@@ -659,7 +659,6 @@ import { AySearch, AySearchField } from 'amiya'
 
 let fields: AySearchField[] = [
   {
-    title: ['开始日期', '结束日期'],
     key: '1',
     type: 'date-range'
   },

@@ -4,6 +4,10 @@ order: 1
 
 # 更新日志
 
+## 0.45.1
+
+1. fix: AySearch 在小屏幕时，不会隐藏溢出项了。
+
 ## 0.45.0
 
 1. feat: 可以在 `AySearchTable` 外面直接使用 table 属性了。
