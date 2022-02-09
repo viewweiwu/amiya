@@ -16,6 +16,7 @@ import { AnyKeyProps } from '../types/AnyKeyProps'
 import { SearchOutlined, ReloadOutlined, DownOutlined, UpOutlined } from '@ant-design/icons'
 import './ay-search.less'
 import classNames from 'classnames'
+import { FORM_TYPE_DATE, FORM_TYPE_DATE_RANGE } from '@/constant'
 
 type SearchSize = 'mini' | 'small' | 'middle' | 'large'
 
@@ -93,13 +94,19 @@ const getSearchFields = (
     let newField: AyFormField = {
       ...field
     }
+    // 平铺展示
     if (inline) {
+      // 去掉
       newField.title = ''
-      newField.props = {
-        // @ts-ignore
-        placeholder: field.title || '',
-        ...field.props
+      if (![FORM_TYPE_DATE, FORM_TYPE_DATE_RANGE].includes(field.type || '')) {
+        // 添加 props
+        newField.props = {
+          // @ts-ignore
+          placeholder: field.title || '',
+          ...field.props
+        }
       }
+      return newField
     }
 
     // 当前条默认的 span 值
