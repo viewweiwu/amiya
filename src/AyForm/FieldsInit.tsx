@@ -41,8 +41,11 @@ import {
   FORM_TYPE_RATE,
   FORM_DEFAULT_VALUE_RATE,
   FORM_TYPE_SLIDER,
-  FORM_DEFAULT_VALUE_SLIDER
+  FORM_DEFAULT_VALUE_SLIDER,
+  FORM_TYPE_TAG_GROUP,
+  FORM_DEFAULT_VALUE_TAG_GROUP
 } from '../constant'
+import TagGroup from './TagGroup'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { RegisterFieldProps } from './ay-form'
 
@@ -290,5 +293,14 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
     type: FORM_TYPE_SLIDER,
     defaultValue: FORM_DEFAULT_VALUE_SLIDER,
     render: ({ field, readonly }: AnyKeyProps) => <Slider disabled={readonly} {...field.props} />
+  })
+
+  // 标签选择
+  registerField(FORM_TYPE_TAG_GROUP, {
+    type: FORM_TYPE_TAG_GROUP,
+    defaultValue: FORM_DEFAULT_VALUE_TAG_GROUP,
+    render: ({ field, readonly }: AnyKeyProps) => (
+      <TagGroup disabled={readonly} options={field.options} {...field.props} />
+    )
   })
 }
