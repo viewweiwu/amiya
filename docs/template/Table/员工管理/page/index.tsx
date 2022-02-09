@@ -42,6 +42,12 @@ export default function Demo() {
         <AyField
           title="头像"
           key="avatar"
+          width={70}
+          renderType="image"
+          props={{
+            width: 60,
+            height: 60
+          }}
           dialog={{
             title: '选择头像',
             type: 'radio-group',
@@ -60,7 +66,6 @@ export default function Demo() {
               }
             })
           }}
-          table={{ width: 70, renderType: 'image', props: { width: 60, height: 60 } }}
         />
         <AyField title="用户名称" key="nickname" search dialog={{ required: true }} />
         <AyField title="登录账号" key="username" search dialog={{ required: true }} />
@@ -69,15 +74,13 @@ export default function Demo() {
           key="character"
           type="select"
           search
-          table={{
-            renderType: 'group',
-            split: '、',
-            size: 0,
-            tooltip: '当前绑定的角色',
-            after: (
-              <AyButton tooltip="编辑角色" type="link" icon={<EditOutlined />} onClick={() => message.info('未实现')} />
-            )
-          }}
+          renderType="group"
+          split="\"
+          size={0}
+          tooltip="当前绑定的角色"
+          after={
+            <AyButton tooltip="编辑角色" type="link" icon={<EditOutlined />} onClick={() => message.info('未实现')} />
+          }
           options={[
             { label: '超级管理员', value: 1 },
             { label: '财务', value: 2 },
@@ -88,14 +91,12 @@ export default function Demo() {
         <AyField
           title="第三方绑定"
           key="linkAccount"
-          table={{
-            renderType: 'group',
-            after: (
-              <div>
-                <a>添加绑定</a>
-              </div>
-            )
-          }}
+          renderType="group"
+          after={
+            <div>
+              <a onClick={() => message.info('未实现')}>添加绑定</a>
+            </div>
+          }
           options={[
             { label: <WeiboCircleOutlined style={{ color: '#d52c2b', fontSize: 20 }} />, value: 'weibo' },
             { label: <QqOutlined style={{ color: '#333', fontSize: 20 }} />, value: 'qq' },
@@ -108,6 +109,7 @@ export default function Demo() {
           key="status"
           type="select"
           search
+          renderType="status"
           dialog={{
             type: 'radio-group',
             required: true,
@@ -115,9 +117,6 @@ export default function Demo() {
             props: {
               optionType: 'button'
             }
-          }}
-          table={{
-            renderType: 'status'
           }}
           options={[
             { label: '在职', value: 1, color: 'green' },
