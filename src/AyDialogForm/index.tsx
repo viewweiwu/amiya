@@ -15,7 +15,7 @@ import { AyDialogFormField, ModeType, AyDialogFormRef, AyDialogFormProps } from 
 import { AyFormField } from '../AyForm/ay-form'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { convertChildrenToAyFormField } from '../AyFields/convertFields'
-import { optionObj } from '@/utils'
+import { optionObj } from '../utils'
 
 /** 新增模式 */
 export const MODE_ADD = 'add'
