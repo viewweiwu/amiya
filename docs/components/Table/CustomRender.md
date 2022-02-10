@@ -370,4 +370,4 @@ const data = [
 ]
 ```
 
-上面的 `renderType` 类型还不满足？那你需要自己注册 [registerTableRender](../全局方法/register-table-render)。
+上面的 `renderType` 类型还不满足？那你需要自己注册 [registerTableRender](../global/register-table-render)。

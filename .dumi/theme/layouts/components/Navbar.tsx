@@ -13,8 +13,11 @@ const Navbar = ({ navPrefix, location, selectedKeys }) => {
   const {
     base,
     config: { mode, title, logo },
-    nav: navItems
+    nav: navItems,
+    menu
   } = useContext(context)
+
+  console.log(menu)
 
   return (
     <div className="__dumi-default-navbar" data-mode={mode}>
@@ -40,7 +43,7 @@ const Navbar = ({ navPrefix, location, selectedKeys }) => {
           return (
             <Menu.Item key={nav.path}>
               {nav.path ? (
-                <NavLink to={nav.path === '/components' ? '/components/form' : nav.path} key={nav.path}>
+                <NavLink to={nav.path} key={nav.path}>
                   {nav.title}
                 </NavLink>
               ) : (

@@ -245,4 +245,4 @@ export default function Demo() {
 [1]: ./form#所有的默认表单类型
 [2]: ./form#desc-模式
 [3]: ./form/date%20日期的格式化
-[4]: ./全局方法/register-field
+[4]: ./global/register-field

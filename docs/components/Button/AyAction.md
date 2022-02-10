@@ -229,7 +229,7 @@ export default function AySearchTableDemo() {
   - `editable-confirm`: 表单会进入校验，校验通过则会保存。
   - `editable-cancel`: 取消编辑。
 
-[可编辑表格](../table/可编辑表格)
+[可编辑表格](../table/edit-table)
 
 ### onFinish
 
@@ -356,4 +356,4 @@ export default function AySearchTableDemo() {
 
 `action` 是可以被注册的，请查看[注册方式][注册方式]
 
-[注册方式]: ../全局方法/register-action
+[注册方式]: ../global/register-action

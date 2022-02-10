@@ -8,7 +8,7 @@ order: 3
 
 局部配置 优先于 全局配置。
 
-局部配置请参考 [这里](/table/扩展按钮配置)。
+局部配置请参考 [这里](/table/extra-config)。
 
 ```js
 import { setSearchTableDefaultValue } from 'amiya'

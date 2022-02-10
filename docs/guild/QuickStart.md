@@ -35,4 +35,4 @@ export default function Demo() {
 }
 ```
 
-🎉 恭喜您，成功安装了 Amiya，请继续阅读 [基础表格](./基础使用/基础表格)
+🎉 恭喜您，成功安装了 Amiya，请继续阅读 [表单基础](./normal/form)

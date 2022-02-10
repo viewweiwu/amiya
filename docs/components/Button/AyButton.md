@@ -72,7 +72,7 @@ export default function Demo() {
 }
 ```
 
-权限控制可以看[这里](../全局方法/set-permission-list)
+权限控制可以看[这里](../global/set-permission-list)
 
 ## 参数
 

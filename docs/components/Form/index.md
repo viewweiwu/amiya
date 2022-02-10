@@ -662,6 +662,6 @@ const fields: Array<Field> = [
 [formtype]: ./form#formtype
 [option]: ./form#option-参数
 [ayformfield]: ./form#ayformfield-参数
-[cardform]: ./form/卡片表单
+[cardform]: ./form/card-form
 [groupform]: ./form/组合表单
 [日期格式化]: ./form/date-format

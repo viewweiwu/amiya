@@ -123,7 +123,7 @@ export default function Demo() {
 <AySearch visibleRow={1} />
 ```
 
-全局默认折叠行数设置，看 [这里](../全局方法/set-search-default-visible-row)
+全局默认折叠行数设置，看 [这里](../global/set-search-default-visible-row)
 
 ## 不同的个数
 

@@ -12,7 +12,7 @@ toc: false
 
 <code src="./AySearchTableDemo.tsx" />
 
-对示例代码里的 listApi 有疑问或者想要自定义？ 🤔️ 可以点[这里](./全局方法/set-default-search-filter)查看请求提交处理，点[这里](./全局方法/set-default-data-filter)查看请求返回处理。
+对示例代码里的 listApi 有疑问或者想要自定义？ 🤔️ 可以点[这里](./global/set-default-search-filter)查看请求提交处理，点[这里](./global/set-default-data-filter)查看请求返回处理。
 
 ## JSX / TSX 语法糖 <Badge>0.41.0</Badge>
 
@@ -231,15 +231,15 @@ const fields: Array<AySearchTableField> = [
 | setSortsValue(<br>Array<{ key: string, order: 'ascend' \| 'descend' }><br>) | 设置排序值，<span style="color: #f06">设置后会影响，并覆盖现有的排序值</span>，可用 `getApiParams()` 中的 `sorts` 来获得现有排序值。 | -                                      |
 | setFiltersValue({ key: value })                                             | 设置筛选值。                                                                                                                         | -                                      |
 
-[1]: ./全局方法/set-search-table-default-value
+[1]: ./global/set-search-table-default-value
 [option]: ./table#option-参数
 [formtype]: ./form#formtype
 [aysearchtablefield]: ./table#aysearchtablefield
-[rendertype]: ./table/自定义渲染列#已全局注册
+[rendertype]: ./table/custom-render#已全局注册
 [ayformfield]: ./form#ayformfield-参数
 [aytablefield]: ./table#aytablefield
 [aydialogform]: ./form/ay-dialog-form
-[禁用表格选项]: ./table/禁用表格选项
-[单选表格]: ./table/单选表格
-[可编辑表格]: ./table/可编辑表格
-[自定义请求]: ./全局方法/set-default-search-filter
+[禁用表格选项]: ./table/disabled-row
+[单选表格]: ./table/radio-table
+[可编辑表格]: ./table/edit-table
+[自定义请求]: ./global/set-default-search-filter

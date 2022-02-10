@@ -12,7 +12,7 @@
 }
 ```
 
-全局配置请参考 [这里](../全局方法/set-search-table-default-value)。
+全局配置请参考 [这里](../global/set-search-table-default-value)。
 
 ## 扩展按钮的配置
 

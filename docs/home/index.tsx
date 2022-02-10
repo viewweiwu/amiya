@@ -18,7 +18,7 @@ export default function Index() {
               <mark>Ant Design</mark> 的二次封装，提供页面级别的组件，保留原有功能样式，简化使用。
             </p>
           </div>
-          <a href="./guild/快速开始" className="btn">
+          <a href="./guild/quick-start" className="btn">
             去使用
             <ArrowRightOutlined />
           </a>
