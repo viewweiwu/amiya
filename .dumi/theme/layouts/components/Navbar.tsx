@@ -13,11 +13,8 @@ const Navbar = ({ navPrefix, location, selectedKeys }) => {
   const {
     base,
     config: { mode, title, logo },
-    nav: navItems,
-    menu
+    nav: navItems
   } = useContext(context)
-
-  console.log(menu)
 
   return (
     <div className="__dumi-default-navbar" data-mode={mode}>
