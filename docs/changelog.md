@@ -4,6 +4,12 @@ order: 1
 
 # 更新日志
 
+## 0.46.0
+
+1. feat: 支持 AyForm 表单的其它属性直接平铺。
+2. fix: 修复 AySearchTable、AySearchList 的 Fields 子元素不生效。
+3. fix: 修复 AyDialogForm 文件引入。
+
 ## 0.45.2
 
 1. fix: 修复 AySearchTable 的 field 添加 dialog 属性时，受原本表格属性污染。
