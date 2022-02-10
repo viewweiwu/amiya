@@ -14,9 +14,9 @@ import { AyFormField } from '../AyForm/ay-form'
 import { AySearchField, AySearchProps } from './ay-search'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { SearchOutlined, ReloadOutlined, DownOutlined, UpOutlined } from '@ant-design/icons'
-import './ay-search.less'
 import classNames from 'classnames'
-import { FORM_TYPE_DATE, FORM_TYPE_DATE_RANGE } from '@/constant'
+import { FORM_TYPE_DATE, FORM_TYPE_DATE_RANGE } from '../constant'
+import './ay-search.less'
 
 type SearchSize = 'mini' | 'small' | 'middle' | 'large'
 
