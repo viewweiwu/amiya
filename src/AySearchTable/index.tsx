@@ -64,6 +64,10 @@ const getSearchFields = (fields: Array<AySearchTableField>) => {
         ...search
       }
 
+      if (field.children) {
+        searchField.children = field.children
+      }
+
       if (searchField.position === 'more') {
         moreSearchFields.push(searchField)
       } else {
