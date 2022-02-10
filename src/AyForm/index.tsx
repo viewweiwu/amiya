@@ -13,7 +13,7 @@ import AyCard from '../AyCard'
 import { theme } from '../Theme'
 import { Form, Row, Col, Input, Tooltip } from 'antd'
 import { AyFormField, AyFormProps, RegisterFieldProps } from './ay-form'
-import { copy } from '../utils'
+import { copy, omitObj } from '../utils'
 import { AySearchField } from '../AySearch/ay-search'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { install } from './FieldsInit'
@@ -171,6 +171,32 @@ export const getFieldDefaultValue = (key: string, fields: Array<AyFormField | Ay
   }
 }
 
+const fieldKeys = [
+  'props',
+  'title',
+  'key',
+  'options',
+  'type',
+  'grid',
+  'span',
+  'defaultValue',
+  'order',
+  'required',
+  'rules',
+  'visible',
+  'hidden',
+  'formItemProps',
+  'renderContent',
+  'onChange',
+  'help',
+  'startKey',
+  'endKey',
+  'formatRule',
+  'readonlyFormatRule',
+  'reSetting',
+  'tooltip'
+]
+
 /**
  * 根据不同的 type 生成不同种类的标签 Tag
  * @param field 配置项
@@ -186,8 +212,16 @@ const getTag = (
   let tag: ReactNode = null
   if (fieldMap[type || '']) {
     let fieldItem = fieldMap[type || '']
+    // 把其它属性 添加到 props 里面
+    let tagField = {
+      ...field,
+      props: {
+        ...omitObj(field, fieldKeys),
+        ...field.props
+      }
+    }
     tag = fieldItem.render({
-      field,
+      field: tagField,
       setFieldsValue: formInstans.setFieldsValue,
       formInstans,
       readonly: readonly || field.readonly || false,
@@ -221,6 +255,7 @@ const getFormItem = (
 ) => {
   const { span, readonly, formLayout, gutter } = props
   const ayFormProps: AyFormProps = props
+
   return fields.map((field: AyFormField | AySearchTableField, index: number) => {
     const fieldSpan = field.span !== 0 ? field.span || span || 24 : span || 24
 
