@@ -8,6 +8,7 @@ export default defineConfig({
   publicPath: '/amiya/',
   base: '/amiya/',
   mode: 'site',
+  mock: {},
   extraBabelPlugins: [
     [
       'import',
@@ -299,6 +300,11 @@ export default defineConfig({
           {
             path: '/template/list/cnode-list',
             title: 'CNode 列表',
+            meta: {}
+          },
+          {
+            path: '/template/list/card-list',
+            title: '商品卡片列表',
             meta: {}
           }
         ]
