@@ -212,16 +212,8 @@ const getTag = (
   let tag: ReactNode = null
   if (fieldMap[type || '']) {
     let fieldItem = fieldMap[type || '']
-    // 把其它属性 添加到 props 里面
-    let tagField = {
-      ...field,
-      props: {
-        ...omitObj(field, fieldKeys),
-        ...field.props
-      }
-    }
     tag = fieldItem.render({
-      field: tagField,
+      field,
       setFieldsValue: formInstans.setFieldsValue,
       formInstans,
       readonly: readonly || field.readonly || false,
@@ -257,6 +249,15 @@ const getFormItem = (
   const ayFormProps: AyFormProps = props
 
   return fields.map((field: AyFormField | AySearchTableField, index: number) => {
+    // 把其它属性 添加到 props 里面
+    field = {
+      ...field,
+      props: {
+        ...omitObj(field, fieldKeys),
+        ...field.props
+      }
+    }
+
     const fieldSpan = field.span !== 0 ? field.span || span || 24 : span || 24
 
     if (field.type === FORM_TYPE_CARD) {
@@ -327,10 +328,19 @@ const getFormItem = (
     // 填充快捷 required 属性
     if (field.required) {
       let rule = { required: true, message: getPlaceholder(field) }
-      if (formItemProps.rules) {
-        formItemProps.rules.push(rule)
+      if (field.children) {
+        formItemProps.label = (
+          <span>
+            <span className="required-mark">*</span>
+            {field.title}
+          </span>
+        )
       } else {
-        formItemProps.rules = [rule]
+        if (formItemProps.rules) {
+          formItemProps.rules.push(rule)
+        } else {
+          formItemProps.rules = [rule]
+        }
       }
     }
 
@@ -366,7 +376,7 @@ const getFormItem = (
     switch (field.type) {
       case FORM_TYPE_GROUP:
         tag = (
-          <Row className="ay-form-group">
+          <Row className="ay-form-group" {...field.props}>
             {getFormItem(
               field.children as Array<AyFormField | AySearchTableField>,
               formInstans,
@@ -378,7 +388,7 @@ const getFormItem = (
         break
       case FORM_TYPE_INPUT_GROUP:
         tag = (
-          <Input.Group compact>
+          <Input.Group compact {...field.props}>
             {getFormItem(
               field.children as Array<AyFormField | AySearchTableField>,
               formInstans,
@@ -732,6 +742,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
         {...formItemLayout}
         labelAlign={labelAlign}
         colon={desc ? false : true}
+        labelWrap
         layout={formLayout}
         name={props.name || 'ay-form'}
         initialValues={getDefaultValue(mirrorFields)}
