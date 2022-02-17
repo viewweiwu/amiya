@@ -6,7 +6,6 @@ import React, {
   useRef,
   MutableRefObject,
   useState,
-  useEffect,
   useMemo
 } from 'react'
 import AyCard from '../AyCard'
@@ -339,7 +338,7 @@ const getFormItem = (
     // 填充快捷 required 属性
     if (field.required) {
       let rule = { required: true, message: getPlaceholder(field) }
-      if (field.children) {
+      if (field.children && field.type !== FORM_TYPE_CHECKBOX) {
         formItemProps.label = (
           <span>
             <span className="required-mark">*</span>
@@ -613,8 +612,6 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   const formRef: MutableRefObject<any> = useRef()
   /** 暴露出去的 form 的实例，允许父组件通过 ref 调用方法 */
   const formInstans: AnyKeyProps = {}
-  const [inited, setInited] = useState<boolean>(false)
-  let [mirrorFields, setMirrorFields] = useState<Array<AyFormField | AySearchTableField>>(fields || [])
   /** 刷新渲染用 */
   let [refresh, setRefresh] = useState<number>(0)
 
@@ -632,19 +629,13 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
       }
     })
     formRef.current.setFieldsValue(values)
-    refresh += 1
-    setRefresh(refresh)
+    setRefresh(refresh + 1)
   }
 
   // 改变 field
   formInstans.refreshFields = () => {
-    mirrorFields = [...fields]
-    setMirrorFields(mirrorFields)
+    setRefresh(refresh + 1)
   }
-
-  useEffect(() => {
-    setMirrorFields([...fields])
-  }, [fields])
 
   /**
    * 获取 field 的值
@@ -653,31 +644,30 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
    * @param readonly 是否只读
    */
   const getFieldValue = (key: string, readonly?: boolean) => {
-    if (inited) {
-      let value = formRef.current.getFieldValue(key)
-      let field: any = getField(key, fields)
-      if (field && value) {
-        // 获得格式化日期格式
-        let formatRule: string = field?.props?.showTime === true ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'
-        if (field.formatRule) {
-          formatRule = field.formatRule
-        }
-        // 只读模式下，格式化日期取 readonlyFormatRule
-        if (field.readonlyFormatRule && readonly) {
-          formatRule = field.readonlyFormatRule
-        }
-        if (field.type === FORM_TYPE_DATE) {
-          // 日期格式化
-          value = value?.format(formatRule) || null
-        } else if (Array.isArray(value) && field.type === FORM_TYPE_DATE_RANGE) {
-          // 日期区间格式化
-          value = [value[0]?.format(formatRule) || null, value[1]?.format(formatRule) || null]
-        }
-      }
-      return value
-    } else {
-      return getFieldDefaultValue(key, fields)
+    let value = getFieldDefaultValue(key, fields)
+    if (formRef.current) {
+      value = formRef.current.getFieldValue(key)
     }
+    let field: any = getField(key, fields)
+    if (field && value) {
+      // 获得格式化日期格式
+      let formatRule: string = field?.props?.showTime === true ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'
+      if (field.formatRule) {
+        formatRule = field.formatRule
+      }
+      // 只读模式下，格式化日期取 readonlyFormatRule
+      if (field.readonlyFormatRule && readonly) {
+        formatRule = field.readonlyFormatRule
+      }
+      if (field.type === FORM_TYPE_DATE) {
+        // 日期格式化
+        value = value?.format(formatRule) || null
+      } else if (Array.isArray(value) && field.type === FORM_TYPE_DATE_RANGE) {
+        // 日期区间格式化
+        value = [value[0]?.format(formatRule) || null, value[1]?.format(formatRule) || null]
+      }
+    }
+    return value
   }
 
   /**
@@ -742,10 +732,6 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
         }
       : null
 
-  useEffect(() => {
-    setInited(true)
-  }, [])
-
   return (
     <div className={getAyFormClassName(className, desc, readonly)} style={style}>
       <Form
@@ -756,16 +742,16 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
         labelWrap
         layout={formLayout}
         name={props.name || 'ay-form'}
-        initialValues={getDefaultValue(mirrorFields)}
-        onFinish={values => handleConfirm(values, mirrorFields, onConfirm)}
+        initialValues={getDefaultValue(fields)}
+        onFinish={values => handleConfirm(values, fields, onConfirm)}
         onValuesChange={(changedValues, allValues) =>
-          handleChange(changedValues, allValues, mirrorFields, formInstans.setFieldsValue)
+          handleChange(changedValues, allValues, fields, formInstans.setFieldsValue)
         }
         {...otherProps}
         {...defaultProps}
       >
         <Row gutter={gutter}>
-          {getFormItem(mirrorFields, formInstans, props)}
+          {getFormItem(fields, formInstans, props)}
           {children}
         </Row>
       </Form>
