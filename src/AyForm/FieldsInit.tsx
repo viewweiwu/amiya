@@ -265,9 +265,15 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
           text = null
         } else if (text) {
           text = [
-            <span style={{ display: 'inline-block' }}>{(text[0] || '').toString()}</span>,
-            <span style={{ margin: '0 0.5em' }}>至</span>,
-            <span style={{ display: 'inline-block' }}>{(text[1] || '').toString()}</span>
+            <span key="start" style={{ display: 'inline-block' }}>
+              {(text[0] || '').toString()}
+            </span>,
+            <span key="divider" style={{ margin: '0 0.5em' }}>
+              至
+            </span>,
+            <span key="end" style={{ display: 'inline-block' }}>
+              {(text[1] || '').toString()}
+            </span>
           ]
         }
       }
