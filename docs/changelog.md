@@ -4,6 +4,12 @@ order: 1
 
 # 更新日志
 
+## 0.47.1
+
+1. feat: 优化 `Form` `render` 的次数。
+2. fix: 修复 `AyForm`、`AyButton`、`AyGroupCard` console 警告。
+3. fix: 修复大部分文档页面的 console 报错。
+
 ## 0.47.0
 
 1. feat: 添加 `AyCardGroup` 使用。
@@ -51,7 +57,7 @@ order: 1
 6. feat: `AySearchTable` renderType 新增 `unit`、`status` 两种类型。
 
 ```less
-// 如果还是需要填充宽度的，请在全局样式添加下面这段
+// 如果还是需要填充宽度的，请在全局样式添加下面这段。 另外 0.45.0 版本后可在 Form 元素添加 className="full-width" 来让表单元素宽度填满
 .ay-form {
   .max-width: 100%;
 }
