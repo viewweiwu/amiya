@@ -673,7 +673,7 @@ let fields: AySearchField[] = [
   },
   {
     title: '商品类型',
-    key: '2',
+    key: '3',
     type: 'select',
     options: [
       { label: '选项1', value: 1 },
