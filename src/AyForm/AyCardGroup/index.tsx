@@ -101,6 +101,7 @@ export default function AyCardGroup(props: AyCardGroupProps) {
             option.description && `${classPrefix}-option-has-desc`,
             option.disabled === true && `${classPrefix}-option-disabled`
           )}
+          key={option.value}
           style={cardStyle}
           onClick={() => handleSelect(option)}
         >
