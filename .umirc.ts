@@ -28,10 +28,6 @@ export default defineConfig({
       path: '/guild'
     },
     {
-      title: '介绍',
-      path: '/contrast'
-    },
-    {
       title: '组件',
       path: '/components'
     },
@@ -92,6 +88,11 @@ export default defineConfig({
           {
             path: '/components/form/ay-search',
             title: 'AySearch 查询表单',
+            meta: {}
+          },
+          {
+            path: '/components/form/card-group',
+            title: 'AyGroupCard 卡片选择',
             meta: {}
           },
           {
@@ -283,6 +284,11 @@ export default defineConfig({
           {
             path: '/template/form/coupon',
             title: '创建优惠券表单',
+            meta: {}
+          },
+          {
+            path: '/template/form/step-form',
+            title: '步骤表单',
             meta: {}
           },
           {

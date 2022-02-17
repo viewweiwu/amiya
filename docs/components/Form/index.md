@@ -273,8 +273,9 @@ export default function Demo() {
 
 ```tsx
 import React, { useState } from 'react'
-import { AyForm, AyButton, AyFormField } from 'amiya'
-import { Switch, Card, Col } from 'antd'
+import { AyForm, AyButton, AyFormField, AnyKeyProps } from 'amiya'
+import { Switch, Col } from 'antd'
+import moment from 'moment'
 
 const fields: Array<AyFormField> = [
   {
@@ -284,17 +285,20 @@ const fields: Array<AyFormField> = [
     children: [
       {
         title: '输入框',
-        key: 'input'
+        key: 'input',
+        defaultValue: 'Amiya'
       },
       {
         title: '密码框',
         type: 'password',
-        key: 'password'
+        key: 'password',
+        defaultValue: 'meiyoumima'
       },
       {
         title: '选择框',
         type: 'select',
         key: 'select',
+        defaultValue: 1,
         options: [
           { label: '选项1', value: 1 },
           { label: '选项2', value: 2 }
@@ -304,6 +308,7 @@ const fields: Array<AyFormField> = [
         title: '多行文本框',
         type: 'textarea',
         key: 'textarea',
+        defaultValue: '我是一段简单的文本描述，主要的作用呢，就是让用户看看在字多的情况下有什么表现～',
         span: 24
       }
     ]
@@ -316,13 +321,16 @@ const fields: Array<AyFormField> = [
       {
         title: '查询输入框',
         key: 'search',
-        type: 'search'
+        type: 'search',
+        defaultValue: '可以按 enter 提交查询'
       },
       {
         title: '标签',
         key: 'tag-group',
         type: 'tag-group',
         span: 24,
+        tooltip: '0.45.0 版本后可以使用',
+        defaultValue: 1,
         options: [
           { label: '选项1', value: 1 },
           { label: '选项2', value: 2 },
@@ -336,9 +344,9 @@ const fields: Array<AyFormField> = [
         key: 'tag-group-multiple',
         type: 'tag-group',
         span: 24,
-        props: {
-          multiple: true
-        },
+        tooltip: '0.45.0 版本后可以使用',
+        multiple: true,
+        defaultValue: [1, 2],
         options: [
           { label: '选项1', value: 1 },
           { label: '选项2', value: 2 },
@@ -358,22 +366,21 @@ const fields: Array<AyFormField> = [
         title: '数字',
         type: 'number',
         key: 'number',
-        props: {
-          placeholder: '数字'
-        }
+        placeholder: '数字',
+        defaultValue: 249222
       },
       {
         title: '百分比输入',
         type: 'percent',
         key: 'percent',
-        props: {
-          placeholder: '百分比'
-        }
+        placeholder: '百分比',
+        defaultValue: 67
       },
       {
         title: '滑块',
         type: 'slider',
-        key: 'slider'
+        key: 'slider',
+        defaultValue: 23
       }
     ]
   },
@@ -386,23 +393,25 @@ const fields: Array<AyFormField> = [
         title: '单个勾选',
         type: 'checkbox',
         key: 'checkbox',
-        props: {
-          children: '同意？'
-        }
+        children: '同意？',
+        defaultValue: true
       },
       {
         title: '多选组',
         type: 'checkbox-group',
         key: 'checkbox-group',
+        defaultValue: [1, 3],
         options: [
           { label: '选项1', value: 1 },
-          { label: '选项2', value: 2 }
+          { label: '选项2', value: 2 },
+          { label: '选项3', value: 3 }
         ]
       },
       {
         title: '单选组',
         type: 'radio-group',
         key: 'radio-group',
+        defaultValue: 1,
         options: [
           { label: '选项1', value: 1 },
           { label: '选项2', value: 2 }
@@ -411,12 +420,44 @@ const fields: Array<AyFormField> = [
       {
         title: '开关',
         type: 'switch',
-        key: 'switch'
+        key: 'switch',
+        defaultValue: true,
+        tooltip: '0.43.0 版本后可以使用'
       },
       {
         title: '评分',
         type: 'rate',
-        key: 'rate'
+        key: 'rate',
+        defaultValue: 4,
+        tooltip: '0.43.0 版本后可以使用'
+      },
+      {
+        title: '卡片选择',
+        key: 'card-group',
+        type: 'card-group',
+        span: 24,
+        defaultValue: 1,
+        tooltip: '0.47.0 版本后可以使用',
+        options: [
+          {
+            value: 1,
+            label: '支付宝',
+            cover: require('./images/ali-pay.png'),
+            description: '一段简单的文本描述'
+          },
+          {
+            value: 2,
+            label: '微信',
+            cover: require('./images/wechat-pay.png'),
+            description: '一段简单的文本描述'
+          },
+          {
+            value: 3,
+            label: '云闪付',
+            cover: require('./images/union-pay.png'),
+            description: '一段简单的文本描述'
+          }
+        ]
       }
     ]
   },
@@ -429,6 +470,7 @@ const fields: Array<AyFormField> = [
         title: '日期',
         type: 'date',
         key: 'date',
+        defaultValue: moment(),
         span: 12
       },
       {
@@ -436,6 +478,7 @@ const fields: Array<AyFormField> = [
         type: 'date-range',
         key: 'date-range',
         span: 12,
+        defaultValue: [moment(), moment()],
         startKey: 'date-range-start',
         endKey: 'date-range-end'
       },
@@ -443,33 +486,27 @@ const fields: Array<AyFormField> = [
         title: '日期带时间',
         type: 'date',
         key: 'datetime',
+        defaultValue: moment(),
         span: 12,
-        props: {
-          showTime: true
-        }
+        showTime: true
       },
       {
         title: '日期带时间区间',
         type: 'date-range',
         key: 'datetime-range',
         span: 12,
+        defaultValue: [moment(), moment()],
         startKey: 'date-range-time-start',
         endKey: 'date-range-time-end',
-        props: {
-          showTime: true
-        }
+        showTime: true
       }
     ]
   }
 ]
 
 export default function Demo() {
+  const [submitValues, setSubmitValues] = useState<AnyKeyProps>({})
   const [readonly, setReadonly] = useState<boolean>(false)
-
-  const handleConfirm = (form: any) => {
-    console.log(form)
-    alert(JSON.stringify(form))
-  }
 
   return (
     <div>
@@ -477,13 +514,15 @@ export default function Demo() {
         <label style={{ marginRight: 4 }}>只读模式</label>
         <Switch defaultChecked={readonly} onChange={value => setReadonly(value)} />
       </p>
-      <AyForm readonly={readonly} fields={fields} span={8} onConfirm={handleConfirm}>
+      <AyForm readonly={readonly} fields={fields} span={8} onConfirm={values => setSubmitValues(values)}>
         <Col span={24}>
           <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
             提交
           </AyButton>
         </Col>
       </AyForm>
+
+      {Object.keys(submitValues).length > 0 && <pre>{JSON.stringify(submitValues, null, 2)}</pre>}
     </div>
   )
 }
@@ -570,34 +609,34 @@ const layout = {
 
 ## AyFormField 参数
 
-| 参数名             | 说明                                                                                | 参数类型                                                               | 默认值                                    | 版本   |
-| ------------------ | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ----------------------------------------- | ------ |
-| title              | 相应的 key，会跟最后表单取到的项目相关; form 的 key 值必填                          | string                                                                 | -                                         | -      |
-| key                | 唯一 key，<span style="color: #f06;">当 key 以双下划线开头时，提交会被忽略。</span> | string                                                                 | -                                         | -      |
-| type               | 表单项类型                                                                          | [FormType][formtype]                                                   | 'input'                                   | -      |
-| options            | 可选项                                                                              | Array<[Option][option]>                                                | -                                         | -      |
-| span               | Grid Col 占位 [0 - 24]                                                              | number                                                                 | -                                         | -      |
-| defaultValue       | 默认值                                                                              | any                                                                    | -                                         | -      |
-| required           | 是否必填                                                                            | boolean                                                                | -                                         | -      |
-| rules              | 自定义权限                                                                          | Array<[Rules](https://ant-design.gitee.io/components/form-cn/#Rule)>   | -                                         | -      |
-| visible            | 是否展示，保留占位; 保留默认值                                                      | boolean                                                                | -                                         | -      |
-| hidden             | 是否展示，不会占位; 保留默认值                                                      | boolean \| Function                                                    | -                                         | -      |
-| props              | 原生的属性                                                                          | Object                                                                 | -                                         | -      |
-| formItemProps      | FormItem 层原生的属性                                                               | Object                                                                 | -                                         | -      |
-| renderContent      | 自定义 content 内容，需要指定 type: 'custom'                                        | (field: AyFormField, record: Record) => ReactNode                      | -                                         | -      |
-| onChange           | 数据变化监听                                                                        | (field: AyFormField, record: Record, setFieldsValue: Function) => void | -                                         | -      |
-| help               | 在表单下会有一段提示文字                                                            | string \| ReactNode                                                    | -                                         | -      |
-| startKey           | 时间格式化的开始时间，提交时，会自动将日期区间拆分                                  | string                                                                 | 'startDate'                               | -      |
-| endKey             | 时间格式化的结束时间，提交时，会自动将日期区间拆分                                  | string                                                                 | 'endDate'                                 | -      |
-| formatRule         | 自定义格式化规则如果设置了 props.showTime = true，则格式化会默认带上时间            | string                                                                 | 'YYYY-MM-DD' or <br>'YYYY-MM-DD HH:mm:ss' | -      |
-| readonlyFormatRule | readonly 下的自定义格式化规则                                                       | string                                                                 | 'YYYY-MM-DD' or <br>'YYYY-MM-DD HH:mm:ss' | -      |
-| reSetting          | 重新渲染                                                                            | (params: AyFormField, mode: string) => AyFormField                     | -                                         | -      |
-| order              | 展示顺序                                                                            | number                                                                 | -                                         | -      |
-| tooltip            | 提示文本，此属性会在标题后面补上一个问号图标                                        | String                                                                 | -                                         | 0.44.0 |
+| 参数名             | 说明                                                                                            | 参数类型                                                               | 默认值                                    | 版本   |
+| ------------------ | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ----------------------------------------- | ------ |
+| title              | 相应的 key，会跟最后表单取到的项目相关; form 的 key 值必填                                      | string                                                                 | -                                         | -      |
+| key                | 唯一 key，<span style="color: #f06;">当 key 以双下划线开头时，提交的值会把这一项被忽略。</span> | string                                                                 | -                                         | -      |
+| type               | 表单项类型                                                                                      | [FormType][formtype]                                                   | 'input'                                   | -      |
+| options            | 可选项                                                                                          | Array<[Option][option]>                                                | -                                         | -      |
+| span               | Grid Col 占位 [0 - 24]                                                                          | number                                                                 | -                                         | -      |
+| defaultValue       | 默认值                                                                                          | any                                                                    | -                                         | -      |
+| required           | 是否必填                                                                                        | boolean                                                                | -                                         | -      |
+| rules              | 自定义权限                                                                                      | Array<[Rules](https://ant-design.gitee.io/components/form-cn/#Rule)>   | -                                         | -      |
+| visible            | 是否展示，保留占位; 保留默认值                                                                  | boolean                                                                | -                                         | -      |
+| hidden             | 是否展示，不会占位; 保留默认值                                                                  | boolean \| Function                                                    | -                                         | -      |
+| props              | 原生的属性                                                                                      | Object                                                                 | -                                         | -      |
+| formItemProps      | FormItem 层原生的属性                                                                           | Object                                                                 | -                                         | -      |
+| renderContent      | 自定义 content 内容，需要指定 type: 'custom'                                                    | (field: AyFormField, record: Record) => ReactNode                      | -                                         | -      |
+| onChange           | 数据变化监听                                                                                    | (field: AyFormField, record: Record, setFieldsValue: Function) => void | -                                         | -      |
+| help               | 在表单下会有一段提示文字                                                                        | string \| ReactNode                                                    | -                                         | -      |
+| startKey           | 时间格式化的开始时间，提交时，会自动将日期区间拆分                                              | string                                                                 | 'startDate'                               | -      |
+| endKey             | 时间格式化的结束时间，提交时，会自动将日期区间拆分                                              | string                                                                 | 'endDate'                                 | -      |
+| formatRule         | 自定义格式化规则如果设置了 props.showTime = true，则格式化会默认带上时间                        | string                                                                 | 'YYYY-MM-DD' or <br>'YYYY-MM-DD HH:mm:ss' | -      |
+| readonlyFormatRule | readonly 下的自定义格式化规则                                                                   | string                                                                 | 'YYYY-MM-DD' or <br>'YYYY-MM-DD HH:mm:ss' | -      |
+| reSetting          | 重新渲染                                                                                        | (params: AyFormField, mode: string) => AyFormField                     | -                                         | -      |
+| order              | 展示顺序                                                                                        | number                                                                 | -                                         | -      |
+| tooltip            | 提示文本，此属性会在标题后面补上一个问号图标                                                    | String                                                                 | -                                         | 0.44.0 |
 
 <span style="color: #f06;">日期格式化</span>相关的，可以点击[这里][日期格式化]查看更具体的细节。
 
-## FormType
+## FormType 表单类型
 
 FormType 是指写 field 时候的 type 的可选项。
 在系统里面预置了下面几种表单类型。如果要自定义类型，请参考 registerField。
@@ -612,28 +651,29 @@ const fields: Array<Field> = [
 
 <hr />
 
-| 值类型         | 说明                                                                 | 默认值      | 版本           |
-| -------------- | -------------------------------------------------------------------- | ----------- | -------------- |
-| input          | 输入框，默认字符长度 30                                              | ''          | -              |
-| number         | 数字输入框，0 ～ 99999999                                            | null        | -              |
-| percent        | 百分比输入框，0 ～ 100                                               | null        | -              |
-| password       | 密码输入框                                                           | ''          | -              |
-| textarea       | 多行输入框，默认字符长度 200                                         | ''          | -              |
-| select         | 选择框                                                               | undefined   | -              |
-| switch         | 开关                                                                 | false       | -              |
-| slider         | 滑块                                                                 | null        | 0.43.0         |
-| rate           | 评分                                                                 | null        | 0.43.0         |
-| checkbox       | 多选框（单个）                                                       | false       | -              |
-| checkbox-group | 多选框（多个）                                                       | []          | -              |
-| radio-group    | 单选框（多个）                                                       | null        | -              |
-| date           | 日期                                                                 | undefined   | -              |
-| date-range     | 日期区间                                                             | []          | -              |
-| empty          | 空白框                                                               | -           | -              |
-| custom         | 自定义 renderContent 使用，需要在同一层定义 defaultValue             | -           | -              |
-| card           | 会用 AyCard 包裹住底下的 form，具体使用可以看 [卡片表单][cardform]。 | -           | -              |
-| group          | 组合表单，具体使用可以看 [组合表单][groupform]。                     | -           | -              |
-| input-group    | 带输入框的组合表单，具体使用可以看 [组合表单][groupform]。           | -           | -              |
-| tag-group      | tag 选项，若设置 multiple 属性，可支持多选                           | undefined / | Array<string / | number> | - |
+| 值类型         | 说明                                                                    | 默认值          | 版本   |
+| -------------- | ----------------------------------------------------------------------- | --------------- | ------ |
+| input          | 输入框，默认字符长度 30                                                 | ''              | -      |
+| number         | 数字输入框，0 ～ 99999999                                               | null            | -      |
+| percent        | 百分比输入框，0 ～ 100                                                  | null            | -      |
+| password       | 密码输入框                                                              | ''              | -      |
+| textarea       | 多行输入框，默认字符长度 200                                            | ''              | -      |
+| select         | 选择框, mode=multiple 可以支持多选                                      | undefined \| [] | -      |
+| switch         | 开关                                                                    | false           | -      |
+| slider         | 滑块                                                                    | null            | 0.43.0 |
+| rate           | 评分                                                                    | null            | 0.43.0 |
+| checkbox       | 多选框（单个）                                                          | false           | -      |
+| checkbox-group | 多选框（多个）                                                          | []              | -      |
+| radio-group    | 单选框（多个）                                                          | null            | -      |
+| date           | 日期                                                                    | undefined       | -      |
+| date-range     | 日期区间                                                                | []              | -      |
+| empty          | 空白框                                                                  | -               | -      |
+| custom         | 自定义内容 `renderContent` 时使用，同时需要定义默认值 `defaultValue` 。 | -               | -      |
+| card           | 会用 AyCard 包裹住底下的 form，具体使用可以看 [卡片表单][cardform]。    | -               | -      |
+| group          | 组合表单，具体使用可以看 [组合表单][groupform]。                        | -               | -      |
+| input-group    | 带输入框的组合表单，具体使用可以看 [组合表单][groupform]。              | -               | -      |
+| tag-group      | tag 选择，若设置 multiple 属性，可支持多选                              | undefined \| [] | 0.45.0 |
+| card-group     | [卡片选择][cardgroup]，若设置 multiple 属性，可支持多选                 | null \| []      | 0.47.0 |
 
 ## Option 参数
 
@@ -659,9 +699,10 @@ const fields: Array<Field> = [
 [1]: https://ant-design.gitee.io/components/form-cn/#API
 [2]: ./form#ayformfield-参数
 [3]: https://ant-design.gitee.io/components/form-cn/#Form.Item
-[formtype]: ./form#formtype
+[formtype]: ./form#formtype-表单类型
 [option]: ./form#option-参数
 [ayformfield]: ./form#ayformfield-参数
 [cardform]: ./form/card-form
-[groupform]: ./form/组合表单
+[groupform]: ./form/group-form
+[cardgroup]: ./form/card-group#在表单中使用
 [日期格式化]: ./form/date-format
