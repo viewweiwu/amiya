@@ -210,9 +210,7 @@ const fields: Array<AyFormField> = [
         type: 'date-range',
         startKey: 'b-start',
         endKey: 'b-end',
-        props: {
-          showTime: true
-        },
+        showTime: true,
         readonly: true,
         defaultValue: [moment().subtract(1, 'day'), moment().startOf('day')]
       },
@@ -231,9 +229,7 @@ const fields: Array<AyFormField> = [
         type: 'date-range',
         startKey: 'd-start',
         endKey: 'd-end',
-        props: {
-          showTime: true
-        },
+        showTime: true,
         readonly: true,
         defaultValue: [moment().subtract(1, 'day'), moment().startOf('day')]
       },
@@ -253,9 +249,7 @@ const fields: Array<AyFormField> = [
         type: 'date-range',
         startKey: 'f-start',
         endKey: 'f-end',
-        props: {
-          showTime: true
-        },
+        showTime: true,
         readonly: true,
         readonlyFormatRule: 'YYYY年MM月DD日 HH时mm分ss秒',
         defaultValue: [moment().subtract(1, 'day'), moment().startOf('day')]
@@ -268,7 +262,7 @@ const fields: Array<AyFormField> = [
         defaultValue: moment().startOf('day')
       },
       {
-        title: '日期格式化带时间',
+        title: '带时间',
         key: 'h',
         type: 'date',
         props: {
@@ -295,9 +289,7 @@ const fields: Array<AyFormField> = [
         title: '日期格式化',
         key: 'j',
         type: 'date',
-        props: {
-          showTime: true
-        },
+        showTime: true,
         readonly: true,
         defaultValue: moment().startOf('day')
       },
@@ -313,9 +305,7 @@ const fields: Array<AyFormField> = [
         title: '日期格式化',
         key: 'l',
         type: 'date',
-        props: {
-          showTime: true
-        },
+        showTime: true,
         readonly: true,
         readonlyFormatRule: 'YYYY年MM月DD日',
         defaultValue: moment().startOf('day')
