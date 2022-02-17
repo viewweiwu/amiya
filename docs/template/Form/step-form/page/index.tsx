@@ -29,7 +29,7 @@ export default function Demo() {
           <AyFields>
             <AyField title="昵称" key="nickname" required help="你在平台展示的名称。" defaultValue="一只兔子" />
             <AyField title="真实姓名" key="name" required help="仅用于认证，不会在界面展示。" defaultValue="阿米娅" />
-            <AyField title="证件信息" key="__card" type="input-group" formItemProps={{ requiredMark: true }} required>
+            <AyField title="证件信息" key="__card" type="input-group" required>
               <AyField
                 type="select"
                 key="cardType"
