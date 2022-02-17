@@ -1,9 +1,9 @@
 import React, { CSSProperties } from 'react'
 import { Option } from '../ay-form'
 import { Avatar } from 'antd'
-import './index.less'
 import classNames from 'classnames'
-import { FORM_DEFAULT_VALUE_CARD_GROUP } from '@/constant'
+import { FORM_DEFAULT_VALUE_CARD_GROUP } from '../../constant'
+import './index.less'
 
 type ValueType = Array<string | number> | string | number | undefined
 

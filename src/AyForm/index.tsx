@@ -741,7 +741,6 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
         colon={desc ? false : true}
         labelWrap
         layout={formLayout}
-        name={props.name || 'ay-form'}
         initialValues={getDefaultValue(fields)}
         onFinish={values => handleConfirm(values, fields, onConfirm)}
         onValuesChange={(changedValues, allValues) =>

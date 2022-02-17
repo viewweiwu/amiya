@@ -1,4 +1,4 @@
-import { getValueByOptions } from '../utils'
+import { getValueByOptions, omitObj } from '../utils'
 import { Input, Switch, Checkbox, Radio, DatePicker, InputNumber, Rate, Slider } from 'antd'
 import React from 'react'
 import AySelect from '../AySelect'
@@ -66,7 +66,7 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
           disabled={readonly}
           maxLength={INPUT_DEFAULT_MAXLENGTH}
           allowClear={FORM_DEFAULT_ALLOW_CLEAR}
-          {...field.props}
+          {...omitObj(field.props, 'readonly')}
         />
       )
     }

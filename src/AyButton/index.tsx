@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Button, Popconfirm, Modal, Tooltip } from 'antd'
 import { AyButtonProps } from './ay-button'
 import classNames from 'classnames'
+import { AnyKeyProps } from 'lib'
+import { omitObj } from '../utils'
 import './index.less'
 
 const refreshList: Array<any> = []
@@ -37,9 +39,27 @@ export const hasPermission = (permission: string) => {
   return false
 }
 
+let keys = [
+  'confirm',
+  'onConfirm',
+  'confirmMsg',
+  'tableFooterExtraOnly',
+  'action',
+  'api',
+  'onFinish',
+  '__simple',
+  'deleteApi',
+  'detailApi',
+  'detailParams',
+  'permission',
+  'extra',
+  'record',
+  'confirmVisible',
+  'sub'
+]
 export default function AyButton(props: AyButtonProps) {
   const [, setRefresh] = useState<number>(0)
-  let params = {
+  let params: AnyKeyProps = {
     ...props
   }
 
@@ -76,22 +96,7 @@ export default function AyButton(props: AyButtonProps) {
   className = classNames(className)
 
   // 删除一些没有用到的属性
-  delete params.confirm
-  delete params.onConfirm
-  delete params.confirmMsg
-  delete params.tableFooterExtraOnly
-  delete params.action
-  delete params.api
-  delete params.onFinish
-  delete params.__simple
-  delete params.deleteApi
-  delete params.detailApi
-  delete params.detailParams
-  delete params.permission
-  delete params.extra
-  delete params.record
-  delete params.confirmVisible
-  delete params.sub
+  params = omitObj(params, keys)
 
   // 基础按钮
   let btn = (

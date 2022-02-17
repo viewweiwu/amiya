@@ -7,7 +7,7 @@ import { getComponents } from './EditableTable'
 import { clearEmpty } from '../utils'
 import { TABLE_PAGESIZE, TABLE_START_PAGE } from '../constant'
 import { AnyKeyProps } from '../types/AnyKeyProps'
-import { SortItem } from '@/AySearchTable/ay-search-table'
+import { SortItem } from '../AySearchTable/ay-search-table'
 import './ay-table.less'
 
 /** 默认请求前列表过滤 */
