@@ -4,15 +4,21 @@ order: 1
 
 # 更新日志
 
+## 0.47.0
+
+1. feat: 添加 `AyCardGroup` 使用。
+2. fix: `AyForm` `password` type `readonly` 模式下显示 \*。
+3. fix: `AyForm` 有子元素时 `required` 错误的校验必填。
+
 ## 0.46.0
 
-1. feat: 支持 AyForm 表单的其它属性直接平铺。
-2. fix: 修复 AySearchTable、AySearchList 的 Fields 子元素不生效。
-3. fix: 修复 AyDialogForm 文件引入。
+1. feat: 支持 `AyForm` 表单的其它属性直接平铺。
+2. fix: 修复 `AySearchTable`、`AySearchList` 的 `Fields` 子元素不生效。
+3. fix: 修复 `AyDialogForm` 文件引入。
 
 ## 0.45.2
 
-1. fix: 修复 AySearchTable 的 field 添加 dialog 属性时，受原本表格属性污染。
+1. fix: 修复 `AySearchTable` 的 `field` 添加 `dialog` 属性时，受原本表格属性污染。
 
 ## 0.45.1
 
@@ -25,8 +31,8 @@ order: 1
 2. feat: 在外层元素 className="full-width" 的情况下，AyForm 的 max-width 会填充 100% 宽度。
 3. feat: `AyForm` type 添加 `tag-group` 类型
 4. feat: `AySearch` 支持平铺模式。
-5. fix: 修复 `AyForm` type 为 'card' 时样式错乱，且默认现在 span 值是 24。
-6. fix: `AyForm` type 为 'slider' 的默认值由 null 调整为 0。
+5. fix: 修复 `AyForm` type 为 `card` 时样式错乱，且默认现在 `span` 值是 24。
+6. fix: `AyForm` type 为 `slider` 的默认值由 null 调整为 0。
 
 ## 0.44.0
 
