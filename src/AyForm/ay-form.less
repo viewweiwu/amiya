@@ -9,8 +9,18 @@
 }
 
 .ay-form {
+  .required-mark {
+    line-height: 1;
+    display: inline-block;
+    margin-right: 4px;
+    color: #ff4d4f;
+    font-size: 14px;
+    font-family: SimSun, sans-serif;
+  }
+
   &.readonly {
-    .ant-form-item-required::before {
+    .ant-form-item-required::before,
+    .required-mark {
       opacity: 0;
     }
   }

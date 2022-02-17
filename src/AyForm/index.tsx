@@ -32,7 +32,9 @@ import {
   FORM_TYPE_INPUT_GROUP,
   FORM_TYPE_CHECKBOX,
   FORM_TYPE_CHECKBOX_GROUP,
-  FORM_TYPE_RADIO_GROUP
+  FORM_TYPE_RADIO_GROUP,
+  FORM_TYPE_CARD_GROUP,
+  FORM_TYPE_TAG_GROUP
 } from '../constant'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
@@ -101,7 +103,9 @@ const getPlaceholder = (field: AyFormField | AySearchTableField): string => {
       FORM_TYPE_DATE_RANGE,
       FORM_TYPE_CHECKBOX,
       FORM_TYPE_CHECKBOX_GROUP,
-      FORM_TYPE_RADIO_GROUP
+      FORM_TYPE_RADIO_GROUP,
+      FORM_TYPE_CARD_GROUP,
+      FORM_TYPE_TAG_GROUP
     ].includes(field.type)
   ) {
     return `请选择${field.title || ''}`
@@ -139,12 +143,19 @@ export const getDefaultValue = (fields: Array<AyFormField | AySearchField | AySe
         const fieldItem = fieldMap[type]
         let defaultValue = fieldItem.defaultValue
         defaultValue = typeof defaultValue === 'object' ? copy(defaultValue) : defaultValue
-        form[key] = defaultValue
+
+        // 如果是多选则默认值是数组
+        if (field.multiple || field.mode === 'multiple') {
+          form[key] = []
+        } else {
+          form[key] = defaultValue
+        }
       } else {
         form[key] = undefined
       }
     }
   })
+
   return form
 }
 
@@ -603,7 +614,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   /** 暴露出去的 form 的实例，允许父组件通过 ref 调用方法 */
   const formInstans: AnyKeyProps = {}
   const [inited, setInited] = useState<boolean>(false)
-  let [mirrorFields, setMirrorFields] = useState<Array<AyFormField | AySearchTableField>>(fields)
+  let [mirrorFields, setMirrorFields] = useState<Array<AyFormField | AySearchTableField>>(fields || [])
   /** 刷新渲染用 */
   let [refresh, setRefresh] = useState<number>(0)
 

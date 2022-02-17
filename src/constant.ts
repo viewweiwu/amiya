@@ -130,6 +130,9 @@ export const FORM_TYPE_SLIDER = 'slider'
 /** 表单类型: 标签组选择 */
 export const FORM_TYPE_TAG_GROUP = 'tag-group'
 
+/** 表单类型: 卡片选择 */
+export const FORM_TYPE_CARD_GROUP = 'card-group'
+
 // --------------------------------------------------------------
 // ------------------------ form 表单默认值 -----------------------
 // --------------------------------------------------------------
@@ -183,6 +186,9 @@ export const FORM_DEFAULT_VALUE_SLIDER = 0
 
 /** 表单默认值: 标签组选择 */
 export const FORM_DEFAULT_VALUE_TAG_GROUP = undefined
+
+/** 表单默认值: 标签组选择 */
+export const FORM_DEFAULT_VALUE_CARD_GROUP = undefined
 
 /** 表单 readonly 值 */
 export const FORM_READONLY_EMPTY = '-'

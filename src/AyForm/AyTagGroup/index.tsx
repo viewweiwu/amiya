@@ -6,7 +6,7 @@ const { CheckableTag } = Tag
 
 type ValueType = Array<string | number> | string | number | undefined
 
-interface TagGroupProps {
+interface AyTagGroupProps {
   value?: any
   onChange?: (values: ValueType) => void
   /** 是否支持选择多个 */
@@ -21,7 +21,7 @@ interface TagGroupProps {
   readonly?: boolean
 }
 
-export default function TagGroup(props: TagGroupProps) {
+export default function AyTagGroup(props: AyTagGroupProps) {
   let { value, multiple, onChange, options, showAllChecked, allCheckedText, readonly } = props
   // 如果是多选，且没有默认值，则默认值视为空数组
   if (multiple && value === undefined) {

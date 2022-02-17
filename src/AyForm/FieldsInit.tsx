@@ -43,9 +43,12 @@ import {
   FORM_TYPE_SLIDER,
   FORM_DEFAULT_VALUE_SLIDER,
   FORM_TYPE_TAG_GROUP,
-  FORM_DEFAULT_VALUE_TAG_GROUP
+  FORM_DEFAULT_VALUE_TAG_GROUP,
+  FORM_TYPE_CARD_GROUP,
+  FORM_DEFAULT_VALUE_CARD_GROUP
 } from '../constant'
-import TagGroup from './TagGroup'
+import AyTagGroup from './AyTagGroup'
+import AyCardGroup from './AyCardGroup'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { RegisterFieldProps } from './ay-form'
 
@@ -138,7 +141,9 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
     defaultValue: FORM_DEFAULT_VALUE_PASSWORD,
     render: ({ field, readonly, getFieldValue }: AnyKeyProps) =>
       readonly ? (
-        <span className="ay-form-text">{getFieldValue(field.key) || FORM_READONLY_EMPTY}</span>
+        <span className="ay-form-text">
+          {(getFieldValue(field.key) + '').replace(/./g, '*') || FORM_READONLY_EMPTY}
+        </span>
       ) : (
         <Input.Password
           placeholder={`请输入${field.title || ''}`}
@@ -300,7 +305,16 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
     type: FORM_TYPE_TAG_GROUP,
     defaultValue: FORM_DEFAULT_VALUE_TAG_GROUP,
     render: ({ field, readonly }: AnyKeyProps) => (
-      <TagGroup readonly={readonly} options={field.options} {...field.props} />
+      <AyTagGroup readonly={readonly} options={field.options} {...field.props} />
+    )
+  })
+
+  // 卡片选择
+  registerField(FORM_TYPE_CARD_GROUP, {
+    type: FORM_TYPE_CARD_GROUP,
+    defaultValue: FORM_DEFAULT_VALUE_CARD_GROUP,
+    render: ({ field, readonly }: AnyKeyProps) => (
+      <AyCardGroup readonly={readonly} options={field.options} {...field.props} />
     )
   })
 }

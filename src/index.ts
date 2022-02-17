@@ -18,9 +18,11 @@ import AyTable, {
 import AyFields from './AyFields'
 import AyField from './AyField'
 import AySearchList from './AySearchList'
+import AyCardGroup from './AyForm/AyCardGroup'
 
 export {
   AyCard,
+  AyCardGroup,
   AyAction,
   registerAction,
   AyButton,
