@@ -15,17 +15,17 @@ const fields: Array<AySearchTableField> = [
   {
     title: '姓名',
     key: 'cn',
-    search: {}
+    search: true
   },
   {
     title: '英文名',
     key: 'en',
-    search: {}
+    search: true
   }
 ]
 
 export default function Demo() {
-  return <AySearchTable title="取消全局表格的边框" api={listApi} fields={fields} />
+  return <AySearchTable title="取消全局表格的边框" rowKey="sort_id" api={listApi} fields={fields} />
 }
 ```
 

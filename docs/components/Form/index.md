@@ -15,7 +15,7 @@ const fields: Array<AyFormField> = [
   {
     title: '密码',
     type: 'password',
-    key: 'password',
+    key: 'pwd',
     required: true
   },
   {
@@ -61,9 +61,9 @@ export default function Demo() {
   return (
     <AyForm onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
       <AyFields>
-        <AyField key="name" required title="用户名" />
-        <AyField key="password" type="password" required title="密码" />
-        <AyField key="checkbox" type="checkbox" props={{ style: { marginLeft: 120 }, children: '记住密码' }} />
+        <AyField key="username" required title="用户名" />
+        <AyField key="userPassword" type="password" required title="密码" />
+        <AyField key="userRemember" type="checkbox" props={{ style: { marginLeft: 120 }, children: '记住密码' }} />
       </AyFields>
       <AyButton style={{ marginLeft: 120 }} type="primary" block htmlType="submit">
         登录
@@ -138,11 +138,11 @@ const options = [
 const fields: Array<AyFormField> = [
   {
     title: 'Field A',
-    key: 'a'
+    key: 'field-a'
   },
   {
     title: 'Field B',
-    key: 'b'
+    key: 'field-b'
   }
 ]
 
@@ -174,12 +174,12 @@ export default function Demo() {
     {
       title: 'Field B',
       type: 'checkbox',
-      key: 'a',
+      key: 'group-a',
       required: true,
       onChange: (value: boolean) => {
         setReadonly(value)
         // 清空 b 的表单值
-        formRef.current.resetFields(['b'])
+        formRef.current.resetFields(['group-b'])
       },
       props: {
         children: '之后填写',
@@ -195,7 +195,7 @@ export default function Demo() {
       }
     },
     {
-      key: 'b',
+      key: 'group-b',
       readonly,
       props: {
         placeholder: '请输入 Field B'
@@ -242,12 +242,12 @@ const fields: Array<AyFormField> = [
   },
   {
     title: '用户名',
-    key: 'name'
+    key: 'loginName'
   },
   {
     title: '密码',
     type: 'password',
-    key: 'password'
+    key: 'loginPassword'
   }
 ]
 
@@ -541,12 +541,12 @@ import { AyForm, AyFormField } from 'amiya'
 const fields: Array<AyFormField> = [
   {
     title: 'Field A',
-    key: 'a',
+    key: 'tip-a',
     tooltip: '这是 A 提示'
   },
   {
     title: 'Field B',
-    key: 'b',
+    key: 'tip-b',
     help: '这是 B 提示'
   }
 ]

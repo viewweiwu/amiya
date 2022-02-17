@@ -59,7 +59,7 @@ export default function AySearchTableDemo() {
 
 ```tsx
 import React from 'react'
-import { AySearchTable, AySearchTableField, AyCtrl, AyAction } from 'amiya'
+import { AySearchTable, AySearchTableField, AyCtrl, AyAction, Record } from 'amiya'
 import { listApi } from '../api'
 
 const fields: Array<AySearchTableField> = [
@@ -73,39 +73,35 @@ const fields: Array<AySearchTableField> = [
   {
     title: '英文名',
     key: 'en',
-    search: {},
+    search: true,
     dialog: {
       required: true
     },
-    table: {
-      hidden: true
-    }
+    table: false
   },
   {
     title: '日文名',
     key: 'jp',
-    search: {},
+    search: true,
     dialog: {
       required: true
     },
-    table: {
-      hidden: true
-    }
+    table: false
   },
   {
     title: '初始HP',
     key: 'ori-hp',
-    dialog: {}
+    dialog: true
   },
   {
     title: '初始攻击',
     key: 'ori-atk',
-    dialog: {}
+    dialog: true
   }
 ]
 
 const ctrl = {
-  render: (_: any, record) => (
+  render: (_: any, record: Record) => (
     <AyCtrl>
       <AyAction record={record} action="view">
         详情

@@ -41,7 +41,15 @@ const fields: Array<AySearchTableField> = [
 ]
 
 export default function Demo() {
-  return <AySearchTable title="右边没有刷新按钮" extraRefreshVisible={false} fields={fields} api={listApi} />
+  return (
+    <AySearchTable
+      title="右边没有刷新按钮"
+      rowKey="sort_id"
+      extraRefreshVisible={false}
+      fields={fields}
+      api={listApi}
+    />
+  )
 }
 ```
 
@@ -79,7 +87,9 @@ const fields: Array<AySearchTableField> = [
 ]
 
 export default function Demo() {
-  return <AySearchTable title="右边没有密度按钮" extraSizeVisible={false} fields={fields} api={listApi} />
+  return (
+    <AySearchTable title="右边没有密度按钮" rowKey="sort_id" extraSizeVisible={false} fields={fields} api={listApi} />
+  )
 }
 ```
 
@@ -114,7 +124,15 @@ const fields: Array<AySearchTableField> = [
   }
 ]
 export default function Demo() {
-  return <AySearchTable title="右边没有密度默认值为紧凑" extraSizeDefaultValue="small" fields={fields} api={listApi} />
+  return (
+    <AySearchTable
+      title="右边没有密度默认值为紧凑"
+      rowKey="sort_id"
+      extraSizeDefaultValue="small"
+      fields={fields}
+      api={listApi}
+    />
+  )
 }
 ```
 
@@ -152,7 +170,9 @@ const fields: Array<AySearchTableField> = [
 ]
 
 export default function Demo() {
-  return <AySearchTable title="右边没有展示列" extraSettingVisible={false} fields={fields} api={listApi} />
+  return (
+    <AySearchTable title="右边没有展示列" rowKey="sort_id" extraSettingVisible={false} fields={fields} api={listApi} />
+  )
 }
 ```
 
@@ -189,7 +209,15 @@ const fields: Array<AySearchTableField> = [
   }
 ]
 export default function Demo() {
-  return <AySearchTable title="右边没有全屏按钮" extraFullscreenVisible={false} fields={fields} api={listApi} />
+  return (
+    <AySearchTable
+      title="右边没有全屏按钮"
+      rowKey="sort_id"
+      extraFullscreenVisible={false}
+      fields={fields}
+      api={listApi}
+    />
+  )
 }
 ```
 
@@ -228,7 +256,7 @@ const fields: Array<AySearchTableField> = [
   }
 ]
 export default function Demo() {
-  return <AySearchTable title="右侧没有扩展按钮" extraVisible={false} fields={fields} api={listApi} />
+  return <AySearchTable title="右侧没有扩展按钮" rowKey="sort_id" extraVisible={false} fields={fields} api={listApi} />
 }
 ```
 

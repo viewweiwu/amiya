@@ -20,14 +20,20 @@ const fields: Array<AySearchTableField> = [
   {
     title: '星级',
     key: 'rarity',
-    table: {
-      renderType: 'star'
-    }
+    renderType: 'star'
   }
 ]
 
 export default function Demo() {
-  return <AySearchTable title="全局 table render 方法注册" searchVisible={false} api={listApi} fields={fields} />
+  return (
+    <AySearchTable
+      title="全局 table render 方法注册"
+      rowKey="sort_id"
+      searchVisible={false}
+      api={listApi}
+      fields={fields}
+    />
+  )
 }
 ```
 
@@ -52,9 +58,7 @@ registerTableRender('renderTypeName', ({ text, record, field }: RenderProps) => 
 // 实际使用
 const fields = [
   {
-    table: {
-      renderType: 'renderTypeName' // 已经注册过后的名字
-    }
+    renderType: 'renderTypeName' // 已经注册过后的名字
   }
 ]
 ```

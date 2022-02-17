@@ -9,22 +9,20 @@ const fields: Array<AySearchTableField> = [
   {
     title: '姓名',
     key: 'names', // 请给予这个地方 key，否则表头的自定义别名会出现意外结果
-    table: {
-      children: [
-        {
-          title: '中文名',
-          key: 'cn'
-        },
-        {
-          title: '英文名',
-          key: 'en'
-        },
-        {
-          title: '日文名',
-          key: 'jp'
-        }
-      ]
-    }
+    children: [
+      {
+        title: '中文名',
+        key: 'cn'
+      },
+      {
+        title: '英文名',
+        key: 'en'
+      },
+      {
+        title: '日文名',
+        key: 'jp'
+      }
+    ]
   },
   {
     title: '初始HP',
@@ -37,6 +35,6 @@ const fields: Array<AySearchTableField> = [
 ]
 
 export default function Demo() {
-  return <AySearchTable title="表格标题" searchVisible={false} api={listApi} fields={fields} />
+  return <AySearchTable title="表格标题" rowKey="sort_id" searchVisible={false} api={listApi} fields={fields} />
 }
 ```

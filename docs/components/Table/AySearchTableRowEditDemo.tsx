@@ -6,16 +6,14 @@ const fields: Array<AySearchTableField> = [
   {
     title: '姓名',
     key: 'cn',
-    table: {
-      width: 200,
-      editable: true,
-      renderType: 'editable-cell-input',
-      contentProps: {
-        allowClear: true
-      },
-      formItemProps: {
-        rules: [{ required: true, message: '请输入姓名' }]
-      }
+    width: 200,
+    editable: true,
+    renderType: 'editable-cell-input',
+    contentProps: {
+      allowClear: true
+    },
+    formItemProps: {
+      rules: [{ required: true, message: '请输入姓名' }]
     }
   },
   {
@@ -23,24 +21,20 @@ const fields: Array<AySearchTableField> = [
     key: 'class',
     type: 'select',
     options: professionOptions,
-    table: {
-      width: 200,
-      editable: true,
-      renderType: 'editable-cell-select',
-      contentProps: {
-        allowClear: true
-      },
-      formItemProps: {
-        rules: [{ required: true, message: '请选择职业' }]
-      }
+    width: 200,
+    editable: true,
+    renderType: 'editable-cell-select',
+    contentProps: {
+      allowClear: true
+    },
+    formItemProps: {
+      rules: [{ required: true, message: '请选择职业' }]
     }
   },
   {
     title: '英文名',
     key: 'en',
-    table: {
-      editable: true
-    }
+    editable: true
   }
 ]
 

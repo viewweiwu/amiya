@@ -9,7 +9,7 @@ import { Space } from 'antd'
  */
 export const getValueByOptions = (value: any, options: Array<Record>) => {
   let option = options.find(option => option.value === value)
-  return option ? option.label : value
+  return <span key={value}>{option ? option.label : value}</span>
 }
 
 registerTableRender('group', ({ field, text }: RenderProps) => {

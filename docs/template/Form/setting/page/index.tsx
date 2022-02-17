@@ -110,10 +110,10 @@ export default function Demo() {
                   render={() => <div className="form-title">《鹰角网络游戏使用许可及服务协议》</div>}
                 />
                 <AyField
-                  title="账号换绑"
-                  key="account-change"
+                  title="使用协议"
+                  key="license"
                   type="custom"
-                  renderContent={() => <Button className="form-btn">换绑</Button>}
+                  renderContent={() => <Button className="form-btn">查看</Button>}
                 />
                 <AyField key="__t3" render={() => <div className="form-title">其它</div>} />
                 <AyField
@@ -177,7 +177,7 @@ export default function Demo() {
                 />
                 <AyField
                   title="省电模式"
-                  key="fps"
+                  key="low-power-mode"
                   {...switchProps}
                   help="开启后，代理作战将使用较低画质与帧率，可减少耗电"
                 />
@@ -195,19 +195,19 @@ export default function Demo() {
                 <AyField key="__t3" render={() => <div className="form-title">追加资源</div>} />
                 <AyField
                   title="视频资源"
-                  key="reset-password"
+                  key="assets-video"
                   type="custom"
                   renderContent={() => <Button className="form-btn disabled">已下载</Button>}
                 />
                 <AyField
                   title="语音资源"
-                  key="reset-password"
+                  key="assets-voice"
                   type="custom"
                   renderContent={() => <Button className="form-btn disabled">已下载</Button>}
                 />
                 <AyField
                   title="动态形象"
-                  key="reset-password"
+                  key="assets-live2d"
                   type="custom"
                   renderContent={() => <Button className="form-btn disabled">已下载</Button>}
                 />

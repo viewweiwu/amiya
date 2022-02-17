@@ -137,7 +137,14 @@ export default function Demo() {
           />
           <AyField title="价格区间" key="__price" search={{ grid: block }} type="input-group">
             <AyField key="min" placeholder="最低价" className="price-input" onBlur={reloadList} />
-            <AyField key="__priceGap" render={() => <span className="price-gap">~</span>} />
+            <AyField
+              key="__gap"
+              render={() => (
+                <span key="gap" className="price-gap">
+                  ~
+                </span>
+              )}
+            />
             <AyField key="max" placeholder="最高价" className="price-input" onBlur={reloadList} />
           </AyField>
           <AyField

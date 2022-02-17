@@ -52,9 +52,7 @@ const fields: Array<AySearchTableField> = [
   {
     title: '时间',
     key: 'date',
-    table: {
-      renderType: 'datetime'
-    }
+    renderType: 'datetime'
   }
 ]
 

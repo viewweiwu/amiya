@@ -30,7 +30,7 @@ const fields: Array<AySearchTableField> = [
 ]
 
 export default function Demo() {
-  return <AySearchTable searchVisible={false} title="看右边👉👉👉👉" api={listApi} fields={fields} />
+  return <AySearchTable rowKey="sort_id" searchVisible={false} title="看右边👉👉👉👉" api={listApi} fields={fields} />
 }
 ```
 

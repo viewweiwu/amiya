@@ -331,7 +331,7 @@ const fields: Array<AySearchTableField> = [
 ]
 
 export default function Demo() {
-  return <AySearchTable api={listApi} title="表格标题" fields={fields} />
+  return <AySearchTable api={listApi} rowKey="sort_id" title="表格标题" fields={fields} />
 }
 ```
 
@@ -575,9 +575,7 @@ const fields: Array<AySearchTableField> = [
   {
     title: '编号',
     key: 'index',
-    table: {
-      sort: true
-    },
+    sort: true,
     search: true,
     dialog: {
       required: true
@@ -597,9 +595,7 @@ const fields: Array<AySearchTableField> = [
       { label: '特种干员', value: '特种' },
       { label: '先锋干员', value: '先锋' }
     ],
-    table: {
-      filter: true
-    },
+    filter: true,
     dialog: true
   },
   {

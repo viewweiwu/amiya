@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
-import { AySearchTable, AySearchTableField, AyButton } from 'amiya'
+import { AySearchTable, AySearchTableField, AyButton, AnyKeyProps } from 'amiya'
 import { professionOptions } from '../api'
-import { AnyKeyProps } from '@/types/AnyKeyProps'
 import { Button } from 'antd'
 
 const fields: Array<AySearchTableField> = [

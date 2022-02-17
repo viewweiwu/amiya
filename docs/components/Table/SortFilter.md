@@ -17,25 +17,19 @@ const fields: Array<AySearchTableField> = [
   {
     title: '姓名',
     key: 'cn',
-    table: {
-      width: 300
-    }
+    width: 300
   },
   {
     title: '初始HP',
     key: 'ori-hp',
-    table: {
-      sort: true,
-      sortOrder: 1 // 排序顺序，数字越高权重越大
-    }
+    sort: true,
+    sortOrder: 1 // 排序顺序，数字越高权重越大
   },
   {
     title: '初始攻击',
     key: 'ori-atk',
-    table: {
-      sort: true,
-      sortOrder: 2 // 排序顺序，数字越高权重越大
-    }
+    sort: true,
+    sortOrder: 2 // 排序顺序，数字越高权重越大
   },
   {
     title: '星级(单选)',
@@ -48,21 +42,17 @@ const fields: Array<AySearchTableField> = [
       { label: '⭐️⭐️⭐️⭐️⭐️', value: 4 },
       { label: '⭐️⭐️⭐️⭐️⭐️⭐️', value: 5 }
     ],
-    table: {
-      width: 300,
-      sort: true,
-      filter: true
-    }
+    width: 300,
+    sort: true,
+    filter: true
   },
   {
     title: '职业(多选)',
     key: 'class',
     type: 'select',
     options: professionOptions,
-    table: {
-      filter: true,
-      filterMultiple: true
-    }
+    filter: true,
+    filterMultiple: true
   }
 ]
 
@@ -70,7 +60,7 @@ export default function Demo() {
   const ref = useRef<any>(null)
 
   return (
-    <AySearchTable searchVisible={false} ref={ref} title="表格标题" api={listApi} fields={fields}>
+    <AySearchTable searchVisible={false} rowKey="sort_id" ref={ref} title="表格标题" api={listApi} fields={fields}>
       <AyButton onClick={() => ref.current.clearFilters()}>清空全部过滤值</AyButton>
       <AyButton onClick={() => ref.current.clearSorts()}>清空全部排序</AyButton>
       <AyButton
@@ -97,27 +87,21 @@ const fields: Array<AySearchTableField> = [
   {
     title: '姓名',
     key: 'cn',
-    table: {
-      width: 300
-    }
+    width: 300
   },
   {
     title: '初始HP',
     key: 'ori-hp',
-    table: {
-      sort: true,
-      defaultSortsValue: 'ascend',
-      sortOrder: 2 // 排序顺序，数字越高权重越大
-    }
+    sort: true,
+    defaultSortsValue: 'ascend',
+    sortOrder: 2 // 排序顺序，数字越高权重越大
   },
   {
     title: '初始攻击',
     key: 'ori-atk',
-    table: {
-      sort: true,
-      defaultSortsValue: 'descend',
-      sortOrder: 1 // 排序顺序，数字越高权重越大
-    }
+    sort: true,
+    defaultSortsValue: 'descend',
+    sortOrder: 1 // 排序顺序，数字越高权重越大
   },
   {
     title: '星级(单选)',
@@ -130,23 +114,19 @@ const fields: Array<AySearchTableField> = [
       { label: '⭐️⭐️⭐️⭐️⭐️', value: 4 },
       { label: '⭐️⭐️⭐️⭐️⭐️⭐️', value: 5 }
     ],
-    table: {
-      width: 300,
-      sort: true,
-      filter: true,
-      // 注意，此处只能是字符串，如果 option 里面是数字，会默认被转成字符串
-      defaultFilterValue: [1]
-    }
+    width: 300,
+    sort: true,
+    filter: true,
+    // 注意，此处只能是字符串，如果 option 里面是数字，会默认被转成字符串
+    defaultFilterValue: [1]
   },
   {
     title: '职业(多选)',
     key: 'class',
     type: 'select',
     options: professionOptions,
-    table: {
-      filter: true,
-      filterMultiple: true
-    }
+    filter: true,
+    filterMultiple: true
   }
 ]
 

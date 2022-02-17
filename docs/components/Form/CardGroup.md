@@ -483,8 +483,9 @@ export default function Demo() {
 
 定义，可由 `css` 变量决定不同的颜色。
 
-1. `--ay-primary-color` 主要颜色
-2. `--ay-primary-bg-color` 选中背景色
+1. `--ay-primary-color` 主要颜色，这里决定多选模式下角标的颜色
+2. `--ay-primary-border-color` 选中边框颜色
+3. `--ay-primary-bg-color` 选中背景色
 
 ```tsx
 import React, { useState } from 'react'
@@ -547,16 +548,19 @@ const colorStyleMap: AnyKeyProps = {
   // 红色
   2: {
     ['--ay-primary-color']: '#f5222d',
+    ['--ay-primary-border-color']: '#ff7875',
     ['--ay-primary-bg-color']: '#fff1f0'
   },
   // 绿色
   3: {
     ['--ay-primary-color']: '#a0d911',
+    ['--ay-primary-border-color']: '#d3f261',
     ['--ay-primary-bg-color']: '#fcffe6'
   },
   // 紫色
   4: {
     ['--ay-primary-color']: '#722ed1',
+    ['--ay-primary-border-color']: '#b37feb',
     ['--ay-primary-bg-color']: '#f9f0ff'
   }
 }

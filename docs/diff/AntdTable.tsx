@@ -15,11 +15,11 @@ import {
   Divider,
   Popconfirm
 } from 'antd'
-import { AnyKeyProps } from '@/types/AnyKeyProps'
+import { AnyKeyProps } from 'amiya'
 import { SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons'
 import { deleteApi, listApi, professionOptions } from '../components/api'
-import './antd-table.less'
 import ModalEdit from './ModalEdit'
+import './antd-table.less'
 
 interface Record extends AnyKeyProps {}
 
