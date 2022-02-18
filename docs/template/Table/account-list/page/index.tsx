@@ -50,9 +50,12 @@ export default function Demo() {
           }}
           dialog={{
             title: '选择头像',
-            type: 'radio-group',
+            type: 'card-group',
             tooltip: '选择一个喜欢的头像',
             required: true,
+            cardStyle: {
+              padding: 2
+            },
             options: [
               require('../images/avatar1.jpg'),
               require('../images/avatar2.jpg'),
@@ -61,7 +64,7 @@ export default function Demo() {
               require('../images/avatar5.jpg')
             ].map(src => {
               return {
-                label: <img src={src} width="50" height="50" style={{ marginBottom: 8 }} />,
+                label: <img src={src} width="50" height="50" />,
                 value: src
               }
             })
@@ -114,9 +117,7 @@ export default function Demo() {
             type: 'radio-group',
             required: true,
             defaultValue: 1,
-            props: {
-              optionType: 'button'
-            }
+            optionType: 'button'
           }}
           options={[
             { label: '在职', value: 1, color: 'green' },

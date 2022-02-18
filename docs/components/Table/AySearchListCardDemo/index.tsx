@@ -65,11 +65,9 @@ export default function AySearchDemo() {
         title: '',
         type: 'search',
         grid: block,
-        props: {
-          placeholder: '请输入关键字',
-          style: {
-            width: 500
-          }
+        placeholder: '请输入关键字',
+        style: {
+          width: 500
         }
       },
       dialog: {

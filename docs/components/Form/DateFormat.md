@@ -90,9 +90,7 @@ const fields: Array<AyFormField> = [
     key: 'date-range',
     type: 'date-range',
     defaultValue: [moment().subtract(1, 'day'), moment().startOf('day')],
-    props: {
-      showTime: true
-    }
+    showTime: true
   }
 ]
 
@@ -265,9 +263,7 @@ const fields: Array<AyFormField> = [
         title: '带时间',
         key: 'h',
         type: 'date',
-        props: {
-          showTime: true
-        },
+        showTime: true,
         readonly: true,
         defaultValue: moment().startOf('day')
       }

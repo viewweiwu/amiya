@@ -21,12 +21,10 @@ const fields: Array<AyFormField> = [
   {
     type: 'checkbox',
     key: 'remember',
-    props: {
-      style: {
-        marginLeft: 120
-      },
-      children: '记住密码'
-    }
+    style: {
+      marginLeft: 120
+    },
+    children: '记住密码'
   }
 ]
 
@@ -89,12 +87,10 @@ export default function Demo() {
 - {
 -   type: 'checkbox',
 -   key: 'remember',
--   props: {
--     style: {
--       marginLeft: 120
--     },
--     children: '记住密码'
--   }
+-   style: {
+-     marginLeft: 120
+-   },
+-   children: '记住密码'
 -]
 
 <AyForm
@@ -181,11 +177,9 @@ export default function Demo() {
         // 清空 b 的表单值
         formRef.current.resetFields(['group-b'])
       },
-      props: {
-        children: '之后填写',
-        style: {
-          float: 'right'
-        }
+      children: '之后填写',
+      style: {
+        float: 'right'
       },
       formItemProps: {
         labelCol: { flex: '120px' },
@@ -197,9 +191,7 @@ export default function Demo() {
     {
       key: 'group-b',
       readonly,
-      props: {
-        placeholder: '请输入 Field B'
-      },
+      placeholder: '请输入 Field B',
       rules: [{ required: true, message: '请输入 Field B' }]
     }
   ]

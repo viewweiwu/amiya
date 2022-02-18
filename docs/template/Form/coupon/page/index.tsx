@@ -15,7 +15,7 @@ export default function Demo() {
       <AyForm formLayout="vertical" onConfirm={values => setSubmitValues(values)}>
         <AyFields>
           <AyField title="优惠券名称" key="name" required />
-          <AyField title="优惠力度" key="__name" type="input-group">
+          <AyField title="优惠力度" key="__name" type="input-group" required>
             <AyField key="__title" readonly defaultValue="满" />
             <AyField key="price" type="number" defaultValue={100} rules={[{ required: true, message: '请输入金额' }]} />
             <AyField key="__title2" readonly defaultValue="元，" />
@@ -27,9 +27,7 @@ export default function Demo() {
               type="select"
               defaultValue={offType}
               onChange={(value: number) => setOffType(value)}
-              props={{
-                allowClear: false
-              }}
+              allowClear={false}
               options={[
                 { label: '折', value: 1 },
                 { label: '元', value: 2 }
@@ -73,8 +71,8 @@ export default function Demo() {
               { label: '橘子', value: 5 }
             ]}
           />
-          <AyField title="有效日期" key="time" required type="date-range" props={{ showTime: true }} />
-          <AyField title="备注" key="desc" type="textarea" props={{ placeholder: '清描述使用用途' }} />
+          <AyField title="有效日期" key="time" required type="date-range" showTime />
+          <AyField title="备注" key="desc" type="textarea" placeholder="请描述使用用途" />
         </AyFields>
         <AyButton htmlType="submit" type="primary">
           创建

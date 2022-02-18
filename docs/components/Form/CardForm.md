@@ -11,9 +11,7 @@ const fields: Array<AyFormField> = [
     // card 的 key 可以不写，内部会用 Math.random() 随机一个 key，推荐写一个，以双下划线开头
     key: '__base',
     type: 'card',
-    props: {
-      collapsible: true
-    },
+    collapsible: true,
     children: [
       {
         title: '干员名称',
@@ -37,17 +35,15 @@ const fields: Array<AyFormField> = [
     title: '属性',
     type: 'card',
     key: '__attributes',
-    props: {
-      collapsible: true
-    },
+    collapsible: true,
     children: [
       {
         title: '精0',
         type: 'card',
         key: '__phases0',
-        // props: {
-        //   type: 'inner'
-        // },
+        props: {
+          type: 'inner'
+        },
         children: [
           {
             title: '基础血量',
@@ -143,9 +139,7 @@ const fields: Array<AyFormField> = [
     // 请随意给一个不会重复的 key，以双下划线开头的 key，提交是会过滤掉的
     key: '__base',
     type: 'card',
-    props: {
-      collapsible: true
-    },
+    collapsible: true,
     children: [
       {
         title: '干员名称',
@@ -170,9 +164,7 @@ const fields: Array<AyFormField> = [
     title: '属性',
     type: 'card',
     key: '__attributes',
-    props: {
-      collapsible: true
-    },
+    collapsible: true,
     children: [
       {
         title: '精0',

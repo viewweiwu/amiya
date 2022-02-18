@@ -37,18 +37,14 @@ const fields: Array<AyFormField> = [
     title: '上线时间',
     key: 'createDate',
     type: 'date',
-    props: {
-      showTime: true
-    }
+    showTime: true
   },
   {
     title: '简介',
     type: 'textarea',
     key: 'desc',
     span: 24,
-    props: {
-      rows: 6
-    }
+    rows: 6
   }
 ]
 

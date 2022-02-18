@@ -292,6 +292,11 @@ export default defineConfig({
             meta: {}
           },
           {
+            path: '/template/form/link',
+            title: '联动表单',
+            meta: {}
+          },
+          {
             path: '/template/form/setting',
             title: '设置中心模拟界面',
             meta: {}

@@ -1,6 +1,6 @@
-import React, { useRef } from 'react'
-import { AySearchList, AyFields, AyField, Record } from 'amiya'
-import { List, Card, Image, Space } from 'antd'
+import React, { useRef, useState } from 'react'
+import { AySearchList, AyFields, AyField, Record, AnyKeyProps } from 'amiya'
+import { List, Card, Image, Space, Divider } from 'antd'
 import { listApi } from '../api'
 import '../less/index.less'
 
@@ -48,6 +48,8 @@ const goodsTypeOptions = [
 export default function Demo() {
   // 列表控制
   const listRef = useRef<any>()
+  // 查询参数
+  const [searchValue, setSearchValue] = useState({})
 
   /** 刷新列表 */
   const reloadList = () => {
@@ -84,7 +86,10 @@ export default function Demo() {
         }}
         pagination={{ pageSize: 20 }}
         ref={listRef}
-        onParamsChange={() => window.scrollTo({ behavior: 'smooth', top: 0 })}
+        onParamsChange={(searchParams: AnyKeyProps) => {
+          window.scrollTo({ behavior: 'smooth', top: 0 })
+          setSearchValue(searchParams)
+        }}
         renderItem={(record: Record) => {
           // 卡片渲染内容
           return (
@@ -154,6 +159,8 @@ export default function Demo() {
           />
         </AyFields>
       </AySearchList>
+      <Divider orientation="left">查询参数</Divider>
+      {Object.keys(searchValue).length && <pre>{JSON.stringify(searchValue, null, 2)}</pre>}
     </div>
   )
 }

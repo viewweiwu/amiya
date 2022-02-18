@@ -42,29 +42,22 @@ const formProps: AnyKeyProps = {
 
 const switchProps = {
   type: 'switch',
-  props: {
-    size: 'large',
-    checkedChildren: '开启',
-    unCheckedChildren: '关闭'
-  }
+  size: 'large',
+  checkedChildren: '开启',
+  unCheckedChildren: '关闭'
 }
 
 const switchRightProps = {
-  type: 'switch',
-  props: {
-    ...switchProps.props,
-    style: {
-      float: 'right',
-      marginRight: 24
-    }
+  ...switchProps,
+  style: {
+    float: 'right',
+    marginRight: 24
   }
 }
 
 const sliderProps = {
-  props: {
-    tooltipVisible: true,
-    min: 0
-  }
+  tooltipVisible: true,
+  min: 0
 }
 
 export default function Demo() {

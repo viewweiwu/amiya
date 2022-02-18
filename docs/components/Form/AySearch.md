@@ -796,9 +796,7 @@ let fields: AySearchField[] = [
     title: '第一个',
     key: '1',
     type: 'date-range',
-    props: {
-      showTime: true
-    },
+    showTime: true,
     grid: {
       large: 12,
       middle: 16,
@@ -844,9 +842,7 @@ let fields: AySearchField[] = [
     title: '第五个',
     key: '5',
     type: 'date-range',
-    props: {
-      showTime: true
-    },
+    showTime: true,
 -   // 指定 span 值是无效的，因为不同容器的宽度，所占的 span 值不同，请使用 grid 来占位
 -   // span: 8,
     // 指定 4 种尺寸的 grid 占格

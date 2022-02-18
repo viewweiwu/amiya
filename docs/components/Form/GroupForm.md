@@ -195,10 +195,8 @@ export default function Demo() {
       key: 'a',
       required: true,
       // 需要手动设置输入框宽度，不然会撑满，此处设置 span 无效
-      props: {
-        style: {
-          width: '50%'
-        }
+      style: {
+        width: '50%'
       }
     },
     {
@@ -207,10 +205,8 @@ export default function Demo() {
       key: 'b',
       required: true,
       // 需要手动设置输入框宽度，不然会撑满，此处设置 span 无效
-      props: {
-        style: {
-          width: '50%'
-        }
+      style: {
+        width: '50%'
       }
     }
   ]

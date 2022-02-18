@@ -24,9 +24,7 @@ const fields: Array<AyFormField> = [
     title: '日期区间时间',
     key: 'datetime-range',
     type: 'date-range',
-    props: {
-      showTime: true
-    }
+    showTime: true
   },
   {
     title: '日期',
@@ -37,9 +35,7 @@ const fields: Array<AyFormField> = [
     title: '日期时间',
     key: 'datetime',
     type: 'date',
-    props: {
-      showTime: true
-    }
+    showTime: true
   }
 ]
 
