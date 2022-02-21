@@ -16,24 +16,26 @@ const fields: Array<AySearchTableField> = [
   {
     title: '姓名',
     key: 'cn',
-    render: (text: string, record: Record) => {
-      return (
-        <div>
-          <div>{record.cn}</div>
-          <div>{record.en}</div>
-          <div>{record.jp}</div>
-        </div>
-      )
-    },
     search: true,
     dialog: {
       required: true
+    },
+    table: {
+      render: (text: string, record: Record) => {
+        return (
+          <div>
+            <div>{record.cn}</div>
+            <div>{record.en}</div>
+            <div>{record.jp}</div>
+          </div>
+        )
+      }
     }
   },
   {
     title: '英文名',
     key: 'en',
-    hidden: true,
+    table: false,
     search: true,
     dialog: {
       required: true
@@ -42,7 +44,7 @@ const fields: Array<AySearchTableField> = [
   {
     title: '日文名',
     key: 'jp',
-    hidden: true,
+    table: false,
     search: true,
     dialog: {
       required: true
@@ -53,7 +55,6 @@ const fields: Array<AySearchTableField> = [
     key: 'class',
     type: 'select',
     options: professionOptions,
-    filter: true,
     dialog: true,
     search: true
   },
@@ -83,6 +84,9 @@ const fields: Array<AySearchTableField> = [
   {
     title: '描述',
     key: 'feature',
+    dialog: {
+      type: 'textarea'
+    },
     width: 200,
     renderType: 'html'
   }

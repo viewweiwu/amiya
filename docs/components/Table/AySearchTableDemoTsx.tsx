@@ -60,10 +60,10 @@ export default function Demo() {
             )
           }}
         />
-        <AyField title="英文名" key="en" search dialog hidden />
-        <AyField title="日文名" key="jp" search dialog hidden />
+        <AyField title="英文名" key="en" search dialog table={false} />
+        <AyField title="日文名" key="jp" search dialog table={false} />
         <AyField title="初始HP" key="ori-hp" search dialog />
-        <AyField title="职业" key="class" type="select" search dialog filter options={professionOptions} />
+        <AyField title="职业" key="class" type="select" search dialog options={professionOptions} />
         <AyField
           title="标签"
           key="tags"
@@ -81,7 +81,7 @@ export default function Demo() {
             控场: 'red'
           }}
         />
-        <AyField title="描述" key="feature" width={200} renderType="html" />
+        <AyField title="描述" key="feature" width={200} renderType="html" dialog={{ type: 'textarea' }} />
       </AyFields>
       <AyAction action="batch-delete">批量删除</AyAction>
       <AyAction action="add">新增</AyAction>

@@ -50,7 +50,7 @@ toc: false
 -  {
 -    title: '英文名',
 -    key: 'en',
--    hidden: true,
+-    table: false,
 -    search: true,
 -    dialog: {
 -      required: true
@@ -99,7 +99,7 @@ toc: false
 +       )
 +     }}
 +   />
-+   <AyField title="英文名" key="en" search dialog hidden />
++   <AyField title="英文名" key="en" search dialog table={false} />
 +   {// ...}
 + </AyFields>
   <AyAction action="batch-delete">批量删除</AyAction>
