@@ -4,6 +4,11 @@ order: 1
 
 # 更新日志
 
+## 0.48.0
+
+1. feat: `AyDialog` 支持 `onClose` 方法。
+2. feat: `AyDialog` 的 `setVisible` 变成可选的。
+
 ## 0.47.1
 
 1. feat: 优化 `Form` `render` 的次数。
