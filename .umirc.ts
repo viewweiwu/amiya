@@ -334,6 +334,11 @@ export default defineConfig({
             path: '/template/table/inline-search',
             title: '查询区域简化',
             meta: {}
+          },
+          {
+            path: '/template/table/multiple-table',
+            title: '多表格切换',
+            meta: {}
           }
         ]
       },
