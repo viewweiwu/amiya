@@ -15,8 +15,8 @@ export default function Demo() {
       <AyButton type="primary" onClick={() => setVisible(true)}>
         打开弹窗
       </AyButton>
-      <AyDialog title="メセージ" visible={visible} setVisible={setVisible} onConfirm={() => alert('确认')}>
-        <p>ドクター、終わってない仕事がたくさんありますから。まだ休んじゃダメですよ。</p>
+      <AyDialog title="弹窗" visible={visible} onClose={() => setVisible(false)} onConfirm={() => alert('确认')}>
+        <p>这里是弹窗的内容。</p>
       </AyDialog>
     </div>
   )
@@ -36,8 +36,14 @@ export default function Demo() {
       <AyButton type="primary" onClick={() => setVisible(true)}>
         打开弹窗
       </AyButton>
-      <AyDialog drawer title="メセージ" visible={visible} setVisible={setVisible} onConfirm={() => alert('确认')}>
-        <p>ドクター、終わってない仕事がたくさんありますから。まだ休んじゃダメですよ。</p>
+      <AyDialog
+        drawer
+        title="侧边弹窗"
+        visible={visible}
+        onClose={() => setVisible(false)}
+        onConfirm={() => alert('确认')}
+      >
+        <p>这里是弹窗的内容。</p>
       </AyDialog>
     </div>
   )
@@ -45,6 +51,8 @@ export default function Demo() {
 ```
 
 ## 没有下半部分按钮
+
+设置 `footer={false}` 可以让弹窗没有底部按钮。
 
 ```tsx
 import React, { useState } from 'react'
@@ -62,11 +70,11 @@ export default function Demo() {
       <AyButton type="primary" onClick={() => setVisibleDrawer(true)}>
         打开侧边弹窗
       </AyButton>
-      <AyDialog footer={false} title="メセージ" visible={visible} setVisible={setVisible}>
-        <p>ドクター、終わってない仕事がたくさんありますから。まだ休んじゃダメですよ。</p>
+      <AyDialog footer={false} title="弹窗" visible={visible} onClose={() => setVisible(false)}>
+        <p>这里是弹窗的内容。</p>
       </AyDialog>
-      <AyDialog footer={false} drawer title="メセージ" visible={visibleDrawer} setVisible={setVisibleDrawer}>
-        <p>ドクター、終わってない仕事がたくさんありますから。まだ休んじゃダメですよ。</p>
+      <AyDialog footer={false} drawer title="侧边弹窗" visible={visibleDrawer} onClose={() => setVisibleDrawer(false)}>
+        <p>这里是弹窗的内容。</p>
       </AyDialog>
     </Space>
   )
@@ -96,7 +104,7 @@ export default function Demo() {
         confirmAfter={<AyButton>确认之后</AyButton>}
         title="底部元素添加"
         visible={visible}
-        setVisible={setVisible}
+        setVisible={() => setVisible(false)}
         onConfirm={() => alert('确认')}
       >
         <p>头部有 2 个放置元素。</p>
@@ -114,7 +122,6 @@ export default function Demo() {
 | title          | 标题                              | ReactNode                           | -      |
 | visible        | 是否展示                          | boolean                             | -      |
 | setVisible     | 自动关闭弹窗时，可以传递此参数    | Dispatch<SetStateAction<boolean\>\> | -      |
-| onConfirm      | 确认按钮事件监听                  | () => void                          | -      |
 | loading        | 是否正在加载                      | boolean                             | -      |
 | footer         | 自定义底部按钮, 设置 false 会隐藏 | ReactNode \| boolean                | -      |
 | width          | 弹窗宽度                          | number                              | -      |
@@ -132,6 +139,8 @@ export default function Demo() {
 | cancelBefore   | 关闭按钮前置元素                  | ReactNode                           | -      |
 | cancelAfter    | 关闭按钮后置元素                  | ReactNode                           | -      |
 | className      | 样式                              | -                                   | -      |
+| onClose        | 弹窗关闭事件                      | () => void                          | -      |
+| onConfirm      | 确认按钮事件监听                  | () => void                          | -      |
 
 ### 样式设置注意点
 

@@ -10,7 +10,9 @@ export interface AyDialogProps extends ModalProps {
   /** 显示 */
   visible: boolean
   /** 显示控制 */
-  setVisible: Dispatch<SetStateAction<boolean>>
+  setVisible?: Dispatch<SetStateAction<boolean>>
+  /** 弹窗关闭 */
+  onClose?(): void
   /** 提交事件 */
   onConfirm?(): void
   /** 是否 loading */
