@@ -4,6 +4,10 @@ order: 1
 
 # 更新日志
 
+## 0.48.1
+
+1. fix: 修复 `AySearchTable` `Alert` 样式缺少。
+
 ## 0.48.0
 
 1. feat: `AyDialog` 支持 `onClose` 方法。
