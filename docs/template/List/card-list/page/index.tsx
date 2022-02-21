@@ -62,7 +62,7 @@ export default function Demo() {
         title="商品列表"
         api={listApi}
         searchExtend={{
-          // 展示最大行数
+          // 查询区域展示最大行数
           visibleRow: 99,
           // 不需要标点
           colon: false,
@@ -87,6 +87,7 @@ export default function Demo() {
         pagination={{ pageSize: 20 }}
         ref={listRef}
         onParamsChange={(searchParams: AnyKeyProps) => {
+          // 翻页 & 查询时，滚动到最顶部
           window.scrollTo({ behavior: 'smooth', top: 0 })
           setSearchValue(searchParams)
         }}
@@ -159,6 +160,7 @@ export default function Demo() {
           />
         </AyFields>
       </AySearchList>
+      {/* 页面打印用，实际使用删掉即可 */}
       <Divider orientation="left">查询参数</Divider>
       {Object.keys(searchValue).length && <pre>{JSON.stringify(searchValue, null, 2)}</pre>}
     </div>

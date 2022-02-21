@@ -111,12 +111,7 @@ export default function Demo() {
             </List.Item>
           )
         }}
-      >
-        <AyFields>
-          <AyField title="ID" key="id" />
-          <AyField title="标题" key="title" />
-        </AyFields>
-      </AySearchList>
+      />
       {/* 弹窗详情 */}
       <AyDialog
         drawer

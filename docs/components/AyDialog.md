@@ -1,7 +1,5 @@
 # AyDialog
 
-<!-- ![amiya AyDialog](https://misc.hzzcckj.cn/upload/image/202011/ac64d2e7e400000.png) -->
-
 ## 基础示例
 
 ```tsx
@@ -139,7 +137,7 @@ export default function Demo() {
 | cancelBefore   | 关闭按钮前置元素                  | ReactNode                           | -      |
 | cancelAfter    | 关闭按钮后置元素                  | ReactNode                           | -      |
 | className      | 样式                              | -                                   | -      |
-| onClose        | 弹窗关闭事件                      | () => void                          | -      |
+| onClose        | 弹窗关闭事件                      | () => void                          | 0.48.0 |
 | onConfirm      | 确认按钮事件监听                  | () => void                          | -      |
 
 ### 样式设置注意点
