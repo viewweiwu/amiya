@@ -1,6 +1,5 @@
 import React, { ReactNode, useState, ReactText, useEffect } from 'react'
-import Alert from 'antd/lib/alert'
-import { Tag, Popover } from 'antd'
+import { Tag, Popover, Alert } from 'antd'
 import AyAction from '../../AyButton'
 import { AnyKeyProps } from '../../types/AnyKeyProps'
 

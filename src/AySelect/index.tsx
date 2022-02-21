@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import Select from 'antd/lib/select'
+import { Select } from 'antd'
 import { Option } from '../AyForm/ay-form'
 import { AySelectProps } from './ay-select'
 import { omitObj } from '../utils'
