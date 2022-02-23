@@ -31,7 +31,7 @@ export default {
     deleteConfirm: '削除してもよろしいですか？',
     deleteSuccess: '削除成功',
     noSelection: '行を選択してください',
-    deleteConfirmTitle: 'OK',
+    deleteConfirmTitle: '確認',
     deleteConfirmBefore: '',
     deleteConfirmAfter: '行を選択しました、削除してもよろしいですか？',
     deleteConfirmBatchSuccess: '削除成功'
