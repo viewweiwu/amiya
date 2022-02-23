@@ -3,6 +3,7 @@ import AyButton from '../AyButton'
 import { Modal, Drawer, Space } from 'antd'
 import { AyDialogProps } from './ay-dialog'
 import { AnyKeyProps } from '@/types/AnyKeyProps'
+import locale from '../locale'
 
 export function AyDialogFooter(props: AyDialogProps, handleCancel: () => void, handleConfirm: () => void) {
   const {
@@ -24,14 +25,14 @@ export function AyDialogFooter(props: AyDialogProps, handleCancel: () => void, h
       {cancelBefore}
       {cancelVisible !== false && (
         <AyButton {...confirmProps} onClick={handleCancel}>
-          {cancelText || '关闭'}
+          {cancelText || locale.dialog.close}
         </AyButton>
       )}
       {cancelAfter}
       {confirmBefore}
       {confirmVisible !== false && (
         <AyButton type="primary" {...cancelProps} onClick={handleConfirm} loading={loading}>
-          {confirmText || '确定'}
+          {confirmText || locale.dialog.confirm}
         </AyButton>
       )}
       {confirmAfter}

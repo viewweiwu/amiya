@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tag } from 'antd'
 import { Option } from '../ay-form'
+import locale from '../../locale'
 
 const { CheckableTag } = Tag
 
@@ -83,7 +84,7 @@ export default function AyTagGroup(props: AyTagGroupProps) {
     <div>
       {showAllChecked !== false && (
         <CheckableTag key="all" checked={isEmpty} onChange={handleAllSelect}>
-          {allCheckedText || '全部'}
+          {allCheckedText || locale.tagGroup.all}
         </CheckableTag>
       )}
       {(options || []).map((option: Option, i: number) => (

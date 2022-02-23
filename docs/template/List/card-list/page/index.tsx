@@ -155,7 +155,7 @@ export default function Demo() {
           </AyField>
           <AyField
             title="销售时间"
-            key="title"
+            key="date"
             search={{ grid: block, style: sizeStyle, type: 'date-range', onChange: reloadList }}
           />
         </AyFields>

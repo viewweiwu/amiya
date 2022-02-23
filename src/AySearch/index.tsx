@@ -16,6 +16,7 @@ import { AnyKeyProps } from '../types/AnyKeyProps'
 import { SearchOutlined, ReloadOutlined, DownOutlined, UpOutlined } from '@ant-design/icons'
 import classNames from 'classnames'
 import { FORM_TYPE_DATE, FORM_TYPE_DATE_RANGE } from '../constant'
+import locale from '../locale'
 import './ay-search.less'
 
 type SearchSize = 'mini' | 'small' | 'middle' | 'large'
@@ -148,7 +149,7 @@ const getSearchFields = (
 }
 
 const getMiniLabel = (mini: boolean) => {
-  return mini ? '展开' : '收缩'
+  return mini ? locale.search.collapsed : locale.search.expand
 }
 
 /**
@@ -380,10 +381,10 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
               <Form.Item>
                 <Space>
                   <AyButton htmlType="submit" type="primary" icon={<SearchOutlined />}>
-                    查询
+                    {locale.search.search}
                   </AyButton>
                   <AyButton icon={<ReloadOutlined />} onClick={handleReset}>
-                    重置
+                    {locale.search.reset}
                   </AyButton>
                   {toggleVisible !== false && !inline
                     ? visibleSpan > visibleRow * 24 - (actionSpan || 0) && searchFields.length > 1 && <ToogleBtn />

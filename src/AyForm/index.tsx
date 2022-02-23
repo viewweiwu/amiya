@@ -41,6 +41,7 @@ import { AySearchTableField } from '../AySearchTable/ay-search-table'
 import { ColProps } from 'antd/lib/col'
 import { convertChildrenToAyFormField } from '../AyFields/convertFields'
 import { QuestionCircleOutlined } from '@ant-design/icons'
+import locale, { isJP } from '../locale'
 import './ay-form.less'
 
 moment.locale('zh-cn')
@@ -88,13 +89,13 @@ const getPlaceholder = (field: AyFormField | AySearchTableField): string => {
   }
 
   if (!field.type) {
-    return `请输入${field.title || ''}`
+    return `${locale.form.pleaseInput}${field.title || ''}${locale.form.pleaseInputAfter}`
   }
 
   if (
     [FORM_TYPE_INPUT, FORM_TYPE_NUMBER, FORM_TYPE_PERCENT, FORM_TYPE_PASSWORD, FORM_TYPE_TEXTAREA].includes(field.type)
   ) {
-    return `请输入${field.title || ''}`
+    return `${locale.form.pleaseInput}${field.title || ''}${locale.form.pleaseInputAfter}`
   } else if (
     [
       FORM_TYPE_SELECT,
@@ -107,10 +108,10 @@ const getPlaceholder = (field: AyFormField | AySearchTableField): string => {
       FORM_TYPE_TAG_GROUP
     ].includes(field.type)
   ) {
-    return `请选择${field.title || ''}`
+    return `${locale.form.pleaseSelect}${field.title || ''}${locale.form.pleaseSelectAfter}`
   }
 
-  return '请输入' + field.title || ''
+  return locale.form.pleaseInput + field.title || ''
 }
 
 /**
@@ -337,7 +338,7 @@ const getFormItem = (
 
     // 填充快捷 required 属性
     if (field.required) {
-      let rule = { required: true, message: getPlaceholder(field) }
+      let rule = { required: true, message: getPlaceholder(field) + locale.form.requiredText }
       if (field.children && field.type !== FORM_TYPE_CHECKBOX) {
         formItemProps.label = (
           <span>

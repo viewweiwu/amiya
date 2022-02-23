@@ -5,7 +5,7 @@ import { Dropdown, Menu, Checkbox, Space, Tooltip, Input } from 'antd'
 import { AyTableField } from '../../AyTable/ay-table'
 import { SizeType } from 'antd/lib/config-provider/SizeContext'
 import { AySearchTableProps, SearchTableInitConfig } from '../ay-search-table'
-
+import locale from '../../locale'
 import {
   ReloadOutlined,
   ColumnHeightOutlined,
@@ -146,7 +146,7 @@ const useFieldsEdit = (
 
   return (
     <>
-      <AyDialog title="设置展示列" visible={visible} setVisible={setVisible} onConfirm={handleConfirm}>
+      <AyDialog title={locale.extra.columnSetting} visible={visible} setVisible={setVisible} onConfirm={handleConfirm}>
         {normalFields.map((fieldEdit, i) => {
           return (
             <div className="ay-search-table-extra-fields-edit-line" key={fieldEdit.key}>
@@ -159,14 +159,14 @@ const useFieldsEdit = (
                 <Input
                   style={{ marginRight: 20 }}
                   value={fieldEdit.alias}
-                  placeholder="请输入别名"
+                  placeholder={locale.extra.rename}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => handleAliasChange(i, e.target.value)}
                   allowClear
                 />
-                <Tooltip title="上移" placement="left">
+                <Tooltip title={locale.extra.moveUp} placement="left">
                   <AyButton type="link" icon={<ArrowUpOutlined />} onClick={() => handleMoveUp(i)}></AyButton>
                 </Tooltip>
-                <Tooltip title="下移" placement="right">
+                <Tooltip title={locale.extra.moveDown} placement="right">
                   <AyButton type="link" icon={<ArrowDownOutlined />} onClick={() => handleMoveDown(i)}></AyButton>
                 </Tooltip>
               </div>
@@ -174,7 +174,7 @@ const useFieldsEdit = (
           )
         })}
       </AyDialog>
-      <Tooltip title="展示列">
+      <Tooltip title={locale.extra.columnSetting}>
         <SettingOutlined onClick={() => setVisible(true)} />
       </Tooltip>
     </>
@@ -227,19 +227,19 @@ export default function useExtraBtn(
     <div className="ay-search-table-extra-btns" key="ay-search-table-extra-btns">
       <Space size="middle">
         {extraRefreshVisible ? (
-          <Tooltip title="刷新">
+          <Tooltip title={locale.extra.refresh}>
             <ReloadOutlined onClick={handleRefresh} />
           </Tooltip>
         ) : null}
 
         {extraSizeVisible ? (
-          <Tooltip title="密度">
+          <Tooltip title={locale.extra.density}>
             <Dropdown
               overlay={
                 <Menu style={{ width: 100 }} selectedKeys={[size + '']} onClick={handleSizeChange}>
-                  <Menu.Item key="large">默认</Menu.Item>
-                  <Menu.Item key="middle">中等</Menu.Item>
-                  <Menu.Item key="small">紧凑</Menu.Item>
+                  <Menu.Item key="large">{locale.extra.densityLarger}</Menu.Item>
+                  <Menu.Item key="middle">{locale.extra.densityMiddle}</Menu.Item>
+                  <Menu.Item key="small">{locale.extra.densitySmall}</Menu.Item>
                 </Menu>
               }
             >
@@ -252,11 +252,11 @@ export default function useExtraBtn(
 
         {extraFullscreenVisible ? (
           isEnter ? (
-            <Tooltip title="还原" key="还原">
+            <Tooltip title={locale.extra.exitFullScreen} key={locale.extra.exitFullScreen}>
               <FullscreenExitOutlined className="ay-search-table-fullscrenn-enter" onClick={() => setIsEnter(false)} />
             </Tooltip>
           ) : (
-            <Tooltip title="全屏" key="全屏">
+            <Tooltip title={locale.extra.fullScreen} key={locale.extra.fullScreen}>
               <FullscreenOutlined className="ay-search-table-fullscrenn-out" onClick={() => setIsEnter(true)} />
             </Tooltip>
           )

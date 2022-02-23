@@ -271,6 +271,11 @@ export default defineConfig({
             path: '/components/Global/set-table-default-props',
             title: '设置表格默认属性',
             meta: {}
+          },
+          {
+            path: '/components/Global/locale',
+            title: '国际化',
+            meta: {}
           }
         ]
       }

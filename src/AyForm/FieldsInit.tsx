@@ -51,6 +51,7 @@ import AyTagGroup from './AyTagGroup'
 import AyCardGroup from './AyCardGroup'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { RegisterFieldProps } from './ay-form'
+import locale from '../locale'
 
 export const install = (registerField: (fieldType: string, field: RegisterFieldProps) => void) => {
   // 注册输入框
@@ -62,7 +63,7 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
         <span className="ay-form-text">{getFieldValue(field.key) || FORM_READONLY_EMPTY}</span>
       ) : (
         <Input
-          placeholder={`请输入${field.title || ''}`}
+          placeholder={`${locale.form.pleaseInput}${field.title || ''}${locale.form.pleaseInputAfter}`}
           disabled={readonly}
           maxLength={INPUT_DEFAULT_MAXLENGTH}
           allowClear={FORM_DEFAULT_ALLOW_CLEAR}
@@ -81,7 +82,7 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
         <span className="ay-form-text">{getFieldValue(field.key) || FORM_READONLY_EMPTY}</span>
       ) : (
         <Input.Search
-          placeholder={`请输入${field.title || ''}`}
+          placeholder={`${locale.form.pleaseInput}${field.title || ''}${locale.form.pleaseInputAfter}`}
           disabled={readonly}
           onPressEnter={e => {
             e.preventDefault()
@@ -146,7 +147,7 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
         </span>
       ) : (
         <Input.Password
-          placeholder={`请输入${field.title || ''}`}
+          placeholder={`${locale.form.pleaseInput}${field.title || ''}${locale.form.pleaseInputAfter}`}
           disabled={readonly}
           allowClear={FORM_DEFAULT_ALLOW_CLEAR}
           {...field.props}
@@ -163,7 +164,7 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
         <span className="ay-form-text">{getFieldValue(field.key) || FORM_READONLY_EMPTY}</span>
       ) : (
         <Input.TextArea
-          placeholder={`请输入${field.title || ''}`}
+          placeholder={`${locale.form.pleaseInput}${field.title || ''}${locale.form.pleaseInputAfter}`}
           disabled={readonly}
           allowClear={FORM_DEFAULT_ALLOW_CLEAR}
           maxLength={TEXTAREA_DEFAULT_MAXLENGTH}
@@ -193,7 +194,7 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
 
       return (
         <AySelect
-          placeholder={`请选择${field.title || ''}`}
+          placeholder={`${locale.form.pleaseSelect}${field.title || ''}${locale.form.pleaseSelectAfter}`}
           disabled={readonly}
           allowClear={FORM_DEFAULT_ALLOW_CLEAR}
           options={field.options}
@@ -249,7 +250,11 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
       return readonly ? (
         <span className="ay-form-text">{text || FORM_READONLY_EMPTY}</span>
       ) : (
-        <DatePicker className="max-width" placeholder={`请选择${field.title || ''}`} {...field.props} />
+        <DatePicker
+          className="max-width"
+          placeholder={`${locale.form.pleaseSelect}${field.title || ''}${locale.form.pleaseSelectAfter}`}
+          {...field.props}
+        />
       )
     }
   })
@@ -269,7 +274,7 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
               {(text[0] || '').toString()}
             </span>,
             <span key="divider" style={{ margin: '0 0.5em' }}>
-              至
+              {locale.form.dateTo}
             </span>,
             <span key="end" style={{ display: 'inline-block' }}>
               {(text[1] || '').toString()}
@@ -280,7 +285,11 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
       return readonly ? (
         <span className="ay-form-text">{text || FORM_READONLY_EMPTY}</span>
       ) : (
-        <DatePicker.RangePicker placeholder={['开始日期', '结束日期']} className="max-width" {...field.props} />
+        <DatePicker.RangePicker
+          placeholder={[locale.form.startDate, locale.form.endDate]}
+          className="max-width"
+          {...field.props}
+        />
       )
     }
   })

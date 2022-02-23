@@ -1,13 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Menu } from 'antd'
 import { context, Link, NavLink } from 'dumi/theme'
 import 'dumi-theme-default/src/components/Navbar.less'
-
-interface INavbarProps {
-  location: any
-  selectedKeys: string[]
-  navPrefix?: React.ReactNode
-}
 
 const Navbar = ({ navPrefix, location, selectedKeys }) => {
   const {
@@ -34,7 +28,6 @@ const Navbar = ({ navPrefix, location, selectedKeys }) => {
         {navPrefix}
       </span>
       {/* nav */}
-
       <Menu mode="horizontal" selectedKeys={selectedKeys} className="__amiya-nav">
         {navItems.map(nav => {
           return (

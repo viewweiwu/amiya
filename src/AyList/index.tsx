@@ -5,6 +5,7 @@ import { LoadParams, AyListProps } from '../AyTable/ay-table'
 import { clearEmpty } from '../utils'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { defaultDataFilter, defaultSearchFilter } from '../AyTable'
+import locale from '../locale'
 import './ay-list.less'
 
 export default forwardRef(function AyList(props: AyListProps, ref) {
@@ -249,7 +250,7 @@ export default forwardRef(function AyList(props: AyListProps, ref) {
         pagination={
           pagination !== false
             ? {
-                showTotal: total => `共 ${total} 条`,
+                showTotal: total => `${locale.table.totalBefore} ${total} ${locale.table.totalAfter}`,
                 showQuickJumper: true,
                 ...pagination,
                 total,

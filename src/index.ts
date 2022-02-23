@@ -19,6 +19,7 @@ import AyFields from './AyFields'
 import AyField from './AyField'
 import AySearchList from './AySearchList'
 import AyCardGroup from './AyForm/AyCardGroup'
+import { setLanguage } from './locale'
 
 export {
   AyCard,
@@ -48,7 +49,8 @@ export {
   success,
   info,
   error,
-  warning
+  warning,
+  setLanguage
 }
 
 export default {
@@ -78,5 +80,6 @@ export default {
   success,
   info,
   error,
-  warning
+  warning,
+  setLanguage
 }

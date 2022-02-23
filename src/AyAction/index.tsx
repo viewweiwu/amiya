@@ -7,6 +7,7 @@ import { AyActionProps } from './ay-action'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { EditableContext } from '../AyTable/EditableTable'
 import { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
+import locale from '../locale'
 
 export const actionMap: AnyKeyProps = {}
 
@@ -32,7 +33,7 @@ registerAction('add', (props, record, searchTable) => {
         { ...props.params, ...record },
         {
           onSuccess: (res: any) => {
-            success(props.successMsg || props.children + '成功')
+            success(props.successMsg || props.children + locale.action.success)
             searchTable.tableRef.current.refresh()
             // 请求完成回调
             if (props.onFinish) {
@@ -55,7 +56,7 @@ registerAction('update', (props, record, searchTable) => {
     onClick: () => {
       let extraParams = {
         onSuccess: (res: any) => {
-          success(props.successMsg || props.children + '成功')
+          success(props.successMsg || props.children + locale.action.success)
           searchTable.tableRef.current.refresh()
           // 请求完成回调
           if (props.onFinish) {
@@ -117,12 +118,12 @@ registerAction('view', (props, record, searchTable) => {
 registerAction('delete', (props, record, searchTable) => {
   return {
     confirm: true,
-    confirmMsg: '你确定要删除此行吗？',
+    confirmMsg: locale.action.deleteConfirm,
     onConfirm: () => {
       if (searchTable?.deleteApi && record) {
         const params = [record[searchTable?.rowKey || 'id']]
         searchTable?.deleteApi(params).then((data: any) => {
-          success(props.successMsg || '删除成功')
+          success(props.successMsg || locale.action.deleteSuccess)
           searchTable?.tableRef.current.refresh()
           // 请求完成回调
           if (props.onFinish) {
@@ -145,18 +146,18 @@ registerAction('batch-delete', (props, _record, searchTable) => {
     onClick: () => {
       let selection = searchTable?.selection || []
       if (!selection.length) {
-        info('请先选择一条数据')
+        info(locale.action.noSelection)
         return
       }
       if (searchTable?.deleteApi) {
         Modal.confirm({
-          title: '确定',
-          content: `您勾选了 ${selection.length} 个，确定要删除吗？`,
+          title: locale.action.deleteConfirmTitle,
+          content: `${locale.action.deleteConfirmBefore} ${selection.length} ${locale.action.deleteConfirmAfter}`,
           icon: <ExclamationCircleOutlined />,
           onOk: () => {
             let params: Array<string> = selection.map((row: any) => row[searchTable?.rowKey || 'id'])
             searchTable?.deleteApi(params).then((data: any) => {
-              success(props.successMsg || '批量删除成功')
+              success(props.successMsg || locale.action.deleteConfirmBatchSuccess)
               searchTable?.clearSelection()
               searchTable?.tableRef.current.refresh()
               // 请求完成回调
@@ -237,7 +238,7 @@ registerAction('editable-cancel', (props, record, searchTable) => {
 registerAction('editable-delete', (props, record, searchTable) => {
   return {
     confirm: true,
-    confirmMsg: '你确定要删除此行吗？',
+    confirmMsg: locale.action.deleteConfirm,
     onConfirm: () => {
       searchTable.tableRef.current.deleteRowByKey(record[searchTable.rowKey || 'id'])
     },

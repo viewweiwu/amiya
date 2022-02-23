@@ -8,6 +8,7 @@ import { clearEmpty } from '../utils'
 import { TABLE_PAGESIZE, TABLE_START_PAGE } from '../constant'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { SortItem } from '../AySearchTable/ay-search-table'
+import locale from '../locale'
 import './ay-table.less'
 
 /** 默认请求前列表过滤 */
@@ -417,7 +418,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
           pagination={
             pagination !== false
               ? {
-                  showTotal: total => `共 ${total} 条`,
+                  showTotal: total => `${locale.table.totalBefore} ${total} ${locale.table.totalAfter}`,
                   showQuickJumper: true,
                   ...pagination,
                   size: 'default',

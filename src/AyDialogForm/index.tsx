@@ -16,6 +16,7 @@ import { AyFormField } from '../AyForm/ay-form'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { convertChildrenToAyFormField } from '../AyFields/convertFields'
 import { omitObj } from '../utils'
+import locale from '../locale'
 
 /** 新增模式 */
 export const MODE_ADD = 'add'
@@ -73,10 +74,10 @@ const getTitle = (mode: ModeType, title?: ReactNode): ReactNode => {
     return title
   }
   let map: AnyKeyProps = {
-    [MODE_ADD]: '新增',
-    [MODE_UPDATE]: '编辑',
-    [MODE_VIEW]: '详情',
-    [MODE_CUSTOM]: '自定义'
+    [MODE_ADD]: locale.dialog.modeAdd,
+    [MODE_UPDATE]: locale.dialog.modeUpdate,
+    [MODE_VIEW]: locale.dialog.modeDetail,
+    [MODE_CUSTOM]: locale.dialog.modeCustom
   }
   return map[mode]
 }

@@ -32,6 +32,7 @@ export { Record } from './types/Record'
 export { setSearchDefaultVisibleRow } from './AySearch'
 export { registerAction } from './AyAction'
 export { registerField } from './AyForm'
+export { setLanguage } from './locale'
 export { setDefaultSearchFilter, setDefaultDataFilter, registerTableRender, setTableDefaultProps } from './AyTable'
 export { setSearchTableDefaultValue } from './AySearchTable'
 
