@@ -27,6 +27,7 @@ export default function AySearchDemo() {
     <AySearchList
       title="列表标题"
       selectionType="checkbox"
+      selectShowKey="cn"
       api={listApi}
       ctrl={ctrl}
       rowKey="sort_id"

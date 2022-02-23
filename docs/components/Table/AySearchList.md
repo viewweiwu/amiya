@@ -122,4 +122,45 @@ return (
 
 <code src="./AySearchListCardDemo">
 
+## AySearchList.Selection <Badge>0.50.0</Badge>
+
+可以在 `renderItem` 时将 `AySearchList.Selection` 插在任意位置，让列表拥有勾选的功能，`v0.50.0` 只支持多选。
+
+```diff
+  <AySearchList
+    title="列表标题"
++   selectionType="checkbox"
++   selectShowKey="cn"
+    api={listApi}
+    fields={fields}
+    ctrl={ctrl}
+    renderItem={(record: AnyKeyProps, index: number) => {
+      let starMap: AnyKeyProps = {
+        5: '⭐️⭐️⭐️⭐️⭐️⭐️',
+        4: '⭐️⭐️⭐️⭐️⭐️',
+        3: '⭐️⭐️⭐️⭐️',
+        2: '⭐️⭐️⭐️',
+        1: '⭐️⭐️',
+        0: '⭐️'
+      }
+      return (
+        <List.Item key={record.sort_id}>
++         <AySearchList.Selection record={record} >
+          <List.Item.Meta
+            avatar={<Avatar src={record.icon} size="large" />}
+            title={
+              <Space>
+                {record.cn} {starMap[record.rarity]}
+              </Space>
+            }
+            description={record.des || '暂时没有描述。'}
+          />
+          <div>{record.moredes || '暂时没有干员信息。'}</div>
+        </List.Item>
+      )
+    }}
+  />
+)
+```
+
 因为跟 AySearchTable 大部分 Api 相同，可参考 [AySearchTable](../table#参数) 文档
