@@ -92,7 +92,7 @@ export default defineConfig({
           },
           {
             path: '/components/form/card-group',
-            title: 'AyGroupCard 卡片选择',
+            title: 'AyCardGroup 卡片选择',
             meta: {}
           },
           {
