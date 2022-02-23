@@ -60,6 +60,7 @@ export default function AySearchDemo() {
               </AyCtrl>
             ]}
           >
+            <AySearchList.Selection record={record} style={{ marginRight: 8 }} />
             <List.Item.Meta
               avatar={<Avatar src={record.icon} size="large" />}
               title={
@@ -89,6 +90,8 @@ export default function AySearchDemo() {
         <AyField title="职业" key="class" type="select" search dialog options={professionOptions} />
         <AyField title="职描述业" key="des" type="textarea" dialog />
       </AyFields>
+      <AyAction action="batch-delete">批量删除</AyAction>
+      <AyAction action="add">新增</AyAction>
     </AySearchList>
   )
 }
