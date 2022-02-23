@@ -265,7 +265,16 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   /** 列表项 */
   const [tableFields, setTableFields] = useState<Array<AyTableField>>(getTableFields(fields))
   /** 使用勾选 */
-  const { header, message, tableRowSelection, selection, clearSelection, setSelection, addSelection } = useSelection({
+  const {
+    header,
+    message,
+    tableRowSelection,
+    selection,
+    clearSelection,
+    setSelection,
+    addSelection,
+    removeSelection
+  } = useSelection({
     rowKey: rowKey || 'id',
     selectionType,
     onSelectionChange,
@@ -475,7 +484,17 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   return (
     <div className={`ay-search-table ${isEnter ? 'full' : ''}`}>
       <AySearchTableContext.Provider
-        value={{ formRef, tableRef, selection, deleteApi, rowKey, clearSelection, searchTableRef: ref }}
+        value={{
+          formRef,
+          tableRef,
+          selection,
+          deleteApi,
+          rowKey,
+          clearSelection,
+          addSelection,
+          removeSelection,
+          searchTableRef: ref
+        }}
       >
         {searchVisible !== false && searchFields.length > 0 ? (
           <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} {...searchExtend} />

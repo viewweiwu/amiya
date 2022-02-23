@@ -95,6 +95,7 @@ export default function AySearchDemo() {
               </AyCtrl>
             ]}
           >
+            <AySearchList.Selection record={record} style={{ marginRight: 8 }} />
             <List.Item.Meta
               avatar={<Avatar src={record.icon} size="large" />}
               title={

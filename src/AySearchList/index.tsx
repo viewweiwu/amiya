@@ -27,8 +27,12 @@ import { AySearchTableContext } from '../AySearchTable/context'
 import { AyDialogFormRef } from '../AyDialogForm/ay-dialog-form'
 import useExtraBtn from '../AySearchTable/use/useExtraBtn'
 import { convertChildrenToAyFormField } from '../AyFields/convertFields'
+import Selection from './Selection'
 
 import './ay-search-list.less'
+
+export { Selection }
+
 /**
  * 转化并过滤成 ay-search 能用的 fields
  * @param fields 查询表格的 fields
@@ -115,7 +119,7 @@ const getTableActionBtns = (
   }
 }
 
-export default forwardRef(function AySearchList(props: AySearchListProps, ref: Ref<any>) {
+function AySearchList(props: AySearchListProps, ref: Ref<any>) {
   const {
     fields: originFields,
     api,
@@ -168,7 +172,16 @@ export default forwardRef(function AySearchList(props: AySearchListProps, ref: R
   /** 列表项 */
   const [tableFields, setTableFields] = useState<Array<AyTableField>>([])
   /** 使用勾选 */
-  const { header, message, tableRowSelection, selection, clearSelection, setSelection, addSelection } = useSelection({
+  const {
+    header,
+    message,
+    tableRowSelection,
+    selection,
+    clearSelection,
+    setSelection,
+    addSelection,
+    removeSelection
+  } = useSelection({
     rowKey: rowKey || 'id',
     selectionType,
     onSelectionChange,
@@ -341,7 +354,17 @@ export default forwardRef(function AySearchList(props: AySearchListProps, ref: R
   return (
     <div className={`ay-search-list ${isEnter ? 'full' : ''}`}>
       <AySearchTableContext.Provider
-        value={{ formRef, tableRef, selection, deleteApi, rowKey, clearSelection, searchTableRef: ref }}
+        value={{
+          formRef,
+          tableRef,
+          selection,
+          deleteApi,
+          rowKey,
+          clearSelection,
+          addSelection,
+          removeSelection,
+          searchTableRef: ref
+        }}
       >
         {searchVisible !== false && searchFields.length > 0 ? (
           <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} {...searchExtend} />
@@ -365,4 +388,11 @@ export default forwardRef(function AySearchList(props: AySearchListProps, ref: R
       </AySearchTableContext.Provider>
     </div>
   )
-})
+}
+
+const component = forwardRef(AySearchList)
+
+// @ts-ignore
+component.Selection = Selection
+
+export default component

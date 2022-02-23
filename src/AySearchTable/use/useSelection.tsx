@@ -33,6 +33,8 @@ interface UseSelectionReturns {
   setSelection(selection: Array<AnyKeyProps>): void
   /** 添加选中的项 */
   addSelection(selection: Array<AnyKeyProps>): void
+  /** 移除选项 */
+  removeSelection?(i: number | null, record?: AnyKeyProps): void
 }
 
 export default function useSelection(_props: UseSelectionProps): UseSelectionReturns {
@@ -226,6 +228,7 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
     tableRowSelection,
     selection,
     clearSelection,
+    removeSelection,
     setSelection: setDefaultSelection,
     addSelection: addDefaultSelection
   }
