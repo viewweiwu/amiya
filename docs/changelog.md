@@ -4,6 +4,10 @@ order: 1
 
 # 更新日志
 
+## 0.49.0
+
+1. feat: 支持多语言切换。
+
 ## 0.48.1
 
 1. fix: 修复 `AySearchTable` `Alert` 样式缺少。
