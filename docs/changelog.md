@@ -4,7 +4,16 @@ order: 1
 
 # 更新日志
 
+## 0.50.3
+
+`2022-02-24`
+
+1. fix: 修复默认 rowKey 失效。
+2. fix: 修复 Checkbox 的引用。
+
 ## 0.50.2
+
+`2022-02-24`
 
 1. fix: 修复 `AySearchList`、 `AySearchTable` 会出现如下错误
 
@@ -16,10 +25,14 @@ For more information, read the Rules of Hooks: https://reactjs.org/link/rules-of
 
 ## 0.50.1
 
+`2022-02-24`
+
 1. feat: 可以通过添加 `<AySearchList.SelectionAll />`，让列表支持全选
 2. feat: rowKey 支持 function
 
 ## 0.50.0
+
+`2022-02-23`
 
 1. feat: 可以通过添加 `<AySearchList.Selection />`，让列表也拥有选择框
 2. fix: 日文文案矫正
