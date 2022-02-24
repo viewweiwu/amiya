@@ -8,6 +8,7 @@ import { clearEmpty } from '../utils'
 import { TABLE_PAGESIZE, TABLE_START_PAGE } from '../constant'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { SortItem } from '../AySearchTable/ay-search-table'
+import { getKey } from '../utils'
 import locale from '../locale'
 import './ay-table.less'
 
@@ -283,7 +284,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     deleteRowByKey(key: string) {
       // @ts-ignore
       let newTableData = [...tableData]
-      let index = newTableData.findIndex(row => row[rowKey || 'id'] === key)
+      let index = newTableData.findIndex(row => getKey(row, rowKey) === key)
       if (index >= 0) {
         newTableData.splice(index, 1)
         setTableData(newTableData)
@@ -429,7 +430,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
               : false
           }
           onChange={handleTableChange}
-          rowKey={rowKey || 'id'}
+          rowKey={rowKey}
           size={size}
           scroll={{ x: scrollX, y: height }}
           {...tableDefaultProps}

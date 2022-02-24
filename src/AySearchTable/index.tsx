@@ -275,7 +275,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     addSelection,
     removeSelection
   } = useSelection({
-    rowKey: rowKey || 'id',
+    rowKey,
     selectionType,
     onSelectionChange,
     selectShowKey,
@@ -488,6 +488,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
           formRef,
           tableRef,
           selection,
+          data,
           deleteApi,
           rowKey,
           clearSelection,

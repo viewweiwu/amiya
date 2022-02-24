@@ -1,6 +1,7 @@
 import classnames from 'classnames'
 import React, { createContext, useState, ReactNode, useContext, useEffect } from 'react'
 import { Form } from 'antd'
+import { getKey } from '../utils'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 
 export const EditableContext = createContext<any>(null)
@@ -34,7 +35,7 @@ export function EditableCell(props: AnyKeyProps) {
     // @ts-ignore 重新构建数组
     const newTableData = [...tableData]
     // 寻找到对应行
-    const index = newTableData.findIndex(row => row[tableProps.rowKey || 'id'] === newRow[tableProps.rowKey || 'id'])
+    const index = newTableData.findIndex(row => getKey(row, tableProps.rowKey) === getKey(newRow, tableProps.rowKey))
     // 替换行
     newTableData.splice(index, 1, newRow)
     // 替换表格数据
@@ -107,7 +108,7 @@ export function EditableRowCell(props: AnyKeyProps) {
     // 重新构建数组
     const newTableData = [...tableData]
     // 寻找到对应行
-    const index = newTableData.findIndex(row => row[tableProps.rowKey || 'id'] === newRow[tableProps.rowKey || 'id'])
+    const index = newTableData.findIndex(row => getKey(row, tableProps.rowKey) === getKey(newRow, tableProps.rowKey))
     // 替换行
     newTableData.splice(index, 1, newRow)
     // 替换表格数据

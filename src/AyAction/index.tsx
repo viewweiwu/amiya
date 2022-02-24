@@ -8,6 +8,7 @@ import { AnyKeyProps } from '../types/AnyKeyProps'
 import { EditableContext } from '../AyTable/EditableTable'
 import { PlusOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
 import locale from '../locale'
+import { getKey, getRowKey } from '../utils'
 
 export const actionMap: AnyKeyProps = {}
 
@@ -121,7 +122,7 @@ registerAction('delete', (props, record, searchTable) => {
     confirmMsg: locale.action.deleteConfirm,
     onConfirm: () => {
       if (searchTable?.deleteApi && record) {
-        const params = [record[searchTable?.rowKey || 'id']]
+        const params = [getKey(record, searchTable?.rowKey)]
         searchTable?.deleteApi(params).then((data: any) => {
           success(props.successMsg || locale.action.deleteSuccess)
           searchTable?.tableRef.current.refresh()
@@ -155,7 +156,7 @@ registerAction('batch-delete', (props, _record, searchTable) => {
           content: `${locale.action.deleteConfirmBefore} ${selection.length} ${locale.action.deleteConfirmAfter}`,
           icon: <ExclamationCircleOutlined />,
           onOk: () => {
-            let params: Array<string> = selection.map((row: any) => row[searchTable?.rowKey || 'id'])
+            let params: Array<string> = selection.map((row: any) => getKey(row, searchTable?.rowKey))
             searchTable?.deleteApi(params).then((data: any) => {
               success(props.successMsg || locale.action.deleteConfirmBatchSuccess)
               searchTable?.clearSelection()
@@ -205,7 +206,7 @@ registerAction('editable-confirm', (props, record, searchTable, form) => {
         const newTableData = [...searchTable.tableRef.current.getTableData()]
         // 寻找到对应行
         const index = newTableData.findIndex(
-          row => row[searchTable.rowKey || 'id'] === newRow[searchTable.rowKey || 'id']
+          row => getKey(row, searchTable?.rowKey) === getKey(newRow, searchTable?.rowKey)
         )
         // 替换行
         newTableData.splice(index, 1, newRow)
@@ -240,7 +241,7 @@ registerAction('editable-delete', (props, record, searchTable) => {
     confirm: true,
     confirmMsg: locale.action.deleteConfirm,
     onConfirm: () => {
-      searchTable.tableRef.current.deleteRowByKey(record[searchTable.rowKey || 'id'])
+      searchTable.tableRef.current.deleteRowByKey(getKey(record, searchTable?.rowKey))
     },
     ...props
   }
@@ -259,7 +260,7 @@ registerAction('editable-add', (props, _record, searchTable) => {
       marginBottom: 8
     },
     onClick: () => {
-      searchTable.tableRef.current.addRow({ [searchTable.rowKey || 'id']: Date.now(), editing: true })
+      searchTable.tableRef.current.addRow({ [getRowKey({}, searchTable?.rowKey)]: Date.now(), editing: true })
     },
     ...props
   }

@@ -121,7 +121,7 @@ toc: false
 | deleteApi          | 批量删除接口。                                                                                                                               | Promise                                         | -      |
 | data               | 表格静态数据，不希望表格做请求，自己定义数据。                                                                                               | Array<Record\>                                  | -      |
 | ctrl               | 列表每一行后面数据跟着的按钮渲染。                                                                                                           | AySearchTableField                              | -      |
-| rowKey             | 列表每一行的唯一标志。                                                                                                                       | string                                          | 'id'   |
+| rowKey             | 列表每一行的唯一标志。                                                                                                                       | string \| (record: Record) => string            | 'id'   |
 | selectShowKey      | 批量删除，勾选时，在表格顶部会有数字，点击数字可以看到选项的名称。                                                                           | string                                          | 'name' |
 | dialogFormExtend   | [AyDialogForm][aydialogform] 的扩展配置。                                                                                                    | AyDialogFormProps                               | {}     |
 | scrollX            | 滚动的 X 轴数值。                                                                                                                            | number                                          | -      |

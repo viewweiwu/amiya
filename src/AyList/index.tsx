@@ -1,8 +1,8 @@
-import React, { useState, useCallback, useEffect, forwardRef, useImperativeHandle, useRef } from 'react'
+import React, { useState, useEffect, forwardRef, useImperativeHandle, useRef } from 'react'
 import { List, Space, Card } from 'antd'
 import { TABLE_PAGESIZE, TABLE_START_PAGE } from '../constant'
 import { LoadParams, AyListProps } from '../AyTable/ay-table'
-import { clearEmpty } from '../utils'
+import { clearEmpty, getKey } from '../utils'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { defaultDataFilter, defaultSearchFilter } from '../AyTable'
 import locale from '../locale'
@@ -195,7 +195,7 @@ export default forwardRef(function AyList(props: AyListProps, ref) {
     deleteRowByKey(key: string) {
       // @ts-ignore
       let newTableData = [...tableData]
-      let index = newTableData.findIndex(row => row[rowKey || 'id'] === key)
+      let index = newTableData.findIndex(row => getKey(row, rowKey) === key)
       if (index >= 0) {
         newTableData.splice(index, 1)
         setTableData(newTableData)

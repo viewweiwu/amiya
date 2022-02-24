@@ -2,12 +2,13 @@ import React, { ReactNode, useState, ReactText, useEffect } from 'react'
 import { Tag, Popover, Alert } from 'antd'
 import AyAction from '../../AyButton'
 import { AnyKeyProps } from '../../types/AnyKeyProps'
+import { getKey } from '../../utils'
 
 interface Row extends AnyKeyProps {}
 
 interface UseSelectionProps {
   /** 表格 rowKey */
-  rowKey: string
+  rowKey?: ((record: AnyKeyProps) => string) | string
   /** ☑️表格选择框类型 */
   selectionType?: 'checkbox' | 'radio'
   /** 📢表格选择改变触发事件 */
@@ -75,7 +76,7 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
    */
   const setDefaultSelection = (selection: AnyKeyProps[]) => {
     setSelection(selection)
-    setSelectionKeys(selection.map(row => row[rowKey]))
+    setSelectionKeys(selection.map(row => getKey(row, rowKey)))
   }
 
   /**
@@ -85,20 +86,20 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
     // @ts-ignore
     let newSelection = [...selection]
     addSelection.forEach(row => {
-      if (!selectionKeys.includes(row[rowKey])) {
+      if (!selectionKeys.includes(getKey(row, rowKey))) {
         newSelection.push(row)
       }
     })
 
     setSelection(newSelection)
-    setSelectionKeys(newSelection.map(row => row[rowKey]))
+    setSelectionKeys(newSelection.map(row => getKey(row, rowKey)))
   }
 
   const changeRadioSelection = (row: AnyKeyProps) => {
     let newKeys = []
     let newSelection = []
 
-    newKeys.push(row[rowKey])
+    newKeys.push(getKey(row, rowKey))
     newSelection.push(row)
 
     setSelectionKeys(newKeys)
@@ -114,7 +115,7 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
     let newKeys = [...selectionKeys]
     let newSelection = [...selection]
 
-    newKeys.push(row[rowKey])
+    newKeys.push(getKey(row, rowKey))
     newSelection.push(row)
 
     setSelectionKeys(newKeys)
@@ -133,7 +134,7 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
       if (!row) {
         return
       }
-      let key = row[rowKey]
+      let key = getKey(row, rowKey)
       if (!newKeys.includes(key)) {
         newKeys.push(key)
         newSelection.push(row)
@@ -153,7 +154,7 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
     let newSelection = [...selection]
 
     if (i === null && record) {
-      i = newKeys.findIndex(key => key === record[rowKey])
+      i = newKeys.findIndex(key => key === getKey(record, rowKey))
     }
 
     if (typeof i === 'number') {
@@ -174,7 +175,7 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
     let newSelection = [...selection]
 
     rows.forEach(row => {
-      let index = newKeys.findIndex(item => item === row[rowKey])
+      let index = newKeys.findIndex(item => item === getKey(row, rowKey))
       if (index >= 0) {
         newKeys.splice(index, 1)
         newSelection.splice(index, 1)
@@ -190,7 +191,7 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
     <div className="ay-search-poper">
       {selection.map((row, i) => {
         return (
-          <Tag key={row[rowKey || 'id']} closable className="mb" onClose={() => removeSelection(i)}>
+          <Tag key={getKey(row, rowKey)} closable className="mb" onClose={() => removeSelection(i)}>
             {row[selectShowKey || 'name']}
           </Tag>
         )

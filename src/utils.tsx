@@ -241,4 +241,34 @@ export const omitObj = (obj: AnyKeyProps, key: string | Array<string>) => {
   return result
 }
 
+/**
+ * 根据行获取 rowKey，默认取 id
+ * @param record 当前行
+ * @param rowKey
+ * @returns
+ */
+export const getRowKey = (record: AnyKeyProps, rowKey?: ((item: AnyKeyProps) => React.Key) | string) => {
+  try {
+    if (typeof rowKey === 'function') {
+      return rowKey(record)
+    } else if (typeof rowKey === 'string') {
+      return rowKey
+    } else {
+      return 'id'
+    }
+  } catch {
+    return 'id'
+  }
+}
+
+/**
+ * 根据 rowKey 获取行的 key
+ * @param record 当前行
+ * @param rowKey
+ * @returns
+ */
+export const getKey = (record: AnyKeyProps, rowKey?: ((item: AnyKeyProps) => React.Key) | string) => {
+  return record[getRowKey(record, rowKey)]
+}
+
 export default {}

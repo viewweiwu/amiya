@@ -39,8 +39,8 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   selectionType?: 'checkbox' | 'radio'
   /** 选项改变事件 */
   onSelectionChange?(selection: Array<Row>, selectionKeys: Array<string>): void
-  /** 列表的 rowKey */
-  rowKey?: string
+  /** rowKey */
+  rowKey?: ((record: AnyKeyProps) => string) | string
   /** 选择时列表展示的 key */
   selectShowKey?: string
   /** dialog form 的配置 */

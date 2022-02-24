@@ -21,7 +21,7 @@ export interface AyListProps {
   /** 列表查询完成监听 */
   onLoad?(records: Array<AnyKeyProps>, data: any): void
   /** rowKey */
-  rowKey?: string
+  rowKey?: ((record: AnyKeyProps) => string) | string
   /** 加载玩数据过滤 */
   filterData?(data: AnyKeyProps): AnyKeyProps
   /** 查询前过滤 */
@@ -69,7 +69,7 @@ export interface AyTableProps {
   /** 表格查询完成监听 */
   onLoad?(records: Array<AnyKeyProps>, data: any): void
   /** rowKey */
-  rowKey?: string
+  rowKey?: ((record: AnyKeyProps) => string) | string
   /** 横向滚动宽度 */
   scrollX?: number
   /** 表格高度 */
