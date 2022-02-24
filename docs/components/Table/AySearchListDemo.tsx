@@ -1,6 +1,6 @@
 import React from 'react'
 import { AySearchList, AyAction, AyCtrl, AySearchTableField, AyTableCtrlField, AnyKeyProps } from 'amiya'
-import { List, Space, Avatar } from 'antd'
+import { List, Space, Avatar, Col, Row } from 'antd'
 import { listApi, addApi, updateApi, deleteApi, professionOptions } from '../api'
 
 const ctrl: AyTableCtrlField = {
@@ -70,6 +70,17 @@ export default function AySearchDemo() {
       pagination={{
         pageSize: 20
       }}
+      listHeader={
+        <Row style={{ backgroundColor: '#fafafa', padding: '12px 24px', fontWeight: 500 }}>
+          <Col flex="20px">
+            <AySearchList.SelectionAll />
+          </Col>
+          <Col flex="1" style={{ paddingLeft: 8 }}>
+            干员信息
+          </Col>
+          <Col flex="130px">操作</Col>
+        </Row>
+      }
       renderItem={(record: AnyKeyProps, index: number) => {
         let starMap: AnyKeyProps = {
           5: '⭐️⭐️⭐️⭐️⭐️⭐️',

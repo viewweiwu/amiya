@@ -50,49 +50,7 @@ toc: false
 return (
   <AySearchList
     title="列表标题"
-    selectionType="checkbox"
-    api={listApi}
 -   fields={fields}
-    ctrl={ctrl}
-    renderItem={(record: AnyKeyProps, index: number) => {
-      let starMap: AnyKeyProps = {
-        5: '⭐️⭐️⭐️⭐️⭐️⭐️',
-        4: '⭐️⭐️⭐️⭐️⭐️',
-        3: '⭐️⭐️⭐️⭐️',
-        2: '⭐️⭐️⭐️',
-        1: '⭐️⭐️',
-        0: '⭐️'
-      }
-      return (
-        <List.Item
-          key={record.sort_id}
-          actions={[
-            <AyCtrl>
-              <AyAction record={record} action="view">
-                详情
-              </AyAction>
-              <AyAction record={record} action="update">
-                编辑
-              </AyAction>
-              <AyAction record={record} action="delete">
-                删除
-              </AyAction>
-            </AyCtrl>
-          ]}
-        >
-          <List.Item.Meta
-            avatar={<Avatar src={record.icon} size="large" />}
-            title={
-              <Space>
-                {record.cn} {starMap[record.rarity]}
-              </Space>
-            }
-            description={record.des || '暂时没有描述。'}
-          />
-          <div>{record.moredes || '暂时没有干员信息。'}</div>
-        </List.Item>
-      )
-    }}
     dialogFormExtend={{
 -     fields: fields,
       updateApi,
@@ -109,9 +67,7 @@ return (
 +      <AyField title="中文名" key="cn" search dialog={{ required: true }} />
 +      <AyField title="职业" key="class" type="select" search dialog options={professionOptions} />
 +      <AyField title="职描述业" key="des" type="textarea" dialog />
-    </AyFields>
-    <AyAction action="batch-delete">批量删除</AyAction>
-    <AyAction action="add">新增</AyAction>
++   </AyFields>
   </AySearchList>
 )
 ```
@@ -127,40 +83,49 @@ return (
 可以在 `renderItem` 时将 `AySearchList.Selection` 插在任意位置，让列表拥有勾选的功能，`v0.50.0` 只支持多选。
 
 ```diff
-  <AySearchList
-    title="列表标题"
-+   selectionType="checkbox"
-+   selectShowKey="cn"
-    api={listApi}
-    fields={fields}
-    ctrl={ctrl}
-    renderItem={(record: AnyKeyProps, index: number) => {
-      let starMap: AnyKeyProps = {
-        5: '⭐️⭐️⭐️⭐️⭐️⭐️',
-        4: '⭐️⭐️⭐️⭐️⭐️',
-        3: '⭐️⭐️⭐️⭐️',
-        2: '⭐️⭐️⭐️',
-        1: '⭐️⭐️',
-        0: '⭐️'
-      }
-      return (
-        <List.Item key={record.sort_id}>
-+         <AySearchList.Selection record={record} >
-          <List.Item.Meta
-            avatar={<Avatar src={record.icon} size="large" />}
-            title={
-              <Space>
-                {record.cn} {starMap[record.rarity]}
-              </Space>
-            }
-            description={record.des || '暂时没有描述。'}
-          />
-          <div>{record.moredes || '暂时没有干员信息。'}</div>
-        </List.Item>
-      )
-    }}
-  />
-)
+<AySearchList
+  title="列表标题"
++ selectionType="checkbox"
++ selectShowKey="cn"
+  renderItem={(record: AnyKeyProps, index: number) => {
+    return (
+      <List.Item key={record.sort_id}>
++       <AySearchList.Selection record={record} />
+      </List.Item>
+    )
+  }}
+/>
 ```
 
-因为跟 AySearchTable 大部分 Api 相同，可参考 [AySearchTable](../table#参数) 文档
+### 禁用选项 <Badge>0.50.1</Badge>
+
+```diff
+<AySearchList.Selection
+  record={record}
++ disabled
+/>
+```
+
+### AySearchList.SelectionAll <Badge>0.50.1</Badge>
+
+当你需要模拟一个全选的选项时，可以插入此元素。
+
+如下面的例子，插入一个虚拟的头部。
+
+```diff
+<AySearchList
++ listHeader={
++   <Row style={{ backgroundColor: '#fafafa', padding: '12px 24px', fontWeight: 500 }}>
++     <Col flex="20px">
++       <AySearchList.SelectionAll />
++     </Col>
++     <Col flex="1" style={{ paddingLeft: 8 }}>
++       干员信息
++     </Col>
++     <Col flex="130px">操作</Col>
++   </Row>
++ }
+/>
+```
+
+其它 Api 跟 AySearchTable 大部分 Api 相同，可参考 [AySearchTable](../table#参数) 文档

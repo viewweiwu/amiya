@@ -28,10 +28,11 @@ import { AyDialogFormRef } from '../AyDialogForm/ay-dialog-form'
 import useExtraBtn from '../AySearchTable/use/useExtraBtn'
 import { convertChildrenToAyFormField } from '../AyFields/convertFields'
 import Selection from './Selection'
+import SelectionAll from './SelectionAll'
 
 import './ay-search-list.less'
 
-export { Selection }
+export { Selection, SelectionAll }
 
 /**
  * 转化并过滤成 ay-search 能用的 fields
@@ -182,7 +183,7 @@ function AySearchList(props: AySearchListProps, ref: Ref<any>) {
     addSelection,
     removeSelection
   } = useSelection({
-    rowKey: rowKey || 'id',
+    rowKey,
     selectionType,
     onSelectionChange,
     selectShowKey,
@@ -361,6 +362,7 @@ function AySearchList(props: AySearchListProps, ref: Ref<any>) {
           deleteApi,
           rowKey,
           clearSelection,
+          setSelection,
           addSelection,
           removeSelection,
           searchTableRef: ref
@@ -394,5 +396,7 @@ const component = forwardRef(AySearchList)
 
 // @ts-ignore
 component.Selection = Selection
+// @ts-ignore
+component.SelectionAll = SelectionAll
 
 export default component

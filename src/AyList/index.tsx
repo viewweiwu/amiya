@@ -5,6 +5,7 @@ import { LoadParams, AyListProps } from '../AyTable/ay-table'
 import { clearEmpty, getKey } from '../utils'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { defaultDataFilter, defaultSearchFilter } from '../AyTable'
+import { AyListContext } from './context'
 import locale from '../locale'
 import './ay-list.less'
 
@@ -48,6 +49,8 @@ export default forwardRef(function AyList(props: AyListProps, ref) {
   const [loading, setLoading] = useState<boolean>(false)
   /** 总共多少条 */
   const [total, setTotal] = useState<number>(0)
+  /** 禁用的选项的 key */
+  const [disabledKeys, setDisabledKeys] = useState([])
 
   useEffect(() => {
     setTableData(data || [])
@@ -227,42 +230,50 @@ export default forwardRef(function AyList(props: AyListProps, ref) {
   }
 
   return (
-    <Card className={`ay-list ${className || ''}`}>
-      {hasHeader() ? (
-        <header className="ay-list-header">
-          <div className="ay-list-header-left">
-            <Space>{typeof title === 'string' ? <h2 className="ay-list-title">{title}</h2> : title}</Space>
-          </div>
-          <div className="ay-list-header-right">
-            <Space>
-              {btnBefore}
-              {children}
-            </Space>
-          </div>
-        </header>
-      ) : null}
-      {header}
-      {listHeader}
-      <List
-        itemLayout="horizontal"
-        dataSource={tableData}
-        loading={loading}
-        pagination={
-          pagination !== false
-            ? {
-                showTotal: total => `${locale.table.totalBefore} ${total} ${locale.table.totalAfter}`,
-                showQuickJumper: true,
-                ...pagination,
-                total,
-                onChange: handleTableChange,
-                current: loadParams.pagination.current,
-                pageSize: loadParams.pagination.pageSize
-              }
-            : false
-        }
-        renderItem={renderItem}
-        {...listExtend}
-      ></List>
-    </Card>
+    <AyListContext.Provider
+      value={{
+        data: tableData,
+        disabledKeys,
+        setDisabledKeys
+      }}
+    >
+      <Card className={`ay-list ${className || ''}`}>
+        {hasHeader() ? (
+          <header className="ay-list-header">
+            <div className="ay-list-header-left">
+              <Space>{typeof title === 'string' ? <h2 className="ay-list-title">{title}</h2> : title}</Space>
+            </div>
+            <div className="ay-list-header-right">
+              <Space>
+                {btnBefore}
+                {children}
+              </Space>
+            </div>
+          </header>
+        ) : null}
+        {header}
+        {listHeader}
+        <List
+          itemLayout="horizontal"
+          dataSource={tableData}
+          loading={loading}
+          pagination={
+            pagination !== false
+              ? {
+                  showTotal: total => `${locale.table.totalBefore} ${total} ${locale.table.totalAfter}`,
+                  showQuickJumper: true,
+                  ...pagination,
+                  total,
+                  onChange: handleTableChange,
+                  current: loadParams.pagination.current,
+                  pageSize: loadParams.pagination.pageSize
+                }
+              : false
+          }
+          renderItem={renderItem}
+          {...listExtend}
+        ></List>
+      </Card>
+    </AyListContext.Provider>
   )
 })
