@@ -4,6 +4,16 @@ order: 1
 
 # 更新日志
 
+## 0.50.2
+
+1. fix: 修复 `AySearchList`、 `AySearchTable` 会出现如下错误
+
+```
+Warning: React has detected a change in the order of Hooks called by ForwardRef(AySearchList).
+This will lead to bugs and errors if not fixed.
+For more information, read the Rules of Hooks: https://reactjs.org/link/rules-of-hooks
+```
+
 ## 0.50.1
 
 1. feat: 可以通过添加 `<AySearchList.SelectionAll />`，让列表支持全选
