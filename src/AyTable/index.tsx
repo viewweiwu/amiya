@@ -5,7 +5,7 @@ import RenderMapInit from './RenderMapInit'
 import { AyTableField, AyTableProps, RenderProps, LoadParams } from './ay-table'
 import { getComponents } from './EditableTable'
 import { clearEmpty } from '../utils'
-import { TABLE_PAGESIZE, TABLE_START_PAGE } from '../constant'
+import { TABLE_DEFAULT_ROW_KEY, TABLE_PAGESIZE, TABLE_START_PAGE } from '../constant'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { SortItem } from '../AySearchTable/ay-search-table'
 import { getKey } from '../utils'
@@ -67,7 +67,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     rowSelection,
     ctrl,
     onLoad,
-    rowKey,
+    rowKey = TABLE_DEFAULT_ROW_KEY,
     scrollX,
     autoload,
     filterData,

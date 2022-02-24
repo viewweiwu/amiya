@@ -2,6 +2,7 @@ import React from 'react'
 import { AnyKeyProps } from './types/AnyKeyProps'
 import { Option } from './AyForm/ay-form'
 import { Badge, Tag } from 'antd'
+import { TABLE_DEFAULT_ROW_KEY } from './constant'
 
 /**
  * 拷贝对象
@@ -254,10 +255,10 @@ export const getRowKey = (record: AnyKeyProps, rowKey?: ((item: AnyKeyProps) => 
     } else if (typeof rowKey === 'string') {
       return rowKey
     } else {
-      return 'id'
+      return TABLE_DEFAULT_ROW_KEY
     }
   } catch {
-    return 'id'
+    return TABLE_DEFAULT_ROW_KEY
   }
 }
 

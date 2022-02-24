@@ -1,6 +1,6 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle, useRef } from 'react'
 import { List, Space, Card } from 'antd'
-import { TABLE_PAGESIZE, TABLE_START_PAGE } from '../constant'
+import { TABLE_DEFAULT_ROW_KEY, TABLE_PAGESIZE, TABLE_START_PAGE } from '../constant'
 import { LoadParams, AyListProps } from '../AyTable/ay-table'
 import { clearEmpty, getKey } from '../utils'
 import { AnyKeyProps } from '../types/AnyKeyProps'
@@ -21,7 +21,7 @@ export default forwardRef(function AyList(props: AyListProps, ref) {
     renderItem,
     listExtend,
     onLoad,
-    rowKey,
+    rowKey = TABLE_DEFAULT_ROW_KEY,
     autoload,
     filterData,
     beforeSearch,
