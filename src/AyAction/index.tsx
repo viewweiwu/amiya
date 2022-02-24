@@ -271,9 +271,8 @@ registerAction('editable-add', (props, _record, searchTable) => {
  * @param props 当前 props
  * @param searchTable searchTable 对象
  */
-export const getActionProps = (props: AyActionProps, searchTable: any) => {
+export const getActionProps = (props: AyActionProps, searchTable: any, form?: AnyKeyProps) => {
   const { action, record } = props
-  const form = useContext(EditableContext)
   let targetAction = actionMap[action || '']
   if (targetAction) {
     let actionProps: AnyKeyProps = targetAction(props, record, searchTable, form)
@@ -284,7 +283,8 @@ export const getActionProps = (props: AyActionProps, searchTable: any) => {
 
 export default function AyAction(props: AyActionProps) {
   const searchTable: any = useContext(AySearchTableContext)
-  const actionProps = getActionProps(props, searchTable)
+  const form = useContext(EditableContext)
+  const actionProps = getActionProps(props, searchTable, form)
   return <AyButton {...actionProps} />
 }
 
