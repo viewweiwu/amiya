@@ -4,6 +4,11 @@ order: 1
 
 # 更新日志
 
+## 0.50.1
+
+1. feat: 可以通过添加 `<AySearchList.SelectionAll />`，让列表支持全选
+2. feat: rowKey 支持 function
+
 ## 0.50.0
 
 1. feat: 可以通过添加 `<AySearchList.Selection />`，让列表也拥有选择框
