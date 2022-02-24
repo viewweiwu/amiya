@@ -1,7 +1,7 @@
 import { AnyKeyProps } from '@/types/AnyKeyProps'
 import { Record } from '@/types/Record'
 import { getKey, getRowKey } from '../../utils'
-import Checkbox from 'antd/lib/checkbox/Checkbox'
+import { Checkbox } from 'antd'
 import React, { useContext, useEffect } from 'react'
 import { AySearchTableContext } from '../../AySearchTable/context'
 import { AyListContext } from '../../AyList/context'

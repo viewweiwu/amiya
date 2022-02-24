@@ -38,10 +38,10 @@ import {
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 import { AySearchTableField } from '../AySearchTable/ay-search-table'
-import { ColProps } from 'antd/lib/col'
+import { ColProps } from 'antd'
 import { convertChildrenToAyFormField } from '../AyFields/convertFields'
 import { QuestionCircleOutlined } from '@ant-design/icons'
-import locale, { isJP } from '../locale'
+import locale from '../locale'
 import './ay-form.less'
 
 moment.locale('zh-cn')
