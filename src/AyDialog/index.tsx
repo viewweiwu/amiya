@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { isValidElement, useMemo } from 'react'
 import AyButton from '../AyButton'
 import { Modal, Drawer, Space } from 'antd'
 import { AyDialogProps } from './ay-dialog'
 import { AnyKeyProps } from '@/types/AnyKeyProps'
 import locale from '../locale'
+import { omitObj } from '../utils'
+
+const usedKeys = [
+  'loading',
+  'confirmVisible',
+  'cancelVisible',
+  'confirmText',
+  'cancelText',
+  'confirmProps',
+  'cancelProps',
+  'confirmBefore',
+  'confirmAfter',
+  'cancelBefore',
+  'cancelAfter'
+]
 
 export function AyDialogFooter(props: AyDialogProps, handleCancel: () => void, handleConfirm: () => void) {
   const {
@@ -55,6 +70,15 @@ export default function AyDialog(props: AyDialogProps) {
     drawer,
     ...extraProps
   } = props
+  // 弹窗脚步
+  const dialogFooter = useMemo(() => {
+    if (footer === false || footer === null) {
+      return null
+    } else if (isValidElement(footer)) {
+      return footer
+    }
+    return AyDialogFooter(props, handleCancel, handleConfirm)
+  }, [footer])
 
   const handleCancel = () => {
     setVisible && setVisible(false)
@@ -80,8 +104,8 @@ export default function AyDialog(props: AyDialogProps) {
         visible,
         closable: true,
         onClose: handleCancel,
-        footer: footer === false ? null : AyDialogFooter(props, handleCancel, handleConfirm),
-        ...extraProps
+        footer: dialogFooter,
+        ...omitObj(extraProps, usedKeys)
       }
     : {
         width: width || 500,
@@ -94,8 +118,8 @@ export default function AyDialog(props: AyDialogProps) {
         ),
         visible,
         onCancel: handleCancel,
-        footer: footer === false ? null : AyDialogFooter(props, handleCancel, handleConfirm),
-        ...extraProps
+        footer: dialogFooter,
+        ...omitObj(extraProps, usedKeys)
       }
 
   return drawer ? (
