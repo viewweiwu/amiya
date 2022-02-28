@@ -1,0 +1,148 @@
+.ay-card-group {
+  margin: 0;
+  margin-top: -8px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+
+  &-option {
+    padding: 8px 12px;
+    border: 1px solid var(--ay-border-color);
+    border-radius: 2px;
+    margin-right: 8px;
+    margin-top: 8px;
+    background-color: #fff;
+    cursor: pointer;
+    float: left;
+    display: flex;
+    position: relative;
+    transition: 200ms;
+    max-width: 300px;
+
+    &:hover:not(.ay-card-group-option-disabled) {
+      border-color: var(--ay-primary-border-color);
+    }
+
+    &-disabled {
+      background-color: var(--ay-disabled-bg-color);
+      border-color: var(--ay-border-color);
+      cursor: not-allowed;
+      color: var(--ay-disabled-font-color);
+
+      .ay-card-group {
+        &-desc {
+          color: var(--ay-disabled-font-color);
+        }
+
+        &-cover {
+          opacity: 0.3;
+        }
+      }
+    }
+
+    &-active {
+      background-color: var(--ay-primary-bg-color);
+      border-color: var(--ay-primary-border-color);
+    }
+
+    &-has-desc {
+      .ay-card-group {
+        &-info {
+          display: block;
+        }
+
+        &-large {
+          .ay-card-group-title {
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+
+  &-cover {
+    flex-shrink: 0;
+    height: 100%;
+    margin-right: 8px;
+    user-select: none;
+
+    &.ay-card-group {
+      &-no-info {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &-title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &-desc {
+    color: var(--ay-sub-color);
+    font-size: 12px;
+  }
+
+  &-readonly {
+    .ay-card-group-option {
+      cursor: unset;
+
+      &:hover {
+        border-color: var(--ay-border-color);
+      }
+      &-active {
+        &:hover {
+          border-color: var(--ay-primary-border-color);
+          background-color: var(--ay-primary-bg-color);
+        }
+      }
+    }
+  }
+
+  &-multiple {
+    .ay-card-group-option-active {
+      &::after {
+        content: '';
+        top: 2px;
+        right: 2px;
+        width: 10px;
+        height: 10px;
+        border: 5px solid var(--ay-primary-color);
+        border-left: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-top-right-radius: 2px;
+        position: absolute;
+      }
+    }
+  }
+
+  &-info {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  &-large {
+    margin-top: -16px;
+
+    .ay-card-group {
+      &-option {
+        width: 300px;
+        padding: 12px 16px;
+        margin-right: 16px;
+        margin-top: 16px;
+      }
+
+      &-cover {
+        width: 48px;
+        height: 48px;
+      }
+
+      &-desc {
+        font-size: 14px;
+      }
+    }
+  }
+}
