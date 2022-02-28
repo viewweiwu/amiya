@@ -70,15 +70,6 @@ export default function AyDialog(props: AyDialogProps) {
     drawer,
     ...extraProps
   } = props
-  // 弹窗脚步
-  const dialogFooter = useMemo(() => {
-    if (footer === false || footer === null) {
-      return null
-    } else if (isValidElement(footer)) {
-      return footer
-    }
-    return AyDialogFooter(props, handleCancel, handleConfirm)
-  }, [footer])
 
   const handleCancel = () => {
     setVisible && setVisible(false)
@@ -90,6 +81,16 @@ export default function AyDialog(props: AyDialogProps) {
       onConfirm()
     }
   }
+
+  // 弹窗底部按钮
+  const dialogFooter = (function() {
+    if (footer === false || footer === null) {
+      return null
+    } else if (footer === undefined) {
+      return AyDialogFooter(props, handleCancel, handleConfirm)
+    }
+    return footer
+  })()
 
   const dialogProps: AnyKeyProps = drawer
     ? {
