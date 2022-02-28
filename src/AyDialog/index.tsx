@@ -1,4 +1,4 @@
-import React, { isValidElement, useMemo } from 'react'
+import React from 'react'
 import AyButton from '../AyButton'
 import { Modal, Drawer, Space } from 'antd'
 import { AyDialogProps } from './ay-dialog'
@@ -83,14 +83,14 @@ export default function AyDialog(props: AyDialogProps) {
   }
 
   // 弹窗底部按钮
-  const dialogFooter = (function() {
+  const getDialogFooter = function() {
     if (footer === false || footer === null) {
       return null
     } else if (footer === undefined) {
       return AyDialogFooter(props, handleCancel, handleConfirm)
     }
     return footer
-  })()
+  }
 
   const dialogProps: AnyKeyProps = drawer
     ? {
@@ -105,7 +105,7 @@ export default function AyDialog(props: AyDialogProps) {
         visible,
         closable: true,
         onClose: handleCancel,
-        footer: dialogFooter,
+        footer: getDialogFooter(),
         ...omitObj(extraProps, usedKeys)
       }
     : {
@@ -119,7 +119,7 @@ export default function AyDialog(props: AyDialogProps) {
         ),
         visible,
         onCancel: handleCancel,
-        footer: dialogFooter,
+        footer: getDialogFooter(),
         ...omitObj(extraProps, usedKeys)
       }
 
