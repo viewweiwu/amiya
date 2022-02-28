@@ -41,7 +41,11 @@ export default {
   },
   table: {
     totalBefore: '共',
-    totalAfter: '条'
+    totalAfter: '条',
+    selectedTitle: '已经选中的选项',
+    selectedBefore: '已选择：',
+    selectedAfter: '条',
+    selectedClear: '清空'
   },
   form: {
     pleaseInput: '请输入',

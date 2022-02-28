@@ -41,7 +41,11 @@ export default {
   },
   table: {
     totalBefore: 'Total',
-    totalAfter: 'items'
+    totalAfter: 'items',
+    selectedTitle: 'Selection',
+    selectedBefore: 'Selected: ',
+    selectedAfter: 'items',
+    selectedClear: 'Remove All'
   },
   form: {
     pleaseInput: 'input ',

@@ -41,7 +41,11 @@ export default {
   },
   table: {
     totalBefore: '',
-    totalAfter: '/ 合計'
+    totalAfter: '/ 合計',
+    selectedTitle: 'すでに選択されている項目',
+    selectedBefore: '合計：',
+    selectedAfter: '項目',
+    selectedClear: 'すべて削除'
   },
   form: {
     pleaseInput: '',
