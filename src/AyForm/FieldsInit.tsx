@@ -47,8 +47,8 @@ import {
   FORM_TYPE_CARD_GROUP,
   FORM_DEFAULT_VALUE_CARD_GROUP
 } from '../constant'
-import AyTagGroup from './AyTagGroup'
-import AyCardGroup from './AyCardGroup'
+import AyTagGroup from '../AyTagGroup'
+import AyCardGroup from '../AyCardGroup'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { RegisterFieldProps } from './ay-form'
 import locale from '../locale'

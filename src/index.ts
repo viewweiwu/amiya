@@ -18,12 +18,14 @@ import AyTable, {
 import AyFields from './AyFields'
 import AyField from './AyField'
 import AySearchList from './AySearchList'
-import AyCardGroup from './AyForm/AyCardGroup'
+import AyCardGroup from './AyCardGroup'
+import AyTagGroup from './AyTagGroup'
 import { setLanguage } from './locale'
 
 export {
   AyCard,
   AyCardGroup,
+  AyTagGroup,
   AyAction,
   registerAction,
   AyButton,
@@ -55,6 +57,8 @@ export {
 
 export default {
   AyCard,
+  AyCardGroup,
+  AyTagGroup,
   AyAction,
   registerAction,
   AyButton,
