@@ -4,12 +4,22 @@ order: 1
 
 # 更新日志
 
+## 0.51.0
+
+`2022-02-28`
+
+1. feat: `AyDialog` 支持 `footer` 传入。
+2. feat: `AyCardGroup` 取消 `<Avatar />` 的使用，改为原生 `<img />`。
+3. feat： 开放 `AyTagGroup` 使用。
+4. fix: 修复 `AyDialog` 一些错误警告
+5. fix: 修复选项的国际化。
+
 ## 0.50.3
 
 `2022-02-24`
 
-1. fix: 修复默认 rowKey 失效。
-2. fix: 修复 Checkbox 的引用。
+1. fix: 修复默认 `rowKey` 失效。
+2. fix: 修复 `Checkbox` 的引用。
 
 ## 0.50.2
 
