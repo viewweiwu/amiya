@@ -654,7 +654,7 @@ export default function Demo() {
         </AyButton>
       </AyForm>
 
-      {submitValues.normalSize && <pre>{JSON.stringify(submitValues, null, 2)}</pre>}
+      {Object.values(submitValues).length > 0 && <pre>{JSON.stringify(submitValues, null, 2)}</pre>}
     </div>
   )
 }

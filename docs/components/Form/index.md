@@ -664,7 +664,7 @@ const fields: Array<Field> = [
 | card           | 会用 AyCard 包裹住底下的 form，具体使用可以看 [卡片表单][cardform]。    | -               | -      |
 | group          | 组合表单，具体使用可以看 [组合表单][groupform]。                        | -               | -      |
 | input-group    | 带输入框的组合表单，具体使用可以看 [组合表单][groupform]。              | -               | -      |
-| tag-group      | tag 选择，若设置 multiple 属性，可支持多选                              | undefined \| [] | 0.45.0 |
+| tag-group      | [tag 选择][taggroup]，若设置 multiple 属性，可支持多选                  | undefined \| [] | 0.45.0 |
 | card-group     | [卡片选择][cardgroup]，若设置 multiple 属性，可支持多选                 | null \| []      | 0.47.0 |
 
 ## Option 参数
@@ -696,5 +696,6 @@ const fields: Array<Field> = [
 [ayformfield]: ./form#ayformfield-参数
 [cardform]: ./form/card-form
 [groupform]: ./form/group-form
-[cardgroup]: ./form/card-group#在表单中使用
+[cardgroup]: ./form/ay-card-group#在表单中使用
+[taggroup]: ./form/ay-tag-group#在表单中使用
 [日期格式化]: ./form/date-format

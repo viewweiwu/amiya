@@ -3,6 +3,7 @@ import { Tag, Popover, Alert } from 'antd'
 import AyAction from '../../AyButton'
 import { AnyKeyProps } from '../../types/AnyKeyProps'
 import { getKey } from '../../utils'
+import locale from '../../locale'
 
 interface Row extends AnyKeyProps {}
 
@@ -202,14 +203,14 @@ export default function useSelection(_props: UseSelectionProps): UseSelectionRet
   const message = (
     <div>
       <span>
-        已选择：
-        <Popover title="已经选中的选项" content={popContent}>
+        {locale.table.selectedBefore}
+        <Popover title={locale.table.selectedTitle} content={popContent}>
           <a>{selection.length}</a>
-        </Popover>{' '}
-        条
+        </Popover>
+        &nbsp;{locale.table.selectedAfter}
       </span>
       <AyAction className="ml" type="link" size="small" onClick={clearSelection}>
-        清空
+        {locale.table.selectedClear}
       </AyAction>
     </div>
   )
