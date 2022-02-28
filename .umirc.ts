@@ -91,8 +91,13 @@ export default defineConfig({
             meta: {}
           },
           {
-            path: '/components/form/card-group',
+            path: '/components/form/ay-card-group',
             title: 'AyCardGroup 卡片选择',
+            meta: {}
+          },
+          {
+            path: '/components/form/ay-tag-group',
+            title: 'AyTagGroup 卡片选择',
             meta: {}
           },
           {
@@ -321,6 +326,11 @@ export default defineConfig({
           {
             path: '/template/list/card-list',
             title: '商品卡片列表',
+            meta: {}
+          },
+          {
+            path: '/template/list/space-list',
+            title: '京东订单页',
             meta: {}
           }
         ]
