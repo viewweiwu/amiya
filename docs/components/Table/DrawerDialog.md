@@ -28,14 +28,16 @@ const fields: Array<AySearchTableField> = [
     dialog: {
       required: true
     },
-    render: (text, record) => {
-      return (
-        <div>
-          <div>{record.cn}</div>
-          <div>{record.en}</div>
-          <div>{record.jp}</div>
-        </div>
-      )
+    table: {
+      render: (text, record) => {
+        return (
+          <div>
+            <div>{record.cn}</div>
+            <div>{record.en}</div>
+            <div>{record.jp}</div>
+          </div>
+        )
+      }
     }
   },
   {
