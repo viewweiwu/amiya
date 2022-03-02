@@ -70,7 +70,14 @@ import { AyButton, AyDialogFormField, AyDialogForm } from 'amiya'
 import { Space, message } from 'antd'
 import { detailApi, professionOptions } from '../api'
 
-const defaultProps = {
+interface IProps {
+  visible: boolean
+  defaultValue: any
+  mode: 'add' | 'update' | 'view'
+  spinning: boolean
+}
+
+const defaultProps: IProps = {
   // 是否可见
   visible: false,
   // 弹窗默认值
@@ -83,7 +90,7 @@ const defaultProps = {
 
 export default function AyDialogFormDemo() {
   // 弹窗属性
-  const [dialogProps, setDialogProps] = useState(defaultProps)
+  const [dialogProps, setDialogProps] = useState<IProps>(defaultProps)
 
   const fields: Array<AyDialogFormField> = [
     {
@@ -179,7 +186,14 @@ import { AyButton, AyDialogForm, AyFields, AyField } from 'amiya'
 import { Space, message } from 'antd'
 import { detailApi, professionOptions } from '../api'
 
-const defaultProps = {
+interface IProps {
+  visible: boolean
+  defaultValue: any
+  mode: 'add' | 'update' | 'view'
+  spinning: boolean
+}
+
+const defaultProps: IProps = {
   // 是否可见
   visible: false,
   // 弹窗默认值
@@ -192,7 +206,7 @@ const defaultProps = {
 
 export default function AyDialogFormDemo() {
   // 弹窗属性
-  const [dialogProps, setDialogProps] = useState(defaultProps)
+  const [dialogProps, setDialogProps] = useState<IProps>(defaultProps)
 
   /** 新增 */
   const handleAdd = () => {
