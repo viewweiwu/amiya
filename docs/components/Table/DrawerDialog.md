@@ -28,14 +28,16 @@ const fields: Array<AySearchTableField> = [
     dialog: {
       required: true
     },
-    render: (text, record) => {
-      return (
-        <div>
-          <div>{record.cn}</div>
-          <div>{record.en}</div>
-          <div>{record.jp}</div>
-        </div>
-      )
+    table: {
+      render: (text, record) => {
+        return (
+          <div>
+            <div>{record.cn}</div>
+            <div>{record.en}</div>
+            <div>{record.jp}</div>
+          </div>
+        )
+      }
     }
   },
   {
@@ -121,7 +123,10 @@ export default function Demo() {
         drawer: true,
         fields: fields,
         updateApi,
-        addApi
+        addApi,
+        formExtend: {
+          formLayout: 'vertical'
+        }
       }}
     >
       <AyAction action="batch-delete">批量删除</AyAction>
