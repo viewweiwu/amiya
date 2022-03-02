@@ -80,3 +80,8 @@ export interface AySearchListProps extends SearchListInitConfig {
   /** 查询扩展 */
   searchExtend?: AnyKeyProps
 }
+
+export interface AySelectionProps {
+  record: AnyKeyProps
+  disabled?: boolean
+}

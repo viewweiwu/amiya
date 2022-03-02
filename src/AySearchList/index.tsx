@@ -14,7 +14,7 @@ import AyList from '../AyList'
 import AyDialogForm from '../AyDialogForm'
 import useSelection from '../AySearchTable/use/useSelection'
 import { TableRefProps, AySearchTableField, SortItem } from '../AySearchTable/ay-search-table'
-import { AySearchListProps } from './ay-search-list'
+import { AySearchListProps, AySelectionProps } from './ay-search-list'
 import { isObj } from '../utils'
 import { getDefaultValue } from '../AyForm'
 import { AyTableField } from '../AyTable/ay-table'
@@ -392,11 +392,12 @@ function AySearchList(props: AySearchListProps, ref: Ref<any>) {
   )
 }
 
-const component = forwardRef(AySearchList)
+let component: React.ForwardRefExoticComponent<AySearchListProps & React.RefAttributes<HTMLDivElement>> & {
+  Selection?: AnyKeyProps
+  SelectionAll?: AnyKeyProps
+} = forwardRef(AySearchList)
 
-// @ts-ignore
 component.Selection = Selection
-// @ts-ignore
 component.SelectionAll = SelectionAll
 
 export default component
