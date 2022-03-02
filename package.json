@@ -21,6 +21,16 @@
     "es",
     "dist"
   ],
+  "keywords": [
+    "ant",
+    "component",
+    "components",
+    "design",
+    "framework",
+    "frontend",
+    "react",
+    "react-component"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
