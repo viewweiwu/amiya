@@ -1,5 +1,5 @@
-import { AnyKeyProps } from '@/types/AnyKeyProps'
-import { Record } from '@/types/Record'
+import { AnyKeyProps } from '../../types/AnyKeyProps'
+import { Record } from '../../types/Record'
 import { Checkbox } from 'antd'
 import React, { useContext } from 'react'
 import { AySearchTableContext } from '../../AySearchTable/context'

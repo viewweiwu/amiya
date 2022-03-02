@@ -392,12 +392,11 @@ function AySearchList(props: AySearchListProps, ref: Ref<any>) {
   )
 }
 
-let component: React.ForwardRefExoticComponent<AySearchListProps & React.RefAttributes<HTMLDivElement>> & {
-  Selection?: AnyKeyProps
-  SelectionAll?: AnyKeyProps
-} = forwardRef(AySearchList)
+let component = forwardRef(AySearchList)
 
+// @ts-ignore
 component.Selection = Selection
+// @ts-ignore
 component.SelectionAll = SelectionAll
 
 export default component
