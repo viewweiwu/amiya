@@ -267,7 +267,7 @@ function AySearchList(props: AySearchListProps, ref: Ref<any>) {
      * 清空过滤
      * @param keys
      */
-    clearFilters(keys: Array<String> = []) {
+    clearFilters(keys: Array<string> = []) {
       return tableRef.current.clearFilters(keys)
     },
     /**
@@ -288,7 +288,7 @@ function AySearchList(props: AySearchListProps, ref: Ref<any>) {
      * 清空排序
      * @param keys
      */
-    clearSorts(keys: Array<String> = []) {
+    clearSorts(keys: Array<string> = []) {
       return tableRef.current.clearSorts(keys)
     },
     /** 获取请求前参数 */
