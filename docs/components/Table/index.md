@@ -231,6 +231,100 @@ export default function Demo() {
 },
 ```
 
+## 紧凑型表格
+
+设置 `compact`，将会让表格取消边框与背景色，配合 `extraVisible={false}` 隐藏扩展按钮，会得到一个纯的表格。
+
+```tsx
+import React from 'react'
+import { AySearchTable, AySearchTableField } from 'amiya'
+import { listApi } from '../api'
+
+const fields: Array<AySearchTableField> = [
+  {
+    title: '姓名',
+    key: 'cn'
+  },
+  {
+    title: '编号',
+    key: 'index'
+  },
+  {
+    title: '职业',
+    key: 'class',
+    type: 'select',
+    options: [
+      { label: '近卫干员', value: '近卫' },
+      { label: '狙击干员', value: '狙击' },
+      { label: '术师重装', value: '术师' },
+      { label: '医疗干员', value: '医疗' },
+      { label: '重装干员', value: '重装' },
+      { label: '辅助干员', value: '辅助' },
+      { label: '特种干员', value: '特种' },
+      { label: '先锋干员', value: '先锋' }
+    ]
+  },
+  {
+    title: '描述',
+    key: 'des'
+  }
+]
+
+export default function Demo() {
+  return <AySearchTable compact extraVisible={false} api={listApi} fields={fields} />
+}
+```
+
+## 紧凑型查询区域 <Badge>0.52.0</Badge>
+
+设置 `searchExtend={{ inline: true }}`，`searchExtend` 是 [AySearch](./form/ay-search)的[属性](./form/ay-search#props-参数)，会让表格的查询区域变成平铺模式，此时查询区域的 label 将会消失，且作为 placeholder 出现。
+
+```tsx
+import React from 'react'
+import { AySearchTable, AySearchTableField } from 'amiya'
+import { listApi } from '../api'
+
+const fields: Array<AySearchTableField> = [
+  {
+    title: '姓名',
+    key: 'cn'
+  },
+  {
+    title: '编号',
+    key: 'index',
+    search: true
+  },
+  {
+    title: '职业',
+    key: 'class',
+    type: 'select',
+    search: {
+      style: {
+        width: 200
+      }
+    },
+    options: [
+      { label: '近卫干员', value: '近卫' },
+      { label: '狙击干员', value: '狙击' },
+      { label: '术师重装', value: '术师' },
+      { label: '医疗干员', value: '医疗' },
+      { label: '重装干员', value: '重装' },
+      { label: '辅助干员', value: '辅助' },
+      { label: '特种干员', value: '特种' },
+      { label: '先锋干员', value: '先锋' }
+    ]
+  },
+  {
+    title: '描述',
+    key: 'des'
+  }
+]
+
+export default function Demo() {
+  return <AySearchTable searchExtend={{ inline: true }} extraVisible={false} api={listApi} fields={fields} />
+}
+```
+
 ## 右侧查询表格
 
 如果只有一个查询条件，可以考虑把查询条件放在右侧。
@@ -291,8 +385,6 @@ export default function Demo() {
   }
 },
 ```
-
-更详细的筛选于排序使用方法看[这里](../table/筛选与排序)
 
 ## 筛选与排序
 
@@ -360,7 +452,7 @@ export default function Demo() {
 },
 ```
 
-更详细的筛选于排序使用方法看[这里](../table/sort-filter)
+更详细的筛选于排序使用方法看[这里](./table/sort-filter)
 
 ## 指令按钮
 
@@ -500,9 +592,9 @@ const fields: Array<AySearchTableField> = [
 +}
 
 <AySearchTable
- api={listApi}
- title="尝试点击【新增】【详情】【编辑】等按钮"
- fields={fields}
+  api={listApi}
+  title="尝试点击【新增】【详情】【编辑】等按钮"
+  fields={fields}
 + ctrl={ctrl}
 + dialogFormExtend={{
 +   fields,
@@ -712,37 +804,38 @@ export const deleteApi = (params: AnyKeyProps): Promise<any> => {
 
 ## 参数
 
-| 参数名             | 说明                                                                                                                                         | 参数类型                                        | 默认值 |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | ------ |
-| title              | 表格标题，显示在表格左上角的标题文字。                                                                                                       | string \| ReactNode                             | ''     |
-| fields             | 配置项，可决定表格、查询项、弹窗表单的配置。                                                                                                 | Array<[AySearchTableField][aysearchtablefield]> | []     |
-| selectionType      | 是否开启勾选，checkbox：多选、radio：单选，单选表格的使用可以请看[这里][单选表格]，开启后需要指定 rowKey。                                   | 'checkbox' \| 'radio'                           | -      |
-| children           | 子元素会被放在表格右上角。                                                                                                                   | ReactNode                                       | -      |
-| api                | 列表分页接口，会传递分页和参数参数，发现跟接口风格不一致，点[这里][自定义请求]查看自定义方式。                                               | Promise                                         | -      |
-| deleteApi          | 批量删除接口。                                                                                                                               | Promise                                         | -      |
-| data               | 表格静态数据，不希望表格做请求，自己定义数据。                                                                                               | Array<Record\>                                  | -      |
-| ctrl               | 列表每一行后面数据跟着的按钮渲染。                                                                                                           | AySearchTableField                              | -      |
-| rowKey             | 列表每一行的唯一标志。                                                                                                                       | string \| (record: Record) => string            | 'id'   |
-| selectShowKey      | 批量删除，勾选时，在表格顶部会有数字，点击数字可以看到选项的名称。                                                                           | string                                          | 'name' |
-| dialogFormExtend   | [AyDialogForm][aydialogform] 的扩展配置。                                                                                                    | AyDialogFormProps                               | {}     |
-| scrollX            | 滚动的 X 轴数值。                                                                                                                            | number                                          | -      |
-| height             | 表格滚动高度。                                                                                                                               | number                                          | -      |
-| filterData         | 列表数据过滤。                                                                                                                               | (data: Object) => Array<Record\>                | -      |
-| beforeSearch       | 提交前过滤，希望请求前改变参数可使用此方法。                                                                                                 | (data: Object) => Object                        | -      |
-| pagination         | 分页参数。                                                                                                                                   | antd 分页一致                                   | -      |
-| center             | 把元素插入到查询和表格之间。                                                                                                                 | ReactNode                                       | -      |
-| listHeader         | AySearchList 在列表头部插入元素。                                                                                                            | ReactNode                                       | -      |
-| tableHeader        | AySearchTable 在列表头部插入元素。                                                                                                           | ReactNode                                       | -      |
-| searchVisible      | 查询区域是否展示。                                                                                                                           | boolean                                         | true   |
-| tableExtend        | table 的扩展配置。                                                                                                                           | Object                                          | {}     |
-| extendSearchParams | 请求时额外携带的参数。                                                                                                                       | Object                                          | {}     |
-| after              | 在表格底部插入元素。                                                                                                                         | ReactNode                                       | -      |
-| autoload           | 表格渲染时是否自动发起请求。                                                                                                                 | booelan                                         | true   |
-| onExpand           | 展开事件。                                                                                                                                   | (expanded: boolean, record: Record) => void     | -      |
-| onLoad             | 表格查询完成监听。                                                                                                                           | (records: Array<Record\>, data: any) => void    | -      |
-| onParamsChange     | 查询参数变化事件，包括分页。                                                                                                                 | (searchPamras: Object) => void                  | -      |
-| onSelectionChange  | 选项改变事件。                                                                                                                               | (selection: Array<Record\>): void               | -      |
-| rowSelection       | 表格选项设置，可以用来设置表格是否[禁用][禁用表格选项]，请不要设置 type、selectedRowKeys、onSelect、onSelectAll 方法，这会影响到原本的设置。 | -                                               | -      |
+| 参数名             | 说明                                                                                                                                         | 参数类型                                        | 默认值 | 版本   |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | ------ | ------ |
+| title              | 表格标题，显示在表格左上角的标题文字。                                                                                                       | string \| ReactNode                             | ''     | -      |
+| fields             | 配置项，可决定表格、查询项、弹窗表单的配置。                                                                                                 | Array<[AySearchTableField][aysearchtablefield]> | []     | -      |
+| selectionType      | 是否开启勾选，checkbox：多选、radio：单选，单选表格的使用可以请看[这里][单选表格]，开启后需要指定 rowKey。                                   | 'checkbox' \| 'radio'                           | -      | -      |
+| children           | 子元素会被放在表格右上角。                                                                                                                   | ReactNode                                       | -      | -      |
+| api                | 列表分页接口，会传递分页和参数参数，发现跟接口风格不一致，点[这里][自定义请求]查看自定义方式。                                               | Promise                                         | -      | -      |
+| deleteApi          | 批量删除接口。                                                                                                                               | Promise                                         | -      | -      |
+| data               | 表格静态数据，不希望表格做请求，自己定义数据。                                                                                               | Array<Record\>                                  | -      | -      |
+| ctrl               | 列表每一行后面数据跟着的按钮渲染。                                                                                                           | AySearchTableField                              | -      | -      |
+| rowKey             | 列表每一行的唯一标志。                                                                                                                       | string \| (record: Record) => string            | 'id'   | -      |
+| selectShowKey      | 批量删除，勾选时，在表格顶部会有数字，点击数字可以看到选项的名称。                                                                           | string                                          | 'name' | -      |
+| dialogFormExtend   | [AyDialogForm][aydialogform] 的扩展配置。                                                                                                    | AyDialogFormProps                               | {}     | -      |
+| scrollX            | 滚动的 X 轴数值。                                                                                                                            | number                                          | -      | -      |
+| height             | 表格滚动高度。                                                                                                                               | number                                          | -      | -      |
+| filterData         | 列表数据过滤。                                                                                                                               | (data: Object) => Array<Record\>                | -      | -      |
+| beforeSearch       | 提交前过滤，希望请求前改变参数可使用此方法。                                                                                                 | (data: Object) => Object                        | -      | -      |
+| pagination         | 分页参数。                                                                                                                                   | antd 分页一致                                   | -      | -      |
+| center             | 把元素插入到查询和表格之间。                                                                                                                 | ReactNode                                       | -      | -      |
+| listHeader         | AySearchList 在列表头部插入元素。                                                                                                            | ReactNode                                       | -      | -      |
+| tableHeader        | AySearchTable 在列表头部插入元素。                                                                                                           | ReactNode                                       | -      | -      |
+| searchVisible      | 查询区域是否展示。                                                                                                                           | boolean                                         | true   | -      |
+| tableExtend        | table 的扩展配置。                                                                                                                           | Object                                          | {}     | -      |
+| extendSearchParams | 请求时额外携带的参数。                                                                                                                       | Object                                          | {}     | -      |
+| after              | 在表格底部插入元素。                                                                                                                         | ReactNode                                       | -      | -      |
+| autoload           | 表格渲染时是否自动发起请求。                                                                                                                 | booelan                                         | true   | -      |
+| rowSelection       | 表格选项设置，可以用来设置表格是否[禁用][禁用表格选项]，请不要设置 type、selectedRowKeys、onSelect、onSelectAll 方法，这会影响到原本的设置。 | -                                               | -      | -      |
+| compact            | 紧凑型表格样式，会取消表格包裹的边框与样式。                                                                                                 | boolean                                         | false  | 0.52.0 |
+| onExpand           | 展开事件。                                                                                                                                   | (expanded: boolean, record: Record) => void     | -      | -      |
+| onLoad             | 表格查询完成监听。                                                                                                                           | (records: Array<Record\>, data: any) => void    | -      | -      |
+| onParamsChange     | 查询参数变化事件，包括分页。                                                                                                                 | (searchPamras: Object) => void                  | -      | -      |
+| onSelectionChange  | 选项改变事件。                                                                                                                               | (selection: Array<Record\>): void               | -      | -      |
 
 extra 右侧扩展按钮配置参考[这里][1]。
 

@@ -33,6 +33,7 @@ import AyButton from '../AyButton'
 import { AySearchTableContext } from './context'
 import { AyDialogFormRef } from '../AyDialogForm/ay-dialog-form'
 import { convertChildrenToAyFormField } from '../AyFields/convertFields'
+import classNames from 'classnames'
 import './ay-search-table.less'
 
 /**
@@ -244,7 +245,8 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     rowSelection,
     searchExtend,
     onParamsChange,
-    tableHeader
+    tableHeader,
+    compact
   } = props
 
   const fields = useMemo(() => {
@@ -482,7 +484,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   }, [moreSearchRef, moreSearchFields, onConfirm, rightActions, extraBtns])
 
   return (
-    <div className={`ay-search-table ${isEnter ? 'full' : ''}`}>
+    <div className={classNames('ay-search-table', isEnter && 'full', compact && 'compact')}>
       <AySearchTableContext.Provider
         value={{
           formRef,

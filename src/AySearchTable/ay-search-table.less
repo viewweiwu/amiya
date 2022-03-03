@@ -1,10 +1,6 @@
 @import '../less/variable.less';
 
 .ay-search-table {
-  .ant-pagination {
-    margin-right: @space !important;
-  }
-
   .ay-table-content {
     margin: 15px 20px;
   }
@@ -28,6 +24,37 @@
     z-index: 999;
     position: fixed;
     overflow: auto;
+  }
+
+  &.compact {
+    .ay-table-header {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .ay-table {
+      border-color: transparent;
+      background-color: transparent;
+    }
+
+    .ay-table-content {
+      margin: -1px;
+    }
+
+    .ant-pagination {
+      margin-right: 0;
+    }
+
+    .ay-table {
+      margin-top: 0;
+    }
+
+    .ay-search {
+      padding: 0;
+      margin-bottom: 0;
+      border-color: transparent;
+      background-color: transparent;
+    }
   }
 }
 

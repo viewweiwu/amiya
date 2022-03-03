@@ -87,6 +87,8 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   onParamsChange?(params: AnyKeyProps): void
   /** 列表头部 */
   tableHeader?: ReactNode
+  /** 是否使用紧凑样式 */
+  compact?: boolean
 }
 export interface ExtendField extends Omit<AyFormField, 'key'> {
   key?: string
