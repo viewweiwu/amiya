@@ -4,6 +4,17 @@ order: 1
 
 # 更新日志
 
+## 0.52.0
+
+`2022-03-03`
+
+1. feat: `AyDialogForm` 支持 `state` 控制。
+2. feat: `AySearchList`、`AyField` 优化 TypeScript 提示。
+3. feat: `AySearchTable` 支持 `compact` 紧凑型样式。
+4. feat: `AyDialog` 支持 `onOk` 事件，效果跟 onConfirm 一致。
+5. feat: `AyForm` 支持 `onSubmit`、`onFinish` 事件，效果跟 onConfirm 一致。
+6. fix: `AyForm` 只读时，必填符号取消占位空间。
+
 ## 0.51.1
 
 `2022-02-28`
