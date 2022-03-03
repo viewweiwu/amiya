@@ -31,6 +31,7 @@ export * from './AyTable/ay-table'
 export * from './AyTable/ay-table'
 export { AnyKeyProps } from './types/AnyKeyProps'
 export { Record } from './types/Record'
+export { FormValues } from './types/FormValues'
 
 export { setSearchDefaultVisibleRow } from './AySearch'
 export { registerAction } from './AyAction'

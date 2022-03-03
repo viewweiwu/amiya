@@ -5,13 +5,9 @@ import { Checkbox } from 'antd'
 import React, { useContext, useEffect } from 'react'
 import { AySearchTableContext } from '../../AySearchTable/context'
 import { AyListContext } from '../../AyList/context'
+import { AySelectionProps } from '../ay-search-list'
 
-interface SelectionProps {
-  record: AnyKeyProps
-  disabled?: boolean
-}
-
-export default function Selection(props: SelectionProps) {
+export default function Selection(props: AySelectionProps) {
   // @ts-ignorese
   const { selection, rowKey, addSelection, removeSelection } = useContext(AySearchTableContext)
   const { disabledKeys, setDisabledKeys } = useContext(AyListContext)

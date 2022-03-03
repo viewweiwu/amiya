@@ -2,7 +2,7 @@
 order: 1
 ---
 
-# Table 表格基础
+## 基础表格
 
 ```tsx
 /**
@@ -11,7 +11,7 @@ order: 1
 import React from 'react'
 import { AySearchTable, AySearchTableField, Record } from 'amiya'
 
-const data: Record[] = [
+const data: Array<Record> = [
   {
     key: '1',
     cn: 'Amiya',
@@ -54,7 +54,7 @@ export default function Demo() {
 import React from 'react'
 import { AySearchTable, Record, AyFields, AyField } from 'amiya'
 
-const data: Record[] = [
+const data: Array<Record> = [
   {
     key: '1',
     cn: 'Amiya',

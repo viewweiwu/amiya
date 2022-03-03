@@ -4,6 +4,8 @@ import { AyTableCtrlField, AyTableField } from '../AyTable/ay-table'
 import { AyFormField, Field } from '../AyForm/ay-form'
 import { AyDialogFormProps, AyDialogFormField, ModeType } from '../AyDialogForm/ay-dialog-form'
 import { AnyKeyProps } from '../types/AnyKeyProps'
+import { Record } from '../types/Record'
+import { FormValues } from '../types/FormValues'
 
 export interface SearchTableInitConfig extends AnyKeyProps {
   /** 扩展栏是否显示 */
@@ -40,7 +42,7 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   /** 选项改变事件 */
   onSelectionChange?(selection: Array<Row>, selectionKeys: Array<string>): void
   /** rowKey */
-  rowKey?: ((record: AnyKeyProps) => string) | string
+  rowKey?: ((record: Record) => string) | string
   /** 选择时列表展示的 key */
   selectShowKey?: string
   /** dialog form 的配置 */
@@ -56,13 +58,13 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   /** 提交前过滤 */
   beforeSearch?(data: AnyKeyProps): AnyKeyProps
   /** 展开事件 */
-  onExpand?(expanded: boolean, record: AnyKeyProps): void
+  onExpand?(expanded: boolean, record: Record): void
   /** 分页参数 */
   pagination?: any
   /** 节点插入在查询和表格之间 */
   center?: ReactNode
   /** 表格查询完成监听 */
-  onLoad?(records: Array<AnyKeyProps>, data: any): void
+  onLoad?(records: Array<Record>, data: any): void
   /** 查询区域是否展示 */
   searchVisible?: boolean
   /** table 其它属性 */
@@ -72,7 +74,7 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   /** 在导入前面插入按钮 */
   btnBefore?: ReactNode
   /** 更多查询数据, 额外带的查询数据用 */
-  extendSearchParams?: AnyKeyProps
+  extendSearchParams?: FormValues
   /** 表格底部插入按钮 */
   after?: ReactNode
   /** 表格编辑模式 */
@@ -84,9 +86,11 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   /** 查询扩展 */
   searchExtend?: AnyKeyProps
   /** 请求数据变化事件 */
-  onParamsChange?(params: AnyKeyProps): void
+  onParamsChange?(values: FormValues): void
   /** 列表头部 */
   tableHeader?: ReactNode
+  /** 是否使用紧凑样式 */
+  compact?: boolean
 }
 export interface ExtendField extends Omit<AyFormField, 'key'> {
   key?: string
@@ -122,21 +126,21 @@ export interface AySearchTableField extends Field, AyTableField {
 
 export interface TableRefProps {
   refresh(): void
-  reset(search: AnyKeyProps): void
-  getTableData(): Array<AnyKeyProps>
-  clearFilters(keys: Array<String>): void
+  reset(search: FormValues): void
+  getTableData(): Array<Record>
+  clearFilters(keys: Array<string>): void
   setFiltersValue(filters: AnyKeyProps): void
   setSortsValue(sorts: Array<SortItem>): void
-  clearSorts(keys: Array<String>): void
+  clearSorts(keys: Array<string>): void
   getApiParams(): any
   deleteRowByKey(key: string): void
-  addRow(row: AnyKeyProps, type: 'before' | 'after' = 'after'): void
+  addRow(record: Record, type: 'before' | 'after' = 'after'): void
 }
 
 export interface FormRefProps {
-  add: (params?: AnyKeyProps | undefined) => Promise<AnyKeyProps>
-  view: (params?: AnyKeyProps | undefined) => Promise<AnyKeyProps>
-  update: (params?: AnyKeyProps | undefined) => Promise<AnyKeyProps>
+  add: (values?: FormValues | undefined) => Promise<AnyKeyProps>
+  view: (values?: FormValues | undefined) => Promise<AnyKeyProps>
+  update: (values?: FormValues | undefined) => Promise<AnyKeyProps>
 }
 
 export interface Row extends AnyKeyProps {}

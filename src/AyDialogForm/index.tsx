@@ -9,6 +9,7 @@ import React, {
   useEffect,
   useMemo
 } from 'react'
+import { Spin } from 'antd'
 import AyDialog from '../AyDialog'
 import AyForm from '../AyForm'
 import { AyDialogFormField, ModeType, AyDialogFormRef, AyDialogFormProps } from './ay-dialog-form'
@@ -120,6 +121,13 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     drawer,
     dialogOnly,
     autoClose = true,
+    visible: defaultVisible,
+    mode: defaultMode,
+    spinning = false,
+    onClose,
+    onSuccess,
+    onError,
+    initialValues,
     children
   } = props
 
@@ -154,6 +162,28 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
   useEffect(() => {
     setDialogTitle(title)
   }, [title])
+
+  // 监听显示变化
+  useEffect(() => {
+    setVisible(!!defaultVisible)
+    if (defaultVisible) {
+      requestAnimationFrame(() => {
+        formRef.current.resetFields()
+      })
+      if (initialValues) {
+        requestAnimationFrame(() => {
+          formRef.current.setFieldsValue(initialValues)
+        })
+      }
+    }
+  }, [defaultVisible, initialValues])
+
+  useEffect(() => {
+    if (defaultMode) {
+      setReadonly(defaultMode === MODE_VIEW)
+      setMode(defaultMode)
+    }
+  }, [defaultMode])
 
   /**
    * 初始化弹窗
@@ -190,7 +220,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     // 设置默认值
     if (params) {
       setInitParams(params)
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         formRef.current.setFieldsValue(params)
       })
     } else {
@@ -208,7 +238,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
         dialogResolve = resolve
         dialogReject = reject
         mode = MODE_ADD
-        setMode(MODE_ADD)
+        setMode(defaultMode || MODE_ADD)
         initDialog(params, config)
       })
     },
@@ -221,7 +251,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
         dialogResolve = resolve
         dialogReject = reject
         mode = MODE_UPDATE
-        setMode(MODE_UPDATE)
+        setMode(defaultMode || MODE_UPDATE)
         initDialog(params, config)
       })
     },
@@ -232,7 +262,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
      */
     view: (params?: AnyKeyProps, config?: AnyKeyProps) => {
       mode = MODE_VIEW
-      setMode(MODE_VIEW)
+      setMode(defaultMode || MODE_VIEW)
       initDialog(params, config)
       setTimeout(() => {
         setReadonly(true)
@@ -244,7 +274,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
      */
     open: (params?: AnyKeyProps, config?: AnyKeyProps) => {
       mode = MODE_CUSTOM
-      setMode(MODE_CUSTOM)
+      setMode(defaultMode || MODE_CUSTOM)
       initDialog(params, config)
     },
     /**
@@ -287,6 +317,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
    */
   const closeDialog = () => {
     setVisible(false)
+    onClose && onClose()
   }
 
   /**
@@ -332,8 +363,11 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
             if (config.onSuccess) {
               config.onSuccess({ data, values, params, initParams, closeDialog })
             }
+            if (onSuccess) {
+              onSuccess({ data, values, params, initParams, closeDialog })
+            }
             if (autoClose) {
-              setVisible(false)
+              closeDialog()
             }
           },
           (error: any) => {
@@ -342,6 +376,9 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
             }
             if (config.onError) {
               config.onError({ error, values, params, initParams, closeDialog })
+            }
+            if (onError) {
+              onError({ error, values, params, initParams, closeDialog })
             }
           }
         )
@@ -356,22 +393,24 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
       width={width}
       title={getTitle(mode, dialogTitle)}
       visible={visible}
-      setVisible={setVisible}
       drawer={drawer}
       onConfirm={onConfirm}
       loading={loading}
+      onClose={closeDialog}
       confirmVisible={mode !== MODE_VIEW && config.readonly !== true}
       {...dialogExtend}
     >
-      <AyForm
-        name={name}
-        readonly={readonly}
-        ref={formRef}
-        fields={formFields}
-        span={span || 22}
-        onConfirm={handleSubmit}
-        {...formExtend}
-      />
+      <Spin spinning={spinning}>
+        <AyForm
+          name={name}
+          readonly={readonly}
+          ref={formRef}
+          fields={formFields}
+          span={span || 22}
+          onConfirm={handleSubmit}
+          {...formExtend}
+        />
+      </Spin>
     </AyDialog>
   )
 })

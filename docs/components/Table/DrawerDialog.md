@@ -123,7 +123,10 @@ export default function Demo() {
         drawer: true,
         fields: fields,
         updateApi,
-        addApi
+        addApi,
+        formExtend: {
+          formLayout: 'vertical'
+        }
       }}
     >
       <AyAction action="batch-delete">批量删除</AyAction>

@@ -31,6 +31,20 @@ export interface AyDialogFormProps extends ModalProps {
   formExtend?: AnyKeyProps
   /** 是否只使用申明了 dialog 的 Field */
   dialogOnly?: boolean
+  /** 是否可见 */
+  visible?: boolean
+  /** 打开弹窗后的默认值 */
+  initialValues?: AnyKeyProps
+  /** 关闭弹窗监听 */
+  onClose?: () => void
+  /** 模式 */
+  mode?: 'add' | 'update' | 'view'
+  /** 弹窗数据是否在加载中 */
+  spinning?: boolean
+  /** 成功监听 */
+  onSuccess?: ({ data, values, params, initParams, closeDialog }: AnyKeyProps) => void
+  /** 成功监听 */
+  onError?: ({ data, values, params, initParams, closeDialog }: AnyKeyProps) => void
   /** 成功后是否自动关闭 */
   autoClose?: boolean
   children?: ReactNode
