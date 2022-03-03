@@ -34,7 +34,7 @@ export interface AyDialogFormProps extends ModalProps {
   /** 是否可见 */
   visible?: boolean
   /** 打开弹窗后的默认值 */
-  defaultValue?: AnyKeyProps
+  initialValues?: AnyKeyProps
   /** 关闭弹窗监听 */
   onClose?: () => void
   /** 模式 */

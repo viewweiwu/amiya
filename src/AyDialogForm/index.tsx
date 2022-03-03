@@ -127,7 +127,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     onClose,
     onSuccess,
     onError,
-    defaultValue,
+    initialValues,
     children
   } = props
 
@@ -166,13 +166,17 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
   // 监听显示变化
   useEffect(() => {
     setVisible(!!defaultVisible)
-    if (defaultValue && defaultVisible) {
-      setTimeout(() => {
+    if (defaultVisible) {
+      requestAnimationFrame(() => {
         formRef.current.resetFields()
-        formRef.current.setFieldsValue(defaultValue)
       })
+      if (initialValues) {
+        requestAnimationFrame(() => {
+          formRef.current.setFieldsValue(initialValues)
+        })
+      }
     }
-  }, [defaultVisible, defaultValue])
+  }, [defaultVisible, initialValues])
 
   useEffect(() => {
     if (defaultMode) {
@@ -216,7 +220,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     // 设置默认值
     if (params) {
       setInitParams(params)
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         formRef.current.setFieldsValue(params)
       })
     } else {

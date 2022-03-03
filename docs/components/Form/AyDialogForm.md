@@ -7,12 +7,13 @@
 ## 基础使用 <Badge>0.52.0</Badge>
 
 ```tsx
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { AyButton, AyDialogFormField, AyDialogForm } from 'amiya'
 import { Space, message } from 'antd'
 import { professionOptions } from '../api'
 
 export default function AyDialogFormDemo() {
+  const formRef = useRef<any>()
   // 弹窗是否可见
   const [visible, setVisible] = useState(false)
 
@@ -45,8 +46,68 @@ export default function AyDialogFormDemo() {
         <AyButton onClick={handleAdd}>新增</AyButton>
       </Space>
       <AyDialogForm
+        ref={formRef}
         visible={visible}
         fields={fields}
+        addApi={() => new Promise(resolve => resolve({}))}
+        onClose={() => setVisible(false)}
+        onSuccess={() => message.success('操作成功')}
+      />
+    </div>
+  )
+}
+```
+
+## 默认值设置 <Badge>0.52.0</Badge>
+
+`initialValues` 可以在打开弹窗后，给表单设置初始值。
+
+```tsx
+import React, { useState, useRef } from 'react'
+import { AyButton, AyDialogFormField, AyDialogForm } from 'amiya'
+import { Space, message } from 'antd'
+import { professionOptions } from '../api'
+
+export default function AyDialogFormDemo() {
+  const formRef = useRef<any>()
+  // 弹窗是否可见
+  const [visible, setVisible] = useState(false)
+
+  const fields: Array<AyDialogFormField> = [
+    {
+      title: '姓名',
+      key: 'cn',
+      required: true
+    },
+    {
+      title: '初始HP',
+      key: 'ori-hp'
+    },
+    {
+      title: '职业',
+      key: 'class',
+      type: 'select',
+      options: professionOptions
+    }
+  ]
+
+  /** 新增 */
+  const handleAdd = () => {
+    setVisible(true)
+  }
+
+  return (
+    <div className="demo">
+      <Space>
+        <AyButton onClick={handleAdd}>新增</AyButton>
+      </Space>
+      <AyDialogForm
+        ref={formRef}
+        visible={visible}
+        fields={fields}
+        initialValues={{
+          cn: 'amiya'
+        }}
         addApi={() => new Promise(resolve => resolve({}))}
         onClose={() => setVisible(false)}
         onSuccess={() => message.success('操作成功')}
@@ -62,7 +123,7 @@ export default function AyDialogFormDemo() {
 
 如下面这个例子，分开来存储会更加直观。
 
-visible 控制显示，defaultValue 控制默认值，mode 控制弹窗模式（会影响标题、是否只读），spinning 控制弹窗数据是否正在加载中。
+visible 控制显示，initialValues 控制默认值，mode 控制弹窗模式（会影响标题、是否只读），spinning 控制弹窗数据是否正在加载中。
 
 ```tsx
 import React, { useState } from 'react'
@@ -72,7 +133,7 @@ import { detailApi, professionOptions } from '../api'
 
 interface IProps {
   visible: boolean
-  defaultValue: any
+  initialValues: any
   mode: 'add' | 'update' | 'view'
   spinning: boolean
 }
@@ -81,7 +142,7 @@ const defaultProps: IProps = {
   // 是否可见
   visible: false,
   // 弹窗默认值
-  defaultValue: {},
+  initialValues: {},
   // 模式， view 模式下表格会只读
   mode: 'add',
   // 是否正在加载
@@ -114,7 +175,7 @@ export default function AyDialogFormDemo() {
   const handleAdd = () => {
     setDialogProps({
       mode: 'add',
-      defaultValue: {},
+      initialValues: {},
       visible: true,
       spinning: false
     })
@@ -124,7 +185,7 @@ export default function AyDialogFormDemo() {
   const handleUpdate = () => {
     setDialogProps({
       mode: 'update',
-      defaultValue: {},
+      initialValues: {},
       visible: true,
       spinning: true
     })
@@ -132,7 +193,7 @@ export default function AyDialogFormDemo() {
     detailApi(55).then(res => {
       setDialogProps({
         mode: 'update',
-        defaultValue: res.data,
+        initialValues: res.data,
         visible: true,
         spinning: false
       })
@@ -143,7 +204,7 @@ export default function AyDialogFormDemo() {
   const handleView = () => {
     setDialogProps({
       mode: 'view',
-      defaultValue: {},
+      initialValues: {},
       visible: true,
       spinning: true
     })
@@ -151,7 +212,7 @@ export default function AyDialogFormDemo() {
     detailApi(55).then(res => {
       setDialogProps({
         mode: 'view',
-        defaultValue: res.data,
+        initialValues: res.data,
         visible: true,
         spinning: false
       })
