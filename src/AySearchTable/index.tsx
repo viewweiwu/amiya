@@ -34,6 +34,7 @@ import { AySearchTableContext } from './context'
 import { AyDialogFormRef } from '../AyDialogForm/ay-dialog-form'
 import { convertChildrenToAyFormField } from '../AyFields/convertFields'
 import classNames from 'classnames'
+import { Record } from '../types/Record'
 import './ay-search-table.less'
 
 /**
@@ -381,7 +382,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
      * 清空过滤
      * @param keys
      */
-    clearFilters(keys: Array<String> = []) {
+    clearFilters(keys: Array<string> = []) {
       return tableRef.current.clearFilters(keys)
     },
     /**
@@ -402,7 +403,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
      * 清空排序
      * @param keys
      */
-    clearSorts(keys: Array<String> = []) {
+    clearSorts(keys: Array<string> = []) {
       return tableRef.current.clearSorts(keys)
     },
     /** 获取请求前参数 */
@@ -420,8 +421,8 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
      * @param row 新增的数据
      * @param type 新增在前面还是后面
      */
-    addRow(row: AnyKeyProps, type: 'before' | 'after' = 'after') {
-      tableRef.current.addRow(row, type)
+    addRow(record: Record, type: 'before' | 'after' = 'after') {
+      tableRef.current.addRow(record, type)
     }
   }))
 
@@ -444,7 +445,6 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     pagination,
     defaultFiltersValue: getFiltersDefaultValue(tableFields),
     defaultSortsValue: getSortsDefaultValue(tableFields),
-    // @ts-ignore
     defaultSearchValue: getDefaultValue([...searchFields, ...moreSearchFields]),
     btnBefore,
     editMode,
