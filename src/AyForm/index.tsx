@@ -42,6 +42,7 @@ import { ColProps } from 'antd'
 import { convertChildrenToAyFormField } from '../AyFields/convertFields'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import locale from '../locale'
+import { FormValues } from '../types/FormValues'
 import './ay-form.less'
 
 moment.locale('zh-cn')
@@ -513,14 +514,25 @@ const formatValues = (values: AnyKeyProps, fields: Array<AyFormField | AySearchT
  * 提交表单，如果有 onConfirm 事件传入，则触发一次
  * @param values 表单值
  * @param onConfirm 提交表单事件
+ * @param onFinish 提交表单事件，效果跟 onConfirm 一致
+ * @param onSubmit 提交表单事件，效果跟 onConfirm 一致
  */
 const handleConfirm = (
   values: AnyKeyProps,
   fields: Array<AyFormField | AySearchTableField>,
-  onConfirm?: (values: AnyKeyProps) => void
+  onConfirm?: (values: FormValues) => void,
+  onFinish?: (values: FormValues) => void,
+  onSubmit?: (values: FormValues) => void
 ) => {
+  let filterValues: FormValues = formatValues(values, fields)
   if (onConfirm) {
-    onConfirm(formatValues(values, fields))
+    onConfirm(filterValues)
+  }
+  if (onFinish) {
+    onFinish(filterValues)
+  }
+  if (onSubmit) {
+    onSubmit(filterValues)
   }
 }
 
@@ -592,6 +604,8 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
     fields: originFields,
     formLayout = 'horizontal',
     onConfirm,
+    onFinish,
+    onSubmit,
     children,
     props: defaultProps,
     readonly,
@@ -743,7 +757,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
         labelWrap
         layout={formLayout}
         initialValues={getDefaultValue(fields)}
-        onFinish={values => handleConfirm(values, fields, onConfirm)}
+        onFinish={values => handleConfirm(values, fields, onConfirm, onFinish, onSubmit)}
         onValuesChange={(changedValues, allValues) =>
           handleChange(changedValues, allValues, fields, formInstans.setFieldsValue)
         }

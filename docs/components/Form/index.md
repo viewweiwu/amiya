@@ -566,19 +566,21 @@ const fields: Array<AyFormField> = [
 
 ## Props 参数
 
-| 参数名        | 说明                                         | 参数类型                               | 默认值       |
-| ------------- | -------------------------------------------- | -------------------------------------- | ------------ |
-| fields        | 配置项                                       | Array<[AyFormField][2]>                | -            |
-| name          | form 名称，一般不需要填                      | string                                 | 'ay-form'    |
-| span          | antd Grid 的 Col 组件的 span 属性类似        | 1 ～ 24                                | 12           |
-| readonly      | 只读模式                                     | boolean                                | false        |
-| desc          | Descripts 模式                               | boolean                                | false        |
-| layout        | 布局参数, 查看下方 layout 参数               | Object                                 | -            |
-| formLayout    | 布局方式                                     | 'horizontal' \| 'vertical' \| 'inline' | 'horizontal' |
-| props         | antd Form 其它参数                           | [查看参数][1]                          | -            |
-| formItemProps | antd Form.Item 其它参数                      | [查看参数][3]                          | -            |
-| onConfirm     | 提交事件监听                                 | (form: Object) => void                 | -            |
-| gutter        | 表单项横向之间的间距，Row 上面的 gutter 属性 | number                                 | -            |
+| 参数名        | 说明                                           | 参数类型                               | 默认值       | 版本   |
+| ------------- | ---------------------------------------------- | -------------------------------------- | ------------ | ------ |
+| fields        | 配置项                                         | Array<[AyFormField][2]>                | -            | -      |
+| name          | form 名称，一般不需要填                        | string                                 | 'ay-form'    | -      |
+| span          | antd Grid 的 Col 组件的 span 属性类似          | 1 ～ 24                                | 12           | -      |
+| readonly      | 只读模式                                       | boolean                                | false        | -      |
+| desc          | Descripts 模式                                 | boolean                                | false        | -      |
+| layout        | 布局参数, 查看下方 layout 参数                 | Object                                 | -            | -      |
+| formLayout    | 布局方式                                       | 'horizontal' \| 'vertical' \| 'inline' | 'horizontal' | -      |
+| props         | antd Form 其它参数                             | [查看参数][1]                          | -            | -      |
+| formItemProps | antd Form.Item 其它参数                        | [查看参数][3]                          | -            | -      |
+| gutter        | 表单项横向之间的间距，Row 上面的 gutter 属性。 | number                                 | -            | -      |
+| onConfirm     | 提交事件监听                                   | (form: Object) => void                 | -            | -      |
+| onSubmit      | 提交事件监听，效果跟 onConfirm 一致 。         | (form: Object) => void                 | -            | 0.52.0 |
+| onFinish      | 提交事件监听，效果跟 onConfirm 一致。          | (form: Object) => void                 | -            | 0.52.0 |
 
 ## layout 参数
 
