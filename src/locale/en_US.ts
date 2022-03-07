@@ -54,7 +54,7 @@ export default {
     pleaseSelectAfter: '',
     requiredText: '',
     startDate: 'Start Date',
-    endDate: 'End date',
+    endDate: 'End Date',
     dateTo: 'To'
   }
 }
