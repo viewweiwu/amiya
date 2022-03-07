@@ -182,7 +182,7 @@ export default function Demo() {
       activeTab,
       activeTag
     }
-  }, [activeTab])
+  }, [activeTab, activeYear, activeStatus, activeTag])
 
   useEffect(() => {
     // 查询参数改变，刷新列表

@@ -1,10 +1,10 @@
 # AyForm 表单
 
-## 登录示例
+## 基础表单
 
 ```tsx
 import React from 'react'
-import { AyForm, AyButton, AyFormField } from 'amiya'
+import { AyForm, AyButton, AyFormField, FormValues } from 'amiya'
 
 const fields: Array<AyFormField> = [
   {
@@ -29,7 +29,7 @@ const fields: Array<AyFormField> = [
 ]
 
 export default function Demo() {
-  const handleConfirm = (form: any) => {
+  const handleConfirm = (form: FormValues) => {
     console.log(form)
     alert(JSON.stringify(form))
   }
@@ -116,7 +116,7 @@ export default function Demo() {
 
 ## 表单布局
 
-默认会是右侧，label 跟 content 在一起展示。此示例演示如何将 label 展示在顶部。
+`formLayout` 默认值是 `horizontal`，横向展示，可切换成其它展示方式。
 
 ```tsx
 import React, { useState } from 'react'
@@ -160,7 +160,7 @@ export default function Demo() {
 
 ```tsx
 import React, { useState, MutableRefObject, useRef } from 'react'
-import { AyForm, AyFormField, AyButton } from 'amiya'
+import { AyForm, AyFormField, AyButton, FormValues } from 'amiya'
 
 export default function Demo() {
   const formRef: MutableRefObject<any> = useRef()
@@ -177,7 +177,7 @@ export default function Demo() {
         // 清空 b 的表单值
         formRef.current.resetFields(['group-b'])
       },
-      children: '之后填写',
+      children: '暂不填写',
       style: {
         float: 'right'
       },
@@ -196,7 +196,7 @@ export default function Demo() {
     }
   ]
 
-  const handleConfirm = (form: any) => {
+  const handleConfirm = (form: FormValues) => {
     console.log(form)
     alert(JSON.stringify(form))
   }
@@ -219,6 +219,8 @@ export default function Demo() {
 ```
 
 ## 表单项只读
+
+在配置项设置 `readonly: true` 可以将表单项变成只读展示。
 
 ```tsx
 import React from 'react'
@@ -261,7 +263,18 @@ export default function Demo() {
 }
 ```
 
-## 所有的默认表单类型
+```diff
+const fields: Array<AyFormField> = [
+  {
+    title: '创建人',
+    key: 'createName',
++   readonly: true,
+    defaultValue: 'Amiya'
+  }
+]
+```
+
+## 默认表单类型
 
 ```tsx
 import React, { useState } from 'react'
@@ -562,6 +575,393 @@ const fields: Array<AyFormField> = [
   }
 ]
 
+```
+
+## 卡片表单
+
+`FormType` 为 `card` 时，子元素会被 [AyCard](./ay-card) 包裹起来。
+
+```tsx
+import React, { useState } from 'react'
+import { AyForm, AyButton, AyFormField } from 'amiya'
+import { Switch } from 'antd'
+
+const fields: Array<AyFormField> = [
+  {
+    title: '基础数据',
+    // card 的 key 可以不写，内部会用 Math.random() 随机一个 key，推荐写一个，以双下划线开头
+    key: '__base',
+    type: 'card',
+    collapsible: true,
+    children: [
+      {
+        title: '干员名称',
+        key: 'name',
+        defaultValue: 'amiya',
+        required: true
+      },
+      {
+        title: '干员类型',
+        key: 'type'
+      },
+      {
+        title: '备注',
+        type: 'textarea',
+        key: 'rarity',
+        span: 24
+      }
+    ]
+  },
+  {
+    title: '属性',
+    type: 'card',
+    key: '__attributes',
+    collapsible: true,
+    children: [
+      {
+        title: '精0',
+        type: 'card',
+        key: '__phases0',
+        props: {
+          type: 'inner'
+        },
+        children: [
+          {
+            title: '基础血量',
+            key: 'phases0-default-hp',
+            type: 'number'
+          },
+          {
+            title: '基础攻击力',
+            key: 'phases0-default-atk',
+            type: 'number'
+          }
+        ]
+      },
+      {
+        title: '精1',
+        type: 'card',
+        key: '__phases1',
+        props: {
+          type: 'inner'
+        },
+        children: [
+          {
+            title: '基础血量',
+            key: 'phases1-default-hp',
+            type: 'number'
+          },
+          {
+            title: '基础攻击力',
+            key: 'phases1-default-atk',
+            type: 'number'
+          }
+        ]
+      },
+      {
+        title: '精2',
+        type: 'card',
+        key: '__phases2',
+        props: {
+          type: 'inner'
+        },
+        children: [
+          {
+            title: '基础血量',
+            key: 'phases2-default-hp',
+            type: 'number'
+          },
+          {
+            title: '基础攻击力',
+            key: 'phases2-default-atk',
+            type: 'number'
+          }
+        ]
+      }
+    ]
+  }
+]
+
+export default function Demo() {
+  const [readonly, setReadonly] = useState<boolean>(false)
+  const [desc, setDesc] = useState<boolean>(false)
+
+  const handleConfirm = (form: any) => {
+    console.log(form)
+    alert(JSON.stringify(form))
+  }
+
+  return (
+    <>
+      <p>
+        <label style={{ marginRight: 4 }}>只读模式</label>
+        <Switch defaultChecked={readonly} onChange={value => setReadonly(value)} />
+        <label style={{ marginRight: 4, marginLeft: 10 }}>Desc</label>
+        <Switch defaultChecked={desc} onChange={value => setDesc(value)} />
+      </p>
+      <AyForm desc={desc} readonly={readonly} span={12} fields={fields} onConfirm={handleConfirm}>
+        <AyButton type="primary" htmlType="submit">
+          提交
+        </AyButton>
+      </AyForm>
+    </>
+  )
+}
+```
+
+```js
+const fields: Array<AyFormField> = [
+  {
+    title: '基础数据',
+    // 请随意给一个不会重复的 key，以双下划线开头的 key，提交是会过滤掉的
+    key: '__base',
+    type: 'card',
+    collapsible: true,
+    children: [
+      {
+        title: '干员名称',
+        key: 'name',
+        defaultValue: 'amiya',
+        required: true
+      },
+      {
+        title: '干员类型',
+        key: 'type',
+        required: true
+      },
+      {
+        title: '备注',
+        type: 'textarea',
+        key: 'rarity',
+        span: 24
+      }
+    ]
+  },
+  {
+    title: '属性',
+    type: 'card',
+    key: '__attributes',
+    collapsible: true,
+    children: [
+      {
+        title: '精0',
+        // 卡片表单可以套娃
+        type: 'card',
+        key: '__phases0',
+        // 因为是组合表单，如果需要嵌入在子层的头部阴影变为生效，则可以如此设置
+        props: {
+          type: 'inner'
+        },
+        children: [
+          // ... 等同普通 field 写法
+        ]
+      }
+      // ... 等同普通 field 写法
+    ]
+  }
+]
+```
+
+## 组合表单
+
+```tsx
+import React, { useState, useRef } from 'react'
+import { AyForm, AyButton, AyFormField } from 'amiya'
+import { Switch, Space, Card } from 'antd'
+import moment from 'moment'
+
+const fields: Array<AyFormField> = [
+  {
+    title: '生日',
+    // 请随意给一个不会重复的 key，以双下划线开头的 key，提交是会过滤掉的
+    key: '__group',
+    // type 为 group，表示子元素为组合表单
+    type: 'group',
+    help: 'group 会保留一点间隙',
+    // 间隙
+    gutter: 8,
+    style: {
+      width: 400
+    },
+    required: true,
+    children: [
+      {
+        key: 'a',
+        required: true,
+        span: 8,
+        type: 'select',
+        placeholder: '年',
+        defaultValue: 1991,
+        options: Array.from({ length: 50 }).map((item, index) => ({ label: index + 1971 + '年', value: index + 1971 }))
+      },
+      {
+        key: 'b',
+        required: true,
+        span: 8,
+        type: 'select',
+        placeholder: '月',
+        defaultValue: 1,
+        options: Array.from({ length: 12 }).map((item, index) => ({ label: index + 1 + '月', value: index + 1 }))
+      },
+      {
+        key: 'c',
+        type: 'select',
+        span: 8,
+        required: true,
+        placeholder: '日',
+        defaultValue: 9,
+        options: Array.from({ length: 31 }).map((item, index) => ({ label: index + 1 + '日', value: index + 1 }))
+      }
+    ]
+  },
+  {
+    title: '会议时间',
+    key: '__group2',
+    type: 'input-group',
+    help: 'input-group 无间隙',
+    required: true,
+    children: [
+      {
+        title: '申请日期',
+        key: 'd',
+        required: true,
+        type: 'date',
+        defaultValue: moment(),
+        style: {
+          width: 180
+        }
+      },
+      {
+        title: '时间段',
+        key: 'e',
+        type: 'select',
+        required: true,
+        defaultValue: [8],
+        mode: 'multiple',
+        options: [
+          { label: '08:00 ~ 09:00', value: 8 },
+          { label: '09:00 ~ 10:00', value: 9 },
+          { label: '10:00 ~ 11:00', value: 10 },
+          { label: '11:00 ~ 12:00', value: 11 },
+          { label: '12:00 ~ 13:00', value: 12 },
+          { label: '13:00 ~ 14:00', value: 13 },
+          { label: '14:00 ~ 15:00', value: 14 },
+          { label: '15:00 ~ 16:00', value: 15 },
+          { label: '16:00 ~ 17:00', value: 16 }
+        ],
+        // 宽度设置
+        style: {
+          minWidth: 140
+        }
+      }
+    ]
+  }
+]
+
+export default function Demo() {
+  const [readonly, setReadonly] = useState<boolean>(false)
+  const [desc, setDesc] = useState<boolean>(false)
+  const formRef = useRef<any>()
+
+  const handleConfirm = (form: any) => {
+    console.log(form)
+    alert(JSON.stringify(form))
+  }
+
+  const getFieldsValue = () => {
+    let values = formRef.current.getFormatFieldsValue()
+    console.log(values)
+    alert(JSON.stringify(values))
+  }
+
+  return (
+    <Card>
+      <p>
+        <label style={{ marginRight: 4 }}>只读模式</label>
+        <Switch defaultChecked={readonly} onChange={value => setReadonly(value)} />
+        <label style={{ marginRight: 4, marginLeft: 10 }}>Desc</label>
+        <Switch defaultChecked={desc} onChange={value => setDesc(value)} />
+      </p>
+      <AyForm ref={formRef} desc={desc} readonly={readonly} fields={fields} onConfirm={handleConfirm}>
+        <Space style={{ marginTop: 16, marginLeft: 120 }}>
+          <AyButton type="primary" htmlType="submit">
+            提交
+          </AyButton>
+          <AyButton onClick={getFieldsValue}>获取当前输入值</AyButton>
+        </Space>
+      </AyForm>
+    </Card>
+  )
+}
+```
+
+<hr />
+
+### group
+
+如果是 group，一般中间会绘制一个分割线，如果不需要间隙，请使用 `input-group`。
+
+```js
+{
+  title: '组合类型',
+  // 此处的 type 为 group，表示子元素为组合类型
+  type: 'group',
+  // key 建议写一个
+  key: '__group',
+  //
+  children: [
+    {
+      // 此处子元素写了 title 也不会展示，但是也可以写，因为还会影响到错误的校验信息和 placeholder
+      title: '子元素A',
+      key: 'a',
+      required: true,
+      span: 12
+    },
+    {
+      // 此处子元素写了 title 也不会展示，但是也可以写，因为还会影响到错误的校验信息和 placeholder
+      title: '子元素B',
+      key: 'b',
+      required: true,
+      span: 12
+    }
+  ]
+}
+```
+
+### input-group
+
+如果中间不需要分割符，且紧密的连接在一起，请使用 `input-group`。
+
+```js
+{
+  title: '组合类型',
+  // 此处的 type 为 input-group，表示子元素为组合类型，且无间隙
+  type: 'input-group',
+  // key 建议写一个
+  key: '__input-group',
+  children: [
+    {
+      // 此处子元素写了 title 也不会展示，但是也可以写，因为还会影响到错误的校验信息和 placeholder
+      title: '子元素A',
+      key: 'a',
+      required: true,
+      // 需要手动设置输入框宽度，不然会撑满，此处设置 span 无效
+      style: {
+        width: '50%'
+      }
+    },
+    {
+      // 此处子元素写了 title 也不会展示，但是也可以写，因为还会影响到错误的校验信息和 placeholder
+      title: '子元素B',
+      key: 'b',
+      required: true,
+      // 需要手动设置输入框宽度，不然会撑满，此处设置 span 无效
+      style: {
+        width: '50%'
+      }
+    }
+  ]
+}
 ```
 
 ## Props 参数

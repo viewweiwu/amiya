@@ -104,16 +104,6 @@ export default defineConfig({
             path: '/components/form/date-format',
             title: 'Date 表单日期的格式化',
             meta: {}
-          },
-          {
-            path: '/components/form/card-form',
-            title: '卡片表单',
-            meta: {}
-          },
-          {
-            path: '/components/form/group-form',
-            title: '组合表单',
-            meta: {}
           }
         ]
       },
@@ -130,11 +120,6 @@ export default defineConfig({
           {
             path: '/components/table/ay-search-list',
             title: 'AySearchList 查询列表',
-            meta: {}
-          },
-          {
-            path: '/components/table/radio-table',
-            title: '单选表格',
             meta: {}
           },
           {
@@ -175,11 +160,6 @@ export default defineConfig({
           {
             path: '/components/table/custom-render',
             title: '自定义渲染列',
-            meta: {}
-          },
-          {
-            path: '/components/table/compact-table',
-            title: '表头合并',
             meta: {}
           }
         ]

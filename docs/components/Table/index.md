@@ -15,13 +15,13 @@ import { AySearchTable, AySearchTableField, Record } from 'amiya'
 
 const data: Array<Record> = [
   {
-    key: '1',
+    id: '1',
     cn: 'Amiya',
     index: 'R001',
     des: '罗德岛公开领导人阿米娅，将与你并肩作战。'
   },
   {
-    key: '2',
+    id: '2',
     cn: '能天使',
     index: 'PL03',
     des: '企鹅物流职员能天使，将用铳枪为小队扫平前路。'
@@ -58,13 +58,13 @@ import { AySearchTable, Record, AyFields, AyField } from 'amiya'
 
 const data: Array<Record> = [
   {
-    key: '1',
+    id: '1',
     cn: 'Amiya',
     index: 'R001',
     des: '罗德岛公开领导人阿米娅，将与你并肩作战。'
   },
   {
-    key: '2',
+    id: '2',
     cn: '能天使',
     index: 'PL03',
     des: '企鹅物流职员能天使，将用铳枪为小队扫平前路。'
@@ -145,7 +145,7 @@ const fields: Array<AySearchTableField> = [
 ]
 
 export default function Demo() {
-  return <AySearchTable api={listApi} title="简易表格" fields={fields} />
+  return <AySearchTable api={listApi} title="简易表格" fields={fields} rowKey="sort_id" />
 }
 ```
 
@@ -197,7 +197,7 @@ const fields: Array<AySearchTableField> = [
 ]
 
 export default function Demo() {
-  return <AySearchTable api={listApi} title="看上面☝️我多了个查询框" fields={fields} />
+  return <AySearchTable api={listApi} title="看上面☝️我多了个查询框" fields={fields} rowKey="sort_id" />
 }
 ```
 
@@ -271,7 +271,7 @@ const fields: Array<AySearchTableField> = [
 ]
 
 export default function Demo() {
-  return <AySearchTable compact extraVisible={false} api={listApi} fields={fields} />
+  return <AySearchTable compact extraVisible={false} api={listApi} fields={fields} rowKey="sort_id" />
 }
 ```
 
@@ -321,7 +321,15 @@ const fields: Array<AySearchTableField> = [
 ]
 
 export default function Demo() {
-  return <AySearchTable searchExtend={{ inline: true }} extraVisible={false} api={listApi} fields={fields} />
+  return (
+    <AySearchTable
+      searchExtend={{ inline: true }}
+      extraVisible={false}
+      api={listApi}
+      fields={fields}
+      rowKey="sort_id"
+    />
+  )
 }
 ```
 
@@ -369,7 +377,7 @@ const fields: Array<AySearchTableField> = [
 ]
 
 export default function Demo() {
-  return <AySearchTable api={listApi} title="你看，我把查询框放到了右边👉" fields={fields} />
+  return <AySearchTable api={listApi} title="你看，我把查询框放到了右边👉" fields={fields} rowKey="sort_id" />
 }
 ```
 
@@ -425,7 +433,7 @@ const fields: Array<AySearchTableField> = [
 ]
 
 export default function Demo() {
-  return <AySearchTable api={listApi} rowKey="sort_id" title="表格标题" fields={fields} />
+  return <AySearchTable api={listApi} rowKey="sort_id" title="表格标题" fields={fields} rowKey="sort_id" />
 }
 ```
 
@@ -453,6 +461,165 @@ export default function Demo() {
 ```
 
 更详细的筛选于排序使用方法看[这里](./table/sort-filter)
+
+## 表头合并
+
+在 `children` 下嵌套 Field 就可以做到表头合并。
+
+```tsx
+import React from 'react'
+import { AySearchTable, AySearchTableField } from 'amiya'
+import { listApi } from '../api'
+
+const fields: Array<AySearchTableField> = [
+  {
+    title: '姓名',
+    key: 'names', // 请给予这个地方 key，否则表头的自定义别名会出现意外结果
+    children: [
+      {
+        title: '中文名',
+        key: 'cn'
+      },
+      {
+        title: '英文名',
+        key: 'en'
+      },
+      {
+        title: '日文名',
+        key: 'jp'
+      }
+    ]
+  },
+  {
+    title: '初始HP',
+    key: 'ori-hp'
+  },
+  {
+    title: '初始攻击',
+    key: 'ori-atk'
+  }
+]
+
+export default function Demo() {
+  return <AySearchTable title="表格标题" rowKey="sort_id" searchVisible={false} api={listApi} fields={fields} />
+}
+```
+
+## 多选表格
+
+`selectionType="checkbox"` 可以让表格开启多选。
+
+不要忘记指定 `rowKey`，作为每一行数据的唯一 key，`selectShowKey` 可以指定悬浮在数字上展示的名称。
+
+开启后选中的选项是会被记录的，不管翻页、查询、筛选、排序，是不会清空已选中的选项的，除非主动调用表格的 clearSelection 方法清空，或者用户主动点击清空按钮。
+
+```tsx
+/**
+ * title: 关于默认值
+ * desc: rowKey 默认值是 id，selectShowKey 默认值是 name。
+ */
+import React, { useRef } from 'react'
+import { AySearchTable, AySearchTableField, AyButton, Record } from 'amiya'
+import { listApi } from '../api'
+
+const fields: Array<AySearchTableField> = [
+  {
+    title: '姓名',
+    key: 'cn'
+  },
+  {
+    title: '英文名',
+    key: 'en'
+  }
+]
+
+export default function Demo() {
+  const tableRef = useRef<any>()
+
+  const handleView = () => {
+    let selection = tableRef.current.getSelection()
+    if (selection.length) {
+      alert('你选中了：' + selection.map((record: Record) => record.cn).join('、'))
+    }
+  }
+
+  return (
+    <AySearchTable
+      title="多选表格"
+      ref={tableRef}
+      searchVisible={false}
+      rowKey="sort_id"
+      selectShowKey="cn"
+      selectionType="checkbox"
+      api={listApi}
+      fields={fields}
+    >
+      <AyButton type="primary" tableFooterExtraOnly onClick={() => handleView()}>
+        打印选项
+      </AyButton>
+    </AySearchTable>
+  )
+}
+```
+
+```html
+<AySearchTable selectionType="checkbox" rowKey="id" selectShowKey="name" />
+```
+
+## 单选表格
+
+`selectionType="radio"` 可以让表格开启单选。
+
+除了只能选中一个，其它特性跟[多选表格](#多选表格)一致。
+
+```tsx
+import React, { useRef } from 'react'
+import { AySearchTable, AySearchTableField, AyButton } from 'amiya'
+import { listApi } from '../api'
+
+const fields: Array<AySearchTableField> = [
+  {
+    title: '姓名',
+    key: 'cn'
+  },
+  {
+    title: '英文名',
+    key: 'en'
+  }
+]
+
+export default function Demo() {
+  const tableRef = useRef<any>()
+
+  const handleView = () => {
+    let selection = tableRef.current.getSelection()
+    if (selection.length) {
+      alert('你选中了：' + selection[0].cn)
+    }
+  }
+
+  return (
+    <AySearchTable
+      title="单选表格"
+      ref={tableRef}
+      searchVisible={false}
+      rowKey="sort_id"
+      selectShowKey="cn"
+      selectionType="radio"
+      api={listApi}
+      fields={fields}
+    >
+      <AyButton type="primary" tableFooterExtraOnly onClick={() => handleView()}>
+        打印选项
+      </AyButton>
+    </AySearchTable>
+  )
+}
+```
+
+```html
+<AySearchTable selectionType="radio" />
+```
 
 ## 指令按钮
 
@@ -526,6 +693,7 @@ export default function Demo() {
       title="尝试点击【新增】【详情】【编辑】等按钮"
       ctrl={ctrl}
       fields={fields}
+      rowKey="sort_id"
       dialogFormExtend={{
         fields,
         addApi,
@@ -613,7 +781,7 @@ const fields: Array<AySearchTableField> = [
  * 模拟新增
  * @param params 保存参数
  */
-export const addApi = (params: AnyKeyProps): Promise<any> => {
+export const addApi = (params: AnyKeyProps) => {
   return new Promise(resolve => {
     data.unshift({
       id: Date.now(),
@@ -631,7 +799,7 @@ export const addApi = (params: AnyKeyProps): Promise<any> => {
  * 模拟修改
  * @param params 保存参数
  */
-export const updateApi = (params: AnyKeyProps): Promise<any> => {
+export const updateApi = (params: AnyKeyProps) => {
   return new Promise(resolve => {
     let index: number = data.findIndex(row => row.id === params.id)
     if (index >= 0 && data[index]) {
@@ -781,7 +949,7 @@ const ctrl: AyTableCtrlField = {
  * 模拟删除
  * @param params 删除的 id
  */
-export const deleteApi = (params: AnyKeyProps): Promise<any> => {
+export const deleteApi = (params: AnyKeyProps) => {
   return new Promise(resolve => {
     data = data.filter(row => {
       return !params.includes(row.sort_id)
