@@ -187,14 +187,33 @@ export default defineConfig({
         ]
       },
       {
-        path: '/components/ay-card',
-        title: 'AyCard',
-        meta: {}
+        title: '其它',
+        path: '/components/Other',
+        meta: {},
+        children: [
+          {
+            path: '/components/ay-card',
+            title: 'AyCard',
+            meta: {}
+          },
+          {
+            path: '/components/ay-dialog',
+            title: 'AyDialog',
+            meta: {}
+          }
+        ]
       },
       {
-        path: '/components/ay-dialog',
-        title: 'AyDialog',
-        meta: {}
+        title: 'Hooks',
+        path: '/components/Hooks',
+        meta: {},
+        children: [
+          {
+            path: '/components/Hooks/use-options',
+            title: 'useOptions',
+            meta: {}
+          }
+        ]
       },
       {
         title: '全局方法',
@@ -204,23 +223,17 @@ export default defineConfig({
           {
             path: '/components/Global/set-default-search-filter',
             title: 'AySearchTable 全局请求前处理',
-            meta: {
-              order: 1
-            }
+            meta: {}
           },
           {
             path: '/components/Global/set-default-data-filter',
             title: 'AySearchTable 全局请求返回处理',
-            meta: {
-              order: 2
-            }
+            meta: {}
           },
           {
             path: '/components/Global/set-search-table-default-value',
             title: 'AySearchTable 全局右侧按钮配置',
-            meta: {
-              order: 3
-            }
+            meta: {}
           },
           {
             path: '/components/Global/date-shortcut',
