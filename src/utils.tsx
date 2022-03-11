@@ -61,26 +61,6 @@ export const clearEmpty = (params: AnyKeyProps): AnyKeyProps => {
   return result
 }
 
-/**
- * 填充标题和值
- * @param item 当前循环项
- * @param labelKey 标题
- * @param valueKey 值
- */
-const fillKey = (
-  item: AnyKeyProps,
-  labelKey: string,
-  valueKey: string,
-  format?: (data: AnyKeyProps) => AnyKeyProps
-) => {
-  item.title = item[labelKey]
-  item.key = item[valueKey]
-  if (format) {
-    item = format(item)
-  }
-  return item
-}
-
 interface ListToTreeProps {
   /** 数据源 */
   data: Array<AnyKeyProps>
@@ -95,9 +75,7 @@ interface ListToTreeProps {
   /** 跟节点值 */
   rootValue?: string | null
   /** 是否拥有 children */
-  hasChildren?: boolean
-  /** 节点格式化 */
-  format?(props: AnyKeyProps): AnyKeyProps
+  keepLeaf?: boolean
 }
 
 /**
@@ -108,23 +86,19 @@ export const listToTree = (props: ListToTreeProps) => {
   const {
     data = [],
     parentKey = 'parentId',
-    labelKey = 'name',
     childrenKey = 'children',
     valueKey = 'id',
     rootValue = null,
-    hasChildren = false,
-    format
+    keepLeaf = false
   } = props
   let list = copy(data)
   let map: AnyKeyProps = {}
   let roots: Array<AnyKeyProps> = []
-
   list.forEach((item: any, i: number) => {
     map[item[valueKey]] = i
     item[childrenKey] = []
   })
   list.forEach((node: AnyKeyProps) => {
-    node = fillKey(node, labelKey, valueKey, format)
     let target = node[parentKey]
     if (target === rootValue) {
       roots.push(node)
@@ -136,7 +110,7 @@ export const listToTree = (props: ListToTreeProps) => {
       }
     }
   })
-  if (!hasChildren) {
+  if (!keepLeaf) {
     list.forEach((item: AnyKeyProps) => {
       if (!item.children.length) {
         delete item.children

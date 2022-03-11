@@ -21,6 +21,7 @@ import AySearchList from './AySearchList'
 import AyCardGroup from './AyCardGroup'
 import AyTagGroup from './AyTagGroup'
 import { setLanguage } from './locale'
+import useOptions from './hooks/useOptions'
 
 export {
   AyCard,
@@ -43,6 +44,7 @@ export {
   AyFields,
   AyField,
   AySearchList,
+  useOptions,
   setDefaultDataFilter,
   setDefaultSearchFilter,
   setSearchTableDefaultValue,
@@ -76,6 +78,7 @@ export default {
   AyFields,
   AyField,
   AySearchList,
+  useOptions,
   setDefaultDataFilter,
   setDefaultSearchFilter,
   setSearchTableDefaultValue,
