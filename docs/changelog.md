@@ -4,6 +4,11 @@ order: 1
 
 # 更新日志
 
+## 0.53.0
+
+1. feat: 支持 useOptions hooks。
+2. feat: `AyDialog`、`AyDialogForm` 支持 onCancel 方法。
+
 ## 0.52.0
 
 `2022-03-03`

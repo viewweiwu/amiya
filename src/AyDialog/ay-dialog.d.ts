@@ -13,6 +13,8 @@ export interface AyDialogProps extends ModalProps {
   setVisible?: Dispatch<SetStateAction<boolean>>
   /** 弹窗关闭 */
   onClose?(): void
+  /** 弹窗关闭 */
+  onCancel?(): void
   /** 提交事件, 跟 onConfirm 事件效果一致 */
   onOk?(): void
   /** 提交事件 */

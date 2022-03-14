@@ -66,6 +66,7 @@ export default function AyDialog(props: AyDialogProps) {
     onConfirm,
     onOk,
     onClose,
+    onCancel,
     footer,
     width,
     drawer,
@@ -75,6 +76,7 @@ export default function AyDialog(props: AyDialogProps) {
   const handleCancel = () => {
     setVisible && setVisible(false)
     onClose && onClose()
+    onCancel && onCancel()
   }
 
   const handleConfirm = () => {

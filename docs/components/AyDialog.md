@@ -138,6 +138,7 @@ export default function Demo() {
 | cancelAfter    | 关闭按钮后置元素                        | ReactNode                           | -      |
 | className      | 样式                                    | -                                   | -      |
 | onClose        | 弹窗关闭事件                            | () => void                          | 0.48.0 |
+| onCancel       | 弹窗关闭事件，效果跟 onClose 一致。     | () => void                          | 0.53.0 |
 | onConfirm      | 确认按钮事件监听                        | () => void                          | -      |
 | onOk           | 确认按钮事件监听，效果跟 onConfirm 一致 | () => void                          | 0.52.0 |
 

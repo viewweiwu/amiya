@@ -573,7 +573,8 @@ export default function AyDialogFormDemo() {
 | spinning     | 打开弹窗后，表单是否处于正在加载数据的阶段。          | boolean                                                    | false  | 0.52.0 |
 | onSuccess    | 成功回调，可见[下方](#config-返回值)具体说明。        | ({ data, values, params, initParams, closeDialog })        | -      | 0.52.0 |
 | onError      | 失败回调，可见[下方](#config-返回值)具体说明。        | ({ data, values, params, initParams, closeDialog })        | -      | 0.52.0 |
-| onClose      | 弹窗关闭事件监听。                                    | Function                                                   | -      | 0.52.0 |
+| onClose      | 弹窗关闭事件监听。                                    | () => void                                                 | -      | 0.52.0 |
+| onCancel     | 弹窗关闭事件，效果跟 onClose 一致。                   | () => void                                                 | 0.53.0 |
 
 ## Method
 

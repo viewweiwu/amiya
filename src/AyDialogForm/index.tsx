@@ -125,6 +125,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     mode: defaultMode,
     spinning = false,
     onClose,
+    onCancel,
     onSuccess,
     onError,
     initialValues,
@@ -318,6 +319,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
   const closeDialog = () => {
     setVisible(false)
     onClose && onClose()
+    onCancel && onCancel()
   }
 
   /**
