@@ -209,7 +209,7 @@ export default defineConfig({
         meta: {},
         children: [
           {
-            path: '/components/Hooks/use-options',
+            path: '/components/hooks/use-options',
             title: 'useOptions',
             meta: {}
           }
@@ -297,6 +297,11 @@ export default defineConfig({
           {
             path: '/template/form/link',
             title: '联动表单',
+            meta: {}
+          },
+          {
+            path: '/template/form/audit',
+            title: '审批',
             meta: {}
           },
           {

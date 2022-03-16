@@ -1071,6 +1071,8 @@ const fields: Array<Field> = [
 
 ## Option 参数
 
+使用 [useOptions](./hooks/use-options) 处理异步情况。
+
 | 参数名   | 说明     | 参数类型                | 默认值 |
 | -------- | -------- | ----------------------- | ------ |
 | label    | 显示选项 | string \| number        | -      |
