@@ -249,7 +249,7 @@ import { detailApi, professionOptions } from '../api'
 
 interface IProps {
   visible: boolean
-  defaultValue: any
+  initialValues: any
   mode: 'add' | 'update' | 'view'
   spinning: boolean
 }
@@ -258,7 +258,7 @@ const defaultProps: IProps = {
   // 是否可见
   visible: false,
   // 弹窗默认值
-  defaultValue: {},
+  initialValues: {},
   // 模式， view 模式下表格会只读
   mode: 'add',
   // 是否正在加载
@@ -273,7 +273,7 @@ export default function AyDialogFormDemo() {
   const handleAdd = () => {
     setDialogProps({
       mode: 'add',
-      defaultValue: {},
+      initialValues: {},
       visible: true,
       spinning: false
     })
@@ -283,7 +283,7 @@ export default function AyDialogFormDemo() {
   const handleUpdate = () => {
     setDialogProps({
       mode: 'update',
-      defaultValue: {},
+      initialValues: {},
       visible: true,
       spinning: true
     })
@@ -291,7 +291,7 @@ export default function AyDialogFormDemo() {
     detailApi(55).then(res => {
       setDialogProps({
         mode: 'update',
-        defaultValue: res.data,
+        initialValues: res.data,
         visible: true,
         spinning: false
       })
@@ -302,7 +302,7 @@ export default function AyDialogFormDemo() {
   const handleView = () => {
     setDialogProps({
       mode: 'view',
-      defaultValue: {},
+      initialValues: {},
       visible: true,
       spinning: true
     })
@@ -310,7 +310,7 @@ export default function AyDialogFormDemo() {
     detailApi(55).then(res => {
       setDialogProps({
         mode: 'view',
-        defaultValue: res.data,
+        initialValues: res.data,
         visible: true,
         spinning: false
       })
