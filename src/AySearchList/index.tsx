@@ -26,7 +26,7 @@ import AyButton from '../AyButton'
 import { AySearchTableContext } from '../AySearchTable/context'
 import { AyDialogFormRef } from '../AyDialogForm/ay-dialog-form'
 import useExtraBtn from '../AySearchTable/use/useExtraBtn'
-import { convertChildrenToAyFormField } from '../AyFields/convertFields'
+import { convertChildrenToField } from '../AyFields/convertFields'
 import Selection from './Selection'
 import SelectionAll from './SelectionAll'
 
@@ -156,7 +156,7 @@ function AySearchList(props: AySearchListProps, ref: Ref<any>) {
   } = props
 
   const fields = useMemo(() => {
-    const childrenFields = convertChildrenToAyFormField(children)
+    const childrenFields = convertChildrenToField(children)
     return [...(originFields || []), ...childrenFields]
   }, [originFields, children])
 

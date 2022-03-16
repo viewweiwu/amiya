@@ -8,6 +8,23 @@ order: 1
 
 1. feat: 支持 useOptions hooks。
 2. feat: `AyDialog`、`AyDialogForm` 支持 onCancel 方法。
+3. feat: `AyField` 支持 `Fragment` 嵌套，支持表达式判断。
+
+```js
+<AyFields>
+  {true && <AyField />}
+  <>
+    <AyField />
+    <AyField />
+  </>
+  {true && (
+    <>
+      <AyField />
+      <AyField />
+    </>
+  )}
+</AyFields>
+```
 
 ## 0.52.0
 

@@ -39,7 +39,7 @@ import moment from 'moment'
 import 'moment/locale/zh-cn'
 import { AySearchTableField } from '../AySearchTable/ay-search-table'
 import { ColProps } from 'antd'
-import { convertChildrenToAyFormField } from '../AyFields/convertFields'
+import { convertChildrenToField } from '../AyFields/convertFields'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import locale from '../locale'
 import { FormValues } from '../types/FormValues'
@@ -619,7 +619,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
   } = props
 
   const fields = useMemo(() => {
-    const childrenFields = convertChildrenToAyFormField(children)
+    const childrenFields = convertChildrenToField(children)
     return [...(originFields || []), ...childrenFields]
   }, [originFields, children])
 

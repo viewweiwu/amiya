@@ -15,7 +15,7 @@ import AyForm from '../AyForm'
 import { AyDialogFormField, ModeType, AyDialogFormRef, AyDialogFormProps } from './ay-dialog-form'
 import { AyFormField } from '../AyForm/ay-form'
 import { AnyKeyProps } from '../types/AnyKeyProps'
-import { convertChildrenToAyFormField } from '../AyFields/convertFields'
+import { convertChildrenToField } from '../AyFields/convertFields'
 import { omitObj } from '../utils'
 import locale from '../locale'
 
@@ -133,7 +133,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
   } = props
 
   const fields = useMemo(() => {
-    const childrenFields = convertChildrenToAyFormField(children)
+    const childrenFields = convertChildrenToField(children)
     return [...(originFields || []), ...childrenFields]
   }, [originFields, children])
 

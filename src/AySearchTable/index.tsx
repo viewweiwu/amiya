@@ -32,7 +32,7 @@ import useExtraBtn, { setSearchTableExtraDefaultValue } from './use/useExtraBtn'
 import AyButton from '../AyButton'
 import { AySearchTableContext } from './context'
 import { AyDialogFormRef } from '../AyDialogForm/ay-dialog-form'
-import { convertChildrenToAyFormField } from '../AyFields/convertFields'
+import { convertChildrenToField } from '../AyFields/convertFields'
 import classNames from 'classnames'
 import { Record } from '../types/Record'
 import './ay-search-table.less'
@@ -251,7 +251,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
   } = props
 
   const fields = useMemo(() => {
-    const childrenFields = convertChildrenToAyFormField(children)
+    const childrenFields = convertChildrenToField(children)
     return [...(originFields || []), ...childrenFields]
   }, [originFields, children])
 

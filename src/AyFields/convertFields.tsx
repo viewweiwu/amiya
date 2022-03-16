@@ -1,3 +1,4 @@
+import { Field } from '../AyForm/ay-form'
 import { ReactElement, ReactNode } from 'react'
 
 const getAyFieldsNode = (children: ReactNode) => {
@@ -8,7 +9,7 @@ const getAyFieldsNode = (children: ReactNode) => {
   return children.find((node: ReactElement) => node?.type?.componentName === 'AyFields')
 }
 
-export const convertChildrenToAyFormField = (children: ReactNode) => {
+export const convertChildrenToField = (children: ReactNode) => {
   // 获得子元素名为 AyFields 的节点
   let ayFields = getAyFieldsNode(children)
 
@@ -26,17 +27,26 @@ function loop(children: ReactNode) {
     children = [children]
   }
 
+  let newChildren: Field[] = []
+
   // @ts-ignore
-  return children.map(node => {
-    let newNode = {
-      ...node?.props,
-      key: node.key
-    }
+  children.forEach(node => {
+    if (node) {
+      if (node?.type.toString() === 'Symbol(react.fragment)' && node?.props?.children) {
+        newChildren.push(...loop(node.props.children))
+        return
+      }
+      let newNode = {
+        ...node?.props,
+        key: node.key
+      }
 
-    if (newNode?.children) {
-      newNode.children = loop(newNode.children)
-    }
+      if (newNode?.children) {
+        newNode.children = loop(newNode.children)
+      }
 
-    return newNode
+      newChildren.push(newNode)
+    }
   })
+  return newChildren
 }
