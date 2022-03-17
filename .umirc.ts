@@ -36,6 +36,10 @@ export default defineConfig({
       path: '/template'
     },
     {
+      title: '疑问',
+      path: '/faq'
+    },
+    {
       title: '更新日志',
       path: '/changelog'
     },
