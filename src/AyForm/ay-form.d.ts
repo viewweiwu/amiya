@@ -45,7 +45,7 @@ export interface AyFormProps {
     wrapperCol?: AnyKeyProps
   }
   /** 表单布局方式 */
-  formLayout?: 'horizontal' | 'vertical' | 'inline'
+  formLayout?: 'horizontal' | 'vertical' | 'inline' | string
   /** 提交事件 */
   onConfirm?(form: FormValues): any
   /** 提交事件 跟 onConfirm 效果一致 */
@@ -97,6 +97,7 @@ export interface Field {
    * @param custom 自定义，此时支持 renderContent
    * @param card-group 卡片选择，支持单个与多个
    * @param tag-group 标签选择，支持单个与多个
+   * @param html 原生 HTML 标签
    */
   type?:
     | 'input'
@@ -117,6 +118,7 @@ export interface Field {
     | 'custom'
     | 'card-group'
     | 'tag-group'
+    | 'html'
     | string
   /**
    * 配置项，是一个数组，数组每个对象可以配置[{ label; value; disable? }]

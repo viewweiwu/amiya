@@ -786,7 +786,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
       <Form
         ref={formRef}
         colon={desc ? false : true}
-        layout={formLayout}
+        layout={formLayout as any}
         labelAlign={labelAlign}
         labelWrap
         {...formItemLayout}

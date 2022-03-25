@@ -315,6 +315,13 @@ const fields: Array<AyFormField> = [
         key: 'textarea',
         defaultValue: '我是一段简单的文本描述，主要的作用呢，就是让用户看看在字多的情况下有什么表现～',
         span: 24
+      },
+      {
+        title: 'HTML',
+        type: 'html',
+        key: '__html',
+        html: '<a onclick="alert(`我中意你啊！`)">我要飞的更高～</a>',
+        span: 24
       }
     ]
   },
@@ -532,6 +539,110 @@ export default function Demo() {
   )
 }
 ```
+
+## 表单联动
+
+可以独立声明一个 state 来控制具体某个属性。例如：
+
+```js
+const [hidden, setHidden] = useState(false)
+
+const fields: Array<AyFormField> = [
+  {
+    title: '输入框',
+    key: 'input',
+    hidden: hidden
+  }
+]
+```
+
+```tsx
+import React, { useState } from 'react'
+import { AyForm, AyButton, AyFormField, FormValues } from 'amiya'
+
+export default function Demo() {
+  const [hidden, setHidden] = useState(true)
+  const fields: Array<AyFormField> = [
+    {
+      title: '',
+      key: 'checkbox',
+      type: 'checkbox',
+      children: '显示输入框',
+      onChange: (value: boolean) => {
+        setHidden(!value)
+      }
+    },
+    {
+      title: '输入框',
+      key: 'input',
+      hidden
+    }
+  ]
+
+  const handleConfirm = (form: FormValues) => {
+    console.log(form)
+    alert(JSON.stringify(form))
+  }
+
+  return (
+    <AyForm fields={fields} formLayout="vertical" onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
+      <AyButton type="primary" htmlType="submit">
+        提交
+      </AyButton>
+    </AyForm>
+  )
+}
+```
+
+## 表单联动-表达式 <Badge>0.54.0</Badge>
+
+字符串函数表达式，以双括号 `"{{formValues.xxx}}"` 使用。例如：
+
+```js
+const fields: Array<AyFormField> = [
+  {
+    title: '输入框',
+    key: 'input',
+    hidden: '{{ !formValues.checkbox }}'
+  }
+]
+```
+
+```tsx
+import React from 'react'
+import { AyForm, AyButton, AyFormField, FormValues } from 'amiya'
+
+const fields: Array<AyFormField> = [
+  {
+    title: '',
+    key: 'checkbox',
+    type: 'checkbox',
+    children: '显示输入框'
+  },
+  {
+    title: '输入框',
+    key: 'input',
+    hidden: '{{ !formValues.checkbox }}'
+  }
+]
+
+export default function Demo() {
+  const handleConfirm = (form: FormValues) => {
+    console.log(form)
+    alert(JSON.stringify(form))
+  }
+
+  return (
+    <AyForm fields={fields} formLayout="vertical" onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
+      <AyButton type="primary" htmlType="submit">
+        提交
+      </AyButton>
+    </AyForm>
+  )
+}
+```
+
+除了 `hidden` 属性，其它属性也支持，例如 title、type。
 
 ## Desc 模式
 
@@ -1066,8 +1177,9 @@ const fields: Array<Field> = [
 | card           | 会用 AyCard 包裹住底下的 form，具体使用可以看 [卡片表单][cardform]。    | -               | -      |
 | group          | 组合表单，具体使用可以看 [组合表单][groupform]。                        | -               | -      |
 | input-group    | 带输入框的组合表单，具体使用可以看 [组合表单][groupform]。              | -               | -      |
-| tag-group      | [tag 选择][taggroup]，若设置 multiple 属性，可支持多选                  | undefined \| [] | 0.45.0 |
-| card-group     | [卡片选择][cardgroup]，若设置 multiple 属性，可支持多选                 | null \| []      | 0.47.0 |
+| tag-group      | [tag 选择][taggroup]，若设置 multiple 属性，可支持多选。                | undefined \| [] | 0.45.0 |
+| card-group     | [卡片选择][cardgroup]，若设置 multiple 属性，可支持多选。               | null \| []      | 0.47.0 |
+| html           | 原生 HTML 标签                                                          | undefined       | 0.54.0 |
 
 ## Option 参数
 

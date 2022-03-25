@@ -45,7 +45,9 @@ import {
   FORM_TYPE_TAG_GROUP,
   FORM_DEFAULT_VALUE_TAG_GROUP,
   FORM_TYPE_CARD_GROUP,
-  FORM_DEFAULT_VALUE_CARD_GROUP
+  FORM_DEFAULT_VALUE_CARD_GROUP,
+  FORM_TYPE_HTML,
+  FORM_DEFAULT_VALUE_HTML
 } from '../constant'
 import AyTagGroup from '../AyTagGroup'
 import AyCardGroup from '../AyCardGroup'
@@ -331,5 +333,12 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
     render: ({ field, readonly }: AnyKeyProps) => (
       <AyCardGroup readonly={readonly} options={field.options} {...field.props} />
     )
+  })
+
+  // 注册 html
+  registerField(FORM_TYPE_HTML, {
+    type: FORM_TYPE_HTML,
+    defaultValue: FORM_DEFAULT_VALUE_HTML,
+    render: ({ field }: AnyKeyProps) => <div dangerouslySetInnerHTML={{ __html: field.html }}></div>
   })
 }
