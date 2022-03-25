@@ -10,7 +10,7 @@ const getOptions = (options: Array<Option> | undefined) => {
   }
   return options.map(option => {
     return (
-      <Select.Option value={option.value} key={option.value}>
+      <Select.Option key={option.value} {...option}>
         {option.label}
       </Select.Option>
     )
