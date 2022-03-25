@@ -1,7 +1,6 @@
 import React, { useState, MutableRefObject, useEffect, useRef } from 'react'
 import { AyForm, AyButton, AyFormField } from 'amiya'
 import { Switch, Form, Row, Col, Card } from 'antd'
-import moment from 'moment'
 
 const fields: Array<AyFormField> = [
   {
@@ -67,7 +66,7 @@ export default function Demo() {
       oriAtk: 100,
       class: '3',
       rarity: 4,
-      createDate: moment('2019-04-30 10:00:00'),
+      createDate: '2019-04-30 10:00:00',
       desc: `
 初始开放
 【物理强度】普通

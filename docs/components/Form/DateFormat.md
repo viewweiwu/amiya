@@ -4,20 +4,20 @@
 
 1. 如果日期是区间形式，也就是 `type: 'date-range'`，那么提交时默认会把值拆开成 `startDate`, `endDate`。
 2. 格式化格式为 'YYYY-MM-DD'。
+3. <Badge>0.54.0</Badge> 版本后支持值默认值转换，例如 `'2022-03-24'`、`new Date()`。
 
 点击 `提交` 按钮查看格式化结果。
 
 ```tsx
 import React from 'react'
 import { AyForm, AyFormField, AyButton } from 'amiya'
-import moment from 'moment'
 
 const fields: Array<AyFormField> = [
   {
     title: '日期区间',
     key: 'date-range',
     type: 'date-range',
-    defaultValue: [moment().subtract(1, 'day'), moment().startOf('day')]
+    defaultValue: ['2022-03-24', '2022-03-25']
   }
 ]
 
@@ -45,7 +45,6 @@ export default function Demo() {
 ```tsx
 import React from 'react'
 import { AyForm, AyFormField, AyButton } from 'amiya'
-import moment from 'moment'
 
 const fields: Array<AyFormField> = [
   {
@@ -54,7 +53,7 @@ const fields: Array<AyFormField> = [
     type: 'date-range',
     startKey: 'fromDate',
     endKey: 'toDate',
-    defaultValue: [moment().subtract(1, 'day'), moment().startOf('day')]
+    defaultValue: ['2022-03-24', '2022-03-25']
   }
 ]
 
@@ -82,14 +81,13 @@ export default function Demo() {
 ```tsx
 import React from 'react'
 import { AyForm, AyFormField, AyButton } from 'amiya'
-import moment from 'moment'
 
 const fields: Array<AyFormField> = [
   {
     title: '日期区间',
     key: 'date-range',
     type: 'date-range',
-    defaultValue: [moment().subtract(1, 'day'), moment().startOf('day')],
+    defaultValue: ['2022-03-24 00:00:00', '2022-03-25 23:59:59'],
     showTime: true
   }
 ]
@@ -118,7 +116,6 @@ export default function Demo() {
 ```tsx
 import React from 'react'
 import { AyForm, AyFormField, AyButton } from 'amiya'
-import moment from 'moment'
 
 const fields: Array<AyFormField> = [
   {
@@ -126,40 +123,7 @@ const fields: Array<AyFormField> = [
     key: 'date-range',
     type: 'date-range',
     formatRule: 'YYYY年MM月DD日',
-    defaultValue: [moment().subtract(1, 'day'), moment().startOf('day')]
-  }
-]
-
-export default function Demo() {
-  const handleConfirm = (form: any) => {
-    console.log(form)
-    alert(JSON.stringify(form))
-  }
-  return (
-    <AyForm fields={fields} onConfirm={handleConfirm} style={{ width: 600, margin: '0 auto' }}>
-      <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
-        提交
-      </AyButton>
-    </AyForm>
-  )
-}
-```
-
-## 日期不设置默认值
-
-如果没有设置默认值，将会获得两个 `null`。
-
-点击 `提交` 按钮查看格式化结果。
-
-```tsx
-import React from 'react'
-import { AyForm, AyFormField, AyButton } from 'amiya'
-
-const fields: Array<AyFormField> = [
-  {
-    title: '日期区间',
-    key: 'date-range',
-    type: 'date-range'
+    defaultValue: ['2022-03-24', '2022-03-25']
   }
 ]
 
@@ -185,7 +149,6 @@ readonly 模式下，其展示的格式化会使用 `readonlyFormatRule`，提�
 ```tsx
 import React from 'react'
 import { AyForm, AyFormField, AyButton } from 'amiya'
-import moment from 'moment'
 
 const fields: Array<AyFormField> = [
   {
@@ -200,7 +163,7 @@ const fields: Array<AyFormField> = [
         endKey: 'a-end',
         type: 'date-range',
         readonly: true,
-        defaultValue: [moment().subtract(1, 'day'), moment().startOf('day')]
+        defaultValue: ['2022-03-24', '2022-03-25']
       },
       {
         title: '日期区间带时间',
@@ -210,7 +173,7 @@ const fields: Array<AyFormField> = [
         endKey: 'b-end',
         showTime: true,
         readonly: true,
-        defaultValue: [moment().subtract(1, 'day'), moment().startOf('day')]
+        defaultValue: ['2022-03-24 00:00:00', '2022-03-25 23:59:59']
       },
       {
         title: '日期区间',
@@ -219,7 +182,7 @@ const fields: Array<AyFormField> = [
         startKey: 'c-start',
         endKey: 'c-end',
         readonly: true,
-        defaultValue: [moment().subtract(1, 'day'), moment().startOf('day')]
+        defaultValue: ['2022-03-24', '2022-03-25']
       },
       {
         title: '日期区间带时间',
@@ -229,7 +192,7 @@ const fields: Array<AyFormField> = [
         endKey: 'd-end',
         showTime: true,
         readonly: true,
-        defaultValue: [moment().subtract(1, 'day'), moment().startOf('day')]
+        defaultValue: ['2022-03-24 00:00:00', '2022-03-25 23:59:59']
       },
       {
         title: '日期区间',
@@ -239,7 +202,7 @@ const fields: Array<AyFormField> = [
         endKey: 'e-end',
         readonly: true,
         readonlyFormatRule: 'YYYY年MM月DD日',
-        defaultValue: [moment().subtract(1, 'day'), moment().startOf('day')]
+        defaultValue: ['2022-03-24', '2022-03-25']
       },
       {
         title: '日期区间带时间',
@@ -250,14 +213,14 @@ const fields: Array<AyFormField> = [
         showTime: true,
         readonly: true,
         readonlyFormatRule: 'YYYY年MM月DD日 HH时mm分ss秒',
-        defaultValue: [moment().subtract(1, 'day'), moment().startOf('day')]
+        defaultValue: ['2022-03-24 00:00:00', '2022-03-25 23:59:59']
       },
       {
         title: '日期格式化',
         key: 'g',
         type: 'date',
         readonly: true,
-        defaultValue: moment().startOf('day')
+        defaultValue: '2022-03-24'
       },
       {
         title: '带时间',
@@ -265,7 +228,7 @@ const fields: Array<AyFormField> = [
         type: 'date',
         showTime: true,
         readonly: true,
-        defaultValue: moment().startOf('day')
+        defaultValue: '2022-03-24 00:00:00'
       }
     ]
   },
@@ -279,7 +242,7 @@ const fields: Array<AyFormField> = [
         key: 'i',
         type: 'date',
         readonly: true,
-        defaultValue: moment().startOf('day')
+        defaultValue: '2022-03-24'
       },
       {
         title: '日期格式化',
@@ -287,7 +250,7 @@ const fields: Array<AyFormField> = [
         type: 'date',
         showTime: true,
         readonly: true,
-        defaultValue: moment().startOf('day')
+        defaultValue: '2022-03-24 00:00:00'
       },
       {
         title: '日期格式化',
@@ -295,7 +258,7 @@ const fields: Array<AyFormField> = [
         type: 'date',
         readonly: true,
         readonlyFormatRule: 'YYYY年MM月DD日',
-        defaultValue: moment().startOf('day')
+        defaultValue: '2022-03-24'
       },
       {
         title: '日期格式化',
@@ -304,7 +267,7 @@ const fields: Array<AyFormField> = [
         showTime: true,
         readonly: true,
         readonlyFormatRule: 'YYYY年MM月DD日',
-        defaultValue: moment().startOf('day')
+        defaultValue: '2022-03-24 00:00:00'
       }
     ]
   }
