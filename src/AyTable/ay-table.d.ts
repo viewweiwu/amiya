@@ -114,7 +114,7 @@ export interface AyTableProps {
 export interface AyTableField {
   /** 标题 */
   title?: ReactNode | string
-  /** 唯一 key，dataIndex 默认会跟次值一样 */
+  /** 唯一 key，dataIndex 默认会跟此值一样 */
   key?: string
   /** 渲染可选项 */
   options?: Array<Option>

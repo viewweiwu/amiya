@@ -32,7 +32,7 @@ function loop(children: ReactNode) {
   // @ts-ignore
   children.forEach(node => {
     if (node) {
-      if (node?.type.toString() === 'Symbol(react.fragment)' && node?.props?.children) {
+      if (node?.type?.toString() === 'Symbol(react.fragment)' && node?.props?.children) {
         newChildren.push(...loop(node.props.children))
         return
       }
@@ -41,7 +41,7 @@ function loop(children: ReactNode) {
         key: node.key
       }
 
-      if (newNode?.children) {
+      if (Array.isArray(newNode?.children)) {
         newNode.children = loop(newNode.children)
       }
 

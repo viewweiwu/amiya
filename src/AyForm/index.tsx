@@ -6,7 +6,8 @@ import React, {
   useRef,
   MutableRefObject,
   useState,
-  useMemo
+  useMemo,
+  useEffect
 } from 'react'
 import AyCard from '../AyCard'
 import { theme } from '../Theme'
@@ -43,6 +44,7 @@ import { convertChildrenToField } from '../AyFields/convertFields'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import locale from '../locale'
 import { FormValues } from '../types/FormValues'
+import parseFields from './parseFields'
 import './ay-form.less'
 
 moment.locale('zh-cn')
@@ -136,6 +138,9 @@ export const getDefaultValue = (fields: Array<AyFormField | AySearchField | AySe
       // 日期类型的需要通过 moment 转一遍
       if (type === FORM_TYPE_DATE && field.defaultValue) {
         form[key] = moment(field.defaultValue)
+      } else if (type === FORM_TYPE_DATE_RANGE && field.defaultValue) {
+        let [value0, value1] = field.defaultValue
+        form[key] = [value0 ? moment(value0) : null, value1 ? moment(value1) : null]
       } else {
         form[key] = field.defaultValue
       }
@@ -443,6 +448,7 @@ const getField = (key: string, fields: Array<AyFormField | AySearchTableField>) 
       let item = fields[i]
       if (item.key === key) {
         field = item
+        break
       } else if (Array.isArray(item.children) && item.children.length) {
         loop(item.children)
       }
@@ -469,7 +475,7 @@ const formatValues = (values: AnyKeyProps, fields: Array<AyFormField | AySearchT
     let field: any = getField(key, fields)
     if (value && field) {
       // 获得格式化日期格式
-      let formatRule: string = field?.props?.showTime === true ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'
+      let formatRule: string = field?.showTime || field?.props?.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'
       if (field.formatRule) {
         formatRule = field.formatRule
       }
@@ -618,38 +624,61 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
     ...otherProps
   } = props
 
-  const fields = useMemo(() => {
+  // 子元素转化出来的 fields + 标签上的 fields
+  const totalFields: Array<AyFormField> = useMemo(() => {
     const childrenFields = convertChildrenToField(children)
-    return [...(originFields || []), ...childrenFields]
+    return [...(originFields || []), ...childrenFields] as Array<AyFormField>
   }, [originFields, children])
 
+  /** 当前表单值 */
+  const [formValues, setFormValues] = useState<FormValues>(getDefaultValue(totalFields))
+  /** 转换过后的 fields */
+  const [fields, setFields] = useState(parseFields(totalFields, formValues))
+  /** 是否初始化 */
+  const [firstMount, setFirstMount] = useState(false)
   /** 控制 any form 的实例 */
   const formRef: MutableRefObject<any> = useRef()
   /** 暴露出去的 form 的实例，允许父组件通过 ref 调用方法 */
   const formInstans: AnyKeyProps = {}
-  /** 刷新渲染用 */
-  let [refresh, setRefresh] = useState<number>(0)
+
+  useEffect(() => {
+    if (!firstMount) {
+      setFields(parseFields(totalFields, formValues))
+    } else {
+      setFirstMount(true)
+    }
+  }, [totalFields, formValues])
 
   /** 填充方法 */
   funcs.forEach(func => {
     formInstans[func] = (...args: any) => formRef.current[func](...args)
   })
 
+  // 设置表单值
   formInstans.setFieldsValue = (values: AnyKeyProps) => {
     fields.forEach(field => {
-      if (field.type === FORM_TYPE_DATE) {
-        if (values[field?.key || '']) {
-          values[field?.key || ''] = moment(values[field?.key || ''])
+      try {
+        let key = field?.key || ''
+        let value = values[key]
+        if (field.type === FORM_TYPE_DATE) {
+          if (value) {
+            values[key] = moment(value)
+          }
+        } else if (field.type === FORM_TYPE_DATE_RANGE && Array.isArray(value)) {
+          let [value0, value1] = values as [string, string]
+          values[key] = [value0 ? moment(value0) : null, value1 ? moment(value1) : null]
         }
+      } catch {
+        console.error('日期值转化错误')
       }
     })
     formRef.current.setFieldsValue(values)
-    setRefresh(refresh + 1)
+    setFormValues(values)
   }
 
-  // 改变 field
+  // 刷新 field
   formInstans.refreshFields = () => {
-    setRefresh(refresh + 1)
+    setFields(parseFields(totalFields, formValues))
   }
 
   /**
@@ -666,7 +695,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
     let field: any = getField(key, fields)
     if (field && value) {
       // 获得格式化日期格式
-      let formatRule: string = field?.props?.showTime === true ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'
+      let formatRule: string = field?.showTime || field?.props?.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'
       if (field.formatRule) {
         formatRule = field.formatRule
       }
@@ -676,10 +705,11 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
       }
       if (field.type === FORM_TYPE_DATE) {
         // 日期格式化
-        value = value?.format(formatRule) || null
+        value = value ? moment(value).format(formatRule) : null
       } else if (Array.isArray(value) && field.type === FORM_TYPE_DATE_RANGE) {
+        let [value0, value1] = value
         // 日期区间格式化
-        value = [value[0]?.format(formatRule) || null, value[1]?.format(formatRule) || null]
+        value = [value0 ? moment(value0).format(formatRule) : null, value1 ? moment(value1).format(formatRule) : null]
       }
     }
     return value
@@ -720,21 +750,25 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
     return formatValues(getValues(fields, readonly), fields)
   }
 
-  /** 覆盖 antd Form getFieldValue 方法 */
-  formInstans.getFieldValue = getFieldValue
+  /**
+   * 重置表单值
+   */
+  const resetFields = () => {
+    formRef.current.resetFields()
+    setFormValues(getDefaultValue(totalFields))
+  }
+
+  /** 覆盖 antd Form resetFields 方法 */
+  formInstans.resetFields = resetFields
 
   /** 覆盖 antd Form getFieldsValue 方法 */
   formInstans.getFieldsValue = getFieldsValue
 
-  /**
-   * 获取过滤后所有的 field 的值
-   */
-  const getFormatFieldsValue = (readonly?: boolean) => {
-    let values = getFieldsValue(readonly)
-    return formatValues(values, fields)
-  }
-  /** 添加 getFormatFiledsValue 的值 */
-  formInstans.getFormatFieldsValue = getFormatFieldsValue
+  /** 覆盖 antd Form getFieldValue 方法 */
+  formInstans.getFieldValue = getFieldValue
+
+  /** 添加 getFormatFiledsValue 的值，历史遗留 */
+  formInstans.getFormatFieldsValue = getFieldsValue
 
   /** 暴露方法 */
   useImperativeHandle(ref, () => formInstans)
@@ -751,18 +785,19 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
     <div className={getAyFormClassName(className, desc, readonly)} style={style}>
       <Form
         ref={formRef}
-        {...formItemLayout}
-        labelAlign={labelAlign}
         colon={desc ? false : true}
-        labelWrap
         layout={formLayout}
-        initialValues={getDefaultValue(fields)}
-        onFinish={values => handleConfirm(values, fields, onConfirm, onFinish, onSubmit)}
-        onValuesChange={(changedValues, allValues) =>
-          handleChange(changedValues, allValues, fields, formInstans.setFieldsValue)
-        }
+        labelAlign={labelAlign}
+        labelWrap
+        {...formItemLayout}
         {...otherProps}
         {...defaultProps}
+        initialValues={getDefaultValue(fields)}
+        onFinish={values => handleConfirm(values, fields, onConfirm, onFinish, onSubmit)}
+        onValuesChange={(changedValues, allValues) => {
+          setFormValues(formatValues(allValues, fields))
+          handleChange(changedValues, allValues, fields, formInstans.setFieldsValue)
+        }}
       >
         <Row gutter={gutter}>
           {getFormItem(fields, formInstans, props)}

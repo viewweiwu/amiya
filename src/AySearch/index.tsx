@@ -213,7 +213,7 @@ export default forwardRef(function AySearch(props: AySearchProps, ref) {
     let miniSpanSum: number = 0
 
     searchFields.forEach((field, index: number) => {
-      let newSpan = field.span || calcSpan
+      let newSpan: number = (field.span as number) || calcSpan
 
       // 如果这一行超过 24 格子，意味着会这行
       if (newSpan + rowSpanSum > 24) {

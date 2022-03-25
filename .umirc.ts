@@ -108,6 +108,11 @@ export default defineConfig({
             path: '/components/form/date-format',
             title: 'Date 表单日期的格式化',
             meta: {}
+          },
+          {
+            path: '/components/form/form-test',
+            title: '测试表单',
+            meta: {}
           }
         ]
       },

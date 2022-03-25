@@ -149,23 +149,23 @@ export interface AyFormField extends Field {
   /** 相应的 key，会跟最后表单取到的项目相关; form 的 key 值必填 */
   key: string
   /** Grid Col 占位 [0 - 24] */
-  span?: number
+  span?: number | string
   /** Grid Col 偏移 */
-  offset?: number
+  offset?: number | string
   /** 默认值 */
   defaultValue?: any
   /** 是否默认必填 */
-  required?: boolean
+  required?: boolean | string
   /** 是否默认只读 */
-  readonly?: boolean
+  readonly?: boolean | string
   /** 权限配置 */
   rules?: Array<AnyKeyProps>
   /** 是否展示，保留占位; 保留默认值 */
-  visible?: boolean | Function
+  visible?: boolean | Function | string
   /** 是否展示，不会占位; 保留默认值 */
-  hidden?: boolean | Function
+  hidden?: boolean | Function | string
   /** 是否可编辑 */
-  editable?: boolean
+  editable?: boolean | string
   /** 原生的属性 */
   props?: {
     /** 输入框、选择框未输入文字时的提示 */
@@ -191,7 +191,7 @@ export interface AyFormField extends Field {
   /** 初始化参数 */
   _values?: AnyKeyProps
   /** 默认排序 */
-  order?: number
+  order?: number | string
   /** 日期格式化规则 */
   formatRule?: string
   /** readonly 下的日期格式化规则 */
