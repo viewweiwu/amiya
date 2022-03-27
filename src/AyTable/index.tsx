@@ -1,5 +1,5 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle, ReactNode, useRef } from 'react'
-import { Table, Space, Card } from 'antd'
+import { Table, Space, Card, Pagination } from 'antd'
 import core from './core'
 import RenderMapInit from './RenderMapInit'
 import { AyTableField, AyTableProps, RenderProps, LoadParams } from './ay-table'
@@ -9,6 +9,7 @@ import { TABLE_DEFAULT_ROW_KEY, TABLE_PAGESIZE, TABLE_START_PAGE } from '../cons
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { SortItem } from '../AySearchTable/ay-search-table'
 import { getKey } from '../utils'
+import { AyListContext } from '../AyList/context'
 import locale from '../locale'
 import './ay-table.less'
 
@@ -84,7 +85,8 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     editMode,
     tableHeader,
     onParamsChange,
-    getSearchParams
+    getSearchParams,
+    useOriginPagination
   } = props
   /** 是否已经初始化 */
   const initRef = useRef<boolean>(false)
@@ -106,6 +108,8 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
   const [loading, setLoading] = useState<boolean>(false)
   /** 总共多少条 */
   const [total, setTotal] = useState<number>(0)
+  /** 禁用的选项的 key */
+  const [disabledKeys, setDisabledKeys] = useState([])
 
   useEffect(() => {
     setTableData(data || [])
@@ -390,53 +394,62 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
     return false
   }
 
+  const paginationProps = {
+    showTotal: (total: number) => `${locale.table.totalBefore} ${total} ${locale.table.totalAfter}`,
+    showQuickJumper: true,
+    ...pagination,
+    size: 'default',
+    total,
+    current: loadParams.pagination.current,
+    pageSize: loadParams.pagination.pageSize
+  }
+
   return (
-    <Card className={`ay-table ${className || ''}`}>
-      {hasHeader() ? (
-        <header className="ay-table-header">
-          <div className="ay-table-header-left">
-            <Space>{typeof title === 'string' ? <h2 className="ay-table-title">{title}</h2> : title}</Space>
-          </div>
-          <div className="ay-table-header-right">
-            <Space>
-              {btnBefore}
-              {children}
-            </Space>
-          </div>
-        </header>
-      ) : null}
-      {header}
-      {tableHeader}
-      <div className="ay-table-content">
-        <Table
-          bordered
-          onExpand={onExpand}
-          columns={ayTableFields}
-          components={getComponents(editMode)}
-          dataSource={tableData}
-          loading={loading}
-          rowSelection={rowSelection}
-          pagination={
-            pagination !== false
-              ? {
-                  showTotal: total => `${locale.table.totalBefore} ${total} ${locale.table.totalAfter}`,
-                  showQuickJumper: true,
-                  ...pagination,
-                  size: 'default',
-                  total,
-                  current: loadParams.pagination.current,
-                  pageSize: loadParams.pagination.pageSize
-                }
-              : false
-          }
-          onChange={handleTableChange}
-          rowKey={rowKey}
-          size={size}
-          scroll={{ x: scrollX, y: height }}
-          {...tableDefaultProps}
-          {...tableExtend}
-        />
-      </div>
-    </Card>
+    <AyListContext.Provider
+      value={{
+        data: tableData,
+        disabledKeys,
+        setDisabledKeys
+      }}
+    >
+      <Card className={`ay-table ${className || ''}`}>
+        {hasHeader() ? (
+          <header className="ay-table-header">
+            <div className="ay-table-header-left">
+              <Space>{typeof title === 'string' ? <h2 className="ay-table-title">{title}</h2> : title}</Space>
+            </div>
+            <div className="ay-table-header-right">
+              <Space>
+                {btnBefore}
+                {children}
+              </Space>
+            </div>
+          </header>
+        ) : null}
+        {header}
+        {tableHeader}
+        <div className="ay-table-content">
+          <Table
+            bordered
+            onExpand={onExpand}
+            columns={ayTableFields}
+            components={getComponents(editMode)}
+            dataSource={tableData}
+            loading={loading}
+            rowSelection={rowSelection}
+            pagination={pagination === false ? false : useOriginPagination === undefined ? paginationProps : false}
+            onChange={handleTableChange}
+            rowKey={rowKey}
+            size={size}
+            scroll={{ x: scrollX, y: height }}
+            {...tableDefaultProps}
+            {...tableExtend}
+          />
+          {useOriginPagination === false && (
+            <Pagination className="ant-table-pagination ant-table-pagination-right" {...paginationProps} />
+          )}
+        </div>
+      </Card>
+    </AyListContext.Provider>
   )
 })

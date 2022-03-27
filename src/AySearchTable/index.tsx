@@ -247,7 +247,8 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     searchExtend,
     onParamsChange,
     tableHeader,
-    compact
+    compact,
+    useOriginPagination
   } = props
 
   const fields = useMemo(() => {
@@ -452,7 +453,8 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     autoload,
     onParamsChange,
     tableHeader,
-    getSearchParams
+    getSearchParams,
+    useOriginPagination
   }
 
   /** 表格子元素 */

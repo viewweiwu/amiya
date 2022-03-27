@@ -91,6 +91,8 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   tableHeader?: ReactNode
   /** 是否使用紧凑样式 */
   compact?: boolean
+  /** 是否使用 Table 自带的 Pagination */
+  useOriginPagination?: boolean
 }
 export interface ExtendField extends Omit<AyFormField, 'key'> {
   key?: string

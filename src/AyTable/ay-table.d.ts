@@ -107,6 +107,8 @@ export interface AyTableProps {
   onParamsChange?(params: AnyKeyProps): void
   /** 列表头部 */
   tableHeader?: ReactNode
+  /** 是否使用 Table 自带的 Pagination */
+  useOriginPagination?: boolean
   /** 获取查询参数 */
   getSearchParams?: () => AnyKeyProps
 }

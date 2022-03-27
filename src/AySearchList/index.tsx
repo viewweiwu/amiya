@@ -361,8 +361,8 @@ function AySearchList(props: AySearchListProps, ref: Ref<any>) {
           selection,
           deleteApi,
           rowKey,
-          clearSelection,
           setSelection,
+          clearSelection,
           addSelection,
           removeSelection,
           searchTableRef: ref

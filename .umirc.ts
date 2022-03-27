@@ -361,6 +361,11 @@ export default defineConfig({
             path: '/template/table/multiple-table',
             title: '多表格切换',
             meta: {}
+          },
+          {
+            path: '/template/table/goods-table',
+            title: '商品列表',
+            meta: {}
           }
         ]
       },
