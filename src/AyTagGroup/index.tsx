@@ -20,10 +20,12 @@ interface AyTagGroupProps {
   allCheckedText?: string
   /** 是否只读 */
   readonly?: boolean
+  /** 是否可以取消选中 */
+  cancelable?: boolean
 }
 
 export default function AyTagGroup(props: AyTagGroupProps) {
-  let { value, multiple, onChange, options, showAllChecked, allCheckedText, readonly } = props
+  let { value, multiple, onChange, options, showAllChecked, allCheckedText, readonly, cancelable = true } = props
   // 如果是多选，且没有默认值，则默认值视为空数组
   if (multiple && value === undefined) {
     value = []
@@ -43,9 +45,14 @@ export default function AyTagGroup(props: AyTagGroupProps) {
     if (isMultiple) {
       newValue = []
     } else {
-      newValue = undefined
+      if (cancelable) {
+        newValue = undefined
+      }
     }
+    triggerChange(newValue)
+  }
 
+  const triggerChange = (newValue: any) => {
     if (onChange) {
       onChange(newValue)
     }
@@ -68,15 +75,17 @@ export default function AyTagGroup(props: AyTagGroupProps) {
       } else {
         newValue = option.value
       }
+      triggerChange(newValue)
     } else {
       if (isMultiple) {
         newValue = value.filter((v: ValueType) => v !== option.value)
+        triggerChange(newValue)
       } else {
-        newValue = undefined
+        if (cancelable) {
+          newValue = undefined
+          triggerChange(newValue)
+        }
       }
-    }
-    if (onChange) {
-      onChange(newValue)
     }
   }
 

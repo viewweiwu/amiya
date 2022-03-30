@@ -1,4 +1,4 @@
-import React, { useState, useEffect, forwardRef, useImperativeHandle, ReactNode, useRef } from 'react'
+import React, { useState, useEffect, forwardRef, useImperativeHandle, ReactNode, useRef, useMemo } from 'react'
 import { Table, Space, Card, Pagination } from 'antd'
 import core from './core'
 import RenderMapInit from './RenderMapInit'
@@ -103,7 +103,13 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
   /** 表格数据 */
   const [tableData, setTableData] = useState<Array<AnyKeyProps>>(data || [])
   /** 表格配置 */
-  const ayTableFields: Array<AyTableField> = getAyTableFields(fields, loadParams, tableData, setTableData, ctrl, props)
+  const ayTableFields: Array<AyTableField> = useMemo(() => {
+    return getAyTableFields(fields, loadParams, tableData, setTableData, ctrl, props)
+  }, [fields, loadParams, tableData, setTableData, ctrl, props])
+
+  const component = useMemo(() => {
+    return getComponents(editMode)
+  }, [editMode])
   /** 是否正在加载 */
   const [loading, setLoading] = useState<boolean>(false)
   /** 总共多少条 */
@@ -433,7 +439,7 @@ export default forwardRef(function AyTable(props: AyTableProps, ref) {
             bordered
             onExpand={onExpand}
             columns={ayTableFields}
-            components={getComponents(editMode)}
+            components={component}
             dataSource={tableData}
             loading={loading}
             rowSelection={rowSelection}

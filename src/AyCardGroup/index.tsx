@@ -19,6 +19,8 @@ export interface AyCardGroupProps {
   size?: 'default' | 'large'
   /** 卡片样式 */
   cardStyle?: CSSProperties
+  /** 是否可以取消 */
+  cancelable: boolean
   className?: string
   style?: CSSProperties
 }
@@ -55,6 +57,7 @@ export default function AyCardGroup(props: AyCardGroupProps) {
     readonly,
     multiple = false,
     cardStyle,
+    cancelable = true,
     className,
     style
   } = props
@@ -74,7 +77,9 @@ export default function AyCardGroup(props: AyCardGroupProps) {
     } else {
       // 单选
       if (option.value === value) {
-        triggerChange(FORM_DEFAULT_VALUE_CARD_GROUP)
+        if (cancelable) {
+          triggerChange(FORM_DEFAULT_VALUE_CARD_GROUP)
+        }
       } else {
         triggerChange(option.value)
       }

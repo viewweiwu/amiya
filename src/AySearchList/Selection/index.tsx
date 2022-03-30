@@ -1,6 +1,6 @@
 import { AnyKeyProps } from '@/types/AnyKeyProps'
 import { Record } from '@/types/Record'
-import { getKey, getRowKey } from '../../utils'
+import { getKey } from '../../utils'
 import { Checkbox } from 'antd'
 import React, { useContext, useEffect } from 'react'
 import { AySearchTableContext } from '../../AySearchTable/context'
@@ -8,7 +8,6 @@ import { AyListContext } from '../../AyList/context'
 import { AySelectionProps } from '../ay-search-list'
 
 export default function Selection(props: AySelectionProps) {
-  // @ts-ignorese
   const { selection, rowKey, addSelection, removeSelection } = useContext(AySearchTableContext)
   const { disabledKeys, setDisabledKeys } = useContext(AyListContext)
   const { record, disabled, ...extendProps } = props

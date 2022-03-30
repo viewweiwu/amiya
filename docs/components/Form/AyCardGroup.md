@@ -705,11 +705,12 @@ const fields = [
 
 ## Props 参数
 
-| 参数名   | 说明           | 参数类型                                              | 默认值                 |
-| -------- | -------------- | ----------------------------------------------------- | ---------------------- |
-| options  | 选项           | Array<[Option](#option)>                              | -                      |
-| size     | 卡片尺寸       | 'default' \| 'large'                                  | 'default'              |
-| multiple | 是否多选       | boolean                                               | false                  |
-| value    | 当前值         | string \| number \| Array<string \| number>           | 单选为 null，多选为 [] |
-| readonly | 所有的选项只读 | boolean                                               | false                  |
-| onChange | 监听值变化事件 | (string \| number \| Array<string \| number>) => void | -                      |
+| 参数名     | 说明                                   | 参数类型                                              | 默认值                 | 版本   |
+| ---------- | -------------------------------------- | ----------------------------------------------------- | ---------------------- | ------ |
+| options    | 选项                                   | Array<[Option](#option)>                              | -                      | -      |
+| size       | 卡片尺寸                               | 'default' \| 'large'                                  | 'default'              | -      |
+| multiple   | 是否多选                               | boolean                                               | false                  | -      |
+| value      | 当前值                                 | string \| number \| Array<string \| number>           | 单选为 null，多选为 [] | -      |
+| readonly   | 所有的选项只读                         | boolean                                               | false                  | -      |
+| cancelable | 单选时，是否可以点击选中的元素取消选中 | boolean                                               | false                  | 0.55.0 |
+| onChange   | 监听值变化事件                         | (string \| number \| Array<string \| number>) => void | -                      | -      |

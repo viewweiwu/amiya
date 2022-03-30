@@ -18,6 +18,15 @@ export const onCell = (record: Record) => ({
 
 export const fields = [
   {
+    title: <AySearchList.SelectionAll />,
+    key: 'selection',
+    width: 50,
+    onCell,
+    render: (value: string, record: Record) => (
+      <AySearchList.Selection record={record} disabled={record.rowSpan === 0} />
+    )
+  },
+  {
     title: '商品名称&店铺',
     key: 'name',
     onCell,
@@ -26,7 +35,6 @@ export const fields = [
       return (
         <div style={{ height: '100%' }}>
           <Space>
-            <AySearchList.Selection record={record} />
             <Image style={{ flexShrink: 0 }} src={record.image} width={80} height={80} />
             <div>
               <div>
@@ -105,7 +113,13 @@ export const fields = [
   {
     title: '规格',
     dataIndex: ['child', 'name'],
-    key: 'childName'
+    key: 'childName',
+    render: (value: string, record: Record) => (
+      <span>
+        {value}
+        <AySearchList.Selection style={{ display: 'none' }} record={record} disabled={record.rowSpan === 0} />
+      </span>
+    )
   },
   {
     title: 'SKU',
@@ -150,8 +164,10 @@ export const extendFields = [
     key: 'type',
     type: 'select',
     options: [
-      { label: '商品名称', value: 1 },
-      { label: 'SKU', value: 2 }
+      { label: '类目1', value: 1 },
+      { label: '类目2', value: 2 },
+      { label: '类目3', value: 3 },
+      { label: '类目4', value: 4 }
     ]
   },
   {
@@ -160,46 +176,5 @@ export const extendFields = [
     type: 'custom',
     defaultValue: [],
     renderContent: () => <DatePicker.RangePicker className="max-width" />
-  }
-]
-
-export const topFields = [
-  {
-    title: '国家/地区',
-    key: 'country',
-    type: 'card-group',
-    options: [
-      {
-        label: '中国',
-        value: 1,
-        cover: <span className="cover">🇨🇳</span>
-      },
-      {
-        label: '日本',
-        value: 2,
-        cover: <span className="cover">🇯🇵</span>
-      },
-      {
-        label: '美国',
-        value: 3,
-        cover: <span className="cover">🇺🇸</span>
-      },
-      {
-        label: '印度尼西亚',
-        value: 4,
-        cover: <span className="cover">🇮🇩</span>
-      }
-    ]
-  },
-  {
-    title: '店铺',
-    key: 'shopId',
-    type: 'tag-group',
-    options: [
-      { label: '店铺A', value: 1 },
-      { label: '店铺B', value: 2 },
-      { label: '店铺C', value: 3 },
-      { label: '店铺D', value: 4 }
-    ]
   }
 ]

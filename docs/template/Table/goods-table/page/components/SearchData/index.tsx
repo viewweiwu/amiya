@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 import { Tag } from 'antd'
-import { FormValues, Option, AnyKeyProps, AySearchTableField, AyFormField } from 'amiya'
-import AyButton from '@/AyButton'
+import { FormValues, Option, AnyKeyProps, AySearchTableField, AyFormField, AyButton } from 'amiya'
 
 interface IProps {
   /** 查询数据 */

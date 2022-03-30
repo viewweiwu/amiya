@@ -240,6 +240,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
     pagination,
     btnBefore,
     extendSearchParams,
+    before,
     after,
     editMode,
     autoload,
@@ -501,6 +502,7 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
           searchTableRef: ref
         }}
       >
+        {before}
         {searchVisible !== false && searchFields.length > 0 ? (
           <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} {...searchExtend} />
         ) : null}

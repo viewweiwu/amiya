@@ -1,72 +1,97 @@
-import React, { useRef, useState } from 'react'
-import {
-  Option,
-  AySearchTable,
-  Record,
-  AnyKeyProps,
-  AyCtrl,
-  AyAction,
-  AyButton,
-  AyDialogForm,
-  AyForm,
-  FormValues
-} from 'amiya'
-import { Card, message, Tag } from 'antd'
-import Tabs from './components/TableTabs'
-import { apiGetCount, apiGetList } from './api'
-import { FilterOutlined } from '@ant-design/icons'
-import { defaultTabOptions, extendFields, fields, onCell, topFields } from './config'
-import './less/index.less'
-import SearchData from './components/SearchData'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import SearchTable, { useSearchTable } from './components/SearchTable'
+import { apiGetCount, apiGetCountryOptions, apiGetList, apiGetShopOptions } from './api'
+import { defaultTabOptions, extendFields, fields, onCell } from './config'
+import { AyAction, useOptions, Option, AyFormField, AnyKeyProps, AyCtrl, Record } from 'amiya'
+import { message } from 'antd'
 
-const filterData = (res: AnyKeyProps) => {
-  let newData: Record[] = []
-  res.content.forEach((record: Record) => {
-    let { details } = record
-    if (details.length) {
-      for (let i = 0; i < details.length; i++) {
-        let childRecord: Record = details[i]
-        let newRecord = {
-          ...record,
-          key: childRecord.id + `record${i}`,
-          child: childRecord,
-          rowSpan: i > 0 ? 0 : details.length
-        }
-        newData.push(newRecord)
+const useTopFields = () => {
+  const firstLoadRef = useRef(true)
+  // 国家选项
+  const { options: countryOptions } = useOptions(apiGetCountryOptions, {
+    transform: (option: Option) => {
+      return {
+        ...option,
+        cover: <span className="cover">{option.cover}</span>
       }
-    } else {
-      newData.push(record)
+    },
+    // 加载国家后设置默认国家ID
+    onLoad: ({ options }: AnyKeyProps) => {
+      setCountryId(options[0].value)
     }
   })
-  return newData
+  // 国家 ID
+  const [countryId, setCountryId] = useState('')
+  // 店铺选项
+  const { options: shopOptions, load: loadShopOptions } = useOptions(apiGetShopOptions, {
+    autoload: false,
+    params: { countryId },
+    onLoad: ({ options }: AnyKeyProps) => {
+      firstLoadRef.current = false
+      setShopId(options[0].value)
+    }
+  })
+  // 店铺 ID
+  const [shopId, setShopId] = useState('')
+  // 扩展查询参数
+  const searchValues = useMemo(() => {
+    return {
+      shopId,
+      countryId
+    }
+  }, [shopId, countryId])
+
+  useEffect(() => {
+    if (countryId) {
+      loadShopOptions()
+    }
+  }, [countryId])
+
+  const topFields: Array<AyFormField> = useMemo(() => {
+    return [
+      {
+        title: '国家/地区',
+        key: 'countryId',
+        type: 'card-group',
+        options: countryOptions,
+        cancelable: false,
+        onChange: (value: string) => {
+          setCountryId(value)
+        }
+      },
+      {
+        title: '店铺',
+        key: 'shopId',
+        type: 'tag-group',
+        options: shopOptions,
+        cancelable: false,
+        onChange: (value: string) => {
+          setShopId(value)
+        }
+      }
+    ]
+  }, [countryOptions, shopOptions])
+
+  return {
+    topFields,
+    searchValues,
+    firstLoadRef
+  }
 }
 
 export default function Demo() {
-  const tableRef = useRef<any>()
-  /** 筛选弹窗是否可见 */
-  const [extendVisible, setExtendVisible] = useState(false)
-  /** 筛选弹窗的值 */
-  const [extendValues, setExtendValues] = useState<FormValues>({})
-  /** 顶部 Tab 选项 */
-  const [tabOptions, setTabOptions] = useState(defaultTabOptions)
-  /** 当前命中的 Tab */
-  const [activeTab, setActiveTab] = useState<number>(tabOptions[0].value)
-  /** 查询数据 */
-  const [searchValues, setSearchValues] = useState<FormValues>({})
+  const { tableRef, topFormRef } = useSearchTable()
+  const { topFields, searchValues, firstLoadRef } = useTopFields()
 
-  const loadTabCount = () => {
-    apiGetCount().then((data: any) => {
-      let newTabOptions = [...defaultTabOptions]
-      data.forEach((row: AnyKeyProps) => {
-        let option = newTabOptions.find(option => option.value === row.status)
-        if (option) {
-          option.count = row.count
-        }
-      })
+  useEffect(() => {
+    if (topFormRef.current) {
+      topFormRef.current.setFieldsValue(searchValues)
+    }
 
-      setTabOptions(newTabOptions)
-    })
-  }
+    if (tableRef.current && !firstLoadRef.current) {
+      tableRef.current.reset()
+    }
+  }, [searchValues])
 
   const ctrl = {
     width: 140,
@@ -87,90 +112,27 @@ export default function Demo() {
     }
   }
 
-  const beforeSearch = (values: FormValues) => {
-    setSearchValues({ ...values.search })
-    return values
-  }
-
   return (
-    <div className="table">
-      <Card className="top-form-card" bodyStyle={{ padding: 0 }}>
-        <AyForm style={{ marginTop: 20 }} fields={topFields} />
-      </Card>
-      <AySearchTable
-        fields={fields}
+    <div>
+      <SearchTable
         api={apiGetList}
-        filterData={filterData}
-        useOriginPagination={false}
-        rowKey="key"
+        tabsApi={apiGetCount}
+        tabs={defaultTabOptions}
+        topFields={topFields}
+        tableRef={tableRef}
+        topFormRef={topFormRef}
+        fields={fields}
+        extendFields={extendFields}
+        searchValues={searchValues}
+        autoload={false}
         ctrl={ctrl}
-        onLoad={loadTabCount}
         deleteApi={() => Promise.resolve()}
-        tableExtend={{ bordered: false }}
-        searchExtend={{ inline: true }}
-        beforeSearch={beforeSearch}
-        extendSearchParams={extendValues}
-        center={
-          <div style={{ marginBottom: 12 }}>
-            <AyButton icon={<FilterOutlined />} onClick={() => setExtendVisible(true)}>
-              筛选
-            </AyButton>
-            <div style={{ marginTop: 12 }}>
-              <SearchData
-                extendValues={extendValues}
-                searchValues={searchValues}
-                keyMap={{
-                  keyword: searchValues['keywordType'] === 1 ? '商品名称' : 'SKU'
-                }}
-                searchFields={fields}
-                extendFields={extendFields}
-                noVisibleKeys={['keywordType']}
-                onRemoveSearchValue={key => {
-                  tableRef.current.getSearchRef().setFieldsValue({
-                    [key]: undefined
-                  })
-                  tableRef.current.reset()
-                }}
-                onRemoveExtendValue={key => {
-                  setExtendValues({
-                    ...extendValues,
-                    [key]: undefined
-                  })
-                  tableRef.current.reset()
-                }}
-                clearAll={() => {
-                  tableRef.current.getSearchRef().resetFields()
-                  setExtendValues({})
-                  tableRef.current.reset()
-                }}
-              />
-            </div>
-          </div>
-        }
-        scrollX={1600}
-        ref={tableRef}
-        title={<Tabs value={activeTab} options={tabOptions} onChange={setActiveTab} />}
       >
         <AyAction action="add" onClick={() => message.success('添加商品')}>
           添加商品
         </AyAction>
         <AyAction action="batch-delete">批量删除</AyAction>
-      </AySearchTable>
-      <AyDialogForm
-        title="筛选"
-        visible={extendVisible}
-        onClose={() => setExtendVisible(false)}
-        onSuccess={({ values }) => {
-          setExtendValues(values)
-          tableRef.current.reset()
-        }}
-        fields={extendFields}
-        initialValues={{
-          ...extendValues
-        }}
-        addApi={extendData => Promise.resolve(extendData) as any}
-        formExtend={{ className: 'full-width' }}
-      />
+      </SearchTable>
     </div>
   )
 }

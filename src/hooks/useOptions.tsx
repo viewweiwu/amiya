@@ -94,11 +94,10 @@ export default function useOptions(api: (params: AnyKeyProps) => Promise<AnyKeyP
             keepLeaf: config.keepLeaf
           }) as Array<Option>
 
-          console.log(tree)
           setTree(tree)
         }
         if (onLoad) {
-          onLoad()
+          onLoad({ options, tree, data, loading })
         }
       })
       .finally(() => {

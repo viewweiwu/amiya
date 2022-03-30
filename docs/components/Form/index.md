@@ -279,7 +279,7 @@ const fields: Array<AyFormField> = [
 ```tsx
 import React, { useState } from 'react'
 import { AyForm, AyButton, AyFormField, AnyKeyProps } from 'amiya'
-import { Switch, Col } from 'antd'
+import { Switch, Col, Tag } from 'antd'
 import moment from 'moment'
 
 const fields: Array<AyFormField> = [
@@ -305,7 +305,7 @@ const fields: Array<AyFormField> = [
         key: 'select',
         defaultValue: 1,
         options: [
-          { label: '选项1', value: 1 },
+          { label: <Tag>选项A</Tag>, value: 1 },
           { label: '选项2', value: 2 }
         ]
       },

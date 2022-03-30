@@ -75,8 +75,10 @@ export interface AySearchTableProps extends SearchTableInitConfig {
   btnBefore?: ReactNode
   /** 更多查询数据, 额外带的查询数据用 */
   extendSearchParams?: FormValues
-  /** 表格底部插入按钮 */
+  /** 表格底部插入元素 */
   after?: ReactNode
+  /** 查询区域顶部插入元素 */
+  before?: ReactNode
   /** 表格编辑模式 */
   editMode?: 'row' | 'col'
   /** 表格是否自动请求 */

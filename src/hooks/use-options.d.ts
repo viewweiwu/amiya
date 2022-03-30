@@ -21,7 +21,7 @@ export interface IConfig {
   /** 是否自动加载 */
   autoload?: boolean
   /** 请求完成监听 */
-  onLoad?: () => void
+  onLoad?: ({ options, tree, data, loading }: any) => any
 }
 export type useOptions = (
   api: Promise<any>,

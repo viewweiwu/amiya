@@ -414,7 +414,7 @@ export default function Demo() {
 | keepOrigin | 转换结果后是否保留原始数据 | boolean                                                                                                   | false  |
 | toTree     | 是否转换成树               | boolean                                                                                                   | false  |
 | autoload   | 是否加载完成后自动发起请求 | boolean                                                                                                   | true   |
-| onLoad     | 请求完成监听               | function                                                                                                  | -      |
+| onLoad     | 请求完成监听               | ({ options, data, tree, loading }) => void                                                                | -      |
 
 ## 返回值
 

@@ -1,10 +1,9 @@
 import classnames from 'classnames'
-import React, { createContext, useState, ReactNode, useContext, useEffect } from 'react'
+import React, { useState, ReactNode, useContext, useEffect } from 'react'
 import { Form } from 'antd'
 import { getKey } from '../utils'
 import { AnyKeyProps } from '../types/AnyKeyProps'
-
-export const EditableContext = createContext<any>(null)
+import { EditableContext } from './context'
 
 export function EditableRow({ index, ...props }: AnyKeyProps) {
   const [form] = Form.useForm()
