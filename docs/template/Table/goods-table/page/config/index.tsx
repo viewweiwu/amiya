@@ -1,6 +1,7 @@
-import React from 'react'
-import { Record, AySearchList, Option } from 'amiya'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { Record, AySearchList, Option, useOptions, AyFormField, AnyKeyProps } from 'amiya'
 import { Space, Image, DatePicker } from 'antd'
+import { apiGetCountryOptions, apiGetShopOptions } from '../api'
 
 export const defaultTabOptions: Array<Option> = [
   { label: '已上架', value: 'ACTIVE' },
@@ -59,7 +60,7 @@ export const fields = [
           key: 'keywordType',
           options: [
             { label: '商品名称', value: 1 },
-            { label: 'SKU', value: 2 }
+            { label: '规格名称', value: 2 }
           ],
           defaultValue: 1,
           allowClear: false,
@@ -88,8 +89,8 @@ export const fields = [
         width: 120
       },
       options: [
-        { label: '商品名称', value: 1 },
-        { label: 'SKU', value: 2 }
+        { label: '规格选项A', value: 1 },
+        { label: '规格选项B', value: 2 }
       ]
     },
     render: (value: string) => value || '-',
@@ -105,8 +106,8 @@ export const fields = [
         width: 120
       },
       options: [
-        { label: '商品名称', value: 1 },
-        { label: 'SKU', value: 2 }
+        { label: '排序A', value: 1 },
+        { label: '排序B', value: 2 }
       ]
     }
   },
@@ -178,3 +179,78 @@ export const extendFields = [
     renderContent: () => <DatePicker.RangePicker className="max-width" />
   }
 ]
+
+// 顶部查询区域配置
+export const useTopFields = () => {
+  const [firstLoad, setFirstLoad] = useState(true)
+  // 国家选项
+  const { options: countryOptions } = useOptions(apiGetCountryOptions, {
+    transform: (option: Option) => {
+      return {
+        ...option,
+        cover: <span className="cover">{option.cover}</span>
+      }
+    },
+    // 加载国家后设置默认国家ID
+    onLoad: ({ options }: AnyKeyProps) => {
+      setCountryId(options[0].value)
+    }
+  })
+  // 国家 ID
+  const [countryId, setCountryId] = useState('')
+  // 店铺选项
+  const { options: shopOptions, load: loadShopOptions } = useOptions(apiGetShopOptions, {
+    autoload: false,
+    params: { countryId },
+    onLoad: ({ options }: AnyKeyProps) => {
+      setFirstLoad(false)
+      setShopId(undefined)
+    }
+  })
+  // 店铺 ID
+  const [shopId, setShopId] = useState(undefined)
+  // 扩展查询参数
+  const searchValues = useMemo(() => {
+    return {
+      shopId,
+      countryId
+    }
+  }, [shopId, countryId])
+
+  useEffect(() => {
+    if (countryId) {
+      loadShopOptions()
+    }
+  }, [countryId])
+
+  const topFields: Array<AyFormField> = useMemo(() => {
+    return [
+      {
+        title: '国家/地区',
+        key: 'countryId',
+        type: 'card-group',
+        options: countryOptions,
+        cancelable: false,
+        onChange: (value: string) => {
+          setCountryId(value)
+        }
+      },
+      {
+        title: '店铺',
+        key: 'shopId',
+        type: 'tag-group',
+        options: shopOptions,
+        cancelable: false,
+        onChange: (value: string) => {
+          setShopId(value)
+        }
+      }
+    ]
+  }, [countryOptions, shopOptions])
+
+  return {
+    topFields,
+    searchValues,
+    firstLoad
+  }
+}

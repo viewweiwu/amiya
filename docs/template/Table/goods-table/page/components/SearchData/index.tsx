@@ -24,18 +24,49 @@ interface IProps {
 }
 
 /** 获取值 */
-const getValue = (value: string | [moment.Moment, moment.Moment]) => {
+const getValue = (
+  value: string | [moment.Moment, moment.Moment],
+  key: string,
+  searchFields: Array<AySearchTableField>,
+  extendFields: Array<AyFormField>
+) => {
+  let text: string = ''
   if (Array.isArray(value)) {
     if (value[0]) {
-      return (
-        <span>
-          {value[0].format('YYYY-MM-DD')}~{value[1].format('YYYY-MM-DD')}
-        </span>
-      )
+      text = value[0].format('YYYY-MM-DD') + '~' + value[1].format('YYYY-MM-DD')
     }
-    return '-'
   }
-  return value
+
+  let loop = (fields: Array<AySearchTableField | AyFormField>) => {
+    fields.forEach(field => {
+      if (text) {
+        return
+      }
+      if ((field.search && (field.search.key === key || field.key === key)) || field.key === key) {
+        let options = field.search ? field.search.options || field.options : field.options
+        if (options.length) {
+          let option = options.find((option: Option) => option.value === value)
+          if (option) {
+            text = option.label
+          }
+        }
+      }
+      if (field.children && field.children.length) {
+        loop(field.children as Array<AySearchTableField | AyFormField>)
+      }
+    })
+  }
+
+  if (!text) {
+    loop(searchFields)
+  }
+  if (!text) {
+    loop(extendFields)
+  }
+  if (!text) {
+    text = value.toString()
+  }
+  return text
 }
 
 /** 获取标题  */
@@ -109,7 +140,8 @@ export default function SearchData(props: IProps) {
       if (hasValue(option[1])) {
         options.push({
           label: getLabel(option[0], keyMap, searchFields, extendFields),
-          value: getValue(option[1]),
+          value: getValue(option[1], option[0], searchFields, extendFields),
+          key: option[0],
           type: 'search'
         })
       }
@@ -130,7 +162,7 @@ export default function SearchData(props: IProps) {
     <div>
       {options.map(option => (
         <Tag key={option.type + option.label} closable onClose={() => onTagClose(option)}>
-          {option.label}:{option.value}
+          {option.label}：{option.value}
         </Tag>
       ))}
       {options.length > 0 && (
