@@ -1,4 +1,5 @@
 import { AnyKeyProps, FormValues } from 'amiya'
+// @ts-ignore
 import data from './data.json'
 
 export const apiGetList = (params: AnyKeyProps): Promise<any> => {
@@ -7,7 +8,7 @@ export const apiGetList = (params: AnyKeyProps): Promise<any> => {
     setTimeout(() => {
       resolve({
         content: data.data.content,
-        totalCount: data.data.totalElements
+        totalCount: data.data.totalCount
       })
     }, 300)
   })
@@ -17,13 +18,11 @@ export const apiGetCount = () => {
   console.info('请求了数字')
   return new Promise(resolve => {
     resolve([
-      { status: 'ALL', count: 2037 },
-      { status: 'ACTIVE', count: 21 },
-      { status: 'IN_PROCESS', count: 1 },
-      { status: 'DISABLED', count: 1 },
-      { status: 'DRAFT', count: 1940 },
-      { status: 'SOLD_OUT', count: 10 },
-      { status: 'UPDATE_FAILED', count: 64 }
+      { status: '1', count: 30 },
+      { status: '2', count: 40 },
+      { status: '3', count: 1 },
+      { status: '4', count: 1 },
+      { status: '5', count: 50 }
     ])
   })
 }

@@ -4,6 +4,15 @@ order: 1
 
 # 更新日志
 
+## 0.55.0
+
+`2022-03-31`
+
+1. feat: `AySearchTable` 支持 useOriginPagination 属性。
+2. feat: `AyCardGroup`、`AyTagGroup` 支持 cancelable 属性。
+3. feat: `AySearchTable`、`AySearchList` 支持 before 插入元素。
+4. feat: `AySearchTable` 也可以使用 `AySearchList` 的 `SelectionAll`、`Selection` 组件。
+
 ## 0.54.0
 
 `2022-03-25`
@@ -11,7 +20,7 @@ order: 1
 1. feat: 支持 `AyForm` 属性字符串表达式。
 2. feat: 支持 `AyForm` type 为 'date'、'date-range' 传入字符串默认值。
 3. feat: 支持 `AyForm` type 为 'html'。
-4. fix: 修复 AySelect options 支持 disabled。
+4. fix: 修复 `AySelect` options 支持 disabled。
 
 ## 0.53.0
 

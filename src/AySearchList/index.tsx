@@ -146,6 +146,7 @@ function AySearchList(props: AySearchListProps, ref: Ref<any>) {
     btnBefore,
     extendSearchParams,
     after,
+    before,
     editMode,
     autoload,
     rowSelection,
@@ -368,6 +369,7 @@ function AySearchList(props: AySearchListProps, ref: Ref<any>) {
           searchTableRef: ref
         }}
       >
+        {before}
         {searchVisible !== false && searchFields.length > 0 ? (
           <AySearch ref={searchRef} fields={searchFields} onConfirm={onConfirm} {...searchExtend} />
         ) : null}

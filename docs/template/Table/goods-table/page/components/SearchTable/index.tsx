@@ -1,4 +1,4 @@
-import React, { ReactNode, Ref, useEffect, useRef, useState } from 'react'
+import React, { ReactNode, useRef, useState } from 'react'
 import {
   AySearchTable,
   Record,
@@ -12,7 +12,7 @@ import {
   AyTableProps,
   Option
 } from 'amiya'
-import { Card, message, Tag } from 'antd'
+import { Card } from 'antd'
 import Tabs from '../TableTabs'
 import SearchData from '../SearchData'
 import { FilterOutlined } from '@ant-design/icons'

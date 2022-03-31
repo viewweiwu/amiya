@@ -4,13 +4,11 @@ import { Space, Image, DatePicker } from 'antd'
 import { apiGetCountryOptions, apiGetShopOptions } from '../api'
 
 export const defaultTabOptions: Array<Option> = [
-  { label: '已上架', value: 'ACTIVE' },
-  { label: '已下架', value: 'DISABLED' },
-  { label: '已售完', value: 'SOLD_OUT' },
-  { label: '已禁卖', value: '???' },
-  { label: '草稿', value: 'DRAFT' },
-  { label: '发布中', value: 'IN_PROCESS' },
-  { label: '发布失败', value: 'UPDATE_FAILED' }
+  { label: '已上架', value: '1' },
+  { label: '已下架', value: '2' },
+  { label: '已售完', value: '3' },
+  { label: '已禁卖', value: '4' },
+  { label: '草稿', value: '5' }
 ]
 
 export const onCell = (record: Record) => ({
@@ -82,7 +80,7 @@ export const fields = [
     key: 'spu',
     width: 120,
     search: {
-      title: '绑定主 SKU',
+      title: '规格',
       key: 'sku',
       type: 'select',
       style: {
@@ -123,11 +121,6 @@ export const fields = [
     )
   },
   {
-    title: 'SKU',
-    dataIndex: ['child', 'sku'],
-    key: 'childSku'
-  },
-  {
     title: '价格',
     dataIndex: ['child', 'price'],
     key: 'childPrice',
@@ -161,7 +154,7 @@ export const fields = [
 
 export const extendFields = [
   {
-    title: 'TikTok 类目',
+    title: '类目',
     key: 'type',
     type: 'select',
     options: [
@@ -197,7 +190,7 @@ export const useTopFields = () => {
     }
   })
   // 国家 ID
-  const [countryId, setCountryId] = useState('')
+  const [countryId, setCountryId] = useState<string | undefined>('')
   // 店铺选项
   const { options: shopOptions, load: loadShopOptions } = useOptions(apiGetShopOptions, {
     autoload: false,
@@ -208,7 +201,7 @@ export const useTopFields = () => {
     }
   })
   // 店铺 ID
-  const [shopId, setShopId] = useState(undefined)
+  const [shopId, setShopId] = useState<string | undefined>(undefined)
   // 扩展查询参数
   const searchValues = useMemo(() => {
     return {

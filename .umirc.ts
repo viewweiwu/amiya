@@ -295,27 +295,32 @@ export default defineConfig({
         children: [
           {
             path: '/template/form/coupon',
-            title: '创建优惠券表单',
+            title: '创建优惠券表单 ⭐️',
             meta: {}
           },
           {
             path: '/template/form/step-form',
-            title: '步骤表单',
+            title: '步骤表单 ⭐️',
             meta: {}
           },
           {
             path: '/template/form/link',
-            title: '联动表单',
+            title: '联动表单 ⭐️',
             meta: {}
           },
           {
             path: '/template/form/audit',
-            title: '审批',
+            title: '审批 ⭐️',
             meta: {}
           },
           {
             path: '/template/form/setting',
-            title: '设置中心模拟界面',
+            title: '设置中心模拟界面 ⭐️⭐️',
+            meta: {}
+          },
+          {
+            path: '/template/form/goods-edit',
+            title: '商品编辑 ⭐️⭐️',
             meta: {}
           }
         ]
@@ -327,17 +332,17 @@ export default defineConfig({
         children: [
           {
             path: '/template/list/cnode-list',
-            title: 'CNode 列表',
+            title: 'CNode 列表 ⭐️',
             meta: {}
           },
           {
             path: '/template/list/card-list',
-            title: '商品卡片列表',
+            title: '商品卡片列表 ⭐️',
             meta: {}
           },
           {
             path: '/template/list/space-list',
-            title: '京东订单页',
+            title: '京东订单页 ⭐️⭐️',
             meta: {}
           }
         ]
@@ -349,22 +354,22 @@ export default defineConfig({
         children: [
           {
             path: '/template/table/account-list',
-            title: '员工管理',
+            title: '员工管理 ⭐️',
             meta: {}
           },
           {
             path: '/template/table/inline-search',
-            title: '查询区域简化',
+            title: '查询区域简化 ⭐️',
             meta: {}
           },
           {
             path: '/template/table/multiple-table',
-            title: '多表格切换',
+            title: '多表格切换 ⭐️',
             meta: {}
           },
           {
             path: '/template/table/goods-table',
-            title: '商品列表',
+            title: '商品列表 ⭐️⭐️⭐️',
             meta: {}
           }
         ]

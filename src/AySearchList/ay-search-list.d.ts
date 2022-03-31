@@ -73,8 +73,10 @@ export interface AySearchListProps extends SearchListInitConfig {
   btnBefore?: ReactNode
   /** 更多查询数据, 额外带的查询数据用 */
   extendSearchParams?: AnyKeyProps
-  /** 表格底部插入按钮 */
+  /** 表格底部插入元素 */
   after?: ReactNode
+  /** 顶部插入元素 */
+  before?: ReactNode
   /** 选择功能的配置 */
   rowSelection?: AnyKeyProps
   /** 查询扩展 */
