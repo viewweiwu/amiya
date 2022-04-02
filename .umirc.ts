@@ -320,7 +320,7 @@ export default defineConfig({
           },
           {
             path: '/template/form/goods-edit',
-            title: '商品编辑 ⭐️⭐️',
+            title: '商品编辑 ⭐️⭐️⭐️',
             meta: {}
           }
         ]

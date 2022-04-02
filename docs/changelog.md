@@ -13,6 +13,7 @@ order: 1
 3. feat: `AySearchTable`、`AySearchList` 支持 before 插入元素。
 4. feat: `AySearchTable` 也可以使用 `AySearchList` 的 `SelectionAll`、`Selection` 组件。
 5. fix: 修复 type 为 card 时，子元素只有一个会报错。
+6. fix: 修复 AyForm 存在表达式时，使用 setFieldsValue 会把其它值置空。
 
 ## 0.54.0
 

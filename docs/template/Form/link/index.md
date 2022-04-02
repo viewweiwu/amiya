@@ -11,3 +11,17 @@
 5. 可使用 `setFieldsValue` 来控制其它元素的值，比如用来设置默认值。
 
 <code src="./page/index.tsx" />
+
+## 使用表达式方式
+
+<code src="./page/ex.tsx" />
+
+```diff
+<AyField
+  title="隐藏的输入框"
+  required
+  key="test"
+  help="切换显示时，值可被 setFieldsValue 设置清空"
++ hidden="{{ !formValues.toggle }}"
+/>
+```

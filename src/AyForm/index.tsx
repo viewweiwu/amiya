@@ -680,7 +680,8 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
       }
     })
     formRef.current.setFieldsValue(values)
-    setFormValues(values)
+    let newFormValues = { ...getFieldsValue(), ...values }
+    setFormValues(newFormValues)
   }
 
   // 刷新 field

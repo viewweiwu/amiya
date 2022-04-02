@@ -48,7 +48,7 @@ const filterData = (res: AnyKeyProps) => {
         let childRecord: Record = details[i]
         let newRecord = {
           ...record,
-          key: childRecord.id + `record${i}`,
+          key: childRecord.id + `-` + record.id,
           child: childRecord,
           rowSpan: i > 0 ? 0 : details.length
         }

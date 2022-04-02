@@ -53,6 +53,7 @@ export default function Demo() {
 
   const fillData = () => {
     formRef.current.setFieldsValue(data)
+    setSkuImageMap(data.skuMap)
   }
 
   return (
