@@ -12,6 +12,7 @@ order: 1
 2. feat: `AyCardGroup`、`AyTagGroup` 支持 cancelable 属性。
 3. feat: `AySearchTable`、`AySearchList` 支持 before 插入元素。
 4. feat: `AySearchTable` 也可以使用 `AySearchList` 的 `SelectionAll`、`Selection` 组件。
+5. fix: 修复 type 为 card 时，子元素只有一个会报错。
 
 ## 0.54.0
 

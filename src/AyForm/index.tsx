@@ -125,9 +125,13 @@ export const getDefaultValue = (fields: Array<AyFormField | AySearchField | AySe
   let form: AnyKeyProps = {}
   fields.forEach((field: AyFormField | AySearchField | AySearchTableField) => {
     if (field.type === FORM_TYPE_CARD || field.type === FORM_TYPE_GROUP || field.type === FORM_TYPE_INPUT_GROUP) {
+      let children = field.children || []
+      if (!Array.isArray(children)) {
+        children = [children]
+      }
       form = {
         ...form,
-        ...getDefaultValue(field.children || [])
+        ...getDefaultValue(children)
       }
       return
     }
@@ -278,17 +282,20 @@ const getFormItem = (
     const fieldSpan = field.span !== 0 ? field.span || span || 24 : span || 24
 
     if (field.type === FORM_TYPE_CARD) {
+      let children = field.children || []
+      if (!Array.isArray(children)) {
+        children = [children]
+      }
+      let content = getFormItem(
+        children as Array<AyFormField | AySearchTableField>,
+        formInstans,
+        ayFormProps,
+        FORM_TYPE_CARD
+      )
       return (
         <Col key={field.key} span={field.span || 24}>
           <AyCard title={field.title} {...field.props}>
-            <Row gutter={gutter}>
-              {getFormItem(
-                field.children as Array<AyFormField | AySearchTableField>,
-                formInstans,
-                ayFormProps,
-                FORM_TYPE_CARD
-              )}
-            </Row>
+            <Row gutter={gutter}>{content}</Row>
           </AyCard>
         </Col>
       )

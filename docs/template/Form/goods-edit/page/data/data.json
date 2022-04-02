@@ -1,0 +1,68 @@
+{
+  "shopId": 1,
+  "name": "商品管理",
+  "category": 1,
+  "saveStatus": 1,
+  "remark": "描述描述描述描述",
+  "sku": {
+    "skus": [
+      {
+        "id": 1,
+        "value": ["红色", "蓝色"],
+        "label": "111"
+      },
+      {
+        "id": 1648877213892,
+        "label": "222",
+        "value": ["大", "小"]
+      }
+    ],
+    "data": [
+      {
+        "id": "d1",
+        "unit": 1,
+        "name": "红色 / 大",
+        "price": 1,
+        "stock": 5
+      },
+      {
+        "id": "d2",
+        "unit": 1,
+        "name": "红色 / 小",
+        "price": 2,
+        "stock": 6
+      },
+      {
+        "id": "d3",
+        "unit": 1,
+        "name": "蓝色 / 大",
+        "price": 3,
+        "stock": 7
+      },
+      {
+        "id": "d4",
+        "unit": 1,
+        "name": "蓝色 / 小",
+        "price": 4,
+        "stock": 8
+      }
+    ]
+  },
+  "goodsImage": [
+    "https://viewweiwu.github.io/amiya/images/logo.png?_0.04221535804936094",
+    "https://viewweiwu.github.io/amiya/images/logo.png?_0.8748157672511256"
+  ],
+  "long": 1,
+  "longUnit": 1,
+  "wide": 2,
+  "wideUnit": 1,
+  "height": 3,
+  "heightUnit": 1,
+  "weight": 4,
+  "weightUnit": 1,
+  "skuMap": {
+    "红色 / 大": "https://viewweiwu.github.io/amiya/images/logo.png?_0.2697174028454916",
+    "红色 / 小": "https://viewweiwu.github.io/amiya/images/logo.png?_0.10870581919828015",
+    "蓝色 / 大": "https://viewweiwu.github.io/amiya/images/logo.png?_0.7687614681594004"
+  }
+}

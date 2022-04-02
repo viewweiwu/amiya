@@ -1,5 +1,6 @@
 import { Field } from '../AyForm/ay-form'
 import { ReactElement, ReactNode } from 'react'
+import { isObj } from '@/utils'
 
 const getAyFieldsNode = (children: ReactNode) => {
   if (!Array.isArray(children)) {
@@ -41,8 +42,12 @@ function loop(children: ReactNode) {
         key: node.key
       }
 
-      if (Array.isArray(newNode?.children)) {
-        newNode.children = loop(newNode.children)
+      if (Array.isArray(newNode?.children) || isObj(newNode?.children)) {
+        if (isObj(newNode?.children)) {
+          newNode.children = loop([newNode.children])
+        } else {
+          newNode.children = loop([...newNode.children])
+        }
       }
 
       newChildren.push(newNode)
