@@ -181,8 +181,18 @@ registerAction('editable-update', (props, record, searchTable) => {
   return {
     onClick: () => {
       if (record) {
-        record.editing = true
-        searchTable.searchTableRef.current.doLayout()
+        // 将表单数据与行数据合并
+        const newRow = { ...record, editing: true }
+        // @ts-ignore 重新构建数组
+        const newTableData = [...searchTable.tableRef.current.getTableData()]
+        // 寻找到对应行
+        const index = newTableData.findIndex(
+          row => getKey(row, searchTable?.rowKey) === getKey(newRow, searchTable?.rowKey)
+        )
+        // 替换行
+        newTableData.splice(index, 1, newRow)
+        // 替换表格数据
+        searchTable.tableRef.current.setTableData(newTableData)
       }
     },
     ...props
@@ -225,8 +235,18 @@ registerAction('editable-cancel', (props, record, searchTable) => {
   return {
     onClick: () => {
       if (record) {
-        delete record.editing
-        searchTable.searchTableRef.current.doLayout()
+        // 将表单数据与行数据合并
+        const newRow = { ...record, editing: false }
+        // @ts-ignore 重新构建数组
+        const newTableData = [...searchTable.tableRef.current.getTableData()]
+        // 寻找到对应行
+        const index = newTableData.findIndex(
+          row => getKey(row, searchTable?.rowKey) === getKey(newRow, searchTable?.rowKey)
+        )
+        // 替换行
+        newTableData.splice(index, 1, newRow)
+        // 替换表格数据
+        searchTable.tableRef.current.setTableData(newTableData)
       }
     },
     ...props

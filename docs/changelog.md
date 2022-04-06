@@ -14,6 +14,7 @@ order: 1
 4. feat: `AySearchTable` 也可以使用 `AySearchList` 的 `SelectionAll`、`Selection` 组件。
 5. fix: 修复 type 为 card 时，子元素只有一个会报错。
 6. fix: 修复 AyForm 存在表达式时，使用 setFieldsValue 会把其它值置空。
+7. fix: 修复 AySearchTable 编辑行时，移动到其它行会导致当前行正在输入的内容重置。
 
 ## 0.54.0
 

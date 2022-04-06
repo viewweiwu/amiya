@@ -99,6 +99,13 @@ export function EditableRowCell(props: AnyKeyProps) {
   const editing = record?.editing || false
   let tag: ReactNode
 
+  useEffect(() => {
+    if (editing) {
+      // 设置表单数据
+      form.setFieldsValue({ ...record })
+    }
+  }, [editing])
+
   const handleSave = async () => {
     // 获取表单数据
     const values = await form.validateFields()
@@ -117,10 +124,6 @@ export function EditableRowCell(props: AnyKeyProps) {
   let cell = children[1]
 
   if (cell && typeof cell === 'function') {
-    if (editing) {
-      // 设置表单数据
-      form.setFieldsValue({ ...record })
-    }
     // 获取表格
     const cellTag = cell({ editing, form, mode: 'row' })
     if (editing) {
