@@ -12,9 +12,11 @@ order: 1
 2. feat: `AyCardGroup`、`AyTagGroup` 支持 cancelable 属性。
 3. feat: `AySearchTable`、`AySearchList` 支持 before 插入元素。
 4. feat: `AySearchTable` 也可以使用 `AySearchList` 的 `SelectionAll`、`Selection` 组件。
-5. fix: 修复 type 为 card 时，子元素只有一个会报错。
-6. fix: 修复 AyForm 存在表达式时，使用 setFieldsValue 会把其它值置空。
-7. fix: 修复 AySearchTable 编辑行时，移动到其它行会导致当前行正在输入的内容重置。
+5. feat: `AySearchTable` 优化可编辑表格必填样式。
+6. fix: 修复 `AyForm` type 为 card 时，子元素只有一个会报错。
+7. fix: 修复 `AyForm` 存在表达式时，使用 setFieldsValue 会把其它值置空。
+8. fix: 修复 `AySearchTable` 编辑行时，移动到其它行会导致当前行正在输入的内容重置。
+9. fix: 修复 `AyAction` 点击【取消】按钮，如果是新增行时，需要被删除。
 
 ## 0.54.0
 
