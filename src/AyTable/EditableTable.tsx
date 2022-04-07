@@ -1,9 +1,12 @@
 import classnames from 'classnames'
 import React, { useState, ReactNode, useContext, useEffect } from 'react'
-import { Form } from 'antd'
+import { Form, FormItemProps, Popover, PopoverProps, Space, Typography } from 'antd'
 import { getKey } from '../utils'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { EditableContext } from './context'
+import { LoadingOutlined, InfoCircleFilled } from '@ant-design/icons'
+
+const { Text } = Typography
 
 export function EditableRow({ index, ...props }: AnyKeyProps) {
   const [form] = Form.useForm()
@@ -13,6 +16,60 @@ export function EditableRow({ index, ...props }: AnyKeyProps) {
         <tr {...props} className={`editable-row ${props.className || ''}`} />
       </EditableContext.Provider>
     </Form>
+  )
+}
+
+interface RuleFormItemProps {
+  inputProps: any
+  input: JSX.Element
+  errorList: JSX.Element
+  extra: JSX.Element
+  popoverProps?: PopoverProps
+}
+
+const RuleFormItem = ({ inputProps, input, extra, popoverProps }: RuleFormItemProps) => {
+  const [visible, setVisible] = useState<boolean | undefined>(false)
+  const [errorStringList, setErrorList] = useState<string[]>([])
+
+  useEffect(() => {
+    if (inputProps.validateStatus !== 'validating') {
+      setErrorList(inputProps.errors)
+    }
+  }, [inputProps.errors, inputProps.validateStatus])
+
+  return (
+    <Popover
+      key="popover"
+      trigger="focus"
+      placement="topRight"
+      visible={errorStringList.length < 1 ? false : visible}
+      onVisibleChange={value => {
+        if (value !== visible) {
+          setVisible(value)
+        }
+      }}
+      content={
+        <div className="ay-form-item-with-help">
+          {inputProps.validateStatus === 'validating' ? <LoadingOutlined /> : null}
+          {errorStringList.map(text => (
+            <div key={text}>
+              <Text type="danger">
+                <Space>
+                  <InfoCircleFilled />
+                  {text}
+                </Space>
+              </Text>
+            </div>
+          ))}
+        </div>
+      }
+      {...popoverProps}
+    >
+      <div>
+        {input}
+        {extra}
+      </div>
+    </Popover>
   )
 }
 
@@ -57,7 +114,7 @@ export function EditableCell(props: AnyKeyProps) {
     const cellTag = cell({ editing, save: handleSave, toggleEdit, form, mode: 'col' })
     if (editing) {
       tag = (
-        <Form.Item name={field.key} style={{ margin: 0 }} {...field.formItemProps}>
+        <Form.Item name={field.key} style={{ margin: '-5px 0' }} {...field.formItemProps}>
           {cellTag}
         </Form.Item>
       )
@@ -128,7 +185,25 @@ export function EditableRowCell(props: AnyKeyProps) {
     const cellTag = cell({ editing, form, mode: 'row' })
     if (editing) {
       tag = (
-        <Form.Item name={field.key} style={{ margin: 0 }} {...field.formItemProps}>
+        <Form.Item
+          hasFeedback
+          _internalItemRender={{
+            mark: 'pro_table_render',
+            render: (
+              inputProps: FormItemProps & {
+                errors: any[]
+              },
+              doms: {
+                input: JSX.Element
+                errorList: JSX.Element
+                extra: JSX.Element
+              }
+            ) => <RuleFormItem inputProps={inputProps} {...doms} popoverProps={field.popoverProps} />
+          }}
+          name={field.key}
+          style={{ margin: '-5px 0' }}
+          {...field.formItemProps}
+        >
           {cellTag}
         </Form.Item>
       )

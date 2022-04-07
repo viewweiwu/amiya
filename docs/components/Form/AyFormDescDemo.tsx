@@ -53,7 +53,6 @@ export default function Demo() {
   const formRef: MutableRefObject<any> = useRef()
 
   const handleConfirm = (form: any) => {
-    console.log(111, formRef.current.getFieldsValue())
     console.log(form)
     alert(JSON.stringify(form))
   }

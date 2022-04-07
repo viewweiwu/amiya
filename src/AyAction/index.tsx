@@ -212,6 +212,8 @@ registerAction('editable-confirm', (props, record, searchTable, form) => {
         const newRow = { ...record, ...values }
         // 取消编辑模式
         delete newRow.editing
+        // 删除新增标识
+        delete newRow._isNew
         // @ts-ignore 重新构建数组
         const newTableData = [...searchTable.tableRef.current.getTableData()]
         // 寻找到对应行
@@ -236,15 +238,20 @@ registerAction('editable-cancel', (props, record, searchTable) => {
     onClick: () => {
       if (record) {
         // 将表单数据与行数据合并
-        const newRow = { ...record, editing: false }
+        let newRow = { ...record, editing: false }
         // @ts-ignore 重新构建数组
         const newTableData = [...searchTable.tableRef.current.getTableData()]
         // 寻找到对应行
         const index = newTableData.findIndex(
           row => getKey(row, searchTable?.rowKey) === getKey(newRow, searchTable?.rowKey)
         )
-        // 替换行
-        newTableData.splice(index, 1, newRow)
+        if (record._isNew) {
+          // 删除新增行
+          newTableData.splice(index, 1)
+        } else {
+          // 替换行
+          newTableData.splice(index, 1, newRow)
+        }
         // 替换表格数据
         searchTable.tableRef.current.setTableData(newTableData)
       }
@@ -280,7 +287,13 @@ registerAction('editable-add', (props, _record, searchTable) => {
       marginBottom: 8
     },
     onClick: () => {
-      searchTable.tableRef.current.addRow({ [getRowKey({}, searchTable?.rowKey)]: Date.now(), editing: true })
+      searchTable.tableRef.current.addRow({
+        [getRowKey({}, searchTable?.rowKey)]: Date.now(),
+        // 正在编辑
+        editing: true,
+        // 新增标识
+        _isNew: true
+      })
     },
     ...props
   }

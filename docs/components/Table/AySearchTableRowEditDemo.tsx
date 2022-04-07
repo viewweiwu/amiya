@@ -32,9 +32,17 @@ const fields: Array<AySearchTableField> = [
     }
   },
   {
-    title: '英文名',
-    key: 'en',
-    editable: true
+    title: '编号',
+    key: 'code',
+    editable: true,
+    formItemProps: {
+      rules: [
+        { required: true, message: '请输入编号' },
+        { message: '必须包含数字', pattern: /[0-9]/ },
+        { max: 16, whitespace: true, message: '最长为 16 位' },
+        { min: 6, whitespace: true, message: '最小为 6 位' }
+      ]
+    }
   }
 ]
 
@@ -43,12 +51,14 @@ const data = [
     cn: '阿米娅',
     en: 'Amiya',
     class: '术师',
+    code: '1',
     sort_id: 55
   },
   {
     cn: '能天使',
     en: 'Exusiai',
     class: '狙击',
+    code: '2',
     sort_id: 73
   }
 ]

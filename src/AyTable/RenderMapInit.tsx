@@ -33,7 +33,6 @@ export const install = (registerTableRender: (key: string, render: (props: Rende
     const inputRef = useRef<any>(null)
 
     return ({ editing, mode, save }: AnyKeyProps) => {
-      console.log('render')
       useEffect(() => {
         if (editing && mode === 'col') {
           inputRef.current.focus()
