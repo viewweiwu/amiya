@@ -91,7 +91,13 @@ export const install = (renderMap: AnyKeyProps) => {
     if (field.editable) {
       tableField.renderType = field.renderType ? field.renderType : 'editable-cell-input'
       tableField.onCell = (record: AnyKeyProps) => {
+        // 多行编辑下，优先执行配置上的属性
+        let fieldCellProps = {}
+        if (field.onCell) {
+          fieldCellProps = field?.onCell(record)
+        }
         return {
+          ...fieldCellProps,
           record,
           field: field,
           tableData,
