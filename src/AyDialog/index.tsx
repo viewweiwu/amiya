@@ -2,7 +2,7 @@ import React from 'react'
 import AyButton from '../AyButton'
 import { Modal, Drawer, Space } from 'antd'
 import { AyDialogProps } from './ay-dialog'
-import { AnyKeyProps } from '@/types/AnyKeyProps'
+import { AnyKeyProps } from '../types/AnyKeyProps'
 import locale from '../locale'
 import { omitObj } from '../utils'
 

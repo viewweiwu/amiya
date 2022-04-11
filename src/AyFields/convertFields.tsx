@@ -1,6 +1,6 @@
 import { Field } from '../AyForm/ay-form'
 import { ReactElement, ReactNode } from 'react'
-import { isObj } from '@/utils'
+import { isObj } from '../utils'
 
 const getAyFieldsNode = (children: ReactNode) => {
   if (!Array.isArray(children)) {

@@ -1,7 +1,7 @@
 {
   "name": "amiya",
   "description": "amiya React component",
-  "version": "0.55.0-beta.0",
+  "version": "0.55.0-beta.1",
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",
@@ -80,5 +80,8 @@
     "last 2 versions",
     "Firefox ESR",
     "> 1%"
-  ]
+  ],
+  "dependencies": {
+    "amiya": "0.55.0-beta.0"
+  }
 }

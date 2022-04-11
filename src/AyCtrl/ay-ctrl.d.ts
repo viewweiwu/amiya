@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { AnyKeyProps } from '@/types/AnyKeyProps'
+import { AnyKeyProps } from '../types/AnyKeyProps'
 
 export interface AyCtrlProps extends AnyKeyProps {
   /** 超过多少个后折叠 */

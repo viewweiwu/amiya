@@ -1,4 +1,4 @@
-import { AnyKeyProps } from '@/types/AnyKeyProps'
+import { AnyKeyProps } from '../types/AnyKeyProps'
 import { AyFormField } from '../AyForm/ay-form'
 import { ExtendField } from '../AySearchTable/ay-search-table'
 

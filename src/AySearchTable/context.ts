@@ -1,4 +1,4 @@
-import { AnyKeyProps } from '@/types/AnyKeyProps'
+import { AnyKeyProps } from '../types/AnyKeyProps'
 import { createContext } from 'react'
 
 export const AySearchTableContext = createContext<AnyKeyProps>({

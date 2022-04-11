@@ -1,5 +1,4 @@
-import { AnyKeyProps } from '@/types/AnyKeyProps'
-import { Record } from '@/types/Record'
+import { Record } from '../../types/Record'
 import { getKey } from '../../utils'
 import { Checkbox } from 'antd'
 import React, { useContext, useEffect } from 'react'
