@@ -381,6 +381,12 @@ export default forwardRef(function AySearchTable(props: AySearchTableProps, ref:
       return tableRef.current.getTableData()
     },
     /**
+     * 设置表格数据
+     */
+    setTableData(tableData: Array<AnyKeyProps>) {
+      return tableRef.current.setTableData(tableData)
+    },
+    /**
      * 清空过滤
      * @param keys
      */

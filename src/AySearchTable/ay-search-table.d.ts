@@ -132,6 +132,7 @@ export interface TableRefProps {
   refresh(): void
   reset(search: FormValues): void
   getTableData(): Array<Record>
+  setTableData(data: Array<Record>): void
   clearFilters(keys: Array<string>): void
   setFiltersValue(filters: AnyKeyProps): void
   setSortsValue(sorts: Array<SortItem>): void
