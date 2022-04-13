@@ -712,5 +712,5 @@ const fields = [
 | multiple   | 是否多选                               | boolean                                               | false                  | -      |
 | value      | 当前值                                 | string \| number \| Array<string \| number>           | 单选为 null，多选为 [] | -      |
 | readonly   | 所有的选项只读                         | boolean                                               | false                  | -      |
-| cancelable | 单选时，是否可以点击选中的元素取消选中 | boolean                                               | false                  | 0.55.0 |
+| cancelable | 单选时，是否可以点击选中的元素取消选中 | boolean                                               | true                   | 0.55.0 |
 | onChange   | 监听值变化事件                         | (string \| number \| Array<string \| number>) => void | -                      | -      |

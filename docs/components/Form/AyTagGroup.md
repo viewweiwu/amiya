@@ -207,5 +207,5 @@ export default function Demo() {
 | readonly       | 所有的选项只读                         | boolean                                               | false                  | -      |
 | showAllChecked | 是否展示【全部】选项                   | boolean                                               | true                   | -      |
 | allCheckedText | 【全部】选项文本                       | string                                                | '全部'                 | -      |
-| cancelable     | 单选时，是否可以点击选中的元素取消选中 | boolean                                               | false                  | 0.55.0 |
+| cancelable     | 单选时，是否可以点击选中的元素取消选中 | boolean                                               | true                   | 0.55.0 |
 | onChange       | 监听值变化事件                         | (string \| number \| Array<string \| number>) => void | -                      | -      |
