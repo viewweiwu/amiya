@@ -4,6 +4,12 @@ order: 1
 
 # 更新日志
 
+## 0.55.1
+
+`202-04-20`
+
+1. fix: 修复 `AyForm` type: date-range 情况下 setFieldsValue 会无效。
+
 ## 0.55.0
 
 `2022-03-31`
