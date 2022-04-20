@@ -672,7 +672,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
             values[key] = moment(value)
           }
         } else if (field.type === FORM_TYPE_DATE_RANGE && Array.isArray(value)) {
-          let [value0, value1] = values as [string, string]
+          let [value0, value1] = value as [string, string]
           values[key] = [value0 ? moment(value0) : null, value1 ? moment(value1) : null]
         }
       } catch {

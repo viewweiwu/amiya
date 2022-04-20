@@ -9,7 +9,8 @@
 点击 `提交` 按钮查看格式化结果。
 
 ```tsx
-import React from 'react'
+import React, { useRef } from 'react'
+import { Space } from 'antd'
 import { AyForm, AyFormField, AyButton } from 'amiya'
 
 const fields: Array<AyFormField> = [
@@ -22,15 +23,27 @@ const fields: Array<AyFormField> = [
 ]
 
 export default function Demo() {
+  const formRef = useRef<any>()
+
   const handleConfirm = (form: any) => {
     console.log(form)
     alert(JSON.stringify(form))
   }
+
+  const setDate = () => {
+    formRef.current.setFieldsValue({
+      'date-range': ['1994-05-12', Date.now()]
+    })
+  }
+
   return (
-    <AyForm fields={fields} onConfirm={handleConfirm} style={{ width: 600, margin: '0 auto' }}>
-      <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
-        提交
-      </AyButton>
+    <AyForm ref={formRef} fields={fields} onConfirm={handleConfirm} style={{ width: 600, margin: '0 auto' }}>
+      <Space>
+        <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
+          提交
+        </AyButton>
+        <AyButton onClick={setDate}>设置日期</AyButton>
+      </Space>
     </AyForm>
   )
 }
