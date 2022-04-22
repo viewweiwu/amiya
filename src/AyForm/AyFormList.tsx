@@ -27,7 +27,7 @@ export default function AyFormList(props: AyFormListProps) {
   const [recordNum, setRecordNum] = useState(0)
 
   useEffect(() => {
-    setRecordNum(formInstant.getFieldValue(field.key))
+    setRecordNum(formInstant.getFieldValue(field.key).length)
   }, [])
 
   /**
@@ -60,12 +60,12 @@ export default function AyFormList(props: AyFormListProps) {
    * @param add 新增方法
    */
   const handleAdd = (add: (defaultValue?: any, insertIndex?: number | undefined) => void) => {
-    add()
+    add(field.creatorRecord || {})
     setRecordNum(Number(recordNum) + 1)
   }
 
   return (
-    <Form.List name={field.key || field.label} key={field.key || field.label}>
+    <Form.List {...field.props} name={field.key || field.label} key={field.key || field.label}>
       {(fields, { add, remove }) => (
         <>
           {fields.map(({ key, name, ...restField }) => {
@@ -87,23 +87,25 @@ export default function AyFormList(props: AyFormListProps) {
               FORM_TYPE_LIST
             )
             return (
-              <Space key={`${field.key}-${key}`} className="ay-form-list-item">
+              <Space key={`${field.key}-${key}`} className="ay-form-list-item" align="end" {...field.spaceProps}>
                 {content}
-                {recordNum < max && (
-                  <span className="ay-form-list-action" onClick={() => handleCopy(name)}>
-                    <Tooltip title={locale.form.copyToEnd}>
-                      <CopyOutlined />
-                    </Tooltip>
-                  </span>
-                )}
+                <Space className="ay-form-list-actions">
+                  {recordNum < max && (
+                    <span className="ay-form-list-action" onClick={() => handleCopy(name)}>
+                      <Tooltip title={locale.form.copyToEnd}>
+                        <CopyOutlined />
+                      </Tooltip>
+                    </span>
+                  )}
 
-                {recordNum > min && (
-                  <span className="ay-form-list-action" onClick={() => handleRemove(name, remove)}>
-                    <Tooltip title={locale.form.removeRow}>
-                      <DeleteOutlined />
-                    </Tooltip>
-                  </span>
-                )}
+                  {recordNum > min && (
+                    <span className="ay-form-list-action" onClick={() => handleRemove(name, remove)}>
+                      <Tooltip title={locale.form.removeRow}>
+                        <DeleteOutlined />
+                      </Tooltip>
+                    </span>
+                  )}
+                </Space>
               </Space>
             )
           })}

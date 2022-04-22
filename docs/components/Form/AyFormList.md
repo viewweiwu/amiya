@@ -13,7 +13,6 @@ const fields: Array<AyFormField> = [
     title: '使用人员',
     key: 'list',
     type: 'list',
-    createRecord: { name: '张三' },
     children: [
       {
         title: '昵称',
