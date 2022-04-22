@@ -45,7 +45,7 @@ export default {
     selectedTitle: 'Selection',
     selectedBefore: 'Selected: ',
     selectedAfter: 'items',
-    selectedClear: 'Remove All'
+    selectedClear: 'Remove all'
   },
   form: {
     pleaseInput: 'input ',
@@ -55,6 +55,9 @@ export default {
     requiredText: '',
     startDate: 'Start Date',
     endDate: 'End Date',
-    dateTo: 'To'
+    dateTo: 'To',
+    addItem: 'Add Item',
+    removeRow: 'Remove this row',
+    copyToEnd: 'Copy this row to the end of the row'
   }
 }

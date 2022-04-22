@@ -98,6 +98,7 @@ export interface Field {
    * @param card-group 卡片选择，支持单个与多个
    * @param tag-group 标签选择，支持单个与多个
    * @param html 原生 HTML 标签
+   * @param list 列表
    */
   type?:
     | 'input'
@@ -119,6 +120,7 @@ export interface Field {
     | 'card-group'
     | 'tag-group'
     | 'html'
+    | 'list'
     | string
   /**
    * 配置项，是一个数组，数组每个对象可以配置[{ label; value; disable? }]

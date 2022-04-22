@@ -55,6 +55,9 @@ export default {
     requiredText: 'してください',
     startDate: '開始日時',
     endDate: '終了日時',
-    dateTo: '〜'
+    dateTo: '〜',
+    addItem: '追加',
+    copyToEnd: 'この行を行末にコピーする',
+    removeRow: 'この行を削除する'
   }
 }

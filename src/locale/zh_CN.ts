@@ -55,6 +55,9 @@ export default {
     requiredText: '',
     startDate: '开始日期',
     endDate: '结束日期',
-    dateTo: '至'
+    dateTo: '至',
+    addItem: '添加一行数据',
+    copyToEnd: '复制此行到末尾行',
+    removeRow: '删除此行'
   }
 }

@@ -101,12 +101,17 @@ export default defineConfig({
           },
           {
             path: '/components/form/ay-tag-group',
-            title: 'AyTagGroup 卡片选择',
+            title: 'AyTagGroup 标签选择',
             meta: {}
           },
           {
             path: '/components/form/date-format',
             title: 'Date 表单日期的格式化',
+            meta: {}
+          },
+          {
+            path: '/components/form/ay-form-list',
+            title: 'AyFormList 列表输入',
             meta: {}
           }
           // {

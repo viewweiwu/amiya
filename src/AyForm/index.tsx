@@ -11,7 +11,7 @@ import React, {
 } from 'react'
 import AyCard from '../AyCard'
 import { theme } from '../Theme'
-import { Form, Row, Col, Input, Tooltip } from 'antd'
+import { Form, Row, Col, Input, Tooltip, Space, Button } from 'antd'
 import { AyFormField, AyFormProps, RegisterFieldProps } from './ay-form'
 import { copy, omitObj } from '../utils'
 import { AySearchField } from '../AySearch/ay-search'
@@ -34,7 +34,8 @@ import {
   FORM_TYPE_CHECKBOX_GROUP,
   FORM_TYPE_RADIO_GROUP,
   FORM_TYPE_CARD_GROUP,
-  FORM_TYPE_TAG_GROUP
+  FORM_TYPE_TAG_GROUP,
+  FORM_TYPE_LIST
 } from '../constant'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
@@ -45,7 +46,9 @@ import { QuestionCircleOutlined } from '@ant-design/icons'
 import locale from '../locale'
 import { FormValues } from '../types/FormValues'
 import parseFields from './parseFields'
+import { DeleteOutlined, PlusOutlined, CopyOutlined } from '@ant-design/icons'
 import './ay-form.less'
+import AyFormList from './AyFormList'
 
 moment.locale('zh-cn')
 
@@ -124,7 +127,7 @@ const getPlaceholder = (field: AyFormField | AySearchTableField): string => {
 export const getDefaultValue = (fields: Array<AyFormField | AySearchField | AySearchTableField>) => {
   let form: AnyKeyProps = {}
   fields.forEach((field: AyFormField | AySearchField | AySearchTableField) => {
-    if (field.type === FORM_TYPE_CARD || field.type === FORM_TYPE_GROUP || field.type === FORM_TYPE_INPUT_GROUP) {
+    if ([FORM_TYPE_CARD, FORM_TYPE_GROUP, FORM_TYPE_INPUT_GROUP].includes(field.type || '')) {
       let children = field.children || []
       if (!Array.isArray(children)) {
         children = [children]
@@ -132,6 +135,13 @@ export const getDefaultValue = (fields: Array<AyFormField | AySearchField | AySe
       form = {
         ...form,
         ...getDefaultValue(children)
+      }
+      return
+    }
+    if (field.type === FORM_TYPE_LIST) {
+      form = {
+        ...form,
+        [field.key || '']: [...(field.defaultValue || [])]
       }
       return
     }
@@ -165,7 +175,6 @@ export const getDefaultValue = (fields: Array<AyFormField | AySearchField | AySe
       }
     }
   })
-
   return form
 }
 
@@ -264,7 +273,7 @@ const getFormItem = (
   fields: Array<AyFormField | AySearchTableField>,
   formInstans: AnyKeyProps,
   props: AyFormProps,
-  childrenType?: 'group' | 'card' | 'input-group'
+  childrenType?: 'group' | 'card' | 'input-group' | 'list'
 ) => {
   const { span, readonly, formLayout, gutter } = props
   const ayFormProps: AyFormProps = props
@@ -300,6 +309,9 @@ const getFormItem = (
         </Col>
       )
     }
+    if (childrenType === FORM_TYPE_LIST) {
+      // debugger
+    }
 
     let visible = true
 
@@ -326,6 +338,11 @@ const getFormItem = (
       label: field.title,
       name: field.key,
       extra: field.help
+    }
+
+    // 如果自元素类型是列表，则重置 name，此时一定有 field.formItemProps
+    if (childrenType === FORM_TYPE_LIST) {
+      formItemProps.name = field.formItemProps.name
     }
 
     // 组合元素的 formItem 不需要样式
@@ -398,6 +415,7 @@ const getFormItem = (
     let tag: ReactNode
 
     switch (field.type) {
+      // 组合类型
       case FORM_TYPE_GROUP:
         tag = (
           <Row className="ay-form-group" {...field.props}>
@@ -410,6 +428,7 @@ const getFormItem = (
           </Row>
         )
         break
+      // 输入框组合
       case FORM_TYPE_INPUT_GROUP:
         tag = (
           <Input.Group compact {...field.props}>
@@ -422,6 +441,18 @@ const getFormItem = (
           </Input.Group>
         )
         break
+      // 列表类型
+      case FORM_TYPE_LIST:
+        tag = (
+          <AyFormList
+            field={field as AyFormField}
+            formInstant={formInstans}
+            getFormItem={getFormItem}
+            ayFormProps={ayFormProps}
+          />
+        )
+        break
+
       default:
         tag = getTag(field, fields, formInstans, readonly)
         break

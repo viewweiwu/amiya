@@ -540,6 +540,46 @@ export default function Demo() {
 }
 ```
 
+## 列表输入
+
+```tsx
+import React from 'react'
+import { AyForm, AyButton, AyFormField, FormValues } from 'amiya'
+
+export default function Demo() {
+  const fields: Array<AyFormField> = [
+    {
+      title: '使用人员',
+      key: 'list',
+      type: 'list',
+      children: [
+        {
+          title: '昵称',
+          key: 'name'
+        },
+        {
+          title: '年龄',
+          key: 'old'
+        }
+      ]
+    }
+  ]
+
+  const handleConfirm = (form: FormValues) => {
+    console.log(form)
+    alert(JSON.stringify(form))
+  }
+
+  return (
+    <AyForm fields={fields} formLayout="vertical" onConfirm={handleConfirm}>
+      <AyButton type="primary" htmlType="submit">
+        提交
+      </AyButton>
+    </AyForm>
+  )
+}
+```
+
 ## 表单联动
 
 可以独立声明一个 state 来控制具体某个属性。例如：
