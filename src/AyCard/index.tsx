@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Card } from 'antd'
 import { AyCardProps } from './ay-card'
-import './index.less'
 import { DownOutlined } from '@ant-design/icons'
 
 export default function AyCard(props: AyCardProps) {

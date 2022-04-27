@@ -46,8 +46,6 @@ import { QuestionCircleOutlined } from '@ant-design/icons'
 import locale from '../locale'
 import { FormValues } from '../types/FormValues'
 import parseFields from './parseFields'
-import { DeleteOutlined, PlusOutlined, CopyOutlined } from '@ant-design/icons'
-import './ay-form.less'
 import AyFormList from './AyFormList'
 
 moment.locale('zh-cn')

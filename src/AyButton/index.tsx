@@ -4,7 +4,6 @@ import { AyButtonProps } from './ay-button'
 import classNames from 'classnames'
 import { AnyKeyProps } from 'lib'
 import { omitObj } from '../utils'
-import './index.less'
 
 const refreshList: Array<any> = []
 

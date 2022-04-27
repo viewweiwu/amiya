@@ -17,7 +17,6 @@ import { SearchOutlined, ReloadOutlined, DownOutlined, UpOutlined } from '@ant-d
 import classNames from 'classnames'
 import { FORM_TYPE_DATE, FORM_TYPE_DATE_RANGE } from '../constant'
 import locale from '../locale'
-import './ay-search.less'
 
 type SearchSize = 'mini' | 'small' | 'middle' | 'large'
 

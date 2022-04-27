@@ -7,7 +7,6 @@ import { AnyKeyProps } from '../types/AnyKeyProps'
 import { defaultDataFilter, defaultSearchFilter } from '../AyTable'
 import { AyListContext } from './context'
 import locale from '../locale'
-import './ay-list.less'
 
 export default forwardRef(function AyList(props: AyListProps, ref) {
   const {
