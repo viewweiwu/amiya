@@ -2,11 +2,11 @@
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
-    "lib": ["es5", "es6", "es7", "es2017", "dom"],
+    "lib": ["dom", "es2017"],
     "rootDirs": ["src", "docs"],
     "outDir": "build/lib",
     "moduleResolution": "node",
-    "importHelpers": true,
+    "importHelpers": false,
     "jsx": "react",
     "esModuleInterop": true,
     "sourceMap": true,
