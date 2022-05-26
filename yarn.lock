@@ -2532,6 +2532,11 @@ acorn-globals@^6.0.0:
     acorn "^7.1.1"
     acorn-walk "^7.1.1"
 
+acorn-jsx@~0.6.1-3:
+  version "0.6.1"
+  resolved "https://registry.npmmirror.com/acorn-jsx/-/acorn-jsx-0.6.1.tgz#2ec300be688fa8af44fe4255ca9cd57384df624f"
+  integrity sha512-IN8xQ1BuxAwFR8/kjeRSo9OO7xmDOHg3Hz+r9cMHE6/sPxwZp+4Kno/ilmEJ91KVILUHx6F9fH7OLN484DENeg==
+
 acorn-walk@^6.0.1:
   version "6.2.0"
   resolved "https://registry.npmjs.org/acorn-walk/-/acorn-walk-6.2.0.tgz#123cb8f3b84c2171f1f7fb252615b1c78a6b1a8c"
@@ -2605,6 +2610,11 @@ alphanum-sort@^1.0.0:
   version "1.0.2"
   resolved "https://registry.npmjs.org/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
+
+amiya@0.55.0-beta.0:
+  version "0.55.0-beta.0"
+  resolved "https://registry.npmmirror.com/amiya/-/amiya-0.55.0-beta.0.tgz#23e2afbdf8c6d84dc3115ceaaa0d824016eb863b"
+  integrity sha512-VXQhWx3wIPAGpKqgehBxHCWlgL4yuWYoNB1CNpS+UXoyYzThpZWymx/0hB07FQ8JCBhcERCKtbBSOY5BF1RYsw==
 
 ansi-align@^3.0.0:
   version "3.0.1"
@@ -2922,6 +2932,13 @@ assign-symbols@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/assign-symbols/-/assign-symbols-1.0.0.tgz#59667f41fadd4f20ccbc2bb96b8d4f7f78ec0367"
   integrity sha1-WWZ/QfrdTyDMvCu5a41Pf3jsA2c=
+
+ast-types@^0.3.29:
+  version "0.3.38"
+  resolved "https://registry.npmmirror.com/ast-types/-/ast-types-0.3.38.tgz#afe430e60b4db3ce2ed22ceea0f16f1c31763ef7"
+  integrity sha512-nR0mF2vtJBVlYc2BB1+n61zPitCUTWNFoQJ8qdA/R4z8NkT11X9eqW5TvoiYLNzi3NomWXw3N7+2AM4Iy7zS3A==
+  dependencies:
+    private "~0.1.2"
 
 astral-regex@^2.0.0:
   version "2.0.0"
@@ -4714,7 +4731,7 @@ escape-string-regexp@^4.0.0:
   resolved "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz#14ba83a5d373e3d311e5afca29cf5bfad965bf34"
   integrity sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==
 
-escodegen@^1.11.0:
+escodegen@^1.11.0, escodegen@^1.3.3:
   version "1.14.3"
   resolved "https://registry.npmjs.org/escodegen/-/escodegen-1.14.3.tgz#4e7b81fba61581dc97582ed78cab7f0e8d63f503"
   integrity sha512-qFcX0XJkdg+PB3xjZZG/wKSuT1PnQWx57+TVSjIMmILd2yC/6ByYElPwJnslDsuWuSAp4AwJGumarAAmJch5Kw==
@@ -4748,6 +4765,11 @@ esprima@^4.0.0, esprima@^4.0.1:
   resolved "https://registry.npmjs.org/esprima/-/esprima-4.0.1.tgz#13b04cdb3e6c5d19df91ab6987a8695619b0aa71"
   integrity sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==
 
+estraverse-fb@^1.0.0:
+  version "1.3.2"
+  resolved "https://registry.npmmirror.com/estraverse-fb/-/estraverse-fb-1.3.2.tgz#d323a4cb5e5ac331cea033413a9253e1643e07c4"
+  integrity sha512-wp3lfRrWy5EQD9TqesuYM1SKVP4ERT0cUatb4e8Vznf4K5IOpREhuyXZxGj3a9s9mvX5vGZKNHA4R9D4kp9Q9A==
+
 estraverse@^4.2.0:
   version "4.3.0"
   resolved "https://registry.npmjs.org/estraverse/-/estraverse-4.3.0.tgz#398ad3f3c5a24948be7725e83d11a7de28cdbd1d"
@@ -4772,6 +4794,11 @@ estree-walker@^2.0.1:
   version "2.0.2"
   resolved "https://registry.npmjs.org/estree-walker/-/estree-walker-2.0.2.tgz#52f010178c2a4c117a7757cfe942adb7d2da4cac"
   integrity sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==
+
+esutils@^1.1.4:
+  version "1.1.6"
+  resolved "https://registry.npmmirror.com/esutils/-/esutils-1.1.6.tgz#c01ccaa9ae4b897c6d0c3e210ae52f3c7a844375"
+  integrity sha512-RG1ZkUT7iFJG9LSHr7KDuuMSlujfeTtMNIcInURxKAxhMtwQhI3NrQhz26gZQYlsYZQKzsnwtpKrFKj9K9Qu1A==
 
 esutils@^2.0.2:
   version "2.0.3"
@@ -7249,6 +7276,23 @@ jsprim@^1.2.2:
     json-schema "0.4.0"
     verror "1.10.0"
 
+jsx-transpiler@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.npmmirror.com/jsx-transpiler/-/jsx-transpiler-0.1.4.tgz#2c68f3dbc2281286af24543a2fd6c63b7bed9999"
+  integrity sha512-oKkVpi0oDet+WxQoyo21qiIcXMXJQ93wurgZwjyQ4L49vRjWLJ4HVQ4AfHRYC4+yesayoIqcGJOPKUY9H/GMPg==
+  dependencies:
+    acorn-jsx "~0.6.1-3"
+    ast-types "^0.3.29"
+    escodegen "^1.3.3"
+    estraverse-fb "^1.0.0"
+    esutils "^1.1.4"
+    through "^2.3"
+
+jsxobj@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmmirror.com/jsxobj/-/jsxobj-1.1.0.tgz#ab87b7b3904fa6a28628b58c97058f95daf5e238"
+  integrity sha512-EGieC6ZWJqiw2vVn3WLvNVlol8qAI/BquJXd57XXYmpwlYGZkLmeblhxUleaYELubei/CWqZt8RZdVuiFsbqzg==
+
 katex@^0.12.0:
   version "0.12.0"
   resolved "https://registry.npmjs.org/katex/-/katex-0.12.0.tgz#2fb1c665dbd2b043edcf8a1f5c555f46beaa0cb9"
@@ -9455,6 +9499,11 @@ prismjs@^1.21.0:
   resolved "https://registry.npmjs.org/prismjs/-/prismjs-1.26.0.tgz#16881b594828bb6b45296083a8cbab46b0accd47"
   integrity sha512-HUoH9C5Z3jKkl3UunCyiD5jwk0+Hz0fIgQ2nbwU2Oo/ceuTAQAg+pPVnfdt2TJWRVLcxKh9iuoYDUSc8clb5UQ==
 
+private@~0.1.2:
+  version "0.1.8"
+  resolved "https://registry.npmmirror.com/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"
+  integrity sha512-VvivMrbvd2nKkiG38qjULzlc+4Vx4wm/whI9pQD35YrARNnhxeiRktSOhSukRLFNlzg6Br/cJPet5J/u19r/mg==
+
 process-nextick-args@^2.0.0, process-nextick-args@~2.0.0:
   version "2.0.1"
   resolved "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
@@ -11545,7 +11594,7 @@ through2@^3.0.0:
     inherits "^2.0.4"
     readable-stream "2 || 3"
 
-through@^2.3.8:
+through@^2.3, through@^2.3.8:
   version "2.3.8"
   resolved "https://registry.npmjs.org/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=

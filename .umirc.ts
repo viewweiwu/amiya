@@ -35,6 +35,10 @@ export default defineConfig({
       title: '示例',
       path: '/template'
     },
+    // {
+    //   title: '转换工具',
+    //   path: '/tools'
+    // },
     {
       title: '疑问',
       path: '/faq'

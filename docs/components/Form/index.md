@@ -552,6 +552,7 @@ export default function Demo() {
       title: '使用人员',
       key: 'list',
       type: 'list',
+      span: 24,
       children: [
         {
           title: '昵称',
@@ -572,9 +573,11 @@ export default function Demo() {
 
   return (
     <AyForm fields={fields} formLayout="vertical" onConfirm={handleConfirm}>
-      <AyButton type="primary" htmlType="submit">
-        提交
-      </AyButton>
+      <div>
+        <AyButton type="primary" htmlType="submit">
+          提交
+        </AyButton>
+      </div>
     </AyForm>
   )
 }
