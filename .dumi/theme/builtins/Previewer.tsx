@@ -19,6 +19,7 @@ import { ICodeBlockProps } from './SourceCode'
 import SourceCode from './SourceCode'
 import 'dumi-theme-default/src/builtins/Previewer.less'
 import useCodeSandbox from '../hooks/useCodeSandbox'
+import '/src/style/index.less'
 
 export interface IPreviewerProps extends IPreviewerComponentProps {
   /**
