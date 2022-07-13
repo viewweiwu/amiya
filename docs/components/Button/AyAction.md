@@ -197,14 +197,15 @@ export default function AySearchTableDemo() {
 
 ## 参数
 
-| 参数名       | 说明                                                  | 参数类型   | 默认值 |
-| ------------ | ----------------------------------------------------- | ---------- | ------ |
-| action       | action 名称，具体查看下方注释。                       | string     | -      |
-| onFinish     | 接口完成事件，具体查看下方注释                        | Function() | -      |
-| detailApi    | `action="view"` `action="update"` 打开前请求的接口    | Promise()  | -      |
-| detailParams | `detailApi` 请求的参数                                | object     | -      |
-| params       | 打开弹窗前，添加的默认值，只有 add、view、update 有效 | object     | -      |
-| successMsg   | 请求成功后的消息提示                                  | string     | -      |
+| 参数名       | 说明                                                  | 参数类型         | 默认值 |
+| ------------ | ----------------------------------------------------- | ---------------- | ------ |
+| action       | action 名称，具体查看下方注释。                       | string           | -      |
+| onFinish     | 接口完成事件，具体查看下方注释。                      | Function()       | -      |
+| onOpen       | 点击按钮打开事件，具体查看下方注释。                  | Function(record) | -      |
+| detailApi    | `action="view"` `action="update"` 打开前请求的接口    | Promise()        | -      |
+| detailParams | `detailApi` 请求的参数                                | object           | -      |
+| params       | 打开弹窗前，添加的默认值，只有 add、view、update 有效 | object           | -      |
+| successMsg   | 请求成功后的消息提示                                  | string           | -      |
 
 ### action
 
@@ -272,7 +273,7 @@ export default function AySearchTableDemo() {
  */
 import React from 'react'
 import { AySearchTable, AyAction, AyCtrl, AySearchTableField, AyTableCtrlField } from 'amiya'
-import { listApi, addApi, updateApi, deleteApi, professionOptions } from '../api'
+import { listApi, addApi, updateApi, deleteApi } from '../api'
 
 const fields: Array<AySearchTableField> = [
   {
@@ -329,6 +330,33 @@ export default function AySearchTableDemo() {
 }
 ```
 
+### onOpen
+
+- Type: Function(record)
+- Default: -
+
+目前支持 add、update、view 3 个 action 打开出发接口。
+
+record 为当前行的数据，return false 可以阻止打开弹窗。
+
+```js
+/**
+ * onOpen 的时候可以做任何事
+ */
+<AyAction action="add" onOpen={doSomething}>新增</AyAction>
+
+/**
+ * 可以通过 return false 让弹窗无法打开
+ */
+<AyAction action="update" onOpen={(record) => false}>编辑</AyAction>
+
+/**
+ * 可以通过变量来控制能否打开弹窗
+ */
+<AyAction action="update" onOpen={(record) => record.canOpenUpdate}>编辑</AyAction>
+
+```
+
 ### params
 
 目前支持 add、update、view 3 个 action 设置弹窗默认值。
@@ -336,17 +364,17 @@ export default function AySearchTableDemo() {
 ```js
 /**
  * pamras 支持打开弹窗的默认值，如果跟 record 同 key，则会取 record 的值。
-*/
-<AyAction action="add" params={{ test: 123 }}}>新增</AyAction>
+ */
+<AyAction action="add" params={{ test: 123 }}>新增</AyAction>
 
 /**
  * pamras 支持打开弹窗的默认值，如果跟 record 同 key，则会取 record 的值。
-*/
-<AyAction action="update" params={{ test: 123 }}>新增</AyAction>
+ */
+<AyAction action="update" params={{ test: 123 }}>编辑</AyAction>
 
 /**
  * pamras 支持打开弹窗的默认值，如果跟 record 同 key，则会取 record 的值。
-*/
+ */
 <AyAction action="view" params={{ test: 123 }}>详情</AyAction>
 ```
 

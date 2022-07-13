@@ -30,6 +30,12 @@ registerAction('add', (props, record, searchTable) => {
     type: 'primary',
     icon: <PlusOutlined />,
     onClick: () => {
+      if (props.onOpen) {
+        let result = props.onOpen(record)
+        if (result === false) {
+          return
+        }
+      }
       searchTable.formRef?.current?.add(
         { ...props.params, ...record },
         {
@@ -55,6 +61,12 @@ registerAction('update', (props, record, searchTable) => {
   const [loading, setLoading] = useState(false)
   return {
     onClick: () => {
+      if (props.onOpen) {
+        let result = props.onOpen(record)
+        if (result === false) {
+          return
+        }
+      }
       let extraParams = {
         onSuccess: (res: any) => {
           success(props.successMsg || props.children + locale.action.success)
@@ -94,6 +106,12 @@ registerAction('view', (props, record, searchTable) => {
   const [loading, setLoading] = useState(false)
   return {
     onClick: () => {
+      if (props.onOpen) {
+        let result = props.onOpen(record)
+        if (result === false) {
+          return
+        }
+      }
       if (props.detailApi) {
         setLoading(true)
         props
