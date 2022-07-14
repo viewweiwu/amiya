@@ -39,14 +39,14 @@ export function AyDialogFooter(props: AyDialogProps, handleCancel: () => void, h
     <Space>
       {cancelBefore}
       {cancelVisible !== false && (
-        <AyButton {...confirmProps} onClick={handleCancel}>
+        <AyButton {...cancelProps} onClick={handleCancel}>
           {cancelText || locale.dialog.close}
         </AyButton>
       )}
       {cancelAfter}
       {confirmBefore}
       {confirmVisible !== false && (
-        <AyButton type="primary" {...cancelProps} onClick={handleConfirm} loading={loading}>
+        <AyButton type="primary" {...confirmProps} onClick={handleConfirm} loading={loading}>
           {confirmText || locale.dialog.confirm}
         </AyButton>
       )}
