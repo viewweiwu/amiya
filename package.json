@@ -1,7 +1,7 @@
 {
   "name": "amiya",
   "description": "amiya React component",
-  "version": "0.57.0-beta.0",
+  "version": "0.57.0-beta.1",
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",
@@ -74,7 +74,8 @@
     "react-helmet-async": "^1.1.2",
     "styled-components": "^5.3.3",
     "tslib": "^2.3.1",
-    "yorkie": "^2.0.0"
+    "yorkie": "^2.0.0",
+    "jsx-transpiler": "^0.1.4"
   },
   "browserslist": [
     "last 2 versions",

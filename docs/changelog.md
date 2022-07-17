@@ -4,9 +4,10 @@ order: 1
 
 # 更新日志
 
-## 0.57.0-beta.0
+## 0.57.0-beta.1
 
 1. feat: `AyAction` 支持 onOpen 属性。
+2. feat: `AyFormList` 的 readonly 属性支持。
 
 ## 0.56.0
 

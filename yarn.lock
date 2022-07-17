@@ -7288,11 +7288,6 @@ jsx-transpiler@^0.1.4:
     esutils "^1.1.4"
     through "^2.3"
 
-jsxobj@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmmirror.com/jsxobj/-/jsxobj-1.1.0.tgz#ab87b7b3904fa6a28628b58c97058f95daf5e238"
-  integrity sha512-EGieC6ZWJqiw2vVn3WLvNVlol8qAI/BquJXd57XXYmpwlYGZkLmeblhxUleaYELubei/CWqZt8RZdVuiFsbqzg==
-
 katex@^0.12.0:
   version "0.12.0"
   resolved "https://registry.npmjs.org/katex/-/katex-0.12.0.tgz#2fb1c665dbd2b043edcf8a1f5c555f46beaa0cb9"

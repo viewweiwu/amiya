@@ -21,6 +21,8 @@ interface AyFormListProps {
 
 export default function AyFormList(props: AyFormListProps) {
   const { field, getFormItem, formInstant, ayFormProps } = props
+  const { readonly } = ayFormProps
+
   // 最少行 & 最大行
   const { min = 0, max = Infinity } = field
   // 当前行数
@@ -89,27 +91,29 @@ export default function AyFormList(props: AyFormListProps) {
             return (
               <Space key={`${field.key}-${key}`} className="ay-form-list-item" align="end" {...field.spaceProps}>
                 {content}
-                <Space className="ay-form-list-actions">
-                  {recordNum < max && (
-                    <span className="ay-form-list-action" onClick={() => handleCopy(name)}>
-                      <Tooltip title={locale.form.copyToEnd}>
-                        <CopyOutlined />
-                      </Tooltip>
-                    </span>
-                  )}
+                {!readonly && (
+                  <Space className="ay-form-list-actions">
+                    {recordNum < max && (
+                      <span className="ay-form-list-action" onClick={() => handleCopy(name)}>
+                        <Tooltip title={locale.form.copyToEnd}>
+                          <CopyOutlined />
+                        </Tooltip>
+                      </span>
+                    )}
 
-                  {recordNum > min && (
-                    <span className="ay-form-list-action" onClick={() => handleRemove(name, remove)}>
-                      <Tooltip title={locale.form.removeRow}>
-                        <DeleteOutlined />
-                      </Tooltip>
-                    </span>
-                  )}
-                </Space>
+                    {recordNum > min && (
+                      <span className="ay-form-list-action" onClick={() => handleRemove(name, remove)}>
+                        <Tooltip title={locale.form.removeRow}>
+                          <DeleteOutlined />
+                        </Tooltip>
+                      </span>
+                    )}
+                  </Space>
+                )}
               </Space>
             )
           })}
-          {recordNum < max && (
+          {recordNum < max && !readonly && (
             <Button type="dashed" onClick={() => handleAdd(add)} icon={<PlusOutlined />}>
               {locale.form.addItem}
             </Button>
