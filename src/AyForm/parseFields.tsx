@@ -1,3 +1,4 @@
+import { FORM_TYPE_DATE, FORM_TYPE_DATE_RANGE } from '@/constant'
 import moment from 'moment'
 import { isValidElement } from 'react'
 import { FormValues } from '../types/FormValues'
@@ -54,4 +55,32 @@ export default function parseFields(fields: Array<AyFormField>, formatValues: Fo
   return fields.map(field => {
     return loop({ ...field })
   })
+}
+
+/**
+ * 获得格式化后的日期
+ * @param value 当前值
+ * @param field 配置项
+ * @param readonly 是否只读
+ * @returns
+ */
+export const getDateValue = (value: any, field: AyFormField, readonly?: boolean) => {
+  // 获得格式化日期格式
+  let formatRule: string = field?.showTime || field?.props?.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'
+  if (field.formatRule) {
+    formatRule = field.formatRule
+  }
+  // 只读模式下，格式化日期取 readonlyFormatRule
+  if (field.readonlyFormatRule && readonly) {
+    formatRule = field.readonlyFormatRule
+  }
+  if (field.type === FORM_TYPE_DATE) {
+    // 日期格式化
+    value = value ? moment(value).format(formatRule) : null
+  } else if (Array.isArray(value) && field.type === FORM_TYPE_DATE_RANGE) {
+    let [value0, value1] = value
+    // 日期区间格式化
+    value = [value0 ? moment(value0).format(formatRule) : null, value1 ? moment(value1).format(formatRule) : null]
+  }
+  return value
 }

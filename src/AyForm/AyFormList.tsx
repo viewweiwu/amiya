@@ -6,7 +6,7 @@ import { AyFormField, AyFormProps } from './ay-form'
 import locale from '../locale'
 import { PlusOutlined, CopyOutlined, DeleteOutlined } from '@ant-design/icons'
 import { FORM_TYPE_DATE, FORM_TYPE_DATE_RANGE, FORM_TYPE_LIST } from '../constant'
-import { getDateValue } from '.'
+import { getDateValue } from './parseFields'
 
 interface AyFormListProps {
   field: AyFormField
