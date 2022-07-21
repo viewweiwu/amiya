@@ -1223,6 +1223,7 @@ const fields: Array<Field> = [
 | tag-group      | [tag 选择][taggroup]，若设置 multiple 属性，可支持多选。                | undefined \| [] | 0.45.0 |
 | card-group     | [卡片选择][cardgroup]，若设置 multiple 属性，可支持多选。               | null \| []      | 0.47.0 |
 | html           | 原生 HTML 标签                                                          | undefined       | 0.54.0 |
+| list           | [列表输入][listform]，每一个子项可以是单独的表单数据。                  | undefined       | 0.56.0 |
 
 ## Option 参数
 
@@ -1255,6 +1256,7 @@ const fields: Array<Field> = [
 [ayformfield]: ./form#ayformfield-参数
 [cardform]: ./form/card-form
 [groupform]: ./form/group-form
+[listform]: ./form/ay-form-list
 [cardgroup]: ./form/ay-card-group#在表单中使用
 [taggroup]: ./form/ay-tag-group#在表单中使用
 [日期格式化]: ./form/date-format

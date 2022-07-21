@@ -233,7 +233,8 @@ const getTag = (
   field: AyFormField | AySearchTableField,
   fields: Array<AyFormField | AySearchTableField>,
   formInstans: AnyKeyProps,
-  readonly?: boolean
+  readonly?: boolean,
+  childrenType?: string
 ) => {
   let { type } = field
   type = type || 'input'
@@ -245,7 +246,7 @@ const getTag = (
       setFieldsValue: formInstans.setFieldsValue,
       formInstans,
       readonly: readonly || field.readonly || false,
-      getFieldValue: formInstans.getFieldValue
+      getFieldValue: childrenType === 'list' ? () => field.text : formInstans.getFieldValue
     })
   } else {
     switch (type) {
@@ -306,9 +307,6 @@ const getFormItem = (
           </AyCard>
         </Col>
       )
-    }
-    if (childrenType === FORM_TYPE_LIST) {
-      // debugger
     }
 
     let visible = true
@@ -452,7 +450,7 @@ const getFormItem = (
         break
 
       default:
-        tag = getTag(field, fields, formInstans, readonly)
+        tag = getTag(field, fields, formInstans, readonly, childrenType)
         break
     }
 
@@ -603,6 +601,34 @@ const handleChange = (
 }
 
 /**
+ * 获得格式化后的日期
+ * @param value 当前值
+ * @param field 配置项
+ * @param readonly 是否只读
+ * @returns
+ */
+export const getDateValue = (value: any, field: AyFormField, readonly?: boolean) => {
+  // 获得格式化日期格式
+  let formatRule: string = field?.showTime || field?.props?.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'
+  if (field.formatRule) {
+    formatRule = field.formatRule
+  }
+  // 只读模式下，格式化日期取 readonlyFormatRule
+  if (field.readonlyFormatRule && readonly) {
+    formatRule = field.readonlyFormatRule
+  }
+  if (field.type === FORM_TYPE_DATE) {
+    // 日期格式化
+    value = value ? moment(value).format(formatRule) : null
+  } else if (Array.isArray(value) && field.type === FORM_TYPE_DATE_RANGE) {
+    let [value0, value1] = value
+    // 日期区间格式化
+    value = [value0 ? moment(value0).format(formatRule) : null, value1 ? moment(value1).format(formatRule) : null]
+  }
+  return value
+}
+
+/**
  * 获取 AyForm 样式
  * @param className 外部 className
  * @param desc 是否处于文档模式
@@ -731,22 +757,9 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
     }
     let field: any = getField(key, fields)
     if (field && value) {
-      // 获得格式化日期格式
-      let formatRule: string = field?.showTime || field?.props?.showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'
-      if (field.formatRule) {
-        formatRule = field.formatRule
-      }
-      // 只读模式下，格式化日期取 readonlyFormatRule
-      if (field.readonlyFormatRule && readonly) {
-        formatRule = field.readonlyFormatRule
-      }
-      if (field.type === FORM_TYPE_DATE) {
-        // 日期格式化
-        value = value ? moment(value).format(formatRule) : null
-      } else if (Array.isArray(value) && field.type === FORM_TYPE_DATE_RANGE) {
-        let [value0, value1] = value
-        // 日期区间格式化
-        value = [value0 ? moment(value0).format(formatRule) : null, value1 ? moment(value1).format(formatRule) : null]
+      // 日期或者日期区间
+      if (field.type === FORM_TYPE_DATE || (Array.isArray(value) && field.type === FORM_TYPE_DATE_RANGE)) {
+        value = getDateValue(value, field, readonly) || null
       }
     }
     return value

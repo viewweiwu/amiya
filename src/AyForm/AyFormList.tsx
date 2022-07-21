@@ -5,7 +5,8 @@ import { Button, Form, Space, Tooltip } from 'antd'
 import { AyFormField, AyFormProps } from './ay-form'
 import locale from '../locale'
 import { PlusOutlined, CopyOutlined, DeleteOutlined } from '@ant-design/icons'
-import { FORM_TYPE_LIST } from '../constant'
+import { FORM_TYPE_DATE, FORM_TYPE_DATE_RANGE, FORM_TYPE_LIST } from '../constant'
+import { getDateValue } from '.'
 
 interface AyFormListProps {
   field: AyFormField
@@ -68,58 +69,79 @@ export default function AyFormList(props: AyFormListProps) {
 
   return (
     <Form.List {...field.props} name={field.key || field.label} key={field.key || field.label}>
-      {(fields, { add, remove }) => (
-        <>
-          {fields.map(({ key, name, ...restField }) => {
-            let children = field.children || []
-            if (!Array.isArray(children)) {
-              children = [children]
-            }
-            let content = getFormItem(
-              children.map((child: AyFormField) => ({
-                ...child,
-                formItemProps: {
-                  ...field.formItemProps,
-                  ...restField,
-                  name: [name, child.key]
-                }
-              })) as Array<AyFormField | AySearchTableField>,
-              formInstant,
-              ayFormProps,
-              FORM_TYPE_LIST
-            )
-            return (
-              <Space key={`${field.key}-${key}`} className="ay-form-list-item" align="end" {...field.spaceProps}>
-                {content}
-                {!readonly && (
-                  <Space className="ay-form-list-actions">
-                    {recordNum < max && (
-                      <span className="ay-form-list-action" onClick={() => handleCopy(name)}>
-                        <Tooltip title={locale.form.copyToEnd}>
-                          <CopyOutlined />
-                        </Tooltip>
-                      </span>
-                    )}
+      {(fields, { add, remove }) => {
+        let value = readonly ? formInstant.getFieldValue(field.key) : []
+        return (
+          <>
+            {fields.map(({ key, name, ...restField }) => {
+              let children = field.children || []
+              if (!Array.isArray(children)) {
+                children = [children]
+              }
+              let content = getFormItem(
+                children.map((child: AyFormField) => {
+                  let newField: AyFormField = {
+                    ...child,
+                    formItemProps: {
+                      ...field.formItemProps,
+                      ...restField,
+                      name: [name, child.key]
+                    }
+                  }
+                  if (readonly && !newField.render) {
+                    try {
+                      let text = value[name][child.key]
+                      // 日期或者日期区间
+                      if (
+                        newField.type === FORM_TYPE_DATE ||
+                        (Array.isArray(text) && newField.type === FORM_TYPE_DATE_RANGE)
+                      ) {
+                        text = getDateValue(text, newField, readonly)
+                      }
+                      newField.text = text
+                    } catch {
+                      console.error('ay-form-list 转换错误')
+                    }
+                  }
+                  return newField
+                }) as Array<AyFormField | AySearchTableField>,
+                formInstant,
+                ayFormProps,
+                FORM_TYPE_LIST
+              )
+              return (
+                <Space key={`${field.key}-${key}`} className="ay-form-list-item" align="end" {...field.spaceProps}>
+                  {content}
+                  {!readonly && (
+                    <Space className="ay-form-list-actions">
+                      {recordNum < max && (
+                        <span className="ay-form-list-action" onClick={() => handleCopy(name)}>
+                          <Tooltip title={locale.form.copyToEnd}>
+                            <CopyOutlined />
+                          </Tooltip>
+                        </span>
+                      )}
 
-                    {recordNum > min && (
-                      <span className="ay-form-list-action" onClick={() => handleRemove(name, remove)}>
-                        <Tooltip title={locale.form.removeRow}>
-                          <DeleteOutlined />
-                        </Tooltip>
-                      </span>
-                    )}
-                  </Space>
-                )}
-              </Space>
-            )
-          })}
-          {recordNum < max && !readonly && (
-            <Button type="dashed" onClick={() => handleAdd(add)} icon={<PlusOutlined />}>
-              {locale.form.addItem}
-            </Button>
-          )}
-        </>
-      )}
+                      {recordNum > min && (
+                        <span className="ay-form-list-action" onClick={() => handleRemove(name, remove)}>
+                          <Tooltip title={locale.form.removeRow}>
+                            <DeleteOutlined />
+                          </Tooltip>
+                        </span>
+                      )}
+                    </Space>
+                  )}
+                </Space>
+              )
+            })}
+            {recordNum < max && !readonly && (
+              <Button type="dashed" onClick={() => handleAdd(add)} icon={<PlusOutlined />}>
+                {locale.form.addItem}
+              </Button>
+            )}
+          </>
+        )
+      }}
     </Form.List>
   )
 }
