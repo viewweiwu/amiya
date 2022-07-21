@@ -1,4 +1,4 @@
-import { FORM_TYPE_DATE, FORM_TYPE_DATE_RANGE } from '@/constant'
+import { FORM_TYPE_DATE, FORM_TYPE_DATE_RANGE } from '../constant'
 import moment from 'moment'
 import { isValidElement } from 'react'
 import { FormValues } from '../types/FormValues'
