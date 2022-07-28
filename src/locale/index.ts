@@ -1,5 +1,5 @@
 import { AnyKeyProps } from '../types/AnyKeyProps'
-import zhCN from './zh_cn'
+import zhCN from './zh_CN'
 import enUS from './en_US'
 import jaJP from './ja_JP'
 
