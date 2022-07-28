@@ -8,6 +8,14 @@
   }
 }
 
+.ay-form-no-background {
+  .ay-form-text {
+    padding-left: 0;
+    border-color: transparent;
+    background-color: transparent;
+  }
+}
+
 .ay-form {
   .required-mark {
     line-height: 1;
@@ -73,6 +81,17 @@
             flex: unset;
           }
         }
+      }
+    }
+
+    .ant-form-vertical {
+      .ant-form-item-label {
+        border-right: none;
+        border-bottom: 1px solid @ay-form-desc-border-color;
+      }
+
+      .ay-form-text {
+        padding-left: 0;
       }
     }
   }

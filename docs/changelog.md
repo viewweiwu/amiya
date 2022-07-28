@@ -8,6 +8,8 @@ order: 1
 
 1. feat: `AyAction` 支持 onOpen 属性。
 2. feat: `AyFormList` 的 readonly 属性支持。
+3. feat: `AyForm` desc 兼容 vertical 模式。
+4. feat: `AyForm` 支持 noBackground 参数取消只读模式下的颜色。
 
 ## 0.56.0
 

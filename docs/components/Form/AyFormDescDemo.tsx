@@ -1,6 +1,6 @@
 import React, { useState, MutableRefObject, useEffect, useRef } from 'react'
-import { AyForm, AyButton, AyFormField } from 'amiya'
-import { Switch, Form, Row, Col, Card } from 'antd'
+import { AyForm, AyButton, AyFormField, AyCardGroup } from 'amiya'
+import { Switch, Form, Space, Col, Card } from 'antd'
 
 const fields: Array<AyFormField> = [
   {
@@ -47,9 +47,15 @@ const fields: Array<AyFormField> = [
   }
 ]
 
+const formLayoutOptions = [
+  { label: 'horizontal', value: 'horizontal' },
+  { label: 'vertical', value: 'vertical' }
+]
+
 export default function Demo() {
   const [readonly, setReadonly] = useState<boolean>(true)
   const [desc, setDesc] = useState<boolean>(true)
+  const [formLayout, setFormLayout] = useState<string>('vertical')
   const formRef: MutableRefObject<any> = useRef()
 
   const handleConfirm = (form: any) => {
@@ -86,16 +92,28 @@ export default function Demo() {
 
   return (
     <Card>
-      <p>
+      <Space style={{ marginBottom: 12 }}>
         <label style={{ marginRight: 4 }}>只读模式</label>
         <Switch defaultChecked={readonly} onChange={value => setReadonly(value)} />
         <label style={{ marginRight: 4, marginLeft: 10 }}>Desc</label>
         <Switch defaultChecked={desc} onChange={value => setDesc(value)} />
-        <AyButton style={{ marginLeft: 10 }} onClick={() => formRef.current.setFieldsValue({ createDate: new Date() })}>
+        <label style={{ marginRight: 4, marginLeft: 10 }}>布局方式</label>
+        <AyCardGroup value={formLayout} onChange={setFormLayout} cancelable={false} options={formLayoutOptions} />
+
+        {/* <AyButton style={{ marginLeft: 10 }} onClick={() => formRef.current.setFieldsValue({ createDate: new Date() })}>
           填充上线时间
-        </AyButton>
-      </p>
-      <AyForm ref={formRef} readonly={readonly} desc={desc} fields={fields} span={12} onConfirm={handleConfirm}>
+        </AyButton> */}
+      </Space>
+      <AyForm
+        ref={formRef}
+        readonly={readonly}
+        desc={desc}
+        fields={fields}
+        span={12}
+        gutter={desc ? 0 : 12}
+        onConfirm={handleConfirm}
+        formLayout={formLayout}
+      >
         {!readonly && (
           <Col span={24}>
             <Form.Item>

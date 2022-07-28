@@ -31,6 +31,8 @@ export interface AyFormProps {
   readonly?: boolean
   /** 是否用 Description 样式展示 */
   desc?: boolean
+  /** 只读模式是否无背景 */
+  noBackground?: boolean
   /** 样式 */
   className?: string
   /** 样式 */

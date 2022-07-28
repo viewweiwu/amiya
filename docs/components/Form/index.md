@@ -8,6 +8,113 @@ import { AyForm, AyButton, AyFormField, FormValues } from 'amiya'
 
 const fields: Array<AyFormField> = [
   {
+    title: '干员名称',
+    key: 'name'
+  },
+  {
+    title: '职业',
+    key: 'type',
+    type: 'select',
+    options: [
+      { label: '狙击干员', value: '1' },
+      { label: '术士干员', value: '2' }
+    ]
+  }
+]
+
+export default function Demo() {
+  const handleConfirm = (form: FormValues) => {
+    console.log(form)
+    alert(JSON.stringify(form))
+  }
+
+  return (
+    <AyForm fields={fields} onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
+      <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
+        提交
+      </AyButton>
+    </AyForm>
+  )
+}
+```
+
+## JSX / TSX 语法糖 <Badge>0.41.0</Badge>
+
+```tsx
+import React from 'react'
+import { AyForm, AyButton, AyFields, AyField } from 'amiya'
+
+const TYPE_OPTIONS = [
+  { label: '狙击干员', value: '1' },
+  { label: '术士干员', value: '2' }
+]
+
+export default function Demo() {
+  const handleConfirm = (form: any) => {
+    console.log(form)
+    alert(JSON.stringify(form))
+  }
+
+  return (
+    <AyForm onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
+      <AyFields>
+        <AyField key="name" title="干员名称" />
+        <AyField key="type" type="select" options={TYPE_OPTIONS} title="职业" />
+      </AyFields>
+      <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
+        提交
+      </AyButton>
+    </AyForm>
+  )
+}
+```
+
+```diff
+-const fields: Array<AyFormField> = [
+-  {
+-    title: '干员名称',
+-    key: 'name'
+-  },
+-  {
+-    title: '职业',
+-    key: 'type',
+-    type: 'select',
+-    options: [
+-      { label: '狙击干员', value: '1' },
+-      { label: '术士干员', value: '2' },
+-    ]
+-  }
+-]
+
++const TYPE_OPTIONS = [
++  { label: '狙击干员', value: '1' },
++  { label: '术士干员', value: '2' },
++]
+
+<AyForm
+  onConfirm={handleConfirm}
+- fields={fields}
+>
++ <AyFields>
++   <AyFields>
++     <AyField key="name" title="干员名称" />
++     <AyField key="type" type="select" options={TYPE_OPTIONS} title="职业" />
++   </AyFields>
++ </AyFields>
+  <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
+    提交
+  </AyButton>
+</AyForm>
+```
+
+## 登录
+
+```tsx
+import React from 'react'
+import { AyForm, AyButton, AyFormField, FormValues } from 'amiya'
+
+const fields: Array<AyFormField> = [
+  {
     title: '用户名',
     key: 'name',
     required: true
@@ -42,74 +149,6 @@ export default function Demo() {
     </AyForm>
   )
 }
-```
-
-## JSX / TSX 语法糖 <Badge>0.41.0</Badge>
-
-```tsx
-import React from 'react'
-import { AyForm, AyButton, AyFields, AyField } from 'amiya'
-
-export default function Demo() {
-  const handleConfirm = (form: any) => {
-    console.log(form)
-    alert(JSON.stringify(form))
-  }
-
-  return (
-    <AyForm onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
-      <AyFields>
-        <AyField key="username" required title="用户名" />
-        <AyField key="userPassword" type="password" required title="密码" />
-        <AyField key="userRemember" type="checkbox" props={{ style: { marginLeft: 120 }, children: '记住密码' }} />
-      </AyFields>
-      <AyButton style={{ marginLeft: 120 }} type="primary" block htmlType="submit">
-        登录
-      </AyButton>
-    </AyForm>
-  )
-}
-```
-
-```diff
--const fields: Array<AyFormField> = [
-- {
--   title: '用户名',
--   key: 'name',
--   required: true
-- },
-- {
--   title: '密码',
--   type: 'password',
--   key: 'password',
--   required: true
-- },
-- {
--   type: 'checkbox',
--   key: 'remember',
--   style: {
--     marginLeft: 120
--   },
--   children: '记住密码'
--]
-
-<AyForm
-  onConfirm={handleConfirm}
-- fields={fields}
->
-+ <AyFields>
-+   <AyField key="name" required title="用户名" />
-+   <AyField key="password" type="password" required title="密码" />
-+   <AyField
-+     key="checkbox"
-+     type="checkbox"
-+     props={{ style: { marginLeft: 120 }, children: '记住密码' }}
-+   />
-+ </AyFields>
-  <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
-    登录
-  </AyButton>
-</AyForm>
 ```
 
 只是换了另一种风格写 `fields` 而已，请不要用其它元素包裹住 `AyFields` 和 `AyField`。
@@ -272,6 +311,46 @@ const fields: Array<AyFormField> = [
     defaultValue: 'Amiya'
   }
 ]
+```
+
+## 取消只读的背景 <Badge>0.57.0</Badge>
+
+在 `readonly` 状态下，可以设置 `noBackground` 取消只读模式下的背景颜色。
+
+```tsx
+import React from 'react'
+import { AyForm, AyButton, AyFormField } from 'amiya'
+import { Card } from 'antd'
+
+const fields: Array<AyFormField> = [
+  {
+    title: '管理员',
+    key: 'name',
+    defaultValue: 'Amiya'
+  },
+  {
+    title: '备注',
+    key: 'memo',
+    defaultValue: ''
+  }
+]
+
+export default function Demo() {
+  const handleConfirm = (form: any) => {
+    console.log(form)
+    alert(JSON.stringify(form))
+  }
+
+  return (
+    <Card>
+      <AyForm noBackground readonly fields={fields} onConfirm={handleConfirm} style={{ width: 400, margin: '0 auto' }}>
+        <AyButton style={{ marginLeft: 120 }} type="primary" htmlType="submit">
+          提交
+        </AyButton>
+      </AyForm>
+    </Card>
+  )
+}
 ```
 
 ## 默认表单类型
@@ -1126,6 +1205,7 @@ export default function Demo() {
 | name          | form 名称，一般不需要填                        | string                                 | 'ay-form'    | -      |
 | span          | antd Grid 的 Col 组件的 span 属性类似          | 1 ～ 24                                | 12           | -      |
 | readonly      | 只读模式                                       | boolean                                | false        | -      |
+| noBackground  | 取消只读模式下的背景色                         | boolean                                | false        | 0.57.0 |
 | desc          | Descripts 模式                                 | boolean                                | false        | -      |
 | layout        | 布局参数, 查看下方 layout 参数                 | Object                                 | -            | -      |
 | formLayout    | 布局方式                                       | 'horizontal' \| 'vertical' \| 'inline' | 'horizontal' | -      |

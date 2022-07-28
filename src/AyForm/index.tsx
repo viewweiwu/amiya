@@ -605,8 +605,9 @@ const handleChange = (
  * @param className 外部 className
  * @param desc 是否处于文档模式
  * @param readonly 是否处于只读模式
+ * @param clear 只读模式是否取消背景
  */
-const getAyFormClassName = (className?: string, desc?: boolean, readonly?: boolean) => {
+const getAyFormClassName = (className?: string, desc?: boolean, readonly?: boolean, noBackground?: boolean) => {
   const classList = ['ay-form', theme]
   if (className) {
     classList.push(className)
@@ -616,6 +617,9 @@ const getAyFormClassName = (className?: string, desc?: boolean, readonly?: boole
   }
   if (readonly) {
     classList.push('readonly')
+  }
+  if (noBackground) {
+    classList.push('ay-form-no-background')
   }
   return classList.join(' ')
 }
@@ -650,6 +654,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
     props: defaultProps,
     readonly,
     desc,
+    noBackground,
     layout,
     className,
     style,
@@ -804,7 +809,7 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
       : null
 
   return (
-    <div className={getAyFormClassName(className, desc, readonly)} style={style}>
+    <div className={getAyFormClassName(className, desc, readonly, noBackground)} style={style}>
       <Form
         ref={formRef}
         colon={desc ? false : true}
