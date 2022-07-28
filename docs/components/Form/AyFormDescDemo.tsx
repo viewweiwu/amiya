@@ -55,7 +55,7 @@ const formLayoutOptions = [
 export default function Demo() {
   const [readonly, setReadonly] = useState<boolean>(true)
   const [desc, setDesc] = useState<boolean>(true)
-  const [formLayout, setFormLayout] = useState<string>('vertical')
+  const [formLayout, setFormLayout] = useState<string>('horizontal')
   const formRef: MutableRefObject<any> = useRef()
 
   const handleConfirm = (form: any) => {
