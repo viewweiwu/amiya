@@ -8,6 +8,8 @@ import enUS from 'antd/es/locale/en_US'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 import './layout.less'
+import '../../../src/style/index.less'
+// import '/src/style/index.less'
 moment.locale('zh-cn')
 
 let localeMap = {

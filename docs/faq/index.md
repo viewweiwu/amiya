@@ -9,6 +9,7 @@ amiya 除了携带自己少量的样式外，并不会打包 antd 的样式，�
 ```css
 // 引入全部样式
 import 'antd/dist/antd.css';
+import 'amiya/lib/style/index.css';
 ```
 
 解决方法二：
