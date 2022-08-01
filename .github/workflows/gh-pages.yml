@@ -22,8 +22,8 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.ALIYUN_SERVER_ACCESS_TOKEN }}
           ARGS: "-rltgoDzvO --delete"
-          SOURCE: "./docs-dist"
+          SOURCE: "docs-dist/"
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: "/web/amiya/docs-dist" 
+          TARGET: "/web/amiya/docs-dist/" 
 
