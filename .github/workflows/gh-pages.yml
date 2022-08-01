@@ -20,7 +20,7 @@ jobs:
       - name: Deploy to aliyun server
         uses: easingthemes/ssh-deploy@v2.1.5
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.ALIYUN_SERVER_ACCESS_TOKEN }}
           ARGS: "-avzr --delete"
           SOURCE: "./docs-dist"
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
