@@ -561,7 +561,7 @@ export default function AyDialogFormDemo() {
 | fields       | 表单项，跟 AyForm 一致。                              | Array[AyFormField]                                         | -      | -      |
 | addApi       | 进入编辑模式。                                        | Promise                                                    | -      | -      |
 | updateApi    | 进出详情模式。                                        | Promise                                                    | -      | -      |
-| beforeSubmit | 表单的提交前校验 。                                   | (params?: AnyKeyProps, mode?: string) => boolean \| obejct | -      | -      |
+| beforeSubmit | 表单的提交前校验，return false 则不会提交。           | (params?: AnyKeyProps, mode?: string) => boolean \| obejct | -      | -      |
 | dialogOnly   | 是否只使用申明了 dialog 的 Field。                    | boolean                                                    | false  | -      |
 | dialogExtend | [AyDialog](../ay-dialog#参数) 的扩展值。              | object                                                     | -      | -      |
 | formExtend   | [AyForm](../form#props-参数) 的扩展值。               | object                                                     | -      | -      |
