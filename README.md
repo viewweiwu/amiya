@@ -18,7 +18,7 @@
 
 文档地址：https://viewweiwu.github.io/amiya/
 
-国内镜像：http://viewweiwu.gitee.io/amiya/
+国内地址：https://minisunflower.vip/amiya/
 
 ## 🎉 特性
 
