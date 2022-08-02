@@ -193,66 +193,100 @@ export default function Demo() {
 }
 ```
 
-## 创造一个连体 Field
-
-可以通过一些特殊的技巧，创造一个连体的 Field，一般常见于右侧多一个 Checkbox。
+## 常见表单类型
 
 ```tsx
-import React, { useState, MutableRefObject, useRef } from 'react'
-import { AyForm, AyFormField, AyButton, FormValues } from 'amiya'
+import React from 'react'
+import { AyForm, AyFormField } from 'amiya'
+import { Card } from 'antd'
+
+const options = [
+  { label: '选项A', value: 1 },
+  { label: '选项B', value: 2 }
+]
+
+const fields: Array<AyFormField> = [
+  {
+    title: 'input',
+    key: 'input',
+    type: 'input',
+    defaultValue: 'Amiya',
+    readonly: true
+  },
+  {
+    title: 'number',
+    key: 'number',
+    type: 'number',
+    defaultValue: '20',
+    readonly: true
+  },
+  {
+    title: 'password',
+    key: 'password',
+    type: 'password',
+    defaultValue: 'arknights',
+    readonly: true
+  },
+  {
+    title: 'textarea',
+    key: 'textarea',
+    type: 'textarea',
+    defaultValue: '我是一段简单的文本描述，主要的作用呢，就是让用户看看在字多的情况下有什么表现～',
+    readonly: true
+  },
+  {
+    title: 'checkbox',
+    key: 'checkbox',
+    type: 'checkbox',
+    readonly: true,
+    defaultValue: true,
+    children: '是否同意协议'
+  },
+  {
+    title: 'select',
+    key: 'select',
+    type: 'select',
+    readonly: true,
+    defaultValue: 1,
+    options: options
+  },
+  {
+    title: 'checkbox-group',
+    key: 'checkbox-group',
+    type: 'checkbox-group',
+    readonly: true,
+    defaultValue: [1],
+    options: options
+  },
+  {
+    title: 'radio-group',
+    key: 'radio-group',
+    type: 'radio-group',
+    readonly: true,
+    defaultValue: [1],
+    options: options
+  },
+  {
+    title: 'date',
+    key: 'date',
+    type: 'date',
+    defaultValue: '2022-07-29',
+    readonly: true
+  },
+  {
+    title: 'date-range',
+    key: 'date-range',
+    type: 'date-range',
+    defaultValue: ['2022-07-28', '2022-07-29'],
+    readonly: true
+  }
+]
 
 export default function Demo() {
-  const formRef: MutableRefObject<any> = useRef()
-  const [readonly, setReadonly] = useState(false)
-
-  const fields: Array<AyFormField> = [
-    {
-      title: 'Field B',
-      type: 'checkbox',
-      key: 'group-a',
-      required: true,
-      onChange: (value: boolean) => {
-        setReadonly(value)
-        // 清空 b 的表单值
-        formRef.current.resetFields(['group-b'])
-      },
-      children: '暂不填写',
-      style: {
-        float: 'right'
-      },
-      formItemProps: {
-        labelCol: { flex: '120px' },
-        style: {
-          marginBottom: 0
-        }
-      }
-    },
-    {
-      key: 'group-b',
-      readonly,
-      placeholder: '请输入 Field B',
-      rules: [{ required: true, message: '请输入 Field B' }]
-    }
-  ]
-
-  const handleConfirm = (form: FormValues) => {
-    console.log(form)
-    alert(JSON.stringify(form))
-  }
-
   return (
-    <AyForm
-      ref={formRef}
-      layout={{ labelCol: { flex: '100%' } }}
-      labelAlign="left"
-      fields={fields}
-      onConfirm={handleConfirm}
-      style={{ width: 400, margin: '0 auto' }}
-    >
-      <AyButton type="primary" htmlType="submit">
-        提交
-      </AyButton>
-    </AyForm>
+    <Card>
+      <AyForm fields={fields} style={{ width: 400 }} />
+    </Card>
   )
 }
 ```
