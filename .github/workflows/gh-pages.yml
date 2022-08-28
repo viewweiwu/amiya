@@ -9,21 +9,33 @@ jobs:
   deploy:
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
-      - run: npm install
-      - run: npm run docs:build
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: Install
+        run: yarn install --immutable
+
+      - name: Build
+        run: yarn docs:build
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs-dist
+
       - name: Deploy to aliyun server
         uses: easingthemes/ssh-deploy@v2.1.5
         env:
           SSH_PRIVATE_KEY: ${{ secrets.ALIYUN_SERVER_ACCESS_TOKEN }}
-          ARGS: "-rltgoDzvO --delete"
-          SOURCE: "docs-dist/"
+          ARGS: '-rltgoDzvO --delete'
+          SOURCE: 'docs-dist/'
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: "/web/amiya/docs-dist/" 
-
+          TARGET: '/web/amiya/docs-dist/'
