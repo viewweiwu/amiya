@@ -30,9 +30,8 @@ export const install = (registerTableRender: (key: string, render: (props: Rende
   })
 
   registerTableRender('editable-cell-input', ({ text, field }: RenderProps) => {
-    const inputRef = useRef<any>(null)
-
     return ({ editing, mode, save }: AnyKeyProps) => {
+      const inputRef = useRef<any>(null)
       useEffect(() => {
         if (editing && mode === 'col') {
           inputRef.current.focus()
@@ -47,7 +46,6 @@ export const install = (registerTableRender: (key: string, render: (props: Rende
   })
 
   registerTableRender('editable-cell-select', ({ text, field }: RenderProps) => {
-    const selectRef = useRef<any>(null)
     const options = field.options || []
     let label = ''
     if (Array.isArray(text)) {
@@ -60,6 +58,7 @@ export const install = (registerTableRender: (key: string, render: (props: Rende
     }
 
     return ({ editing, save, mode }: AnyKeyProps) => {
+      const selectRef = useRef<any>(null)
       useEffect(() => {
         if (editing && mode === 'col') {
           selectRef.current.focus()
