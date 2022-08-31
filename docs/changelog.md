@@ -4,7 +4,15 @@ order: 1
 
 # 更新日志
 
-## 0.57.0-beta.2
+## 0.57.2
+
+1. fix: 优化 `Form` 是否是 field 的判定。
+
+## 0.57.1
+
+1. fix: 修复可编辑表格悬浮会提示报错。
+
+## 0.57.0
 
 1. feat: `AyAction` 支持 onOpen 属性。
 2. feat: `AyFormList` 的 readonly 属性支持。

@@ -318,6 +318,11 @@ export default defineConfig({
             meta: {}
           },
           {
+            path: '/template/form/help-form',
+            title: '表单提示与选择联动 ⭐️',
+            meta: {}
+          },
+          {
             path: '/template/form/audit',
             title: '审批 ⭐️',
             meta: {}

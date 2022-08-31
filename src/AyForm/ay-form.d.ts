@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, CSSProperties } from 'react'
 import { AnyKeyProps } from '../types/AnyKeyProps'
 import { AySearchTableField } from '../AySearchTable/ay-search-table'
 import { FormValues } from '../types/FormValues'
@@ -36,7 +36,7 @@ export interface AyFormProps {
   /** 样式 */
   className?: string
   /** 样式 */
-  style?: AnyKeyProps
+  style?: CSSProperties
   /** label 对齐方式 */
   labelAlign?: 'left' | 'right'
   /** 表单的间距 */

@@ -750,14 +750,14 @@ export default forwardRef(function AyForm(props: AyFormProps, ref: Ref<any>) {
    */
   const getValues = (fields: AyFormField | AySearchTableField, readonly?: boolean) => {
     let result: AnyKeyProps = {}
-    fields.forEach((field: AyFormField | AySearchTableField) => {
+    fields?.forEach((field: AyFormField | AySearchTableField) => {
       if (!field.key) {
         return
       }
       // 获取每个单个的值
       let value = getFieldValue(field.key, readonly)
       // 处理子层数据
-      if (field.children && field.children.length) {
+      if (field.children && field.children.length && Array.isArray(field.children)) {
         let values = getValues(field.children, readonly)
         result = {
           ...result,
