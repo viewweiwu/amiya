@@ -225,6 +225,23 @@ const fieldKeys = [
   'tooltip'
 ]
 
+const usedKeys = [
+  'readonly',
+  'hiddenMode',
+  'required',
+  'table',
+  'search',
+  'dialog',
+  'sort',
+  'filter',
+  'filterMultiple',
+  'renderType',
+  'editable',
+  'before',
+  'after',
+  'defaultValue'
+]
+
 /**
  * 根据不同的 type 生成不同种类的标签 Tag
  * @param field 配置项
@@ -239,10 +256,13 @@ const getTag = (
   let { type } = field
   type = type || 'input'
   let tag: ReactNode = null
+  const newField = { ...field }
+  // 移除无需添加的数据
+  newField.props = omitObj(newField, usedKeys)
   if (fieldMap[type || '']) {
     let fieldItem = fieldMap[type || '']
     tag = fieldItem.render({
-      field,
+      field: newField,
       setFieldsValue: formInstans.setFieldsValue,
       formInstans,
       readonly: readonly || field.readonly || false,
@@ -252,7 +272,7 @@ const getTag = (
     switch (type) {
       case FORM_TYPE_CUSTOM:
         if (typeof field.renderContent === 'function') {
-          tag = field.renderContent(field, formInstans.getFieldsValue() || getDefaultValue(fields))
+          tag = field.renderContent(newField, formInstans.getFieldsValue() || getDefaultValue(fields))
         }
         break
     }

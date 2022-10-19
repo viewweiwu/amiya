@@ -69,7 +69,7 @@ export const install = (registerField: (fieldType: string, field: RegisterFieldP
           disabled={readonly}
           maxLength={INPUT_DEFAULT_MAXLENGTH}
           allowClear={FORM_DEFAULT_ALLOW_CLEAR}
-          {...omitObj(field.props, 'readonly')}
+          {...field.props}
         />
       )
     }
