@@ -54,7 +54,7 @@ export const clearEmpty = (params: AnyKeyProps): AnyKeyProps => {
   let result: AnyKeyProps = {}
 
   for (let key in params) {
-    if (params[key] === 0 || params[key]) {
+    if (params[key] !== undefined && params[key] !== null) {
       result[key] = params[key]
     }
   }
