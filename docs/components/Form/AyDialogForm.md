@@ -552,29 +552,29 @@ export default function AyDialogFormDemo() {
 
 ## Props
 
-| 方法名       | 说明                                                  | 可选值                                                     | 默认值 | 版本   |
-| ------------ | ----------------------------------------------------- | ---------------------------------------------------------- | ------ | ------ |
-| title        | 弹窗的标题，如不设置，则按照 mode 设置默认值。        | string                                                     | -      | -      |
-| name         | 弹窗名字，一般不需要设置。                            | string                                                     | -      | -      |
-| width        | 弹窗宽度。                                            | number                                                     | -      | -      |
-| span         | 每个 Field 所占的 span 值。                           | number                                                     | 24     | -      |
-| fields       | 表单项，跟 AyForm 一致。                              | Array[AyFormField]                                         | -      | -      |
-| addApi       | 进入编辑模式。                                        | Promise                                                    | -      | -      |
-| updateApi    | 进出详情模式。                                        | Promise                                                    | -      | -      |
-| beforeSubmit | 表单的提交前校验，return false 则不会提交。           | (params?: AnyKeyProps, mode?: string) => boolean \| obejct | -      | -      |
-| dialogOnly   | 是否只使用申明了 dialog 的 Field。                    | boolean                                                    | false  | -      |
-| dialogExtend | [AyDialog](../ay-dialog#参数) 的扩展值。              | object                                                     | -      | -      |
-| formExtend   | [AyForm](../form#props-参数) 的扩展值。               | object                                                     | -      | -      |
-| autoClose    | 成功后是否自动关闭弹窗。                              | boolean                                                    | true   | -      |
-| drawer       | 是否用 Drawer 替换 Modal。                            | boolean                                                    | false  | -      |
-| visible      | 弹窗是否可见。                                        | boolean                                                    | false  | 0.52.0 |
-| defaultValue | 弹窗打开后，表单的默认值                              | object                                                     | {}     | 0.52.0 |
-| mode         | 打开的模式，会影响标题和只读，设置 'view'后表单只读。 | 'add'\| 'update' \| 'view'                                 | 'add'  | 0.52.0 |
-| spinning     | 打开弹窗后，表单是否处于正在加载数据的阶段。          | boolean                                                    | false  | 0.52.0 |
-| onSuccess    | 成功回调，可见[下方](#config-返回值)具体说明。        | ({ data, values, params, initParams, closeDialog })        | -      | 0.52.0 |
-| onError      | 失败回调，可见[下方](#config-返回值)具体说明。        | ({ data, values, params, initParams, closeDialog })        | -      | 0.52.0 |
-| onClose      | 弹窗关闭事件监听。                                    | () => void                                                 | -      | 0.52.0 |
-| onCancel     | 弹窗关闭事件，效果跟 onClose 一致。                   | () => void                                                 | 0.53.0 |
+| 方法名        | 说明                                                  | 可选值                                                     | 默认值 | 版本   |
+| ------------- | ----------------------------------------------------- | ---------------------------------------------------------- | ------ | ------ |
+| title         | 弹窗的标题，如不设置，则按照 mode 设置默认值。        | string                                                     | -      | -      |
+| name          | 弹窗名字，一般不需要设置。                            | string                                                     | -      | -      |
+| width         | 弹窗宽度。                                            | number                                                     | -      | -      |
+| span          | 每个 Field 所占的 span 值。                           | number                                                     | 24     | -      |
+| fields        | 表单项，跟 AyForm 一致。                              | Array[AyFormField]                                         | -      | -      |
+| addApi        | 进入编辑模式。                                        | Promise                                                    | -      | -      |
+| updateApi     | 进出详情模式。                                        | Promise                                                    | -      | -      |
+| beforeSubmit  | 表单的提交前校验，return false 则不会提交。           | (params?: AnyKeyProps, mode?: string) => boolean \| obejct | -      | -      |
+| dialogOnly    | 是否只使用申明了 dialog 的 Field。                    | boolean                                                    | false  | -      |
+| dialogExtend  | [AyDialog](../ay-dialog#参数) 的扩展值。              | object                                                     | -      | -      |
+| formExtend    | [AyForm](../form#props-参数) 的扩展值。               | object                                                     | -      | -      |
+| autoClose     | 成功后是否自动关闭弹窗。                              | boolean                                                    | true   | -      |
+| drawer        | 是否用 Drawer 替换 Modal。                            | boolean                                                    | false  | -      |
+| visible       | 弹窗是否可见。                                        | boolean                                                    | false  | 0.52.0 |
+| initialValues | 弹窗打开后，表单的默认值                              | object                                                     | {}     | 0.52.0 |
+| mode          | 打开的模式，会影响标题和只读，设置 'view'后表单只读。 | 'add'\| 'update' \| 'view'                                 | 'add'  | 0.52.0 |
+| spinning      | 打开弹窗后，表单是否处于正在加载数据的阶段。          | boolean                                                    | false  | 0.52.0 |
+| onSuccess     | 成功回调，可见[下方](#config-返回值)具体说明。        | ({ data, values, params, initParams, closeDialog })        | -      | 0.52.0 |
+| onError       | 失败回调，可见[下方](#config-返回值)具体说明。        | ({ data, values, params, initParams, closeDialog })        | -      | 0.52.0 |
+| onClose       | 弹窗关闭事件监听。                                    | () => void                                                 | -      | 0.52.0 |
+| onCancel      | 弹窗关闭事件，效果跟 onClose 一致。                   | () => void                                                 | 0.53.0 |
 
 ## Method
 
