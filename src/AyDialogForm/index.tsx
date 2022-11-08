@@ -169,11 +169,11 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     setVisible(!!defaultVisible)
     if (defaultVisible) {
       requestAnimationFrame(() => {
-        formRef.current.resetFields()
+        formRef.current?.resetFields()
       })
       if (initialValues) {
         requestAnimationFrame(() => {
-          formRef.current.setFieldsValue(initialValues)
+          formRef.current?.setFieldsValue(initialValues)
         })
       }
     }
@@ -222,7 +222,7 @@ export default forwardRef(function AyDialogForm(props: AyDialogFormProps, ref?: 
     if (params) {
       setInitParams(params)
       requestAnimationFrame(() => {
-        formRef.current.setFieldsValue(params)
+        formRef.current?.setFieldsValue(params)
       })
     } else {
       setInitParams({})
