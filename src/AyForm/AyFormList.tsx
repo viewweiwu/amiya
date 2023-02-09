@@ -7,6 +7,7 @@ import locale from '../locale'
 import { PlusOutlined, CopyOutlined, DeleteOutlined } from '@ant-design/icons'
 import { FORM_TYPE_DATE, FORM_TYPE_DATE_RANGE, FORM_TYPE_LIST } from '../constant'
 import { getDateValue } from './parseFields'
+import { copy } from '@/utils'
 
 interface AyFormListProps {
   field: AyFormField
@@ -63,7 +64,7 @@ export default function AyFormList(props: AyFormListProps) {
    * @param add 新增方法
    */
   const handleAdd = (add: (defaultValue?: any, insertIndex?: number | undefined) => void) => {
-    add(field.creatorRecord || {})
+    add(copy(field.creatorRecord || {}))
     setRecordNum(Number(recordNum) + 1)
   }
 

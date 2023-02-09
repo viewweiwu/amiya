@@ -4,6 +4,10 @@ order: 1
 
 # 更新日志
 
+## 0.57.6
+
+1. fix: 修复 AyForm 使用 creatorRecord 会出现数据覆盖的情况
+
 ## 0.57.5
 
 1. fix: AyForm 使用 type 为 custom 时，使用自定义组件的会报错。
