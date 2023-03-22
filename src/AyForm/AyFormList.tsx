@@ -7,7 +7,7 @@ import locale from '../locale'
 import { PlusOutlined, CopyOutlined, DeleteOutlined } from '@ant-design/icons'
 import { FORM_TYPE_DATE, FORM_TYPE_DATE_RANGE, FORM_TYPE_LIST } from '../constant'
 import { getDateValue } from './parseFields'
-import { copy } from '@/utils'
+import { copy } from '../utils'
 
 interface AyFormListProps {
   field: AyFormField
