@@ -3,7 +3,7 @@ import zhCN from './zh_CN'
 import enUS from './en_US'
 import jaJP from './ja_JP'
 
-export let activeLang = localStorage.getItem('AMIYA_LOCALE') || 'zh_CN'
+export let activeLang = (typeof localStorage !== 'undefined' && localStorage.getItem('AMIYA_LOCALE')) || 'zh_CN'
 
 let langMap: AnyKeyProps = {
   zh_CN: zhCN,
