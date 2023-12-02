@@ -4,9 +4,13 @@ order: 1
 
 # 更新日志
 
+## 0.57.7
+
+1. fix: 修复 AyFormList 错误的引用。
+
 ## 0.57.6
 
-1. fix: 修复 AyForm 使用 creatorRecord 会出现数据覆盖的情况
+1. fix: 修复 AyForm 使用 creatorRecord 会出现数据覆盖的情况。
 
 ## 0.57.5
 
